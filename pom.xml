@@ -15,6 +15,7 @@
     <description>backend-spring</description>
     <properties>
         <java.version>17</java.version>
+        <start-class>edu.kit.iti.scale.lara.backend.LaraBackendApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
