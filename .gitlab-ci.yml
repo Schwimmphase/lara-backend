@@ -24,7 +24,9 @@ stages:
 maven-build:
   image: maven:3.8-eclipse-temurin-17
   stage: build
-  script: "mvn clean package -B"
+  script:
+    - ssh -L 5432:lara.gregyyy.dev:5432 debian@lara.gregyyy.dev -i "$SSH_KEY"
+    - "mvn clean package -B"
   artifacts:
     paths:
       - target/*.jar
@@ -32,7 +34,9 @@ maven-build:
 maven-test:
   image: maven:3.8-eclipse-temurin-17
   stage: test
-  script: "mvn test"
+  script:
+    - ssh -L 5432:lara.gregyyy.dev:5432 debian@lara.gregyyy.dev -i "$SSH_KEY"
+    - "mvn test"
   artifacts:
     paths:
       - target/*.jar
