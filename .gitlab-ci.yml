@@ -11,6 +11,7 @@ variables:
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   DOCKER_TLS_CERTDIR: "/certs"
+  SPRING_PROFILES_ACTIVE: nodb
 
 cache:
   paths:
@@ -24,9 +25,7 @@ stages:
 maven-build:
   image: maven:3.8-eclipse-temurin-17
   stage: build
-  script:
-    - ssh -L 5432:lara.gregyyy.dev:5432 debian@lara.gregyyy.dev -i "$SSH_KEY"
-    - "mvn clean package -B"
+  script: "mvn clean package -B"
   artifacts:
     paths:
       - target/*.jar
@@ -34,9 +33,7 @@ maven-build:
 maven-test:
   image: maven:3.8-eclipse-temurin-17
   stage: test
-  script:
-    - ssh -L 5432:lara.gregyyy.dev:5432 debian@lara.gregyyy.dev -i "$SSH_KEY"
-    - "mvn test"
+  script: "mvn test"
   artifacts:
     paths:
       - target/*.jar
