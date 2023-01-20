@@ -40,6 +40,8 @@ maven-test:
 
 docker-build:
   stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
   script:
     - docker login -u gitlab-ci -p in86HumeSvK5hAag6XCPr3cat5YwfLFV registry.lara.gregyyy.dev
     - docker build -t registry.lara.gregyyy.dev/lara/backend:latest .
