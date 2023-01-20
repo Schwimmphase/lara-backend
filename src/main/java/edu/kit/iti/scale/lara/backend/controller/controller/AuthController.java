@@ -15,6 +15,6 @@ public class AuthController {
 
         // TODO
 
-        return null;
+        return "loginResponse";
     }
 }

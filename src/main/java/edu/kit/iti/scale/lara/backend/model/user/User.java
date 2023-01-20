@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.model.user;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,14 @@ public class User {
     private UserCategory userCategory;
     @OneToMany
     private List<Research> researches;
+
+    public User(String username, String id, String password, UserCategory userCategory) {
+        this.username = username;
+        this.id = id;
+        this.password = password;
+        this.userCategory = userCategory;
+        this.researches = new ArrayList<>();
+    }
 
     public String getUsername() {
         return username;
