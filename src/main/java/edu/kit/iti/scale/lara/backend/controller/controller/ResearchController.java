@@ -72,10 +72,11 @@ public class ResearchController {
     public ResponseEntity<List<Tag>> researchTags(String researchId, User user) {
 
         //mock
-        Tag tag1 = new Tag("11111", "#0000FF", "New-Tag1");
-        Tag tag2 = new Tag("22222", "#0000FF", "New-Tag2");
-        Tag tag3 = new Tag("33333", "#0000FF", "New-Tag3");
-        Tag tag4 = new Tag("44444", "#0000FF", "New-Tag4");
+        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), new Date(2023, Calendar.JANUARY, 1));
+        Tag tag1 = new Tag("11111", "#0000FF", "New-Tag1", research);
+        Tag tag2 = new Tag("22222", "#0000FF", "New-Tag2", research);
+        Tag tag3 = new Tag("33333", "#0000FF", "New-Tag3", research);
+        Tag tag4 = new Tag("44444", "#0000FF", "New-Tag4", research);
 
         List<Tag> tags = new ArrayList<>();
 

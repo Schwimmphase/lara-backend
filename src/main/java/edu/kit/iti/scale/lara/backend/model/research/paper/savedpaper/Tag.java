@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
+import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,11 +12,14 @@ public class Tag {
     private String id;
     private String color;
     private String name;
+    private Research research;
 
-    public Tag(String id, String color, String name) {
+    public Tag(String id, String color, String name, Research research) {
         this.id = id;
         this.color = color;
         this.name = name;
+        this.research = research;
+
     }
 
     public String getId() {
@@ -40,5 +44,13 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Research getResearch() {
+        return research;
+    }
+
+    public void setResearch(Research research) {
+        this.research = research;
     }
 }
