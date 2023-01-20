@@ -9,7 +9,6 @@ variables:
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   DOCKER_TLS_CERTDIR: "/certs"
-  SPRING_PROFILES_ACTIVE: nodb
 
 cache:
   paths:
@@ -23,7 +22,7 @@ stages:
 maven-build:
   image: maven:3.8-eclipse-temurin-17
   stage: build
-  script: "mvn clean package -B"
+  script: "mvn clean package -B -DskipTests"
   artifacts:
     paths:
       - target/*.jar
@@ -31,7 +30,8 @@ maven-build:
 maven-test:
   image: maven:3.8-eclipse-temurin-17
   stage: test
-  script: "mvn test"
+  script: 
+    - "mvn test"
   artifacts:
     paths:
       - target/*.jar
@@ -41,8 +41,8 @@ docker-build:
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
   script:
-    - docker login -u gitlab-ci -p in86HumeSvK5hAag6XCPr3cat5YwfLFV registry.lara.gregyyy.dev
-    - docker build -t registry.lara.gregyyy.dev/lara/backend:latest .
-    - docker push registry.lara.gregyyy.dev/lara/backend:latest
+    - docker login -u gitlab-ci -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+    - docker build -t $DOCKER_REGISTRY/lara/$CI_PROJECT_NAME:latest .
+    - docker push $DOCKER_REGISTRY/lara/$CI_PROJECT_NAME:latest
   environment:
     name: staging
