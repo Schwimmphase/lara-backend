@@ -4,6 +4,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,21 @@ public class Paper {
     private List<SavedPaper> savedPapers;
     @ManyToOne
     private Author author;
+
+    public Paper(String id, String title, int year, String abstractText, int citationCount, int referenceCount,
+                 String venue, String pdfUrl, Author author) {
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.abstractText = abstractText;
+        this.citationCount = citationCount;
+        this.referenceCount = referenceCount;
+        this.venue = venue;
+        this.pdfUrl = pdfUrl;
+        this.cachedPapers = new ArrayList<>();
+        this.savedPapers = new ArrayList<>();
+        this.author = author;
+    }
 
     public String getId() {
         return id;
