@@ -12,22 +12,19 @@ public class TagController {
 
     public ResponseEntity<Tag> createTag(String name, String researchId, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return ResponseEntity.ok(new Tag("12345", "#0000FF", "New-Tag"));
     }
 
     public ResponseEntity<Tag> updateTag(String id, TagRequest request, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return ResponseEntity.ok(new Tag("12345", "#0000FF", "Updated-Tag"));
     }
 
     public HttpStatus deleteTag(String id, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 }
