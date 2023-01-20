@@ -1,6 +1,10 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.request.ResearchRequest;
+import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+
+import java.util.List;
 
 public class CacheService {
 
