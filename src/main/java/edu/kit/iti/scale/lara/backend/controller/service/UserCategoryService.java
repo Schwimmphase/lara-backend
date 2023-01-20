@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.awt.*;
 @Service
 public class UserCategoryService {
 
-    public Usercategory createCategory(String name, Color color) {
+    public UserCategory createCategory(String name, Color color) {
 
         // TODO
 

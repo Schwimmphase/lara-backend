@@ -1,8 +1,8 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
-import edu.kit.iti.scale.lara.backend.controller.record.OrganizerRequest;
-import edu.kit.iti.scale.lara.backend.controller.record.ResearchRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.ResearchRequest;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;

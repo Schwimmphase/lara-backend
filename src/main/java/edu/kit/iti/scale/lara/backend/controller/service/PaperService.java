@@ -1,8 +1,14 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class PaperService {

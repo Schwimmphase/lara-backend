@@ -1,17 +1,15 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import edu.kit.iti.scale.lara.backend.controller.record.CategoryRequest;
-import edu.kit.iti.scale.lara.backend.controller.record.UserRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.CategoryRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.UserRequest;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 public class AdminController {

@@ -1,6 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import edu.kit.iti.scale.lara.backend.controller.record.TagRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.TagRequest;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.http.HttpStatus;
