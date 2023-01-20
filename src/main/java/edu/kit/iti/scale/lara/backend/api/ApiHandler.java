@@ -1,4 +1,4 @@
-package edu.kit.iti.scale.lara.backend.controller.api.apihandler;
+package edu.kit.iti.scale.lara.backend.api;
 
 import java.util.List;
 

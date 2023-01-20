@@ -1,6 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import edu.kit.iti.scale.lara.backend.controller.record.TagRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.TagRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
