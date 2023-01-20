@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ResearchRepository extends JpaRepository<Void, Void> {
+public interface ResearchRepository extends JpaRepository<Research, String> {
 
     List<Research> findByUser(User user);
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TagRepository extends JpaRepository<Void, Void> {
+public interface TagRepository extends JpaRepository<Tag, String> {
 
     List<Tag> findByResearch(Research research);
 }
