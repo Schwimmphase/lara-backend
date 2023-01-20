@@ -3,18 +3,23 @@ package edu.kit.iti.scale.lara.backend.model.user;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user-categories", schema = "lara")
 @NoArgsConstructor
-@AllArgsConstructor
 public class UserCategory {
     @Id
     private String id;
     private String color;
     private String name;
+
+    public UserCategory(String id, String color, String name) {
+        this.id = id;
+        this.color = color;
+        this.name = name;
+    }
+
 
     public String getId() {
         return id;

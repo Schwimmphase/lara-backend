@@ -10,13 +10,13 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
+import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
@@ -25,16 +25,22 @@ public class ResearchController {
 
     public ResponseEntity<Research> createResearch(ResearchRequest request, User user) {
 
-        Research research = new Research("12345", "New-Research", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        User user1 = new User("one","11111", "password1", category);
+
+        Research research = new Research("12345", "New-Research", new Comment("12345", "description"), ZonedDateTime.now(), user);
 
         return ResponseEntity.ok(research);
     }
 
     public List<Research> listResearch(User user) {
 
-        Research research1 = new Research("12345", "Research1", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
-        Research research3 = new Research("12345", "Research3", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
-        Research research2 = new Research("12345", "Research2", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        User user1 = new User("one","11111", "password1", category);
+
+        Research research1 = new Research("12345", "Research1", new Comment("12345", "description"), ZonedDateTime.now(), user);
+        Research research3 = new Research("12345", "Research3", new Comment("12345", "description"), ZonedDateTime.now(), user);
+        Research research2 = new Research("12345", "Research2", new Comment("12345", "description"), ZonedDateTime.now(), user);
 
         List<Research> researches = new ArrayList<>();
         researches.add(research1);
@@ -47,7 +53,10 @@ public class ResearchController {
     public ResponseEntity<Research> updateResearch(String researchId, ResearchRequest request, User user) {
 
         //mock
-        Research research = new Research("12345", "UpdatedResearch", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        User user1 = new User("one","11111", "password1", category);
+
+        Research research = new Research("12345", "UpdatedResearch", new Comment("12345", "description"), ZonedDateTime.now(), user1);
         return null;
     }
 
@@ -72,7 +81,10 @@ public class ResearchController {
     public ResponseEntity<List<Tag>> researchTags(String researchId, User user) {
 
         //mock
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), new Date(2023, Calendar.JANUARY, 1));
+        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        User user1 = new User("one","11111", "password1", category);
+
+        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), ZonedDateTime.now(), user1);
         Tag tag1 = new Tag("11111", "#0000FF", "New-Tag1", research);
         Tag tag2 = new Tag("22222", "#0000FF", "New-Tag2", research);
         Tag tag3 = new Tag("33333", "#0000FF", "New-Tag3", research);

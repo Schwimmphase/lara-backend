@@ -4,7 +4,6 @@ import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -14,7 +13,6 @@ import java.util.List;
 @Table(name = "saved-papers", schema = "lara")
 @IdClass(SavedPaper.SavedPaperId.class)
 @NoArgsConstructor
-@AllArgsConstructor
 public class SavedPaper {
     @Id
     @ManyToOne

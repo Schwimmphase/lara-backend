@@ -3,17 +3,20 @@ package edu.kit.iti.scale.lara.backend.model.research.paper;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "authors", schema = "lara")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Author {
     @Id
     private String id;
     private String name;
+
+    public Author(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;

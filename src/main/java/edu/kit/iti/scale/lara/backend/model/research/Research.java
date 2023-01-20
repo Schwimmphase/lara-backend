@@ -2,18 +2,17 @@ package edu.kit.iti.scale.lara.backend.model.research;
 
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "researches", schema = "lara")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Research {
 
     @Id
@@ -21,11 +20,24 @@ public class Research {
     private String title;
     @OneToOne
     private Comment description;
-    private Date startDate;
+    private ZonedDateTime startDate;
+    @ManyToOne
+    private User user;
     @OneToMany(mappedBy = "research")
     private List<SavedPaper> savedPapers;
     @OneToMany(mappedBy = "research")
     private List<CachedPaper> cachedPapers;
+
+    public Research(String id, String title, Comment description, ZonedDateTime startDate, User user) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.user = user;
+        this.savedPapers = new ArrayList<>();
+        this.cachedPapers = new ArrayList<>();
+    }
+
 
     public String getId() {
         return id;
@@ -51,12 +63,20 @@ public class Research {
         this.description = description;
     }
 
-    public Date getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<SavedPaper> getSavedPapers() {

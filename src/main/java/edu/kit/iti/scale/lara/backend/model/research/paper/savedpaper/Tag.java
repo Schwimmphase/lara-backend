@@ -5,13 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tags", schema = "lara")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Tag {
     @Id
     private String id;
@@ -19,6 +17,14 @@ public class Tag {
     private String name;
     @ManyToOne
     private Research research;
+
+    public Tag(String id, String color, String name, Research research) {
+        this.id = id;
+        this.color = color;
+        this.name = name;
+        this.research = research;
+
+    }
 
     public String getId() {
         return id;
