@@ -16,7 +16,7 @@ public class User {
     private Research activeResearch;
     @ManyToOne
     private UserCategory userCategory;
-    @OneToMany(mappedBy = "user")
+    @OneToMany
     private List<Research> researches;
 
     public String getUsername() {

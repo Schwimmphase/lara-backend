@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "papers", schema = "lara")
 public class Paper {
     @Id
-    private String id;
+    private String paperId;
     private String title;
     private int year;
     private String abstractText;
@@ -25,12 +25,12 @@ public class Paper {
     @ManyToOne
     private Author author;
 
-    public String getId() {
-        return id;
+    public String getPaperId() {
+        return paperId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPaperId(String id) {
+        this.paperId = id;
     }
 
     public String getTitle() {
