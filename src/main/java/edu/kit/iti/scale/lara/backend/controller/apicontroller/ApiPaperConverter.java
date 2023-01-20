@@ -1,7 +1,7 @@
-package edu.kit.iti.scale.lara.backend.controller.api;
+package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 
 
-import edu.kit.iti.scale.lara.backend.controller.api.apihandler.ApiPaper;
+import edu.kit.iti.scale.lara.backend.api.ApiPaper;
 
 import java.awt.print.Paper;
 

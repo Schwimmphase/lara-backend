@@ -1,4 +1,4 @@
-package edu.kit.iti.scale.lara.backend.controller.controller;
+package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 
 import org.springframework.stereotype.Controller;
 
