@@ -1,4 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.repository;
 
-public interface ResearchRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ResearchRepository extends JpaRepository<Void, Void> {
 }

@@ -1,4 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.repository;
 
-public interface TagRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TagRepository extends JpaRepository<Void, Void> {
 }
