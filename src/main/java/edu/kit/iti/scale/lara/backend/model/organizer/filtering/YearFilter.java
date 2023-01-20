@@ -4,7 +4,7 @@ import edu.kit.iti.scale.lara.backend.research.paper.Paper;
 
 import java.util.List;
 
-public class YearFilter extends Filter{
+public class YearFilter extends Filter {
     @Override
     public List<Paper> organize(List<Paper> papers) {
         //todo
