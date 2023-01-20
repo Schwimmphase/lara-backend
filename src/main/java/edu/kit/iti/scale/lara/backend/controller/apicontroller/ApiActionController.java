@@ -1,4 +1,4 @@
-package edu.kit.iti.scale.lara.backend.controller.controller;
+package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;

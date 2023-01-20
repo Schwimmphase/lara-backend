@@ -1,6 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import edu.kit.iti.scale.lara.backend.controller.record.LoginRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.LoginRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;

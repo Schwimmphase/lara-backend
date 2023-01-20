@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "papers", schema = "lara")
 public class Paper {
     @Id
-    private String id;
+    private String paperId;
     private String title;
     private int year;
     private String abstractText;
@@ -26,9 +26,9 @@ public class Paper {
     @ManyToOne
     private Author author;
 
-    public Paper(String id, String title, int year, String abstractText, int citationCount, int referenceCount,
+    public Paper(String paperId, String title, int year, String abstractText, int citationCount, int referenceCount,
                  String venue, String pdfUrl, Author author) {
-        this.id = id;
+        this.paperId = paperId;
         this.title = title;
         this.year = year;
         this.abstractText = abstractText;
@@ -41,12 +41,12 @@ public class Paper {
         this.author = author;
     }
 
-    public String getId() {
-        return id;
+    public String getPaperId() {
+        return paperId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPaperId(String paperId) {
+        this.paperId = paperId;
     }
 
     public String getTitle() {

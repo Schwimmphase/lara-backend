@@ -18,9 +18,9 @@ public class SavedPaper {
     @Id
     @ManyToOne
     private Research research;
-    @OneToOne(mappedBy = "comment")
+    @OneToOne
     private Comment comment;
-    @OneToMany(mappedBy = "savedPaper")
+    @OneToMany
     private List<Tag> tag;
     private int relevance;
     private SaveState saveState;

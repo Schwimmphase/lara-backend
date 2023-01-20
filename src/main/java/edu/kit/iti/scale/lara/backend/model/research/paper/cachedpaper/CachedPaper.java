@@ -2,15 +2,13 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper;
 
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "cached-papers", schema = "lara")
+@IdClass(CachedPaper.CachedPaperId.class)
 public class CachedPaper {
     @Id
     @ManyToOne
@@ -21,8 +19,8 @@ public class CachedPaper {
     private CachedPaperType type;
 
     public static class CachedPaperId implements Serializable {
-        private Paper paper;
         private Research research;
+        private Paper paper;
     }
 
     public Paper getPaper() {

@@ -15,7 +15,7 @@ public class Research {
     @Id
     private String id;
     private String title;
-    @OneToOne(mappedBy = "description")
+    @OneToOne
     private Comment description;
     private Date startDate;
     @OneToMany(mappedBy = "research")

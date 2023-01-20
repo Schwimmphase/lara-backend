@@ -4,4 +4,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BibtexConverterService {
+
+    public String export(List<Paper> papers) {
+
+        // TODO
+
+        return null;
+    }
 }
