@@ -12,6 +12,11 @@ public class Comment {
     private String id;
     private String text;
 
+    public Comment(String id, String text) {
+        this.id = id;
+        this.text = text;
+    }
+
     public String getId() {
         return id;
     }

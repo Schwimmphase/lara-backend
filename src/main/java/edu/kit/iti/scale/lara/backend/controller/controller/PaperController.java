@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
+import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.user.User;
@@ -8,49 +9,46 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
 public class PaperController {
 
     public ResponseEntity<Paper> paperDetails(String id, User user) {
 
-        // TODO
+        //mock
+        Author author = new Author("mockId", "mockName");
+        Paper paper = new Paper("1234567890", "thePaper", 2023, "abstract",
+                0, 0, "venue", "url", author);
 
-        return null;
+        return ResponseEntity.ok(paper);
     }
 
     public HttpStatus paperAddTag(String id, String tagId, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 
     public HttpStatus paperTagRemove(String id, String tagId, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 
     public HttpStatus paperComment(String id, String comment, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 
     public HttpStatus paperSaveState(String id, SaveState saveState, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 
     public HttpStatus paperRelevance(String id, int relevance, User user) {
 
-        // TODO
-
-        return null;
+        //mock
+        return HttpStatus.OK;
     }
 }

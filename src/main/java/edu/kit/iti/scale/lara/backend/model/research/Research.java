@@ -4,6 +4,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +15,22 @@ public class Research {
     @Id
     private String id;
     private String title;
-    @OneToOne(mappedBy = "description")
+    @OneToOne
     private Comment description;
     private Date startDate;
     @OneToMany(mappedBy = "research")
     private List<SavedPaper> savedPapers;
     @OneToMany(mappedBy = "research")
     private List<CachedPaper> cachedPapers;
+
+    public Research(String id, String title, Comment description, Date startDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.savedPapers = new ArrayList<>();
+        this.cachedPapers = new ArrayList<>();
+    }
 
     public String getId() {
         return id;
