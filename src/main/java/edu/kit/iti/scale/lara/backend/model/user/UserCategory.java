@@ -1,12 +1,12 @@
-package edu.kit.iti.scale.lara.backend.research.paper.savedpaper;
+package edu.kit.iti.scale.lara.backend.model.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tags", schema = "lara")
-public class Tag {
+@Table(name = "user-categories", schema = "lara")
+public class UserCategory {
     @Id
     private String id;
     private String color;

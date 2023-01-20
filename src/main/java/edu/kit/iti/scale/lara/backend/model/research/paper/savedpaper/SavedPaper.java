@@ -1,8 +1,8 @@
-package edu.kit.iti.scale.lara.backend.research.paper.savedpaper;
+package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
-import edu.kit.iti.scale.lara.backend.research.Comment;
-import edu.kit.iti.scale.lara.backend.research.Research;
-import edu.kit.iti.scale.lara.backend.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.Comment;
+import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

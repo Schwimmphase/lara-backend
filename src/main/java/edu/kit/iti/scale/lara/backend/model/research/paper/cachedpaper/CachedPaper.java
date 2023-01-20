@@ -1,7 +1,7 @@
-package edu.kit.iti.scale.lara.backend.research.paper.cachedpaper;
+package edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper;
 
-import edu.kit.iti.scale.lara.backend.research.Research;
-import edu.kit.iti.scale.lara.backend.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;

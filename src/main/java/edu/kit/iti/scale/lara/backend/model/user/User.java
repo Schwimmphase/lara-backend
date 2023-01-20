@@ -1,6 +1,6 @@
-package edu.kit.iti.scale.lara.backend.user;
+package edu.kit.iti.scale.lara.backend.model.user;
 
-import edu.kit.iti.scale.lara.backend.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.*;
 
 import java.util.List;

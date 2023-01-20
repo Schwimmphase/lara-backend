@@ -1,6 +1,6 @@
 package edu.kit.iti.scale.lara.backend.model.organizer.sorting;
 
-import edu.kit.iti.scale.lara.backend.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 
 import java.util.List;
 

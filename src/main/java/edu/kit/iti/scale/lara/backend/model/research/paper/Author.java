@@ -1,4 +1,4 @@
-package edu.kit.iti.scale.lara.backend.research.paper;
+package edu.kit.iti.scale.lara.backend.model.research.paper;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

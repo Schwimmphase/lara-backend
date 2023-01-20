@@ -1,7 +1,7 @@
-package edu.kit.iti.scale.lara.backend.research;
+package edu.kit.iti.scale.lara.backend.model.research;
 
-import edu.kit.iti.scale.lara.backend.research.paper.cachedpaper.CachedPaper;
-import edu.kit.iti.scale.lara.backend.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
 
 import java.util.Date;
