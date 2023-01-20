@@ -26,15 +26,13 @@ maven-build:
   artifacts:
     paths:
       - target/*.jar
+    expire_in: 1 hour
 
 maven-test:
   image: maven:3.8-eclipse-temurin-17
   stage: test
   script: 
     - "mvn test"
-  artifacts:
-    paths:
-      - target/*.jar
 
 docker-build:
   stage: deploy
