@@ -48,6 +48,7 @@ public class ResearchService {
     public void updateResearch(Research research, String newTitle, String newDescription) {
         research.setTitle(newTitle);
         research.setDescription(new Comment(newDescription));
+        researchRepository.save(research);
     }
 
     public void deleteResearch(Research research) {

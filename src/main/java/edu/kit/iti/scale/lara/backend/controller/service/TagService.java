@@ -41,6 +41,7 @@ public class TagService {
     public Tag updateTag(Tag tag, String newName, String newColor) {
         tag.setName(newName);
         tag.setColor(newColor);
+        tagRepository.save(tag);
         return null;
     }
 
