@@ -6,6 +6,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,13 +22,22 @@ public class SavedPaper {
     @OneToOne
     private Comment comment;
     @OneToMany
-    private List<Tag> tag;
+    private List<Tag> tags;
     private int relevance;
     private SaveState saveState;
 
     public static class SavedPaperId implements Serializable {
         private Research research;
         private Paper paper;
+    }
+
+    public SavedPaper(Paper paper, Research research, Comment comment, int relevance, SaveState saveState) {
+        this.paper = paper;
+        this.research = research;
+        this.comment = comment;
+        this.tags = new ArrayList<>();
+        this.relevance = relevance;
+        this.saveState = saveState;
     }
 
     public Paper getPaper() {
@@ -55,11 +65,11 @@ public class SavedPaper {
     }
 
     public List<Tag> getTag() {
-        return tag;
+        return tags;
     }
 
-    public void setTag(List<Tag> tag) {
-        this.tag = tag;
+    public void setTag(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public int getRelevance() {

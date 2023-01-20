@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,16 +24,16 @@ public class ResearchController {
 
     public ResponseEntity<Research> createResearch(ResearchRequest request, User user) {
 
-        Research research = new Research("12345", "New-Research", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        Research research = new Research("New-Research", new Comment("description"), new Date());
 
         return ResponseEntity.ok(research);
     }
 
     public List<Research> listResearch(User user) {
 
-        Research research1 = new Research("12345", "Research1", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
-        Research research3 = new Research("12345", "Research3", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
-        Research research2 = new Research("12345", "Research2", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        Research research1 = new Research("Research1", new Comment("description"), new Date());
+        Research research3 = new Research("Research3", new Comment("description"), new Date());
+        Research research2 = new Research("Research2", new Comment("description"), new Date());
 
         List<Research> researches = new ArrayList<>();
         researches.add(research1);
@@ -47,7 +46,7 @@ public class ResearchController {
     public ResponseEntity<Research> updateResearch(String researchId, ResearchRequest request, User user) {
 
         //mock
-        Research research = new Research("12345", "UpdatedResearch", new Comment("12345", "description"), new Date(2023, Calendar.JANUARY, 1));
+        Research research = new Research("UpdatedResearch", new Comment("description"), new Date());
         return null;
     }
 
@@ -72,11 +71,11 @@ public class ResearchController {
     public ResponseEntity<List<Tag>> researchTags(String researchId, User user) {
 
         //mock
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), new Date(2023, Calendar.JANUARY, 1));
-        Tag tag1 = new Tag("11111", "#0000FF", "New-Tag1", research);
-        Tag tag2 = new Tag("22222", "#0000FF", "New-Tag2", research);
-        Tag tag3 = new Tag("33333", "#0000FF", "New-Tag3", research);
-        Tag tag4 = new Tag("44444", "#0000FF", "New-Tag4", research);
+        Research research = new Research("randomResearch", new Comment("text"), new Date());
+        Tag tag1 = new Tag("#0000FF", "New-Tag1", research);
+        Tag tag2 = new Tag("#0000FF", "New-Tag2", research);
+        Tag tag3 = new Tag("#0000FF", "New-Tag3", research);
+        Tag tag4 = new Tag("#0000FF", "New-Tag4", research);
 
         List<Tag> tags = new ArrayList<>();
 

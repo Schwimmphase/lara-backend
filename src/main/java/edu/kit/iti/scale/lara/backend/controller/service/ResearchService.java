@@ -1,53 +1,62 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
+import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
+import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class ResearchService {
 
+    private ResearchRepository researchRepository;
+
+    public ResearchService(ResearchRepository researchRepository) {
+        this.researchRepository = researchRepository;
+    }
+
     public Research createResearch(User user, String title, String description) {
-
-        // TODO
-
-        return null;
+        Research research = new Research(title, new Comment(description), new Date());
+        researchRepository.save(research);
+        return research;
     }
 
-    public List<Research> getResearch(User user) {
-
-        // TODO
-
-        return null;
+    public Research getResearch(String researchId, User user) throws NotInDataBaseException, WrongUserException {
+        if (researchRepository.findById(researchId).isPresent()) {
+            Research research = researchRepository.findById(researchId).get();
+            if (user.getResearches().contains(research)) {
+                return research;
+            } else {
+                throw new WrongUserException();
+            }
+        } else {
+            throw new NotInDataBaseException();
+        }
     }
 
-    public void updateResearch(String researchId, User user, String newTitle, String newDescription) {
-
-        // TODO
-
+    public List<Research> getResearches(User user) {
+        return researchRepository.findByUser(user);
     }
 
-    public void deleteResearch(String researchId, User user) {
-
-        // TODO
-
+    public void updateResearch(Research research, String newTitle, String newDescription) {
+        research.setTitle(newTitle);
+        research.setDescription(new Comment(newDescription));
     }
 
-    public SavedPaper createSavePaper(String researchId, User user, Paper paper) {
-
-        // TODO
-
-        return null;
+    public void deleteResearch(Research research) {
+        researchRepository.delete(research);
     }
 
-    public List<Paper> getRecommendations(String researchId, User user, RecommendationMethod method) {
+    public List<Paper> getRecommendations(Research research, RecommendationMethod method) {
 
-        // TODO
+        //TODO
 
         return null;
     }

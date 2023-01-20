@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.model.research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,8 @@ import java.util.List;
 public class Research {
 
     @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String title;
     @OneToOne
@@ -23,8 +26,7 @@ public class Research {
     @OneToMany(mappedBy = "research")
     private List<CachedPaper> cachedPapers;
 
-    public Research(String id, String title, Comment description, Date startDate) {
-        this.id = id;
+    public Research(String title, Comment description, Date startDate) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
