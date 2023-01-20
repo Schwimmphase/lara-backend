@@ -12,6 +12,12 @@ public class UserCategory {
     private String color;
     private String name;
 
+    public UserCategory(String id, String color, String name) {
+        this.id = id;
+        this.color = color;
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
