@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
