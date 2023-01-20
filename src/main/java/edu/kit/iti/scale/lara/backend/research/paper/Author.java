@@ -1,6 +1,13 @@
 package edu.kit.iti.scale.lara.backend.research.paper;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "authors", schema = "lara")
 public class Author {
+    @Id
     private String id;
     private String name;
 

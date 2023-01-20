@@ -2,10 +2,14 @@ package edu.kit.iti.scale.lara.backend.research.paper;
 
 import edu.kit.iti.scale.lara.backend.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.research.paper.savedpaper.SavedPaper;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "papers", schema = "lara")
 public class Paper {
+    @Id
     private String id;
     private String title;
     private int year;
@@ -14,8 +18,12 @@ public class Paper {
     private int referenceCount;
     private String venue;
     private String pdfUrl;
+    @OneToMany(mappedBy = "paper")
     private List<CachedPaper> cachedPapers;
+    @OneToMany(mappedBy = "paper")
     private List<SavedPaper> savedPapers;
+    @ManyToOne
+    private Author author;
 
     public String getId() {
         return id;

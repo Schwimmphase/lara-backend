@@ -3,14 +3,32 @@ package edu.kit.iti.scale.lara.backend.research.paper.savedpaper;
 import edu.kit.iti.scale.lara.backend.research.Comment;
 import edu.kit.iti.scale.lara.backend.research.Research;
 import edu.kit.iti.scale.lara.backend.research.paper.Paper;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+@Table(name = "saved-papers", schema = "lara")
+@IdClass(SavedPaper.SavedPaperId.class)
 public class SavedPaper {
+    @Id
+    @ManyToOne
     private Paper paper;
+    @Id
+    @ManyToOne
     private Research research;
+    @OneToOne(mappedBy = "comment")
     private Comment comment;
-    private Tag tag;
+    @OneToMany(mappedBy = "savedPaper")
+    private List<Tag> tag;
     private int relevance;
     private SaveState saveState;
+
+    public static class SavedPaperId implements Serializable {
+        private Research research;
+        private Paper paper;
+    }
 
     public Paper getPaper() {
         return paper;
@@ -36,11 +54,11 @@ public class SavedPaper {
         this.comment = comment;
     }
 
-    public Tag getTag() {
+    public List<Tag> getTag() {
         return tag;
     }
 
-    public void setTag(Tag tag) {
+    public void setTag(List<Tag> tag) {
         this.tag = tag;
     }
 

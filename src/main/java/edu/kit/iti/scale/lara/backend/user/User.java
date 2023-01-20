@@ -1,15 +1,22 @@
 package edu.kit.iti.scale.lara.backend.user;
 
 import edu.kit.iti.scale.lara.backend.research.Research;
+import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "user", schema = "lara")
 public class User {
     private String username;
+    @Id
     private String id;
     private String password;
+    @ManyToOne
     private Research activeResearch;
+    @ManyToOne
     private UserCategory userCategory;
+    @OneToMany(mappedBy = "user")
     private List<Research> researches;
 
     public String getUsername() {

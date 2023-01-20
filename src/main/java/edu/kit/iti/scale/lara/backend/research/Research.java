@@ -2,16 +2,24 @@ package edu.kit.iti.scale.lara.backend.research;
 
 import edu.kit.iti.scale.lara.backend.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.research.paper.savedpaper.SavedPaper;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "researches", schema = "lara")
 public class Research {
+
+    @Id
     private String id;
     private String title;
+    @OneToOne(mappedBy = "description")
     private Comment description;
     private Date startDate;
+    @OneToMany(mappedBy = "research")
     private List<SavedPaper> savedPapers;
+    @OneToMany(mappedBy = "research")
     private List<CachedPaper> cachedPapers;
 
     public String getId() {
