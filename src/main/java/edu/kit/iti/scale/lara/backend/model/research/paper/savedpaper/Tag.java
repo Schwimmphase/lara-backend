@@ -3,24 +3,22 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tags", schema = "lara")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tag {
     @Id
     private String id;
     private String color;
     private String name;
+    @ManyToOne
     private Research research;
-
-    public Tag(String id, String color, String name, Research research) {
-        this.id = id;
-        this.color = color;
-        this.name = name;
-        this.research = research;
-
-    }
 
     public String getId() {
         return id;

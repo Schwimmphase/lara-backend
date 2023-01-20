@@ -3,12 +3,16 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "cached-papers", schema = "lara")
 @IdClass(CachedPaper.CachedPaperId.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class CachedPaper {
     @Id
     @ManyToOne

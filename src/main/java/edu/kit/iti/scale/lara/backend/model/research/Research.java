@@ -3,6 +3,8 @@ package edu.kit.iti.scale.lara.backend.model.research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "researches", schema = "lara")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Research {
 
     @Id
@@ -22,15 +26,6 @@ public class Research {
     private List<SavedPaper> savedPapers;
     @OneToMany(mappedBy = "research")
     private List<CachedPaper> cachedPapers;
-
-    public Research(String id, String title, Comment description, Date startDate) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.savedPapers = new ArrayList<>();
-        this.cachedPapers = new ArrayList<>();
-    }
 
     public String getId() {
         return id;
