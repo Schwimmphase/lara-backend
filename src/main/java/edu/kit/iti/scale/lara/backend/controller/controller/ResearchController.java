@@ -13,6 +13,15 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.ZonedDateTime;
@@ -21,9 +30,11 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/research")
 public class ResearchController {
 
-    public ResponseEntity<Research> createResearch(ResearchRequest request, User user) {
+    @PostMapping("/")
+    public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, User user) {
 
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user1 = new User("one","11111", "password1", category);
@@ -33,6 +44,7 @@ public class ResearchController {
         return ResponseEntity.ok(research);
     }
 
+    @GetMapping("/")
     public List<Research> listResearch(User user) {
 
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
@@ -50,7 +62,9 @@ public class ResearchController {
         return researches;
     }
 
-    public ResponseEntity<Research> updateResearch(String researchId, ResearchRequest request, User user) {
+    @PatchMapping("/{id}")
+    public ResponseEntity<Research> updateResearch(@PathVariable("id") String researchId,
+                                                   @RequestBody ResearchRequest request, User user) {
 
         //mock
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
@@ -60,25 +74,30 @@ public class ResearchController {
         return null;
     }
 
-    public HttpStatus deleteResearch(String researchId, User user) {
+    @DeleteMapping("/{id}")
+    public HttpStatus deleteResearch(@PathVariable("id") String researchId, User user) {
 
         //mock
         return HttpStatus.OK;
     }
 
-    public HttpStatus savePaper(String researchId, String paperId, SaveState saveState, User user) {
+    @PutMapping("/{id}/paper")
+    public HttpStatus savePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
+                                @RequestParam("state") SaveState saveState, User user) {
 
         //mock
         return HttpStatus.OK;
     }
 
-    public HttpStatus deletePaper(String researchId, String paperId, User user) {
+    @DeleteMapping("/{id}/paper")
+    public HttpStatus deletePaper(@PathVariable("id") String researchId, @RequestParam String paperId, User user) {
 
         //mock
         return HttpStatus.OK;
     }
 
-    public ResponseEntity<List<Tag>> researchTags(String researchId, User user) {
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<List<Tag>> researchTags(@PathVariable("id") String researchId, User user) {
 
         //mock
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
@@ -100,7 +119,9 @@ public class ResearchController {
         return ResponseEntity.ok(tags);
     }
 
-    public ResponseEntity<List<Paper>> researchPapers(String researchId, List<OrganizerRequest> requestList, User user) {
+    @PostMapping("/{id}/papers")
+    public ResponseEntity<List<Paper>> researchPapers(@PathVariable("id") String researchId,
+                                                      @RequestBody List<OrganizerRequest> requestList, User user) {
 
         //mock
         Author author = new Author("mockId", "mockName");
@@ -119,7 +140,11 @@ public class ResearchController {
         return ResponseEntity.ok(papers);
     }
 
-    public ResponseEntity<List<Paper>> researchRecommendations(String researchId, RecommendationMethod method, List<OrganizerRequest> requestList, User user) {
+    @PostMapping("/{id}/recommendations")
+    public ResponseEntity<List<Paper>> researchRecommendations(@PathVariable("id") String researchId,
+                                                               @RequestParam RecommendationMethod method,
+                                                               @RequestBody List<OrganizerRequest> requestList,
+                                                               User user) {
 
         //mock
         Author author = new Author("mockId", "mockName");
@@ -137,7 +162,9 @@ public class ResearchController {
         return ResponseEntity.ok(papers);
     }
 
-    public ResponseEntity<List<Paper>> researchSearch(String query, List<OrganizerRequest> requestList, User user) {
+    @PostMapping("/search")
+    public ResponseEntity<List<Paper>> researchSearch(@RequestParam String query,
+                                                      @RequestBody List<OrganizerRequest> requestList, User user) {
 
         //mock
         Author author = new Author("mockId", "mockName");
