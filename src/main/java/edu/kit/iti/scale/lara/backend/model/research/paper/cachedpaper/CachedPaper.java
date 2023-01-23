@@ -26,6 +26,13 @@ public class CachedPaper {
         private Paper paper;
     }
 
+    public CachedPaper(Paper paper, Paper parentPaper, Research research, CachedPaperType type) {
+        this.paper = paper;
+        this.parentPaper = parentPaper;
+        this.research = research;
+        this.type = type;
+    }
+
     public Paper getPaper() {
         return paper;
     }

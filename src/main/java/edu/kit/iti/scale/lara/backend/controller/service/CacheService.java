@@ -27,10 +27,9 @@ public class CacheService {
 
     }
 
-    public void addPaper(Research research, Paper paper, Paper parent) {
-
-        // TODO
-
+    public void createCachedPaper(Research research, Paper paper, Paper parent, CachedPaperType cachedPaperType) {
+        CachedPaper cachedPaper = new CachedPaper(paper, parent, research, cachedPaperType);
+        cachedPaperRepository.save(cachedPaper);
     }
 
     public void removePaper(Research research) {
