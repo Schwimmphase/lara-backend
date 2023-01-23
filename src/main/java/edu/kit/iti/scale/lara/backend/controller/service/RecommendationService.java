@@ -22,15 +22,15 @@ public class RecommendationService {
     }
 
 
-    public List<Paper> getRecommendationsOfPapers(List<Paper> positives, List<Paper> negatives) {
+    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {
         return apiActionController.getRecommendations(positives, negatives);
     }
 
-    public List<Paper> getReferencesOfPapers(List<Paper> papers) {
+    public List<Paper> getReferences(List<Paper> papers) {
         return cacheService.getReferences(null, papers); //Todo research
     }
 
-    public List<Paper> getCitationsOfPapers(List<Paper> papers) {
+    public List<Paper> getCitations(List<Paper> papers) {
         return cacheService.getCitations(null, papers); //todo research
     }
 

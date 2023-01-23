@@ -18,7 +18,7 @@ public class CacheService {
     }
 
     public void initializeCache(Research research) {
-        //TODO
+        //todo
     }
 
     public void flushCacheResearch(Research research) {

@@ -1,25 +1,33 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
+import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class ResearchService {
 
-    private ResearchRepository researchRepository;
+    private final ResearchRepository researchRepository;
+    private final ApiActionController apiActionController;
+    private final RecommendationService recommendationService;
 
-    public ResearchService(ResearchRepository researchRepository) {
+    public ResearchService(ResearchRepository researchRepository, ApiActionController apiActionController,
+                           RecommendationService recommendationService) {
         this.researchRepository = researchRepository;
+        this.apiActionController = apiActionController;
+        this.recommendationService = recommendationService;
     }
 
     public Research createResearch(User user, String title, String description) {
@@ -56,9 +64,23 @@ public class ResearchService {
     }
 
     public List<Paper> getRecommendations(Research research, RecommendationMethod method) {
+        switch (method) {
+            case ALGORITHM -> {
+                List<Paper> positives = new ArrayList<>();
+                List<Paper> negatives = new ArrayList<>();
 
-        //TODO
-
+                for (SavedPaper savedPaper : research.getSavedPapers()) {
+                    switch (savedPaper.getSaveState()) {
+                        case ADDED -> positives.add(savedPaper.getPaper());
+                        case HIDDEN -> negatives.add(savedPaper.getPaper());
+                    }
+                }
+                return recommendationService.getRecommendations(positives, negatives);
+            }
+            case CITATIONS_REFERENCES -> {
+                //todo extra method for references,... return list<CachedPaper>
+            }
+        }
         return null;
     }
 
