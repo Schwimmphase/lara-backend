@@ -15,6 +15,9 @@ public class CachedPaper {
     private Paper paper;
     @Id
     @ManyToOne
+    private Paper parentPaper;
+    @Id
+    @ManyToOne
     private Research research;
     private CachedPaperType type;
 

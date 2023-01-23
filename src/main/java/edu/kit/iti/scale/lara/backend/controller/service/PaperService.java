@@ -9,6 +9,7 @@ import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +20,13 @@ public class PaperService {
 
     private final PaperRepository paperRepository;
     private final SavedPaperRepository savedPaperRepository;
+    private final RecommendationService recommendationService;
 
-    public PaperService(PaperRepository paperRepository, SavedPaperRepository savedPaperRepository) {
+    public PaperService(PaperRepository paperRepository, SavedPaperRepository savedPaperRepository,
+                        RecommendationService recommendationService) {
         this.paperRepository = paperRepository;
         this.savedPaperRepository = savedPaperRepository;
+        this.recommendationService = recommendationService;
     }
 
     public void savePaperToDataBase(Paper paper) {
@@ -63,22 +67,27 @@ public class PaperService {
         }
     }
 
-    public void addTagToPaper(SavedPaper savedPaper, String tagId) {
-        //TODO
+    public void addTagToPaper(SavedPaper savedPaper, Tag tag) {
+        savedPaper.getTags().add(tag);
+        savedPaperRepository.save(savedPaper);
     }
 
-    public void removeTagFromPaper(SavedPaper savedPaper, String tagId) {
-
-        // TODO
-
+    public void removeTagFromPaper(SavedPaper savedPaper, Tag tag) {
+        savedPaper.getTags().remove(tag);
+        savedPaperRepository.save(savedPaper);
     }
 
     public void commentPaper(SavedPaper savedPaper, String comment) {
         savedPaper.getComment().setText(comment);
+        savedPaperRepository.save(savedPaper);
     }
 
     public void changeSaveState(SavedPaper savedPaper, SaveState saveState) {
         savedPaper.setSaveState(saveState);
+        savedPaperRepository.save(savedPaper);
+        if (saveState == SaveState.ADDED) {
+            recommendationService.paperAdded(savedPaper.getResearch(), savedPaper.getPaper());
+        }
     }
 
     public void setRelevanceOfPaper(SavedPaper savedPaper, int relevance) {

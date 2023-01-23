@@ -17,7 +17,7 @@ public class AdminController {
     public ResponseEntity<List<User>> listUsers() {
 
         //mock
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
         List<User> users = new ArrayList<>();
         User user1 = new User("one","11111", "password1", testUser);
         User user2 = new User("two","22222", "password2", testUser);
@@ -41,7 +41,7 @@ public class AdminController {
     public ResponseEntity<User> createUser(UserRequest request, User admin) {
 
         //mock
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
         User user = new User("createdUser","12345", "password", testUser);
 
         return ResponseEntity.ok(user);
@@ -56,7 +56,7 @@ public class AdminController {
     public ResponseEntity<User> updateUser(String userId, UserRequest request, User admin) {
 
         //mock
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
         User user = new User("updatedUser","12345", "password", testUser);
 
         return ResponseEntity.ok(user);
@@ -65,7 +65,7 @@ public class AdminController {
     public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
 
         //mock
-        UserCategory newUserCategory = new UserCategory("bbbbb" ,"#0000FF", "New-User-Category");
+        UserCategory newUserCategory = new UserCategory("#0000FF", "New-User-Category");
 
         return ResponseEntity.ok(newUserCategory);
     }
@@ -73,7 +73,7 @@ public class AdminController {
     public ResponseEntity<UserCategory> updateCategory(String id, CategoryRequest request, User admin) {
 
         //mock
-        UserCategory updatedUserCategory = new UserCategory("ccccc" ,"#0000FF", "Updated-User-Category");
+        UserCategory updatedUserCategory = new UserCategory("#0000FF", "Updated-User-Category");
 
         return ResponseEntity.ok(updatedUserCategory);
     }
