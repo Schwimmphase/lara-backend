@@ -6,14 +6,24 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/usermanagement")
 public class AdminController {
 
+    @GetMapping("/")
     public ResponseEntity<List<User>> listUsers() {
 
         //mock
@@ -38,7 +48,8 @@ public class AdminController {
         return ResponseEntity.ok(users);
     }
 
-    public ResponseEntity<User> createUser(UserRequest request, User admin) {
+    @PostMapping("/")
+    public ResponseEntity<User> createUser(@RequestBody UserRequest request, User admin) {
 
         //mock
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
@@ -47,13 +58,15 @@ public class AdminController {
         return ResponseEntity.ok(user);
     }
 
-    public HttpStatus deleteUser(String userId, User admin) {
+    @DeleteMapping("/{userId}")
+    public HttpStatus deleteUser(@PathVariable String userId, User admin) {
 
         //mock
         return HttpStatus.OK;
     }
 
-    public ResponseEntity<User> updateUser(String userId, UserRequest request, User admin) {
+    @PatchMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request, User admin) {
 
         //mock
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
@@ -62,6 +75,7 @@ public class AdminController {
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/category")
     public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
 
         //mock
@@ -70,7 +84,21 @@ public class AdminController {
         return ResponseEntity.ok(newUserCategory);
     }
 
-    public ResponseEntity<UserCategory> updateCategory(String id, CategoryRequest request, User admin) {
+    @GetMapping("/category")
+    public ResponseEntity<List<UserCategory>> listCategories(User admin) {
+
+        //mock
+        List<UserCategory> categories = new ArrayList<>();
+
+        categories.add( new UserCategory("aaaaa" ,"#0000FF", "Test-User"));
+        categories.add(new UserCategory("bbbbb" ,"#0000FF", "New-User-Category"));
+
+        return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping("/category/{id}")
+    public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
+                                                       User admin) {
 
         //mock
         UserCategory updatedUserCategory = new UserCategory("ccccc" ,"#0000FF", "Updated-User-Category");
@@ -78,7 +106,8 @@ public class AdminController {
         return ResponseEntity.ok(updatedUserCategory);
     }
 
-    public HttpStatus deleteCategory(String id, User admin) {
+    @DeleteMapping("/category/{id}")
+    public HttpStatus deleteCategory(@PathVariable String id, User admin) {
 
         //mock
         return HttpStatus.OK;
