@@ -7,16 +7,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +23,7 @@ public class PaperController {
         //mock
         Author author = new Author("mockId", "mockName");
         Paper paper = new Paper("1234567890", "thePaper", 2023, "abstract",
-                0, 0, "venue", "url", author);
+                0, 0, "venue", "url", List.of(author));
 
         return ResponseEntity.ok(paper);
     }
@@ -85,7 +76,7 @@ public class PaperController {
         List<Paper> papers = new ArrayList<>();
         Author author = new Author("mockId", "mockName");
         papers.add(new Paper("1234567890", "thePaper", 2023, "abstract",
-                0, 0, "venue", "url", author));
+                0, 0, "venue", "url", List.of(author)));
         return ResponseEntity.ok(papers);
     }
 }

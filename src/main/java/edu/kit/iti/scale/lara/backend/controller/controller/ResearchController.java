@@ -13,16 +13,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -126,11 +117,11 @@ public class ResearchController {
         //mock
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "resPaper1", 2023, "abstract1",
-                1, 1, "venue1", "url1", author);
+                1, 1, "venue1", "url1", List.of(author));
         Paper paper2 = new Paper("222222", "resPaper2", 2023, "abstract2",
-                2, 2, "venue2", "url2", author);
+                2, 2, "venue2", "url2", List.of(author));
         Paper paper3 = new Paper("333333", "resPaper3", 2023, "abstract3",
-                3, 3, "venue3", "url3", author);
+                3, 3, "venue3", "url3", List.of(author));
 
         List<Paper> papers = new ArrayList<>();
         papers.add(paper1);
@@ -149,11 +140,11 @@ public class ResearchController {
         //mock
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "recPaper1", 2023, "abstract1",
-                1, 1, "venue1", "url1", author);
+                1, 1, "venue1", "url1", List.of(author));
         Paper paper2 = new Paper("222222", "recPaper2", 2023, "abstract2",
-                2, 2, "venue2", "url2", author);
+                2, 2, "venue2", "url2", List.of(author));
         Paper paper3 = new Paper("333333", "recPaper3", 2023, "abstract3",
-                3, 3, "venue3", "url3", author);
+                3, 3, "venue3", "url3", List.of(author));
         List<Paper> papers = new ArrayList<>();
         papers.add(paper1);
         papers.add(paper2);
@@ -169,11 +160,11 @@ public class ResearchController {
         //mock
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "Paper1", 2023, "abstract1",
-                1, 1, "venue1", "url1", author);
+                1, 1, "venue1", "url1", List.of(author));
         Paper paper2 = new Paper("222222", "Paper2", 2023, "abstract2",
-                2, 2, "venue2", "url2", author);
+                2, 2, "venue2", "url2", List.of(author));
         Paper paper3 = new Paper("333333", "Paper3", 2023, "abstract3",
-                3, 3, "venue3", "url3", author);
+                3, 3, "venue3", "url3", List.of(author));
         List<Paper> papers = new ArrayList<>();
         papers.add(paper1);
         papers.add(paper2);
