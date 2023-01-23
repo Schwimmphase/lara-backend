@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -20,7 +21,7 @@ public class PaperController {
     @GetMapping("{id}")
     public ResponseEntity<Paper> paperDetails(@PathVariable String id, User user) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper = new Paper("1234567890", "thePaper", 2023, "abstract",
                 0, 0, "venue", "url", List.of(author));
@@ -32,7 +33,7 @@ public class PaperController {
     public HttpStatus paperAddTag(@PathVariable String id, @RequestParam String researchId, @RequestParam String tagId,
                                   User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
@@ -40,7 +41,7 @@ public class PaperController {
     public HttpStatus paperTagRemove(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam String tagId, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
@@ -48,7 +49,7 @@ public class PaperController {
     public HttpStatus paperComment(@PathVariable String id, @RequestParam String researchId,
                                    @RequestParam String comment, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
@@ -56,7 +57,7 @@ public class PaperController {
     public HttpStatus paperSaveState(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam SaveState saveState, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
@@ -64,19 +65,22 @@ public class PaperController {
     public HttpStatus paperRelevance(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam int relevance, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
     @PostMapping("{id}/recommendations")
-    public ResponseEntity<List<Paper>> paperRecommendations(@PathVariable String id, @RequestParam String researchId,
-                                                            @RequestBody List<OrganizerRequest> organizers, User user) {
+    public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
+                                                           @RequestParam String researchId,
+                                                            @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                         User user) {
+        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
-        //mock
+        // TODO: replace mock with code
         List<Paper> papers = new ArrayList<>();
         Author author = new Author("mockId", "mockName");
         papers.add(new Paper("1234567890", "thePaper", 2023, "abstract",
                 0, 0, "venue", "url", List.of(author)));
-        return ResponseEntity.ok(papers);
+        return ResponseEntity.ok(Map.of("recommendations", papers));
     }
 }

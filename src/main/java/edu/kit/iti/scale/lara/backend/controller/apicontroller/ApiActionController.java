@@ -12,7 +12,7 @@ public class ApiActionController {
 
     public Paper getPaper(String paperId) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper = new Paper(paperId, "thePaper", 2023, "abstract",
                 0, 0,"venue", "url", List.of(author));
@@ -22,7 +22,7 @@ public class ApiActionController {
 
     public List<Paper> getPapersByKeyword(String query) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "KeyPaper1", 2023, "abstract1",
                 1, 1,"venue1", "url1", List.of(author));
@@ -41,7 +41,7 @@ public class ApiActionController {
 
     public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "recPaper1", 2023, "abstract1",
                 1, 1,"venue1", "url1", List.of(author));
@@ -60,7 +60,7 @@ public class ApiActionController {
 
     public List<Paper> getCitations(Paper paper) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "citPaper1", 2023, "abstract1",
                 1, 1,"venue1", "url1", List.of(author));
@@ -79,7 +79,7 @@ public class ApiActionController {
 
     public List<Paper> getReferences(Paper paper) {
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "refPaper1", 2023, "abstract1",
                 1, 1,"venue1", "url1", List.of(author));

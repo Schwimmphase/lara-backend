@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -36,7 +37,7 @@ public class ResearchController {
     }
 
     @GetMapping("/")
-    public List<Research> listResearch(User user) {
+    public ResponseEntity<Map<String, List<Research>>> listResearch(User user) {
 
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user1 = new User("one","11111", "password1", category);
@@ -50,25 +51,25 @@ public class ResearchController {
         researches.add(research2);
         researches.add(research3);
 
-        return researches;
+        return ResponseEntity.ok(Map.of("researches", researches));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Research> updateResearch(@PathVariable("id") String researchId,
                                                    @RequestBody ResearchRequest request, User user) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user1 = new User("one","11111", "password1", category);
 
         Research research = new Research("12345", "UpdatedResearch", new Comment("12345", "description"), ZonedDateTime.now(), user1);
-        return null;
+        return ResponseEntity.ok(research);
     }
 
     @DeleteMapping("/{id}")
     public HttpStatus deleteResearch(@PathVariable("id") String researchId, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
@@ -76,21 +77,21 @@ public class ResearchController {
     public HttpStatus savePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
                                 @RequestParam("state") SaveState saveState, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
     @DeleteMapping("/{id}/paper")
     public HttpStatus deletePaper(@PathVariable("id") String researchId, @RequestParam String paperId, User user) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
     @GetMapping("/{id}/tags")
-    public ResponseEntity<List<Tag>> researchTags(@PathVariable("id") String researchId, User user) {
+    public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") String researchId, User user) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user1 = new User("one","11111", "password1", category);
 
@@ -107,14 +108,16 @@ public class ResearchController {
         tags.add(tag3);
         tags.add(tag4);
 
-        return ResponseEntity.ok(tags);
+        return ResponseEntity.ok(Map.of("tags", tags));
     }
 
     @PostMapping("/{id}/papers")
-    public ResponseEntity<List<Paper>> researchPapers(@PathVariable("id") String researchId,
-                                                      @RequestBody List<OrganizerRequest> requestList, User user) {
+    public ResponseEntity<Map<String, List<Paper>>> researchPapers(@PathVariable("id") String researchId,
+                                                      @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                   User user) {
+        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "resPaper1", 2023, "abstract1",
                 1, 1, "venue1", "url1", List.of(author));
@@ -128,16 +131,17 @@ public class ResearchController {
         papers.add(paper2);
         papers.add(paper3);
 
-        return ResponseEntity.ok(papers);
+        return ResponseEntity.ok(Map.of("papers", papers));
     }
 
     @PostMapping("/{id}/recommendations")
-    public ResponseEntity<List<Paper>> researchRecommendations(@PathVariable("id") String researchId,
+    public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
                                                                @RequestParam RecommendationMethod method,
-                                                               @RequestBody List<OrganizerRequest> requestList,
+                                                               @RequestBody Map<String, List<OrganizerRequest>> request,
                                                                User user) {
+        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "recPaper1", 2023, "abstract1",
                 1, 1, "venue1", "url1", List.of(author));
@@ -150,14 +154,16 @@ public class ResearchController {
         papers.add(paper2);
         papers.add(paper3);
 
-        return ResponseEntity.ok(papers);
+        return ResponseEntity.ok(Map.of("recommendations", papers));
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Paper>> researchSearch(@RequestParam String query,
-                                                      @RequestBody List<OrganizerRequest> requestList, User user) {
+    public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
+                                                      @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                      User user) {
+        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
-        //mock
+        // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "Paper1", 2023, "abstract1",
                 1, 1, "venue1", "url1", List.of(author));
@@ -170,6 +176,6 @@ public class ResearchController {
         papers.add(paper2);
         papers.add(paper3);
 
-        return ResponseEntity.ok(papers);
+        return ResponseEntity.ok(Map.of("papers", papers));
     }
 }
