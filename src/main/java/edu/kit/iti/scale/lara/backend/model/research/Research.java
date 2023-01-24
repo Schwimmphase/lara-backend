@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.model.research;
 
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import jakarta.persistence.*;
@@ -32,6 +33,14 @@ public class Research {
         this.startDate = startDate;
         this.savedPapers = new ArrayList<>();
         this.cachedPapers = new ArrayList<>();
+    }
+
+    public boolean addSavedPaper(SavedPaper savedPaper) {
+        return savedPapers.add(savedPaper);
+    }
+
+    public boolean addCachedPaper(CachedPaper cachedPaper) {
+        return cachedPapers.add(cachedPaper);
     }
 
     public String getId() {

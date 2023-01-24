@@ -44,6 +44,7 @@ public class PaperService {
 
     public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
+        research.addSavedPaper(savedPaper);
         savedPaperRepository.save(savedPaper);
         return savedPaper;
     }
