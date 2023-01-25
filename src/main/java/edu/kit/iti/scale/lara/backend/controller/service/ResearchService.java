@@ -85,9 +85,6 @@ public class ResearchService {
     }
 
     public List<Paper> searchByQuery(String query) {
-
-        // TODO
-
-        return null;
+        return apiActionController.getPapersByKeyword(query);
     }
 }

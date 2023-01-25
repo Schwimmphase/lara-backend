@@ -2,6 +2,7 @@ package edu.kit.iti.scale.lara.backend.model.user;
 
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public class User {
     private String username;
     @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String password;
     @ManyToOne
@@ -20,9 +23,8 @@ public class User {
     @OneToMany
     private List<Research> researches;
 
-    public User(String username, String id, String password, UserCategory userCategory) {
+    public User(String username, String password, UserCategory userCategory) {
         this.username = username;
-        this.id = id;
         this.password = password;
         this.userCategory = userCategory;
         this.researches = new ArrayList<>();
