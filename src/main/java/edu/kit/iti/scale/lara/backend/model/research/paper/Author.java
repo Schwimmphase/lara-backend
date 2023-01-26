@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,8 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Author {
-    @Id
+    @Id @JsonProperty("authorId")
     private String id;
+    @JsonProperty("name")
     private String name;
 
     public Author(String id, String name) {
