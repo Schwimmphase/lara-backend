@@ -4,6 +4,7 @@ import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionControll
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
 
 import java.util.List;
@@ -26,12 +27,12 @@ public class RecommendationService {
         return apiActionController.getRecommendations(positives, negatives);
     }
 
-    public List<Paper> getReferences(List<Paper> papers) {
-        return cacheService.getReferences(null, papers); //Todo research
+    public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
+        return cacheService.getReferences(research, papers);
     }
 
-    public List<Paper> getCitations(List<Paper> papers) {
-        return cacheService.getCitations(null, papers); //todo research
+    public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
+        return cacheService.getCitations(research, papers);
     }
 
     public void paperAdded(Research research, Paper paper) {

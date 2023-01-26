@@ -9,9 +9,20 @@ import java.util.List;
 public class BibtexConverterService {
 
     public String export(List<Paper> papers) {
+        StringBuilder bibTexBuilder = new StringBuilder();
+        for (Paper paper : papers) {
+            bibTexBuilder.append(paperToBibTex(paper));
+            bibTexBuilder.append("\n");
+        }
+        return bibTexBuilder.toString();
+    }
 
-        // TODO
-
-        return null;
+    private String paperToBibTex(Paper paper) {
+        //todo
+        return "@article{Test," +
+                "title={" + paper.getTitle() + "}" +
+                "author={" + paper.getAuthor().getName() + "}" +
+                "year={" + paper.getYear() + "}";
     }
 }
+

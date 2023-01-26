@@ -26,6 +26,9 @@ public class UserService {
         } else {
             throw new NotInDataBaseException();
         }
+    }
 
+    public boolean checkCredentials(User user, String password) {
+        return user.getPassword().equals(password);
     }
 }

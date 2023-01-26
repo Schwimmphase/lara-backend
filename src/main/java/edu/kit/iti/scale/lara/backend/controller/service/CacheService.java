@@ -10,7 +10,6 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CacheService {
@@ -60,27 +59,15 @@ public class CacheService {
         }
     }
 
-    public List<Paper> getReferences(Research research, List<Paper> papers) { //Todo maybe findByResearch
-        List<Paper> references = new ArrayList<>();
-        for (Paper parentPaper : papers) {
-            for (CachedPaper cachedPaper : cachedPaperRepository.findByParentPaper(parentPaper)) {
-                if (cachedPaper.getType() == CachedPaperType.REFERENCE) {
-                    references.add(cachedPaper.getPaper());
-                }
-            }
-        }
+    public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
+        List<CachedPaper> references = cachedPaperRepository.findByResearch(research);
+        references.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.REFERENCE || !papers.contains(cachedPaper.getParentPaper()));
         return references;
     }
 
-    public List<Paper> getCitations(Research research, List<Paper> papers) { //Todo maybe findByResearch
-        List<Paper> citations = new ArrayList<>();
-        for (Paper parentPaper : papers) {
-            for (CachedPaper cachedPaper : cachedPaperRepository.findByParentPaper(parentPaper)) {
-                if (cachedPaper.getType() == CachedPaperType.CITATION) {
-                    citations.add(cachedPaper.getPaper());
-                }
-            }
-        }
+    public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
+        List<CachedPaper> citations = cachedPaperRepository.findByResearch(research);
+        citations.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.CITATION || !papers.contains(cachedPaper.getParentPaper()));
         return citations;
     }
 }

@@ -24,7 +24,7 @@ public class Paper {
     @OneToMany(mappedBy = "paper")
     private List<SavedPaper> savedPapers;
     @ManyToOne
-    private Author author;
+    private Author author; //todo: list?
 
     public Paper(String paperId, String title, int year, String abstractText, int citationCount, int referenceCount,
                  String venue, String pdfUrl, Author author) {
@@ -119,5 +119,13 @@ public class Paper {
 
     public void setSavedPapers(List<SavedPaper> savedPapers) {
         this.savedPapers = savedPapers;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

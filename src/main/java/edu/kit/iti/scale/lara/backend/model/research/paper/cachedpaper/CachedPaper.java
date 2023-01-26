@@ -56,4 +56,12 @@ public class CachedPaper {
     public void setType(CachedPaperType type) {
         this.type = type;
     }
+
+    public Paper getParentPaper() {
+        return parentPaper;
+    }
+
+    public void setParentPaper(Paper parentPaper) {
+        this.parentPaper = parentPaper;
+    }
 }
