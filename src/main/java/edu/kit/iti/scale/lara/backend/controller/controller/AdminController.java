@@ -1,22 +1,26 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
 import edu.kit.iti.scale.lara.backend.controller.request.CategoryRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.request.UserRequest;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/usermanagement")
 public class AdminController {
 
-    public ResponseEntity<List<User>> listUsers() {
+    @GetMapping("/")
+    public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam List<OrganizerRequest> organizers) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         List<User> users = new ArrayList<>();
         User user1 = new User("one", "password1", testUser);
@@ -35,52 +39,71 @@ public class AdminController {
         users.add(user6);
         users.add(user7);
 
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(Map.of("users", users));
     }
 
-    public ResponseEntity<User> createUser(UserRequest request, User admin) {
+    @PostMapping("/")
+    public ResponseEntity<User> createUser(@RequestBody UserRequest request, User admin) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user = new User("createdUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
 
-    public HttpStatus deleteUser(String userId, User admin) {
+    @DeleteMapping("/{userId}")
+    public HttpStatus deleteUser(@PathVariable String userId, User admin) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 
-    public ResponseEntity<User> updateUser(String userId, UserRequest request, User admin) {
+    @PatchMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request, User admin) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         User user = new User("updatedUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/category")
     public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
 
-        //mock
+        // TODO: replace mock with code
         UserCategory newUserCategory = new UserCategory("bbbbb" ,"#0000FF", "New-User-Category");
 
         return ResponseEntity.ok(newUserCategory);
     }
 
-    public ResponseEntity<UserCategory> updateCategory(String id, CategoryRequest request, User admin) {
+    @GetMapping("/category")
+    public ResponseEntity<Map<String, List<UserCategory>> >listCategories(User admin) {
 
-        //mock
+        // TODO: replace mock with code
+        List<UserCategory> categories = new ArrayList<>();
+
+        categories.add( new UserCategory("aaaaa" ,"#0000FF", "Test-User"));
+        categories.add(new UserCategory("bbbbb" ,"#0000FF", "New-User-Category"));
+
+        return ResponseEntity.ok(Map.of("categories", categories));
+    }
+
+    @PostMapping("/category/{id}")
+    public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
+                                                       User admin) {
+
+        // TODO: replace mock with code
         UserCategory updatedUserCategory = new UserCategory("ccccc" ,"#0000FF", "Updated-User-Category");
 
         return ResponseEntity.ok(updatedUserCategory);
     }
 
-    public HttpStatus deleteCategory(String id, User admin) {
+    @DeleteMapping("/category/{id}")
+    public HttpStatus deleteCategory(@PathVariable String id, User admin) {
 
-        //mock
+        // TODO: replace mock with code
         return HttpStatus.OK;
     }
 }

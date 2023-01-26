@@ -1,17 +1,23 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tags", schema = "lara")
+@NoArgsConstructor
 public class Tag {
     @Id
     private String id;
     private String color;
     private String name;
+    @ManyToOne
+    @JsonIgnore
     private Research research;
 
     public Tag(String id, String color, String name, Research research) {
