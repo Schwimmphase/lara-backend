@@ -24,7 +24,7 @@ public class PaperController {
         // TODO: replace mock with code
         Author author = new Author("mockId", "mockName");
         Paper paper = new Paper("1234567890", "thePaper", 2023, "abstract",
-                0, 0, "venue", "url", List.of(author));
+                0, 0, "venue", "https://arxiv.org/pdf/2110.11697.pdf", List.of(author));
 
         return ResponseEntity.ok(paper);
     }
