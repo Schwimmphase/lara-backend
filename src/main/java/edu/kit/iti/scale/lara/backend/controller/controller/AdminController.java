@@ -19,13 +19,13 @@ public class AdminController {
         //mock
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
         List<User> users = new ArrayList<>();
-        User user1 = new User("one","11111", "password1", testUser);
-        User user2 = new User("two","22222", "password2", testUser);
-        User user3 = new User("three","33333", "password3", testUser);
-        User user4 = new User("four","44444", "password4", testUser);
-        User user5 = new User("five","55555", "password5", testUser);
-        User user6 = new User("six","66666", "password6", testUser);
-        User user7 = new User("seven","77777", "password7", testUser);
+        User user1 = new User("one", "password1", testUser);
+        User user2 = new User("two", "password2", testUser);
+        User user3 = new User("three", "password3", testUser);
+        User user4 = new User("four", "password4", testUser);
+        User user5 = new User("five", "password5", testUser);
+        User user6 = new User("six", "password6", testUser);
+        User user7 = new User("seven", "password7", testUser);
 
         users.add(user1);
         users.add(user2);
@@ -42,7 +42,7 @@ public class AdminController {
 
         //mock
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user = new User("createdUser","12345", "password", testUser);
+        User user = new User("createdUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
@@ -57,7 +57,7 @@ public class AdminController {
 
         //mock
         UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user = new User("updatedUser","12345", "password", testUser);
+        User user = new User("updatedUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
