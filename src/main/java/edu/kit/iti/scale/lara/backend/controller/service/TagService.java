@@ -6,14 +6,16 @@ import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TagService {
 
-    TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
     public Tag createTag(String color, String name, Research research) {
         Tag tag = new Tag(color, name, research);

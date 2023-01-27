@@ -29,9 +29,9 @@ public class User {
     @ManyToOne
     @JsonIgnore
     private Research activeResearch;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Research> researches;
 

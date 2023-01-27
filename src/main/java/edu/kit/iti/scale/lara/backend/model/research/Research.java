@@ -6,10 +6,10 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -27,17 +27,17 @@ public class Research {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String title;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonUnwrapped
     private Comment description;
     private ZonedDateTime startDate;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private User user;
-    @OneToMany(mappedBy = "research")
+    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @OneToMany(mappedBy = "research")
+    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
 

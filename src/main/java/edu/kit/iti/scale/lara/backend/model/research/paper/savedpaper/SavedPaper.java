@@ -30,10 +30,10 @@ public class SavedPaper {
     @JsonUnwrapped
     @JsonIncludeProperties({ "id" })
     private Research research;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonUnwrapped
     private Comment comment;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tag> tags;
     private int relevance;
     private SaveState saveState;

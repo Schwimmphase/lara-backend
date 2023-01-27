@@ -1,8 +1,7 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
-import edu.kit.iti.scale.lara.backend.ServiceTest;
+import edu.kit.iti.scale.lara.backend.InMemoryTest;
 import edu.kit.iti.scale.lara.backend.TestInstanceProvider;
-import edu.kit.iti.scale.lara.backend.controller.repository.TagRepository;
 import edu.kit.iti.scale.lara.backend.controller.service.TagService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
@@ -14,14 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@ServiceTest
+@InMemoryTest
 public class TagServiceTests {
 
     @Autowired
     private TagService tagService;
-
-    @Autowired
-    private TagRepository tagRepository;
 
     private TestInstanceProvider tip = new TestInstanceProvider();
 

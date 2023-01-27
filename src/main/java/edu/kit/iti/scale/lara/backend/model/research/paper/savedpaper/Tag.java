@@ -2,13 +2,9 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
 
@@ -22,7 +18,7 @@ public class Tag {
     private String id;
     private String color;
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Research research;
 

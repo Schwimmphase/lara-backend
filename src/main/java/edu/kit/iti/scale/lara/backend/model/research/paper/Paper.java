@@ -30,13 +30,13 @@ public class Paper {
     private int referenceCount;
     private String venue;
     private String pdfUrl;
-    @OneToMany(mappedBy = "paper")
+    @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
-    @OneToMany(mappedBy = "paper")
+    @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Author> authors;
 
     public Paper(String paperId, String title, int yearPublished, String abstractText, int citationCount, int referenceCount,
