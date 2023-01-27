@@ -80,7 +80,7 @@ public class ResearchService {
         return recommendationService.getRecommendations(positives, negatives);
     }
 
-    public List<CachedPaper> getReferencesAndCitations(Research research, List<Paper> papers) {
+    public List<CachedPaper> getReferencesAndCitations(Research research, List<Paper> papers) { //Todo: split in two methods
         List<CachedPaper> referencesAndCitations = recommendationService.getReferences(research, papers);
         referencesAndCitations.addAll(recommendationService.getCitations(research, papers));
         return referencesAndCitations;

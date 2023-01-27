@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "papers", schema = "lara")
@@ -51,4 +52,13 @@ public class Paper {
         this.savedPapers = new ArrayList<>();
         this.authors = authors;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Paper)) return false;
+        Paper paper = (Paper) o;
+        return Objects.equals(getPaperId(), paper.getPaperId());
+    }
+
 }

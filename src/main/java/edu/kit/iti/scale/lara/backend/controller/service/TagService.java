@@ -42,7 +42,7 @@ public class TagService {
         tag.setName(newName);
         tag.setColor(newColor);
         tagRepository.save(tag);
-        return null;
+        return tag;
     }
 
     public void deleteTag(Tag tag) {
