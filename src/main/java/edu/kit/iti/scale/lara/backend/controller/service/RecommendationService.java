@@ -6,21 +6,18 @@ import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class RecommendationService {
 
     private final ApiActionController apiActionController;
     private final PaperRepository paperRepository;
     private final CacheService cacheService;
-
-    public RecommendationService(ApiActionController apiActionController, PaperRepository paperRepository,
-                                 CacheService cacheService) {
-        this.apiActionController = apiActionController;
-        this.paperRepository = paperRepository;
-        this.cacheService = cacheService;
-    }
 
 
     public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {

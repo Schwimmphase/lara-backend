@@ -11,23 +11,18 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PaperService {
 
     private final PaperRepository paperRepository;
     private final SavedPaperRepository savedPaperRepository;
     private final RecommendationService recommendationService;
-
-    public PaperService(PaperRepository paperRepository, SavedPaperRepository savedPaperRepository,
-                        RecommendationService recommendationService) {
-        this.paperRepository = paperRepository;
-        this.savedPaperRepository = savedPaperRepository;
-        this.recommendationService = recommendationService;
-    }
 
     public void savePaperToDataBase(Paper paper) {
         paperRepository.save(paper);

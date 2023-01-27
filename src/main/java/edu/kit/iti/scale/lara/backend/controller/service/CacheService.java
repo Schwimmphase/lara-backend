@@ -2,30 +2,24 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.CachedPaperRepository;
-import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
-import edu.kit.iti.scale.lara.backend.model.user.User;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class CacheService {
 
     private final CachedPaperRepository cachedPaperRepository;
-    private final PaperService paperService;
     private final ApiActionController apiActionController;
 
-    public CacheService(CachedPaperRepository cachedPaperRepository, PaperService paperService, ApiActionController apiActionController) {
-        this.cachedPaperRepository = cachedPaperRepository;
-        this.paperService = paperService;
-        this.apiActionController = apiActionController;
-    }
-
-    public void initializeCache(Research research, User user) throws WrongUserException {
-        List<SavedPaper> savedPapers = paperService.getSavedPapers(research, user);
+    public void initializeCache(List<SavedPaper> savedPapers, Research research) {
         for (SavedPaper savedPaper : savedPapers) {
             List<Paper> citations = apiActionController.getCitations(savedPaper.getPaper());
             List<Paper> references = apiActionController.getReferences(savedPaper.getPaper());

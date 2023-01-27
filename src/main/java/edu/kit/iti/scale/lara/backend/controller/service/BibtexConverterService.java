@@ -21,7 +21,7 @@ public class BibtexConverterService {
         //todo
         return "@article{Test," +
                 "title={" + paper.getTitle() + "}" +
-                "author={" + paper.getAuthor().getName() + "}" +
+                "author={" + paper.getAuthors().get(0).getName() + "}" +
                 "year={" + paper.getYear() + "}" +
                 "" + paper.getVenue();
     }

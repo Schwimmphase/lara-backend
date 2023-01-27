@@ -50,4 +50,12 @@ public class Research {
         this.cachedPapers = new ArrayList<>();
     }
 
+    public boolean addSavedPaper(SavedPaper savedPaper) {
+        return savedPapers.add(savedPaper);
+    }
+
+    public boolean addCachedPaper(CachedPaper cachedPaper) {
+        return cachedPapers.add(cachedPaper);
+    }
+
 }

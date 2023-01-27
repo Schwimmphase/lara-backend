@@ -11,13 +11,17 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
+import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ResearchService {
 
     private final ResearchRepository researchRepository;
@@ -25,16 +29,11 @@ public class ResearchService {
     private final RecommendationService recommendationService;
     private final SavedPaperRepository savedPaperRepository;
 
-    public ResearchService(ResearchRepository researchRepository, ApiActionController apiActionController,
-                           RecommendationService recommendationService, SavedPaperRepository savedPaperRepository) {
-        this.researchRepository = researchRepository;
-        this.apiActionController = apiActionController;
-        this.recommendationService = recommendationService;
-        this.savedPaperRepository = savedPaperRepository;
-    }
-
     public Research createResearch(User user, String title, String description) {
-        Research research = new Research(title, new Comment(description), new Date());
+        UserCategory userCategory = new UserCategory("#0000ff", "User-Category");
+        User user1 = new User("user", "password", userCategory);
+
+        Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user1);
         researchRepository.save(research);
         return research;
     }

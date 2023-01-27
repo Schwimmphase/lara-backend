@@ -2,6 +2,8 @@ package edu.kit.iti.scale.lara.backend.api;
 
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 
+import java.util.List;
+
 public class ApiPaper {
 
     private String id;
@@ -12,7 +14,7 @@ public class ApiPaper {
     private int referenceCount;
     private String venue;
     private String pdfUrl;
-    private Author author;
+    private List<Author> authors;
 
     public String getId() {
         return id;
@@ -78,11 +80,11 @@ public class ApiPaper {
         this.pdfUrl = pdfUrl;
     }
 
-    public Author getAuthor() {
-        return author;
+    public List<Author> getAuthor() {
+        return authors;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthor(List<Author> authors) {
+        this.authors = authors;
     }
 }
