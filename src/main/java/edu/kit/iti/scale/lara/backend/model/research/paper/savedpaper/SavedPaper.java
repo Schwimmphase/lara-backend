@@ -1,9 +1,14 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,14 +17,21 @@ import java.util.List;
 @Entity
 @Table(name = "saved-papers", schema = "lara")
 @IdClass(SavedPaper.SavedPaperId.class)
+@NoArgsConstructor
+@Getter
+@Setter
 public class SavedPaper {
     @Id
     @ManyToOne
+    @JsonUnwrapped
     private Paper paper;
     @Id
     @ManyToOne
+    @JsonUnwrapped
+    @JsonIncludeProperties({ "id" })
     private Research research;
     @OneToOne
+    @JsonUnwrapped
     private Comment comment;
     @OneToMany
     private List<Tag> tags;
@@ -37,54 +49,6 @@ public class SavedPaper {
         this.comment = comment;
         this.tags = new ArrayList<>();
         this.relevance = relevance;
-        this.saveState = saveState;
-    }
-
-    public Paper getPaper() {
-        return paper;
-    }
-
-    public void setPaper(Paper paper) {
-        this.paper = paper;
-    }
-
-    public Research getResearch() {
-        return research;
-    }
-
-    public void setResearch(Research research) {
-        this.research = research;
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public int getRelevance() {
-        return relevance;
-    }
-
-    public void setRelevance(int relevance) {
-        this.relevance = relevance;
-    }
-
-    public SaveState getSaveState() {
-        return saveState;
-    }
-
-    public void setSaveState(SaveState saveState) {
         this.saveState = saveState;
     }
 }

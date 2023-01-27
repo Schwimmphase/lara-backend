@@ -1,14 +1,18 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tags", schema = "lara")
+@NoArgsConstructor
 public class Tag {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -16,6 +20,8 @@ public class Tag {
     private String id;
     private String color;
     private String name;
+    @ManyToOne
+    @JsonIgnore
     private Research research;
 
     public Tag(String color, String name, Research research) {
