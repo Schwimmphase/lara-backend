@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user", schema = "lara")
+@Table(name = "users", schema = "lara")
 @NoArgsConstructor
 @Getter
 @Setter

@@ -22,7 +22,8 @@ public class Paper {
     @Id
     private String paperId;
     private String title;
-    private int year;
+    @JsonProperty("year")
+    private int yearPublished;
     @JsonProperty("abstract")
     private String abstractText;
     private int citationCount;
@@ -38,11 +39,11 @@ public class Paper {
     @ManyToMany
     private List<Author> authors;
 
-    public Paper(String paperId, String title, int year, String abstractText, int citationCount, int referenceCount,
+    public Paper(String paperId, String title, int yearPublished, String abstractText, int citationCount, int referenceCount,
                  String venue, String pdfUrl, List<Author> authors) {
         this.paperId = paperId;
         this.title = title;
-        this.year = year;
+        this.yearPublished = yearPublished;
         this.abstractText = abstractText;
         this.citationCount = citationCount;
         this.referenceCount = referenceCount;

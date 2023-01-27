@@ -23,7 +23,7 @@ public class BibtexConverterService {
         return "@article{Test," +
                 "title={" + paper.getTitle() + "}," +
                 getAuthorsAsBibTex(paper.getAuthors()) +
-                "year={" + paper.getYear() + "}," +
+                "year={" + paper.getYearPublished() + "}," +
                 "journal={" + paper.getVenue() + "}";
     }
 
