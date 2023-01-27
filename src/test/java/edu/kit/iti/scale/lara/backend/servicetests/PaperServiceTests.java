@@ -1,68 +1,143 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
+import edu.kit.iti.scale.lara.backend.TestInstanceProvider;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
-import edu.kit.iti.scale.lara.backend.model.research.Comment;
+import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
-import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
-import edu.kit.iti.scale.lara.backend.model.user.User;
-import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
-import lombok.RequiredArgsConstructor;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @DataJpaTest
 public class PaperServiceTests {
 
     @Autowired
-    private  PaperService paperService;
+    private PaperService paperService;
     @Autowired
-    private  PaperRepository paperRepository;
+    private PaperRepository paperRepository;
     @Autowired
-    private  SavedPaperRepository savedPaperRepository;
+    private SavedPaperRepository savedPaperRepository;
 
-    UserCategory category = new UserCategory("#0000FF", "Test-User");
-    User user = new User("userOne", "password1", category);
-    Research research = new Research("New-Research", new Comment("description"), ZonedDateTime.now(), user);
-    Author author = new Author("TestAuthorId", "TestAuthorName");
-    Paper paper1 = new Paper("1", "paper1", 2023, "abstract1",
-            0, 0, "venue", "url1", List.of(author));
-    Paper paper2 = new Paper("2", "paper2", 2023, "abstract2",
-            0, 0, "venue", "url2", List.of(author));
-    Paper paper3 = new Paper("3", "paper3", 2023, "abstract3",
-            0, 0, "venue", "url3", List.of(author));
-    Paper paper4 = new Paper("4", "paper4", 2023, "abstract4",
-            0, 0, "venue", "url4", List.of(author));
-    Paper paper5 = new Paper("5", "paper5", 2023, "abstract5",
-            0, 0, "venue", "url5", List.of(author));
+    private final TestInstanceProvider tip = new TestInstanceProvider();
 
+    Research research = tip.getResearch1();
 
     @Test
-    public void TestCreateAndGetPaper() {
-        paperService.createSavedPaper(research, paper1, SaveState.ADDED);
-        paperService.createSavedPaper(research, paper2, SaveState.ENQUEUED);
-        paperService.createSavedPaper(research, paper3, SaveState.HIDDEN);
+    public void testSaveAndGetPaper() {
+        paperService.savePaperToDataBase(tip.getPaper1());
+        paperService.savePaperToDataBase(tip.getPaper2());
+        paperService.savePaperToDataBase(tip.getPaper3());
 
         try {
             Paper returnedPaper1 = paperService.getPaper("1");
             Paper returnedPaper2 = paperService.getPaper("2");
             Paper returnedPaper3 = paperService.getPaper("3");
 
-            assert returnedPaper1.equals(paper1);
-            assert returnedPaper2.equals(paper2);
-            assert returnedPaper3.equals(paper3);
+            Assertions.assertThat(returnedPaper1).isEqualTo(tip.getPaper1());
+            Assertions.assertThat(returnedPaper2).isEqualTo(tip.getPaper2());
+            Assertions.assertThat(returnedPaper3).isEqualTo(tip.getPaper3());
         } catch (NotInDataBaseException e) {
             System.out.println("Failed to load Paper from Database");
         }
+        boolean exceptionThrown = false;
+        try {
+            paperService.getPaper("4");
+        } catch (NotInDataBaseException e) {
+            exceptionThrown = true;
+        }
+        Assertions.assertThat(exceptionThrown).isEqualTo(true);
+    }
+
+
+    @Test
+    public void testCreateAndGetSavedPaper() {
+        SavedPaper savedPaper1 = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+        SavedPaper savedPaper2 = paperService.createSavedPaper(research, tip.getPaper2(), SaveState.ENQUEUED);
+        SavedPaper savedPaper3 = paperService.createSavedPaper(research, tip.getPaper3(), SaveState.HIDDEN);
+
+        try {
+            SavedPaper returnedPaper1 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
+            SavedPaper returnedPaper2 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
+            SavedPaper returnedPaper3 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
+
+            Assertions.assertThat(returnedPaper1).isEqualTo(savedPaper1);
+            Assertions.assertThat(returnedPaper2).isEqualTo(savedPaper2);
+            Assertions.assertThat(returnedPaper3).isEqualTo(savedPaper3);
+        } catch (NotInDataBaseException e) {
+            System.out.println("Failed to load Paper from Database");
+        } catch (WrongUserException e) {
+            System.out.println("User did´nt saved the Paper");
+        }
+        boolean exceptionThrown = false;
+        try {
+            Paper paper4 = paperService.getPaper("4");
+        } catch (NotInDataBaseException e) {
+            exceptionThrown = true;
+        }
+        Assertions.assertThat(exceptionThrown).isEqualTo(true);
+    }
+
+    @Test
+    public void testGetSavedPapers() {
+        SavedPaper savedPaper1 = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+        SavedPaper savedPaper2 = paperService.createSavedPaper(research, tip.getPaper2(), SaveState.ENQUEUED);
+        SavedPaper savedPaper3 = paperService.createSavedPaper(research, tip.getPaper3(), SaveState.HIDDEN);
+
+        try {
+            List<SavedPaper> savedPapers = paperService.getSavedPapers(research, tip.getUser1());
+            Assertions.assertThat(savedPapers).isEqualTo(List.of(savedPaper1, savedPaper2, savedPaper3));
+        } catch (WrongUserException e) {
+            System.out.println("User is´nt allowed to access this research");
+        }
+    }
+
+    @Test
+    public void testTagsOnPaper() {
+        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+
+        Tag tag = new Tag("#0000FF", "Test-Tag", research);
+
+        paperService.addTagToPaper(paper, tag);
+        Assertions.assertThat(paper.getTags()).isEqualTo(List.of(tag));
+
+        paperService.removeTagFromPaper(paper, tag);
+        Assertions.assertThat(paper.getTags().isEmpty()).isEqualTo(true);
+    }
+
+    @Test
+    public void testCommentPaper() {
+        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+
+        paperService.commentPaper(paper, "test");
+
+        Assertions.assertThat(paper.getComment().getText()).isEqualTo("test");
+    }
+
+    @Test
+    public void testChangeSaveState() {
+        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+
+        paperService.changeSaveState(paper, SaveState.HIDDEN);
+
+        Assertions.assertThat(paper.getSaveState()).isEqualTo(SaveState.HIDDEN);
+    }
+
+    @Test
+    public void testRelevanceOnPaper() {
+        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+
+        paperService.setRelevanceOfPaper(paper, 3);
+
+        Assertions.assertThat(paper.getRelevance()).isEqualTo(3);
     }
 }

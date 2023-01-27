@@ -41,6 +41,11 @@ public class SavedPaper {
     public static class SavedPaperId implements Serializable {
         private Research research;
         private Paper paper;
+
+        public SavedPaperId(Research research, Paper paper) {
+            this.research = research;
+            this.paper = paper;
+        }
     }
 
     public SavedPaper(Paper paper, Research research, Comment comment, int relevance, SaveState saveState) {

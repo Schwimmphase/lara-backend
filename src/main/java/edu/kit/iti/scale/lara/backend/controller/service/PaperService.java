@@ -44,7 +44,9 @@ public class PaperService {
         return savedPaper;
     }
 
-    public SavedPaper getSavedPaper(SavedPaper.SavedPaperId id, User user) throws WrongUserException, NotInDataBaseException {
+    public SavedPaper getSavedPaper(User user, Paper paper, Research research) throws WrongUserException, NotInDataBaseException {
+        SavedPaper.SavedPaperId id = new SavedPaper.SavedPaperId(research, paper);
+
         if (savedPaperRepository.findById(id).isPresent()) {
             SavedPaper savedPaper = savedPaperRepository.findById(id).get();
             if (user.getResearches().contains(savedPaper.getResearch())) {

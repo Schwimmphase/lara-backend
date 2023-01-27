@@ -10,6 +10,8 @@ import jakarta.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tags", schema = "lara")
 @NoArgsConstructor
@@ -62,4 +64,13 @@ public class Tag {
     public void setResearch(Research research) {
         this.research = research;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tag)) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(getId(), tag.getId());
+    }
+
 }
