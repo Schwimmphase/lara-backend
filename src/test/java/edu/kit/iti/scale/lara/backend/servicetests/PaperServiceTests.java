@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
+import edu.kit.iti.scale.lara.backend.ServiceTest;
 import edu.kit.iti.scale.lara.backend.TestInstanceProvider;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
@@ -18,7 +19,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
-@DataJpaTest
+@ServiceTest
 public class PaperServiceTests {
 
     @Autowired
