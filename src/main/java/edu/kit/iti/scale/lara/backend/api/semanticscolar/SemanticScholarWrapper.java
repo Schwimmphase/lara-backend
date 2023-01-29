@@ -1,12 +1,8 @@
 package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
+import edu.kit.iti.scale.lara.backend.api.IdParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +13,7 @@ import java.util.List;
 
 public class SemanticScholarWrapper implements ApiWrapper {
 
+    private static final String API_PREFIX = "SemSchol";
     private static final String DATA = "data";
     private static final String CITED_PAPER = "citedPaper";
     private static final String RECOMMENDED_PAPERS = "recommendedPapers";
@@ -27,6 +24,9 @@ public class SemanticScholarWrapper implements ApiWrapper {
     public List<ApiPaper> convertToPaper(String response) throws JsonProcessingException {
 
         ApiPaper apiPaper = objectMapper.readValue(response, ApiPaper.class);
+
+        // changing ID from SemanticScholar Id to our lara ID: SemSchol#{SemanticScholarID}
+        apiPaper.setId(new IdParser().encodedId(API_PREFIX, apiPaper.getId()));
 
         return List.of(apiPaper);
     }

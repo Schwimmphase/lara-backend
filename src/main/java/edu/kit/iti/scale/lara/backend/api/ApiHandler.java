@@ -9,7 +9,7 @@ public interface ApiHandler {
 
     List<ApiPaper> getPapersByKeyword(String query) throws IOException, JSONException;
 
-    List<ApiPaper> getRecommendations(List<String> positiveIds, List<String> negativeIds);
+    List<ApiPaper> getRecommendations(List<String> positiveIds, List<String> negativeIds) throws IOException, JSONException;
 
     List<ApiPaper> getCitations(String paperId) throws IOException, JSONException;
 

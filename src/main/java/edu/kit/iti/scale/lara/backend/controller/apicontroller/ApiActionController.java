@@ -35,7 +35,7 @@ public class ApiActionController {
         return papers;
     }
 
-    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {
+    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) throws IOException, JSONException {
 
         List<String> positiveIds = new ArrayList<>();
         List<String> negativeIds = new ArrayList<>();
