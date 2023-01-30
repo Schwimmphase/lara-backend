@@ -60,7 +60,6 @@ class SemanticScholarCallerTest {
             // abstract can be null.
             assertNotNull(new JSONObject(responsePapers.get(i).toString()).getString(VENUE));
             assertNotNull(new JSONObject(responsePapers.get(i).toString()).getJSONArray(AUTHORS));
-
         }
     }
 
