@@ -22,9 +22,6 @@ class SemanticScholarCallerTest {
     public static final String URL = "url";
     public static final String TITLE = "title";
     public static final String VENUE = "venue";
-    public static final String YEAR = "year";
-    public static final String REFERENCE_COUNT = "referenceCount";
-    public static final String CITATION_COUNT = "citationCount";
     public static final String AUTHORS = "authors";
 
 
