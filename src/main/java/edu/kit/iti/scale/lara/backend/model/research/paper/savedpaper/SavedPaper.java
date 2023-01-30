@@ -5,7 +5,16 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +22,7 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "saved-papers", schema = "lara")
@@ -38,14 +48,12 @@ public class SavedPaper {
     private int relevance;
     private SaveState saveState;
 
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
     public static class SavedPaperId implements Serializable {
         private Research research;
         private Paper paper;
-
-        public SavedPaperId(Research research, Paper paper) {
-            this.research = research;
-            this.paper = paper;
-        }
     }
 
     public SavedPaper(Paper paper, Research research, Comment comment, int relevance, SaveState saveState) {
@@ -55,5 +63,21 @@ public class SavedPaper {
         this.tags = new ArrayList<>();
         this.relevance = relevance;
         this.saveState = saveState;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SavedPaper that = (SavedPaper) o;
+        if (!Objects.equals(paper, that.paper)) return false;
+        return Objects.equals(research, that.research);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = paper != null ? paper.hashCode() : 0;
+        result = 31 * result + (research != null ? research.hashCode() : 0);
+        return result;
     }
 }

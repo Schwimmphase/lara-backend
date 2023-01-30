@@ -5,7 +5,14 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "researches", schema = "lara")
@@ -48,6 +56,19 @@ public class Research {
         this.user = user;
         this.savedPapers = new ArrayList<>();
         this.cachedPapers = new ArrayList<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Research research = (Research) o;
+        return Objects.equals(id, research.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
     public boolean addSavedPaper(SavedPaper savedPaper) {

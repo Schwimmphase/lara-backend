@@ -1,9 +1,8 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
+import edu.kit.iti.scale.lara.backend.PersistentService;
 import edu.kit.iti.scale.lara.backend.TestInstanceProvider;
-import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
-import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
@@ -12,6 +11,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
+import edu.kit.iti.scale.lara.backend.model.user.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,11 @@ public class PaperServiceTests {
 
     @Autowired
     private PaperService paperService;
+
     @Autowired
-    private PaperRepository paperRepository;
-    @Autowired
-    private SavedPaperRepository savedPaperRepository;
+    private PersistentService persistentService;
 
     private final TestInstanceProvider tip = new TestInstanceProvider();
-
-    Research research = tip.getResearch1();
 
     @Test
     public void testSaveAndGetPaper() {
@@ -60,15 +57,19 @@ public class PaperServiceTests {
 
 
     @Test
-    public void testCreateAndGetSavedPaper() {
-        SavedPaper savedPaper1 = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
-        SavedPaper savedPaper2 = paperService.createSavedPaper(research, tip.getPaper2(), SaveState.ENQUEUED);
-        SavedPaper savedPaper3 = paperService.createSavedPaper(research, tip.getPaper3(), SaveState.HIDDEN);
+    public void testCreateAndGetSavedPaper(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1,
+                                           @Autowired Paper persistentPaper2, @Autowired Paper persistentPaper3,
+                                           @Autowired User persistentUser1) {
+        persistentService.persist(persistentResearch1, persistentPaper1, persistentPaper2, persistentPaper3, persistentUser1);
+
+        SavedPaper savedPaper1 = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
+        SavedPaper savedPaper2 = paperService.createSavedPaper(persistentResearch1, persistentPaper2, SaveState.ENQUEUED);
+        SavedPaper savedPaper3 = paperService.createSavedPaper(persistentResearch1, persistentPaper3, SaveState.HIDDEN);
 
         try {
-            SavedPaper returnedPaper1 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
-            SavedPaper returnedPaper2 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
-            SavedPaper returnedPaper3 = paperService.getSavedPaper(tip.getUser1(), tip.getPaper1(), research);
+            SavedPaper returnedPaper1 = paperService.getSavedPaper(persistentUser1, persistentPaper1, persistentResearch1);
+            SavedPaper returnedPaper2 = paperService.getSavedPaper(persistentUser1, persistentPaper1, persistentResearch1);
+            SavedPaper returnedPaper3 = paperService.getSavedPaper(persistentUser1, persistentPaper1, persistentResearch1);
 
             Assertions.assertThat(returnedPaper1).isEqualTo(savedPaper1);
             Assertions.assertThat(returnedPaper2).isEqualTo(savedPaper2);
@@ -81,6 +82,7 @@ public class PaperServiceTests {
         boolean exceptionThrown = false;
         try {
             Paper paper4 = paperService.getPaper("4");
+            System.out.println(paper4);
         } catch (NotInDataBaseException e) {
             exceptionThrown = true;
         }
@@ -88,24 +90,30 @@ public class PaperServiceTests {
     }
 
     @Test
-    public void testGetSavedPapers() {
-        SavedPaper savedPaper1 = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
-        SavedPaper savedPaper2 = paperService.createSavedPaper(research, tip.getPaper2(), SaveState.ENQUEUED);
-        SavedPaper savedPaper3 = paperService.createSavedPaper(research, tip.getPaper3(), SaveState.HIDDEN);
+    public void testGetSavedPapers(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1,
+                                   @Autowired Paper persistentPaper2, @Autowired Paper persistentPaper3) {
+        persistentService.persist(persistentResearch1, persistentPaper1, persistentPaper2, persistentPaper3);
+
+        SavedPaper savedPaper1 = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
+        SavedPaper savedPaper2 = paperService.createSavedPaper(persistentResearch1, persistentPaper2, SaveState.ENQUEUED);
+        SavedPaper savedPaper3 = paperService.createSavedPaper(persistentResearch1, persistentPaper3, SaveState.HIDDEN);
 
         try {
-            List<SavedPaper> savedPapers = paperService.getSavedPapers(research, tip.getUser1());
+            List<SavedPaper> savedPapers = paperService.getSavedPapers(persistentResearch1, tip.getUser1());
             Assertions.assertThat(savedPapers).isEqualTo(List.of(savedPaper1, savedPaper2, savedPaper3));
         } catch (WrongUserException e) {
             System.out.println("User is´nt allowed to access this research");
         }
     }
 
-    @Test
-    public void testTagsOnPaper() {
-        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
 
-        Tag tag = new Tag("#0000FF", "Test-Tag", research);
+    @Test
+    public void testTagsOnPaper(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1) {
+        persistentService.persist(persistentResearch1, persistentPaper1);
+
+        SavedPaper paper = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
+
+        Tag tag = new Tag("#0000FF", "Test-Tag", persistentResearch1);
 
         paperService.addTagToPaper(paper, tag);
         Assertions.assertThat(paper.getTags()).isEqualTo(List.of(tag));
@@ -115,8 +123,10 @@ public class PaperServiceTests {
     }
 
     @Test
-    public void testCommentPaper() {
-        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+    public void testCommentPaper(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1) {
+        persistentService.persist(persistentResearch1, persistentPaper1);
+
+        SavedPaper paper = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
 
         paperService.commentPaper(paper, "test");
 
@@ -124,8 +134,10 @@ public class PaperServiceTests {
     }
 
     @Test
-    public void testChangeSaveState() {
-        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+    public void testChangeSaveState(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1) {
+        persistentService.persist(persistentResearch1, persistentPaper1);
+
+        SavedPaper paper = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
 
         paperService.changeSaveState(paper, SaveState.HIDDEN);
 
@@ -133,8 +145,10 @@ public class PaperServiceTests {
     }
 
     @Test
-    public void testRelevanceOnPaper() {
-        SavedPaper paper = paperService.createSavedPaper(research, tip.getPaper1(), SaveState.ADDED);
+    public void testRelevanceOnPaper(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1) {
+        persistentService.persist(persistentResearch1, persistentPaper1);
+
+        SavedPaper paper = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
 
         paperService.setRelevanceOfPaper(paper, 3);
 

@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,8 +44,12 @@ public class CachedPaper {
         this.type = type;
     }
 
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
     public static class CachedPaperId implements Serializable {
         private Research research;
         private Paper paper;
+
     }
 }
