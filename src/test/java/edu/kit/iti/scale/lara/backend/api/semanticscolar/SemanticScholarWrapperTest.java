@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class SemanticScholarWrapperTest {
 
     String jsonPaper = "{\n" +
@@ -527,565 +529,771 @@ class SemanticScholarWrapperTest {
             "    ]\n" +
             "}";
 
-    String jsonRecommendations = "{\n" +
-            "    \"recommendedPapers\": [\n" +
+    String jsonCitations = "{\n" +
+            "    \"offset\": 0,\n" +
+            "    \"data\": [\n" +
             "        {\n" +
-            "            \"paperId\": \"7334e12961f8a15e2276217bbdb19709c427b337\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/7334e12961f8a15e2276217bbdb19709c427b337\",\n" +
-            "            \"title\": \"Extraction of knowledge graph of Covid-19 through mining of unstructured biomedical corpora\",\n" +
-            "            \"abstract\": null,\n" +
-            "            \"venue\": \"Computational biology and chemistry\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 51,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2007598141\",\n" +
-            "                    \"name\": \"Sudhakaran Gajendran\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"152429494\",\n" +
-            "                    \"name\": \"D. Manjula\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1802251\",\n" +
-            "                    \"name\": \"V. Sugumaran\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145936545\",\n" +
-            "                    \"name\": \"R. Hema\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"3b7a73ddc1ebf4dcb29a10865af1246bdbfb2bc6\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/3b7a73ddc1ebf4dcb29a10865af1246bdbfb2bc6\",\n" +
+            "                \"title\": \"CardiffNLP-Metaphor at SemEval-2022 Task 2: Targeted Fine-tuning of Transformer-based Language Models for Idiomaticity Detection\",\n" +
+            "                \"abstract\": \"This paper describes the experiments ran for SemEval-2022 Task 2, subtask A, zero-shot and one-shot settings for idiomaticity detection. Our main approach is based on fine-tuning transformer-based language models as a baseline to perform binary classification. Our system, CardiffNLP-Metaphor, ranked 8th and 7th (respectively on zero- and one-shot settings on this task. Our main contribution lies in the extensive evaluation of transformer-based language models and various configurations, showing, among others, the potential of large multilingual models over base monolingual models. Moreover, we analyse the impact of various input parameters, which offer interesting insights on how language models work in practice.\",\n" +
+            "                \"venue\": \"International Workshop on Semantic Evaluation\",\n" +
+            "                \"year\": 2022,\n" +
+            "                \"referenceCount\": 17,\n" +
+            "                \"citationCount\": 1,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"40450311\",\n" +
+            "                        \"name\": \"Joanne Boisson\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1387447871\",\n" +
+            "                        \"name\": \"José Camacho-Collados\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2254466\",\n" +
+            "                        \"name\": \"Luis Espinosa Anke\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"af06ff742c72973c15beed930aeaade2d717e1fa\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/af06ff742c72973c15beed930aeaade2d717e1fa\",\n" +
-            "            \"title\": \"LamAPI: a comprehensive tool for string-based entity retrieval with type-base filters\",\n" +
-            "            \"abstract\": \"When information available in unstructured or semi-structured formats, e . g ., tables or texts, comes in, finding links between strings appearing in these sources and the entities they refer to in some background Knowledge Graphs (KGs) is a key step to integrate, enrich and extend the data and/or KGs. This Entity Linking task is usually decomposed into Entity Retrieval and Entity Disambiguation because of the large entity search space. This paper presents an Entity Retrieval service (LamAPI) and discusses the impact of different retrieval configurations, i . e ., query and filtering strategies, on the retrieval of entities. The approach is to augment the search activity with extra information, like types, associated with the strings in the original datasets. The results have been empirically validated against public datasets.\",\n" +
-            "            \"venue\": \"OM@ISWC\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 23,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1565656201\",\n" +
-            "                    \"name\": \"R. Avogadro\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"115251752\",\n" +
-            "                    \"name\": \"M. Cremaschi\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2202223394\",\n" +
-            "                    \"name\": \"Fabio D'Adda\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1744309\",\n" +
-            "                    \"name\": \"F. Paoli\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2525935\",\n" +
-            "                    \"name\": \"M. Palmonari\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"b3df38236d47d6334357c2ecbde4351fef490fe8\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/b3df38236d47d6334357c2ecbde4351fef490fe8\",\n" +
+            "                \"title\": \"AStitchInLanguageModels: Dataset and Methods for the Exploration of Idiomaticity in Pre-Trained Language Models\",\n" +
+            "                \"abstract\": \"Despite their success in a variety of NLP tasks, pre-trained language models, due to their heavy reliance on compositionality, fail in effectively capturing the meanings of multiword expressions (MWEs), especially idioms. Therefore, datasets and methods to improve the representation of MWEs are urgently needed. Existing datasets are limited to providing the degree of idiomaticity of expressions along with the literal and, where applicable, (a single) non-literal interpretation of MWEs. This work presents a novel dataset of naturally occurring sentences containing MWEs manu-ally classiﬁed into a ﬁne-grained set of meanings, spanning both English and Portuguese. We use this dataset in two tasks designed to test i) a language model’s ability to detect idiom usage, and ii) the effectiveness of a language model in generating representations of sentences containing idioms. Our experiments demonstrate that, on the task of detecting idiomatic usage, these models perform reason-ably well in the one-shot and few-shot scenarios, but that there is signiﬁcant scope for improvement in the zero-shot scenario. On the task of representing idiomaticity, we ﬁnd that pre-training is not always effective, while ﬁne-tuning could provide a sample efﬁcient method of learning representations of sentences containing MWEs.\",\n" +
+            "                \"venue\": \"Conference on Empirical Methods in Natural Language Processing\",\n" +
+            "                \"year\": 2021,\n" +
+            "                \"referenceCount\": 39,\n" +
+            "                \"citationCount\": 22,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3467205\",\n" +
+            "                        \"name\": \"Harish Tayyar Madabushi\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2126066178\",\n" +
+            "                        \"name\": \"Edward Gow-Smith\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2797847\",\n" +
+            "                        \"name\": \"Carolina Scarton\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2113791974\",\n" +
+            "                        \"name\": \"A. Villavicencio\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"d105cda3a8bfe7a86f28e39dfc7884e50708de50\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/d105cda3a8bfe7a86f28e39dfc7884e50708de50\",\n" +
-            "            \"title\": \"An eye on representation learning in ontology matching\",\n" +
-            "            \"abstract\": \"Representation learning has received increased attention in the last few years in several tasks, including knowledge graph completion, entity resolution, and ontology matching. This paper presents an overview of representation learning approaches applied to the ontology matching task. It proposes to classify such approaches into the following dimensions: lexical unit segmentation, training strategy, and information representation complexity. A discussion on them is presented together with their pros and cons. Perspectives for further developments are also discussed.\",\n" +
-            "            \"venue\": \"OM@ISWC\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 58,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2202263084\",\n" +
-            "                    \"name\": \"Guilherme Sousa\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144130746\",\n" +
-            "                    \"name\": \"Rinaldo Lima\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"3469495\",\n" +
-            "                    \"name\": \"C. Trojahn\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"7a8e09f1b94ac34d98013371390e9ea8ecc3c793\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/7a8e09f1b94ac34d98013371390e9ea8ecc3c793\",\n" +
+            "                \"title\": \"THE SEMANTIC CHARACTERISTICS OF SOME ENGLISH PHRASAL VERBS WITH THE COMPONENT \\\"OUT\\\" IN MODERN ENGLISH\",\n" +
+            "                \"abstract\": \"Статья посвящена изучению основных характеристик фразовых глаголов с компонентом \\\"out\\\" в современном английском языке. Все мировые языки на протяжении своей истории подвергаются многочисленным изменениям. Язык развивается и изменяется вместе с его носителями, их культурой, менталитетом и ценностями. На развитие языка влияет множество факторов. В настоящее время проблема описания фразовых глаголов с различными компонентами находится в центре внимания лингвистов. Особый интерес представляет проблема употребления и способов перевода фразовых глаголов с различными компонентами в современном английском языке. В центре внимания статьи находятся некоторые особенности функционирования английских фразовых глаголов с компонентом \\\"out. Актуальность работы обусловлена интересом лингвистической науки к современному состоянию фразовых глаголов, выведению их классификаций, особенностей семантики, а также их употребления и перевода. Изучение некоторых особенностей и характеристик данных фразовых глаголов может способствовать решению этой проблемы. Автор анализирует различные подходы к классификации фразовых глаголов. Особое внимание уделяется семантической характеристике данных фразовых глаголов.\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2020,\n" +
+            "                \"referenceCount\": 11,\n" +
+            "                \"citationCount\": 0,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"103470209\",\n" +
+            "                        \"name\": \"T. Razuvaeva\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"a0393f5f2c5d38f326e05e70810941ce640a562d\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/a0393f5f2c5d38f326e05e70810941ce640a562d\",\n" +
-            "            \"title\": \"Pylon: Table Union Search through Contrastive Representation Learning\",\n" +
-            "            \"abstract\": \"The large size and fast growth of data repositories, such as data lakes, has spurred the need for data discovery to help analysts find related data. The problem has become challenging as (i) a user typically does not know what datasets exist in an enormous data repository; and (ii) there is usually a lack of a unified data model to capture the interrelationships between heterogeneous datasets from disparate sources. The common practice in production is to provide a keyword search interface over the metadata of datasets but users often have discovery needs that cannot be precisely expressed by keywords. In this work, we address one important class of discovery needs: finding union-able tables. The task is to find tables in the repository (or on the web) that can be unioned with a given query table. The challenge is to rec-ognize union-able columns that may be represented differently. In this paper, we propose a data-driven learning approach: specifically, an unsupervised representation learning and embedding retrieval task. Our key idea is to exploit self-supervised contrastive learning to learn an embedding model that produces close embeddings for columns with semantically similar values while pushing apart columns with semantically dissimilar values. We then find union-able tables based on similarities between their constituent columns in embedding space. On a real-world dataset, we demonstrate that our best-performing model achieves significant improvements in precision (16% ↑ ), recall (17% ↑ ), and query response time (7x faster) compared to the state-of-the-art.\",\n" +
-            "            \"venue\": \"\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 39,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1432234356\",\n" +
-            "                    \"name\": \"Tianji Cong\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145531067\",\n" +
-            "                    \"name\": \"H. Jagadish\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"9eb18e5628e22d003e430a2a389c4983e2deee5e\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/9eb18e5628e22d003e430a2a389c4983e2deee5e\",\n" +
+            "                \"title\": \"CollFrEn: Rich Bilingual English–French Collocation Resource\",\n" +
+            "                \"abstract\": \"Collocations in the sense of idiosyncratic lexical co-occurrences of two syntactically bound words traditionally pose a challenge to language learners and many Natural Language Processing (NLP) applications alike. Reliable ground truth (i.e., ideally manually compiled) resources are thus of high value. We present a manually compiled bilingual English–French collocation resource with 7,480 collocations in English and 6,733 in French. Each collocation is enriched with information that facilitates its downstream exploitation in NLP tasks such as machine translation, word sense disambiguation, natural language generation, relation classification, and so forth. Our proposed enrichment covers: the semantic category of the collocation (its lexical function), its vector space representation (for each individual word as well as their joint collocation embedding), a subcategorization pattern of both its elements, as well as their corresponding BabelNet id, and finally, indices of their occurrences in large scale reference corpora.\",\n" +
+            "                \"venue\": \"Workshop on Multiword Expressions\",\n" +
+            "                \"year\": 2020,\n" +
+            "                \"referenceCount\": 49,\n" +
+            "                \"citationCount\": 2,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3256126\",\n" +
+            "                        \"name\": \"Beatríz Fisas\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1403765478\",\n" +
+            "                        \"name\": \"Joan Codina-Filbà\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2254466\",\n" +
+            "                        \"name\": \"Luis Espinosa Anke\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"9092408\",\n" +
+            "                        \"name\": \"L. Wanner\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"28fdb929d1c4f87bbb9cc0b5bb880567e3c50429\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/28fdb929d1c4f87bbb9cc0b5bb880567e3c50429\",\n" +
-            "            \"title\": \"Information extraction pipelines for knowledge graphs\",\n" +
-            "            \"abstract\": null,\n" +
-            "            \"venue\": \"Knowledge and Information Systems\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 63,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"31187184\",\n" +
-            "                    \"name\": \"M. Y. Jaradeh\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145448000\",\n" +
-            "                    \"name\": \"Kuldeep Singh\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"153237136\",\n" +
-            "                    \"name\": \"M. Stocker\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1697447\",\n" +
-            "                    \"name\": \"A. Both\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145044578\",\n" +
-            "                    \"name\": \"S. Auer\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"dc525639af56eb65245b6c2414dc942bf9622ca3\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/dc525639af56eb65245b6c2414dc942bf9622ca3\",\n" +
+            "                \"title\": \"Literal Occurrences of Multiword Expressions: Rare Birds That Cause a Stir\",\n" +
+            "                \"abstract\": \"Abstract Multiword expressions can have both idiomatic and literal occurrences. For instance pulling strings can be understood either as making use of one’s influence, or literally. Distinguishing these two cases has been addressed in linguistics and psycholinguistics studies, and is also considered one of the major challenges in MWE processing. We suggest that literal occurrences should be considered in both semantic and syntactic terms, which motivates their study in a treebank. We propose heuristics to automatically pre-identify candidate sentences that might contain literal occurrences of verbal VMWEs, and we apply them to existing treebanks in five typologically different languages: Basque, German, Greek, Polish and Portuguese. We also perform a linguistic study of the literal occurrences extracted by the different heuristics. The results suggest that literal occurrences constitute a rare phenomenon. We also identify some properties that may distinguish them from their idiomatic counterparts. This article is a largely extended version of Savary and Cordeiro (2018).\",\n" +
+            "                \"venue\": \"Prague Bulletin of Mathematical Linguistics\",\n" +
+            "                \"year\": 2019,\n" +
+            "                \"referenceCount\": 33,\n" +
+            "                \"citationCount\": 9,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2663884\",\n" +
+            "                        \"name\": \"Agata Savary\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3417784\",\n" +
+            "                        \"name\": \"S. Cordeiro\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"47190197\",\n" +
+            "                        \"name\": \"Timm Lichte\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2325592\",\n" +
+            "                        \"name\": \"Carlos Ramisch\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"51234564\",\n" +
+            "                        \"name\": \"U. Inurrieta\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2408682\",\n" +
+            "                        \"name\": \"Voula Giouli\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"f9f49d9e8ff142c4dcbff82dfe27448f45408dea\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/f9f49d9e8ff142c4dcbff82dfe27448f45408dea\",\n" +
-            "            \"title\": \"A Survey On Few-shot Knowledge Graph Completion with Structural and Commonsense Knowledge\",\n" +
-            "            \"abstract\": \"Knowledge graphs (KG) have served as the key component of various natural language processing applications. Commonsense knowledge graphs (CKG) are a special type of KG, where entities and relations are composed of free-form text. However, previous works in KG completion and CKG completion suffer from long-tail relations and newly-added relations which do not have many know triples for training. In light of this, few-shot KG completion (FKGC), which requires the strengths of graph representation learning and few-shot learning, has been proposed to challenge the problem of limited annotated data. In this paper, we comprehensively survey previous attempts on such tasks in the form of a series of methods and applications. Specifically, we first introduce FKGC challenges, commonly used KGs, and CKGs. Then we systematically categorize and summarize existing works in terms of the type of KGs and the methods. Finally, we present applications of FKGC models on prediction tasks in different areas and share our thoughts on future research directions of FKGC.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 98,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2110816708\",\n" +
-            "                    \"name\": \"Haodi Ma\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2111220343\",\n" +
-            "                    \"name\": \"D. Wang\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"a5ec883e080d858b5df60f1b5d711d514459b1e4\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/a5ec883e080d858b5df60f1b5d711d514459b1e4\",\n" +
+            "                \"title\": \"Still a Pain in the Neck: Evaluating Text Representations on Lexical Composition\",\n" +
+            "                \"abstract\": \"Building meaningful phrase representations is challenging because phrase meanings are not simply the sum of their constituent meanings. Lexical composition can shift the meanings of the constituent words and introduce implicit information. We tested a broad range of textual representations for their capacity to address these issues. We found that, as expected, contextualized word representations perform better than static word embeddings, more so on detecting meaning shift than in recovering implicit information, in which their performance is still far from that of humans. Our evaluation suite, consisting of six tasks related to lexical composition effects, can serve future research aiming to improve representations.\",\n" +
+            "                \"venue\": \"International Conference on Topology, Algebra and Categories in Logic\",\n" +
+            "                \"year\": 2019,\n" +
+            "                \"referenceCount\": 67,\n" +
+            "                \"citationCount\": 54,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3103343\",\n" +
+            "                        \"name\": \"Vered Shwartz\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"7465342\",\n" +
+            "                        \"name\": \"Ido Dagan\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"1122fab167a885d1d2f2a3be2826d2649baf8575\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/1122fab167a885d1d2f2a3be2826d2649baf8575\",\n" +
-            "            \"title\": \"BigText-QA: Question Answering over a Large-Scale Hybrid Knowledge Graph\",\n" +
-            "            \"abstract\": \"Answering complex questions over textual resources remains a challenging problem—especially when interpreting the fine-grained relationships among multiple entities that occur within a naturallanguage question or clue. Curated knowledge bases (KBs), such as YAGO, DBpedia, Freebase and Wikidata, have been widely used in this context and gained great acceptance for question-answering (QA) applications in the past decade. While current KBs offer a concise representation of structured knowledge, they lack the variety of formulations and semantic nuances as well as the context of information provided by the natural-language sources. With BigText-QA, we aim to develop an integrated QA system which is able to answer questions based on a more redundant form of a knowledge graph (KG) that organizes both structured and unstructured (i.e., “hybrid”) knowledge in a unified graphical representation. BigText-QA thereby is able to combine the best of both worlds—a canonical set of named entities, mapped to a structured background KB (such as YAGO or Wikidata), as well as an open set of textual clauses providing highly diversified relational paraphrases with rich context information.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 52,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2143806543\",\n" +
-            "                    \"name\": \"Jin Xu\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144233860\",\n" +
-            "                    \"name\": \"M. Biryukov\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144530424\",\n" +
-            "                    \"name\": \"M. Theobald\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"148325532\",\n" +
-            "                    \"name\": \"V. E. Venugopal\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"9b48cbcaac4871a8264f9735ba323fe44c682951\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/9b48cbcaac4871a8264f9735ba323fe44c682951\",\n" +
+            "                \"title\": \"PARSEME multilingual corpus of verbal multiword expressions\",\n" +
+            "                \"abstract\": \"Agata Savary1, Marie Candito2, Verginica BarbuMititelu3, Eduard Bejček4, Fabienne Cap5, Slavomír Čéplö6, Silvio Ricardo Cordeiro7, Gülşen Eryiğit8, Voula Giouli9, Maarten van Gompel10, Yaakov HaCohen-Kerner11, Jolanta Kovalevskaitė12, SimonKrek13, Chaya Liebeskind11, JohannaMonti14, Carla Parra Escartín15, Lonneke van der Plas6, Behrang QasemiZadeh16, Carlos Ramisch7, Federico Sangati17, Ivelina Stoyanova18 & Veronika Vincze19 1Université de Tours (France), 2Université Paris Diderot (France), 3Romanian Academy Research Institute for Artificial Intelligence (Romania), 4Charles University (Czech Republic), 5Uppsala University (Sweden), 6University of Malta (Malta), 7Aix Marseille University (France), 8Istanbul Technical University (Turkey), 9Athena Research Center in Athens (Greece), 10Radboud University in Nijmegen (Netherlands), 11Jerusalem College of Technology (Israel), 12Vytautas Magnus University in Kaunas (Lithuania), 13Jožef Stefan Institute in Ljubljana (Slovenia), 14“L’Orientale” University of Naples (Italy), 15ADAPT Centre, Dublin City University (Ireland), 16University of Düsseldorf (Germany), 17independent researcher (Italy), 18Bulgarian Academy of Sciences in Sofia (Bulgaria), 19Univer-\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2018,\n" +
+            "                \"referenceCount\": 83,\n" +
+            "                \"citationCount\": 39,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"122862283\",\n" +
+            "                        \"name\": \"J. Monti\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2077215474\",\n" +
+            "                        \"name\": \"Savary Agata\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2636107\",\n" +
+            "                        \"name\": \"Marie Candito\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1745399\",\n" +
+            "                        \"name\": \"V. Mititelu\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"117094016\",\n" +
+            "                        \"name\": \"Bejček Eduard\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"117615943\",\n" +
+            "                        \"name\": \"Cap Fabienne\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"117526793\",\n" +
+            "                        \"name\": \"Čéplö Slavomir\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3417784\",\n" +
+            "                        \"name\": \"S. Cordeiro\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2082855903\",\n" +
+            "                        \"name\": \"Eryiğit Gülşen\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2084787772\",\n" +
+            "                        \"name\": \"Voula Giouli\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3218618\",\n" +
+            "                        \"name\": \"M. V. Gompel\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"115463236\",\n" +
+            "                        \"name\": \"HaCohen-Kerner Yaakov\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"116834802\",\n" +
+            "                        \"name\": \"Kovalevskaitė Jolanta\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"116134945\",\n" +
+            "                        \"name\": \"Krek Simon\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"115203606\",\n" +
+            "                        \"name\": \"Liebeskind Chaya\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2969658\",\n" +
+            "                        \"name\": \"Carla Parra Escartín\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3356545\",\n" +
+            "                        \"name\": \"Lonneke van der Plas\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"117250721\",\n" +
+            "                        \"name\": \"Qasemizadeh Behrang\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"117610782\",\n" +
+            "                        \"name\": \"Ramisch Carlos\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1764422\",\n" +
+            "                        \"name\": \"Federico Sangati\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"116757421\",\n" +
+            "                        \"name\": \"Stoyanova Ivelina\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2067158402\",\n" +
+            "                        \"name\": \"Vincze Veronika\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"fff5b14850f6d1a4742bdabbff1ec5f7535d8c04\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/fff5b14850f6d1a4742bdabbff1ec5f7535d8c04\",\n" +
-            "            \"title\": \"Knowledge of the Ancestors: Intelligent Ontology-aware Annotation of Biological Literature using Semantic Similarity\",\n" +
-            "            \"abstract\": \"Natural language processing models have emerged as a solution to manual curation for fast and automated annotation of literature with ontology concepts. Deep learning architectures have particularly been employed for this task due to increased accuracy over traditional machine learning techniques. One of the greatest limitations in prior work is that the architectures do not use the ontology hierarchy while training or making predictions. These models treat ontology concepts as if they were independent entities while ignoring the semantics and relationships represented in the ontology. Here, we present deep learning architectures for ontology-aware models that use the ontology hierarchy for training and predicting ontology concepts for pieces of text.\",\n" +
-            "            \"venue\": \"\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 21,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2193671817\",\n" +
-            "                    \"name\": \"D. S. D. Mohanty\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2193671689\",\n" +
-            "                    \"name\": \"DR. Prashanti Manda\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"46db27d65bca54619d5783acba9161a2d8c49efa\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/46db27d65bca54619d5783acba9161a2d8c49efa\",\n" +
+            "                \"title\": \"Extraction of templates from phrases using Sequence Binary Decision Diagrams\",\n" +
+            "                \"abstract\": \"Abstract The extraction of templates such as ‘regard X as Y’ from a set of related phrases requires the identification of their internal structures. This paper presents an unsupervised approach for extracting templates on-the-fly from only tagged text by using a novel relaxed variant of the Sequence Binary Decision Diagram (SeqBDD). A SeqBDD can compress a set of sequences into a graphical structure equivalent to a minimal deterministic finite state automata, but more compact and better suited to the task of template extraction. The main contribution of this paper is a relaxed form of the SeqBDD construction algorithm that enables it to form general representations from a small amount of data. The process of compression of shared structures in the text during Relaxed SeqBDD construction, naturally induces the templates we wish to extract. Experiments show that the method is capable of high-quality extraction on tasks based on verb+preposition templates from corpora and phrasal templates from short messages from social media.\",\n" +
+            "                \"venue\": \"Natural Language Engineering\",\n" +
+            "                \"year\": 2018,\n" +
+            "                \"referenceCount\": 60,\n" +
+            "                \"citationCount\": 2,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2081874823\",\n" +
+            "                        \"name\": \"D. Hirano\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"6830931\",\n" +
+            "                        \"name\": \"Kumiko Tanaka-Ishii\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2987548\",\n" +
+            "                        \"name\": \"A. Finch\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"ef9fcab68d44e55e1e44439c26ede109e892f591\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/ef9fcab68d44e55e1e44439c26ede109e892f591\",\n" +
-            "            \"title\": \"MORTY: Structured Summarization for Targeted Information Extraction from Scholarly Articles\",\n" +
-            "            \"abstract\": null,\n" +
-            "            \"venue\": \"International Conference on Asian Digital Libraries\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 43,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"31187184\",\n" +
-            "                    \"name\": \"M. Y. Jaradeh\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"153237136\",\n" +
-            "                    \"name\": \"M. Stocker\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145044578\",\n" +
-            "                    \"name\": \"S. Auer\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"b902beee1aea4ae62e3e4a7e1ad99e5e3962d995\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/b902beee1aea4ae62e3e4a7e1ad99e5e3962d995\",\n" +
+            "                \"title\": \"Chapter 4 PARSEME multilingual corpus of verbal multiword expressions\",\n" +
+            "                \"abstract\": \"Agata Savary1, Marie Candito2, Verginica BarbuMititelu3, Eduard Bejček4, Fabienne Cap5, Slavomír Čéplö6, Silvio Ricardo Cordeiro7, Gülşen Eryiğit8, Voula Giouli9, Maarten van Gompel10, Yaakov HaCohen-Kerner11, Jolanta Kovalevskaitė12, SimonKrek13, Chaya Liebeskind11, JohannaMonti14, Carla Parra Escartín15, Lonneke van der Plas6, Behrang QasemiZadeh16, Carlos Ramisch7, Federico Sangati17, Ivelina Stoyanova18 & Veronika Vincze19 1Université de Tours (France), 2Université Paris Diderot (France), 3Romanian Academy Research Institute for Artificial Intelligence (Romania), 4Charles University (Czech Republic), 5Uppsala University (Sweden), 6University of Malta (Malta), 7Aix Marseille University (France), 8Istanbul Technical University (Turkey), 9Athena Research Center in Athens (Greece), 10Radboud University in Nijmegen (Netherlands), 11Jerusalem College of Technology (Israel), 12Vytautas Magnus University in Kaunas (Lithuania), 13Jožef Stefan Institute in Ljubljana (Slovenia), 14“L’Orientale” University of Naples (Italy), 15ADAPT Centre, Dublin City University (Ireland), 16University of Düsseldorf (Germany), 17independent researcher (Italy), 18Bulgarian Academy of Sciences in Sofia (Bulgaria), 19Univer-\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2018,\n" +
+            "                \"referenceCount\": 49,\n" +
+            "                \"citationCount\": 0,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2663884\",\n" +
+            "                        \"name\": \"Agata Savary\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2636107\",\n" +
+            "                        \"name\": \"Marie Candito\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2103550350\",\n" +
+            "                        \"name\": \"Verginica BarbuMititelu\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2082743867\",\n" +
+            "                        \"name\": \"-. Ed\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2098089610\",\n" +
+            "                        \"name\": \"uard Bejček\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2593268\",\n" +
+            "                        \"name\": \"Fabienne Cap\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"67299460\",\n" +
+            "                        \"name\": \"S. Čéplö\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"108258350\",\n" +
+            "                        \"name\": \"Silvio Ricardo\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2081261192\",\n" +
+            "                        \"name\": \"Cordeiro\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3348151\",\n" +
+            "                        \"name\": \"G. Eryigit\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2408682\",\n" +
+            "                        \"name\": \"Voula Giouli\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1401813543\",\n" +
+            "                        \"name\": \"Yaakov Hacohen-Kerner\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2430860\",\n" +
+            "                        \"name\": \"J. Kovalevskaite\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2102872512\",\n" +
+            "                        \"name\": \"-. Si\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2102485134\",\n" +
+            "                        \"name\": \"monKrek\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2601200\",\n" +
+            "                        \"name\": \"Chaya Liebeskind\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2100931332\",\n" +
+            "                        \"name\": \"JohannaMonti\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2056617210\",\n" +
+            "                        \"name\": \"Carla Parra\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2083192363\",\n" +
+            "                        \"name\": \"Escartín\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3356545\",\n" +
+            "                        \"name\": \"Lonneke van der Plas\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"133719748\",\n" +
+            "                        \"name\": \"Behrang Qasemizadeh\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2325592\",\n" +
+            "                        \"name\": \"Carlos Ramisch\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1764422\",\n" +
+            "                        \"name\": \"Federico Sangati\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"35061489\",\n" +
+            "                        \"name\": \"I. Stoyanova\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2536091\",\n" +
+            "                        \"name\": \"V. Vincze\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"00971ecf9ea497286c0c454b34ff4ff355170df2\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/00971ecf9ea497286c0c454b34ff4ff355170df2\",\n" +
-            "            \"title\": \"Open Relation and Event Type Discovery with Type Abstraction\",\n" +
-            "            \"abstract\": \"Conventional “closed-world\\\" information extraction (IE) approaches rely on human ontolo-gies to deﬁne the scope for extraction. As a result, such approaches fall short when applied to new domains. This calls for systems that can automatically infer new types from given corpora, a task which we refer to as type discovery . To tackle this problem, we introduce the idea of type abstraction, where the model is prompted to generalize and name the type. Then we use the similarity between inferred names to induce clusters. Observing that this abstraction-based representation is often complementary to the entity/trigger token representation, we set up these two representations as two views and design our model as a co-training framework. Our experiments on multiple relation extraction and event extraction datasets consistently show the advantage of our type abstraction approach.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 39,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2109154767\",\n" +
-            "                    \"name\": \"Sha Li\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2181650518\",\n" +
-            "                    \"name\": \"Heng Ji\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2111759643\",\n" +
-            "                    \"name\": \"Jiawei Han\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"df931a78442bcfd026681ddd98056e561f3b3443\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/df931a78442bcfd026681ddd98056e561f3b3443\",\n" +
+            "                \"title\": \"Putting the Horses Before the Cart: Identifying Multiword Expressions Before Translation\",\n" +
+            "                \"abstract\": null,\n" +
+            "                \"venue\": \"International Conference on Computational and Corpus-Based Phraseology\",\n" +
+            "                \"year\": 2017,\n" +
+            "                \"referenceCount\": 46,\n" +
+            "                \"citationCount\": 2,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2325592\",\n" +
+            "                        \"name\": \"Carlos Ramisch\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"a85f8b366f368bfef168e2090adb33a9bbafcb7d\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/a85f8b366f368bfef168e2090adb33a9bbafcb7d\",\n" +
-            "            \"title\": \"UvA-DARE (Digital Academic Repository) Towards Entity Spaces Towards Entity Spaces\",\n" +
-            "            \"abstract\": \"Entities are a central element of knowledge bases and are important input to many knowledge-centric tasks including text analysis. For example, they allow us to ﬁnd documents relevant to a speciﬁc entity irrespective of the underlying syntactic expression within a document. However, the entities that are commonly represented in knowledge bases are often a simpliﬁcation of what is truly being referred to in text. For example, in a knowledge base, we may have an entity for Germany as a country but not for the more fuzzy concept of Germany that covers notions of German Population, German Drivers, and the German Government. Inspired by recent advances in contextual word embeddings, we introduce the concept of entity spaces - speciﬁc representations of a set of associated entities with near-identity. Thus, these entity spaces provide a handle to an amorphous grouping of entities. We developed a proof-of-concept for English showing how, through the introduction of entity spaces in the form of disambiguation pages, the recall of entity linking can be improved.\",\n" +
-            "            \"venue\": \"\",\n" +
-            "            \"year\": 2020,\n" +
-            "            \"referenceCount\": 35,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2064426690\",\n" +
-            "                    \"name\": \"F. Béchet\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2652453\",\n" +
-            "                    \"name\": \"P. Blache\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1678451\",\n" +
-            "                    \"name\": \"K. Choukri\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2147401\",\n" +
-            "                    \"name\": \"C. Cieri\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"72836788\",\n" +
-            "                    \"name\": \"T. Declerck\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2612444\",\n" +
-            "                    \"name\": \"S. Goggi\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1714134\",\n" +
-            "                    \"name\": \"H. Isahara\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2021893\",\n" +
-            "                    \"name\": \"B. Maegaard\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144870387\",\n" +
-            "                    \"name\": \"J. Mariani\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2347502\",\n" +
-            "                    \"name\": \"H. Mazo\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2152222170\",\n" +
-            "                    \"name\": \"A.\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2075515808\",\n" +
-            "                    \"name\": \"Moreno\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"113532881\",\n" +
-            "                    \"name\": \"J. Odijk\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2954279\",\n" +
-            "                    \"name\": \"Stelios Piperidis\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"741d7ef4de4919a46544ff0451c61a5213c8b0a7\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/741d7ef4de4919a46544ff0451c61a5213c8b0a7\",\n" +
+            "                \"title\": \"The PARSEME Shared Task on Automatic Identification of Verbal Multiword Expressions\",\n" +
+            "                \"abstract\": \"Multiword expressions (MWEs) are known as a “pain in the neck” for NLP due to their idiosyncratic behaviour. While some categories of MWEs have been addressed by many studies, verbal MWEs (VMWEs), such as to take a decision, to break one’s heart or to turn off, have been rarely modelled. This is notably due to their syntactic variability, which hinders treating them as “words with spaces”. We describe an initiative meant to bring about substantial progress in understanding, modelling and processing VMWEs. It is a joint effort, carried out within a European research network, to elaborate universal terminologies and annotation guidelines for 18 languages. Its main outcome is a multilingual 5-million-word annotated corpus which underlies a shared task on automatic identification of VMWEs. This paper presents the corpus annotation methodology and outcome, the shared task organisation and the results of the participating systems.\",\n" +
+            "                \"venue\": \"MWE@EACL\",\n" +
+            "                \"year\": 2017,\n" +
+            "                \"referenceCount\": 68,\n" +
+            "                \"citationCount\": 111,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2663884\",\n" +
+            "                        \"name\": \"Agata Savary\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2325592\",\n" +
+            "                        \"name\": \"Carlos Ramisch\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3417784\",\n" +
+            "                        \"name\": \"S. Cordeiro\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1764422\",\n" +
+            "                        \"name\": \"Federico Sangati\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2536091\",\n" +
+            "                        \"name\": \"V. Vincze\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1746326\",\n" +
+            "                        \"name\": \"B. Zadeh\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2636107\",\n" +
+            "                        \"name\": \"Marie Candito\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2593268\",\n" +
+            "                        \"name\": \"Fabienne Cap\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2408682\",\n" +
+            "                        \"name\": \"Voula Giouli\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"35061489\",\n" +
+            "                        \"name\": \"I. Stoyanova\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"34796546\",\n" +
+            "                        \"name\": \"A. Doucet\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"a85f8b366f368bfef168e2090adb33a9bbafcb7d\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/a85f8b366f368bfef168e2090adb33a9bbafcb7d\",\n" +
-            "            \"title\": \"UvA-DARE (Digital Academic Repository) Towards Entity Spaces Towards Entity Spaces\",\n" +
-            "            \"abstract\": \"Entities are a central element of knowledge bases and are important input to many knowledge-centric tasks including text analysis. For example, they allow us to ﬁnd documents relevant to a speciﬁc entity irrespective of the underlying syntactic expression within a document. However, the entities that are commonly represented in knowledge bases are often a simpliﬁcation of what is truly being referred to in text. For example, in a knowledge base, we may have an entity for Germany as a country but not for the more fuzzy concept of Germany that covers notions of German Population, German Drivers, and the German Government. Inspired by recent advances in contextual word embeddings, we introduce the concept of entity spaces - speciﬁc representations of a set of associated entities with near-identity. Thus, these entity spaces provide a handle to an amorphous grouping of entities. We developed a proof-of-concept for English showing how, through the introduction of entity spaces in the form of disambiguation pages, the recall of entity linking can be improved.\",\n" +
-            "            \"venue\": \"\",\n" +
-            "            \"year\": 2020,\n" +
-            "            \"referenceCount\": 35,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2064426690\",\n" +
-            "                    \"name\": \"F. Béchet\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2652453\",\n" +
-            "                    \"name\": \"P. Blache\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1678451\",\n" +
-            "                    \"name\": \"K. Choukri\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2147401\",\n" +
-            "                    \"name\": \"C. Cieri\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"72836788\",\n" +
-            "                    \"name\": \"T. Declerck\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2612444\",\n" +
-            "                    \"name\": \"S. Goggi\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1714134\",\n" +
-            "                    \"name\": \"H. Isahara\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2021893\",\n" +
-            "                    \"name\": \"B. Maegaard\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144870387\",\n" +
-            "                    \"name\": \"J. Mariani\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2347502\",\n" +
-            "                    \"name\": \"H. Mazo\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2152222170\",\n" +
-            "                    \"name\": \"A.\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2075515808\",\n" +
-            "                    \"name\": \"Moreno\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"113532881\",\n" +
-            "                    \"name\": \"J. Odijk\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2954279\",\n" +
-            "                    \"name\": \"Stelios Piperidis\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"9d1c44e8740d812c2385694c00fa884bd0cf285c\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/9d1c44e8740d812c2385694c00fa884bd0cf285c\",\n" +
+            "                \"title\": \"Computational and Corpus-based Phraseology Recent advances and interdisciplinary approaches Workshop Chairs\",\n" +
+            "                \"abstract\": \"Putting the Horses before the Cart: Identifying Multiword Expressions before Translation Translating multiword expressions (MWEs) is notoriously difficult. Part of the challenge stems from the analysis of non-compositional expressions in source texts, preventing literal translation. Therefore, before translating them, it is crucial to locate MWEs in the source text. We would be putting the cart before the horses if we tried to translate MWEs before ensuring that they are correctly identified in the source text. This paper discusses the current state of affairs in automatic MWE identification, covering rule-based methods and sequence taggers. While MWE identification is not a solved problem, significant advances have been made in the recent years. Hence, we can hope that MWE identification can be integrated into MT in the near future, thus avoiding clumsy translations that have often been mocked and used to motivate the urgent need for better MWE processing. iv Proceedings of The 3rd Workshop on Multi-word Units in Machine Translation and Translation Technology (MUMTTT 2017), London, 14 November 2017. Computational and Corpus-based Phraseology Recent advances and interdisciplinary approaches MUMTTT 2017 Academic Programme Tuesday, 14th November 2017 Session 1: Multi-words in Machine Translation Multi-word Adverbs How well are they handled in Parsing and Machine Translation? Martin Volk and Johannes Graën Chinese Separable Words in SMT Gongbo Tang and Fabienne Cap Out of the tailor or still in the woods? An empirical study of MWEs in MT Fabienne Cap Tuesday, 14th November 2017\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2017,\n" +
+            "                \"referenceCount\": 42,\n" +
+            "                \"citationCount\": 0,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"70340650\",\n" +
+            "                        \"name\": \"Gloria Corpas\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"4538fd99ea0fce7bc255985046a9890312d6d1ed\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/4538fd99ea0fce7bc255985046a9890312d6d1ed\",\n" +
-            "            \"title\": \"The Largest Knowledge Graph in Materials Science Entities, Relations, and Link Prediction through Graph Representation Learning\",\n" +
-            "            \"abstract\": \"This paper introduces MatKG, a novel graph database of key concepts in material 1 science spanning the traditional material-structure-property-processing paradigm. 2 MatKG is autonomously generated through transformer-based, large language 3 models and generates pseudo ontological schema through statistical co-occurrence 4 mapping. At present, MatKG contains over 2 million unique relationship triples 5 derived from 80,000 entities. This allows the curated analysis, querying, and 6 visualization of materials knowledge at unique resolution and scale. Further, 7 Knowledge Graph Embedding models are used to learn embedding representations 8 of nodes in the graph which are used for downstream tasks such as link prediction 9 and entity disambiguation. MatKG allows the rapid dissemination and assimilation 10 of data when used as a knowledge base, while enabling the discovery of new 11 relations when trained as an embedding model.\",\n" +
-            "            \"venue\": \"\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 28,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"23138704\",\n" +
-            "                    \"name\": \"John Dagdelen\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144979831\",\n" +
-            "                    \"name\": \"Alex Dunn\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144503015\",\n" +
-            "                    \"name\": \"O. Kononova\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"144431479\",\n" +
-            "                    \"name\": \"Mary Brady\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"9730842\",\n" +
-            "                    \"name\": \"C. Campbell\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2193532542\",\n" +
-            "                    \"name\": \"Arthur P Ramirez\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2193465627\",\n" +
-            "                    \"name\": \"Lars PE Yunker\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"4db59ac2af4a8f73f88bcdf4773e65546e96087b\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/4db59ac2af4a8f73f88bcdf4773e65546e96087b\",\n" +
+            "                \"title\": \"Verb-Particle Constructions in Questions\",\n" +
+            "                \"abstract\": \"In this paper, we investigate the behavior of verb-particle constructions in English questions. We present a small dataset that contains questions and verb-particle construction candidates. We demonstrate that there are significant differences in the distribution of WH-words, verbs and prepositions/particles in sentences that contain VPCs and sentences that contain only verb + prepositional phrase combinations both by statistical means and in machine learning experiments. Hence, VPCs and non-VPCs can be effectively separated from each other by using a rich feature set, containing several novel features.\",\n" +
+            "                \"venue\": \"MWE@EACL\",\n" +
+            "                \"year\": 2017,\n" +
+            "                \"referenceCount\": 16,\n" +
+            "                \"citationCount\": 1,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2536091\",\n" +
+            "                        \"name\": \"V. Vincze\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"cd47cc6b4cfa460c01250acfad5ec95b4e7db9df\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/cd47cc6b4cfa460c01250acfad5ec95b4e7db9df\",\n" +
-            "            \"title\": \"Towards Improving the Explainability of Text-based Information Retrieval with Knowledge Graphs\",\n" +
-            "            \"abstract\": \"Thanks to recent advancements in machine learning, vector-based methods have been adopted in many modern information retrieval (IR) systems. While showing promising retrieval performance, these approaches typically fail to explain why a particular document is retrieved as a query result to address explainable information retrieval (XIR). Knowledge graphs record structured information about entities and inherently explainable relationships. Most of existing XIR approaches focus exclusively on the retrieval model with little consideration on using existing knowledge graphs for providing an explanation. In this paper, we propose a general architecture to incorporate knowledge graphs for XIR in various steps of the retrieval process. Furthermore, we create two instances of the architecture for different types of explanation. We evaluate our approaches on well-known IR benchmarks using standard metrics and compare them with vector-based methods as baselines.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 46,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2882606\",\n" +
-            "                    \"name\": \"Boqi Chen\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145578365\",\n" +
-            "                    \"name\": \"Kuan-Yu Chen\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"3001727\",\n" +
-            "                    \"name\": \"Yujiu Yang\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2201327459\",\n" +
-            "                    \"name\": \"Afshin Amini\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2201329609\",\n" +
-            "                    \"name\": \"Bharat Saxena\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2201319560\",\n" +
-            "                    \"name\": \"Cecilia Ch'avez-Garc'ia\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2587928\",\n" +
-            "                    \"name\": \"Majid Babaei\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"15845853\",\n" +
-            "                    \"name\": \"A. Feizpour\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"71971228\",\n" +
-            "                    \"name\": \"Dániel Varró\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"cb5f1497bd88a9f994a91cd21aad283a4469bde3\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/cb5f1497bd88a9f994a91cd21aad283a4469bde3\",\n" +
+            "                \"title\": \"Metaphor: A Computational Perspective\",\n" +
+            "                \"abstract\": \"\uE000e literary imagination may take flight on the wings of metaphor, but hard-headed scientists are just as likely as doe-eyed poets to reach for a metaphor when the descriptive need arises. Metaphor is a pervasive aspect of every genre of text and every register of speech, and is as useful for describing the inner workings of a “black hole” (itself a metaphor) as it is the affairs of the human heart. \uE000e ubiquity of metaphor in natural language thus poses a significant challenge for Natural Language Processing (NLP) systems and their builders, who cannot afford to wait until the problems of literal language have been solved before turning their attention to figurative phenomena. \uE000is book offers a comprehensive approach to the computational treatment of metaphor and its figurative brethren—including simile, analogy, and conceptual blending—that does not shy away from their important cognitive and philosophical dimensions. Veale, Shutova, and Beigman Klebanov approach metaphor from multiple computational perspectives, providing coverage of both symbolic and statistical approaches to interpretation and paraphrase generation, while also considering key contributions from philosophy on what constitutes the “meaning” of a metaphor. \uE000is book also surveys available metaphor corpora and discusses protocols for metaphor annotation. Any reader with an interest in metaphor, from beginning researchers to seasoned scholars, will find this book to be an invaluable guide to what is a fascinating linguistic phenomenon.\",\n" +
+            "                \"venue\": \"Metaphor: A Computational Perspective\",\n" +
+            "                \"year\": 2016,\n" +
+            "                \"referenceCount\": 173,\n" +
+            "                \"citationCount\": 28,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1695574\",\n" +
+            "                        \"name\": \"T. Veale\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2362276\",\n" +
+            "                        \"name\": \"Ekaterina Shutova\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2817411\",\n" +
+            "                        \"name\": \"Beata Beigman Klebanov\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"5cb13825a91e1dfbe3d2890c4c2c62affacc4ecd\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/5cb13825a91e1dfbe3d2890c4c2c62affacc4ecd\",\n" +
-            "            \"title\": \"Pylon: Semantic Table Union Search in Data Lakes\",\n" +
-            "            \"abstract\": \"—The large size and fast growth of data repositories, such as data lakes, has spurred the need for data discovery to help analysts ﬁnd related data. The problem has become challenging as (i) a user typically does not know what datasets exist in an enormous data repository; and (ii) there is usually a lack of a uniﬁed data model to capture the interrelationships between heterogeneous datasets from disparate sources. In this work, we address one important class of discovery needs: ﬁnding union-able tables. The task is to ﬁnd tables in a data lake that can be unioned with a given query table. The challenge is to recognize union- able columns even if they are represented differently. In this paper, we propose a data-driven learning approach: speciﬁcally, an unsupervised representation learning and embedding retrieval task. Our key idea is to exploit self-supervised contrastive learning to learn an embedding model that takes into account the indexing/search data structure and produces embeddings close by for columns with semantically similar values while pushing apart columns with semantically dissimilar values. We then ﬁnd union-able tables based on similarities between their constituent columns in embedding space. On a real-world data lake, we demonstrate that our best-performing model achieves signiﬁcant improvements in precision ( 16% ↑ ), recall ( 17% ↑ ), and query response time (7x faster) compared to the state-of-the-art.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2023,\n" +
-            "            \"referenceCount\": 35,\n" +
-            "            \"citationCount\": 1,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"1432234356\",\n" +
-            "                    \"name\": \"Tianji Cong\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2315516\",\n" +
-            "                    \"name\": \"F. Nargesian\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"145531067\",\n" +
-            "                    \"name\": \"H. Jagadish\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"1514e10c81a12da4f201a4acc5e745a66a11ee86\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/1514e10c81a12da4f201a4acc5e745a66a11ee86\",\n" +
+            "                \"title\": \"Proceedings of The 3rd Workshop on Multi-word Units in Machine Translation and Translation Technology (MUMTTT 2017)\",\n" +
+            "                \"abstract\": \"Putting the Horses before the Cart: Identifying Multiword Expressions before Translation Translating multiword expressions (MWEs) is notoriously difficult. Part of the challenge stems from the analysis of non-compositional expressions in source texts, preventing literal translation. Therefore, before translating them, it is crucial to locate MWEs in the source text. We would be putting the cart before the horses if we tried to translate MWEs before ensuring that they are correctly identified in the source text. This paper discusses the current state of affairs in automatic MWE identification, covering rule-based methods and sequence taggers. While MWE identification is not a solved problem, significant advances have been made in the recent years. Hence, we can hope that MWE identification can be integrated into MT in the near future, thus avoiding clumsy translations that have often been mocked and used to motivate the urgent need for better MWE processing. iv Proceedings of The 3rd Workshop on Multi-word Units in Machine Translation and Translation Technology (MUMTTT 2017), London, 14 November 2017. Computational and Corpus-based Phraseology Recent advances and interdisciplinary approaches MUMTTT 2017 Academic Programme Tuesday, 14th November 2017 Session 1: Multi-words in Machine Translation Multi-word Adverbs How well are they handled in Parsing and Machine Translation? Martin Volk and Johannes Graën Chinese Separable Words in SMT Gongbo Tang and Fabienne Cap Out of the tailor or still in the woods? An empirical study of MWEs in MT Fabienne Cap Tuesday, 14th November 2017\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2015,\n" +
+            "                \"referenceCount\": 63,\n" +
+            "                \"citationCount\": 0,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"39222489\",\n" +
+            "                        \"name\": \"J. Monti\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1804994\",\n" +
+            "                        \"name\": \"G. C. Pastor\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3109039\",\n" +
+            "                        \"name\": \"Violeta Seretan\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1746371\",\n" +
+            "                        \"name\": \"R. Mitkov\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
             "        {\n" +
-            "            \"paperId\": \"e7b2f6960aa1eb34cb84af01f23df7ce230f1a95\",\n" +
-            "            \"url\": \"https://www.semanticscholar.org/paper/e7b2f6960aa1eb34cb84af01f23df7ce230f1a95\",\n" +
-            "            \"title\": \"Scientific Paper Extractive Summarization Enhanced by Citation Graphs\",\n" +
-            "            \"abstract\": \"In a citation graph, adjacent paper nodes share related scientiﬁc terms and topics. The graph thus conveys unique structure information of document-level relatedness that can be utilized in the paper summarization task, for explor-ing beyond the intra-document information. In this work, we focus on leveraging citation graphs to improve scientiﬁc paper extractive summarization under different settings. We ﬁrst propose a Multi-granularity Unsupervised Summarization model (MUS) as a simple and low-cost solution to the task. MUS ﬁnetunes a pre-trained encoder model on the citation graph by link prediction tasks. Then, the abstract sentences are extracted from the corresponding paper considering multi-granularity information. Preliminary results demonstrate that citation graph is helpful even in a simple unsupervised framework. Motivated by this, we next propose a Graph-based Supervised Summarization model (GSS) to achieve more accurate results on the task when large-scale labeled data are available. Apart from employing the link prediction as an auxiliary task, GSS introduces a gated sentence encoder and a graph information fusion module to take advantage of the graph information to polish the sentence representation. Experiments on a public benchmark dataset show that MUS and GSS bring substantial improvements over the prior state-of-the-art model.\",\n" +
-            "            \"venue\": \"ArXiv\",\n" +
-            "            \"year\": 2022,\n" +
-            "            \"referenceCount\": 31,\n" +
-            "            \"citationCount\": 0,\n" +
-            "            \"authors\": [\n" +
-            "                {\n" +
-            "                    \"authorId\": \"46772896\",\n" +
-            "                    \"name\": \"Xiuying Chen\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2135609879\",\n" +
-            "                    \"name\": \"Mingzhe Li\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2112311595\",\n" +
-            "                    \"name\": \"Shen Gao\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2055863987\",\n" +
-            "                    \"name\": \"Rui Yan\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2118502950\",\n" +
-            "                    \"name\": \"Xin Gao\"\n" +
-            "                },\n" +
-            "                {\n" +
-            "                    \"authorId\": \"2928371\",\n" +
-            "                    \"name\": \"Xiangliang Zhang\"\n" +
-            "                }\n" +
-            "            ]\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"beffa528ccb38bba8ec50f1d7ce69aba6428792b\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/beffa528ccb38bba8ec50f1d7ce69aba6428792b\",\n" +
+            "                \"title\": \"Comprehensive Annotation of Multiword Expressions in a Social Web Corpus\",\n" +
+            "                \"abstract\": \"Multiword expressions (MWEs) are quite frequent in languages such as English, but their diversity, the scarcity of individual MWE types, and contextual ambiguity have presented obstacles to corpus-based studies and NLP systems addressing them as a class. Here we advocate for a comprehensive annotation approach: proceeding sentence by sentence, our annotators manually group tokens into MWEs according to guidelines that cover a broad range of multiword phenomena. Under this scheme, we have fully annotated an English web corpus for multiword expressions, including those containing gaps.\",\n" +
+            "                \"venue\": \"International Conference on Language Resources and Evaluation\",\n" +
+            "                \"year\": 2014,\n" +
+            "                \"referenceCount\": 35,\n" +
+            "                \"citationCount\": 84,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"145254207\",\n" +
+            "                        \"name\": \"Nathan Schneider\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2641566\",\n" +
+            "                        \"name\": \"Spencer Onuffer\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2911298\",\n" +
+            "                        \"name\": \"Nora Kazour\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2072361\",\n" +
+            "                        \"name\": \"Emily Danchik\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"3337309\",\n" +
+            "                        \"name\": \"Michael T. Mordowanec\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"40033562\",\n" +
+            "                        \"name\": \"H. Conrad\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"144365875\",\n" +
+            "                        \"name\": \"Noah A. Smith\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
             "        },\n" +
+            "        {\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"b8e54f8eb55bcd3f4ae762d7941c7d2b406298f2\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/b8e54f8eb55bcd3f4ae762d7941c7d2b406298f2\",\n" +
+            "                \"title\": \"Discriminative Lexical Semantic Segmentation with Gaps: Running the MWE Gamut\",\n" +
+            "                \"abstract\": \"We present a novel representation, evaluation measure, and supervised models for the task of identifying the multiword expressions (MWEs) in a sentence, resulting in a lexical semantic segmentation. Our approach generalizes a standard chunking representation to encode MWEs containing gaps, thereby enabling efficient sequence tagging algorithms for feature-rich discriminative models. Experiments on a new dataset of English web text offer the first linguistically-driven evaluation of MWE identification with truly heterogeneous expression types. Our statistical sequence model greatly outperforms a lookup-based segmentation procedure, achieving nearly 60% F1 for MWE identification.\",\n" +
+            "                \"venue\": \"International Conference on Topology, Algebra and Categories in Logic\",\n" +
+            "                \"year\": 2014,\n" +
+            "                \"referenceCount\": 77,\n" +
+            "                \"citationCount\": 105,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"145254207\",\n" +
+            "                        \"name\": \"Nathan Schneider\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2072361\",\n" +
+            "                        \"name\": \"Emily Danchik\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"1745899\",\n" +
+            "                        \"name\": \"Chris Dyer\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"144365875\",\n" +
+            "                        \"name\": \"Noah A. Smith\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"56fdd2e4a48e57f5696f807803db79b78e960274\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/56fdd2e4a48e57f5696f807803db79b78e960274\",\n" +
+            "                \"title\": \"VPCTagger: Detecting Verb-Particle Constructions With Syntax-Based Methods\",\n" +
+            "                \"abstract\": \"Verb-particle combinations (VPCs) con- sist of a verbal and a preposition/particle component, which often have some addi- tional meaning compared to the meaning of their parts. If a data-driven morpholog- ical parser or a syntactic parser is trained on a dataset annotated with extra informa- tion for VPCs, they will be able to iden- tify VPCs in raw texts. In this paper, we examine how syntactic parsers perform on this task and we introduce VPCTag- ger, a machine learning-based tool that is able to identify English VPCs in context. Our method consists of two steps: it first selects VPC candidates on the basis of syntactic information and then selects gen- uine VPCs among them by exploiting new features like semantic and contextual ones. Based on our results, we see that VPC- Tagger outperforms state-of-the-art meth- ods in the VPC detection task.\",\n" +
+            "                \"venue\": \"MWE@EACL\",\n" +
+            "                \"year\": 2014,\n" +
+            "                \"referenceCount\": 22,\n" +
+            "                \"citationCount\": 20,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2706166\",\n" +
+            "                        \"name\": \"T. IstvánNagy\"\n" +
+            "                    },\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2536091\",\n" +
+            "                        \"name\": \"V. Vincze\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"7792812ccd421fef90b1dfe165a735a9a56829db\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/7792812ccd421fef90b1dfe165a735a9a56829db\",\n" +
+            "                \"title\": \"English Complex Verb Constructions: Identification and Inference.\",\n" +
+            "                \"abstract\": null,\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2012,\n" +
+            "                \"referenceCount\": 118,\n" +
+            "                \"citationCount\": 5,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"2054287479\",\n" +
+            "                        \"name\": \"Y. Tu\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
+            "        },\n" +
+            "        {\n" +
+            "            \"citingPaper\": {\n" +
+            "                \"paperId\": \"28e77994701fe2552c7cab3b962586abb6892a17\",\n" +
+            "                \"url\": \"https://www.semanticscholar.org/paper/28e77994701fe2552c7cab3b962586abb6892a17\",\n" +
+            "                \"title\": \"Lexical Semantic Analysis in Natural Language\",\n" +
+            "                \"abstract\": \"This thesis concerns the lexical semantics of natural language text, studying from a computational perspective how words in sentences ought to be analyzed, how this analysis can be automated, and to what extent such analysis matters to other natural language processing (NLP) problems. It may not be obvious that words of text should be analyzed at all. After all, superficial uses of word tokens—most famously, bag-of-words representations and n-grams—are quite successful in settings ranging from information retrieval to language modeling. On the other hand, it is clear that there is a fuzzy relationship between the use of a word and the intended meaning, even when orthographic and morphological normalization (such as lemmatization or stemming) are applied. The word lexicon and its derivatives offer a good case in point:\",\n" +
+            "                \"venue\": \"\",\n" +
+            "                \"year\": 2012,\n" +
+            "                \"referenceCount\": 154,\n" +
+            "                \"citationCount\": 2,\n" +
+            "                \"authors\": [\n" +
+            "                    {\n" +
+            "                        \"authorId\": \"145254207\",\n" +
+            "                        \"name\": \"Nathan Schneider\"\n" +
+            "                    }\n" +
+            "                ]\n" +
+            "            }\n" +
+            "        }\n" +
             "    ]\n" +
             "}";
 
+    String jsonRecommendations = "{\"recommendedPapers\": [{\"paperId\": \"16369ae79ac623b38ac904d3e7567f084318588f\", \"url\": \"https://www.semanticscholar.org/paper/16369ae79ac623b38ac904d3e7567f084318588f\", \"title\": \"A Simple and Efficient Algorithm for Finding Minimum Spanning Tree Replacement Edges\", \"abstract\": \". Given an undirected, weighted graph, the minimum spanning tree (MST) is a tree that connects all of the vertices of the graph with minimum sum of edge weights. In real world applications, network designers often seek to quickly find a replacement edge for each edge in the MST. For example, when a traffic accident closes a road in a transportation network, or a line goes down in a communication network, the replacement edge may reconnect the MST at lowest cost. In the paper, we consider the case of finding the lowest cost replacement edge for each edge of the MST. A previous algorithm by Tarjan takes O( m\\u03b1 ( m, n )) time and space, where \\u03b1 ( m, n ) is the inverse Ackermann\\u2019s function. Given the MST and sorted non-tree edges, our algorithm is the first practical algorithm that runs in O( m + n ) time and O( m + n ) space to find all replacement edges. Additionally, since the most vital edge is the tree edge whose removal causes the highest cost, our algorithm finds it in linear time.\", \"venue\": \"\", \"year\": 2022, \"referenceCount\": 22, \"citationCount\": 0, \"authors\": [{\"authorId\": \"153595774\", \"name\": \"D. Bader\"}, {\"authorId\": \"3422834\", \"name\": \"Paul Burkhardt\"}]}, {\"paperId\": \"2cd83fd263a4b9a5231912732b6d4598f2e1d77a\", \"url\": \"https://www.semanticscholar.org/paper/2cd83fd263a4b9a5231912732b6d4598f2e1d77a\", \"title\": \"Exploring structural properties of $k$-trees and block graphs\", \"abstract\": \"We present a new characterization of k -trees based on their reduced clique graphs and ( k + 1) -line graphs, which are block graphs. We explore structural properties of these two classes, showing that the number of clique-trees of a k -tree G equals the number of spanning trees of the ( k + 1) -line graph of G . This relationship allows to present a new approach for determining the number of spanning trees of any connected block graph. We show that these results can be accomplished in linear time complexity.\", \"venue\": \"\", \"year\": 2023, \"referenceCount\": 14, \"citationCount\": 0, \"authors\": [{\"authorId\": \"2759784\", \"name\": \"L. Markenzon\"}, {\"authorId\": \"1708244767\", \"name\": \"A. S. Oliveira\"}, {\"authorId\": \"2580268\", \"name\": \"Cybele T. M. Vinagre\"}]}, {\"paperId\": \"cab62cd2956a0c262b0c528c7d9315abe1c852ad\", \"url\": \"https://www.semanticscholar.org/paper/cab62cd2956a0c262b0c528c7d9315abe1c852ad\", \"title\": \"Restriction on minimum degree in the contractible sets problem\", \"abstract\": \"Let G be a 3 -connected graph. A set W \\u2282 V ( G ) is contractible if G ( W ) is connected and G \\u2212 W is a 2 -connected graph. In 1994, McCuaig and Ota formulated the conjecture that, for any k \\u2208 N , there exists m \\u2208 N such that any 3-connected graph G with v ( G ) (cid:62) m has a k -vertex contractible set. In this paper we prove that, for any k (cid:62) 5 , the assertion of the conjecture holds if \\u03b4 ( G ) (cid:62) (cid:2) 2 k +13 (cid:3) + 2 .\", \"venue\": \"\", \"year\": 2022, \"referenceCount\": 7, \"citationCount\": 0, \"authors\": [{\"authorId\": \"2160471476\", \"name\": \"Nikolai Karol\"}]}, {\"paperId\": \"8ca445edaa427b60e0c8f7382895df98062c70bb\", \"url\": \"https://www.semanticscholar.org/paper/8ca445edaa427b60e0c8f7382895df98062c70bb\", \"title\": \"RECTILINEAR STEINER ARBORESCENCE\", \"abstract\": \". Given a set of points in the \\ufb01rst quadrant, a rectilinear Steiner arborescence (RSA) is a directed tree rooted at the origin, containing all points, and composed solely of horizontal and vertical edges oriented from left to right, or from bottom to top. The complexity of \\ufb01nding an RSA with the minimum total edge length for general planar point sets has been a well-known open problem in algorithm design and VLSI routing. In this paper, we prove the problem is NP-complete in the strong sense.\", \"venue\": \"\", \"year\": null, \"referenceCount\": 0, \"citationCount\": 2, \"authors\": [{\"authorId\": \"2214730\", \"name\": \"Yiu Yu Ho\"}]}, {\"paperId\": \"062b7f779cec15247e14b0780b185c312aadad24\", \"url\": \"https://www.semanticscholar.org/paper/062b7f779cec15247e14b0780b185c312aadad24\", \"title\": \"Provably Fast and Space-Efficient Parallel Biconnectivity\", \"abstract\": \"Biconnectivity is one of the most fundamental graph problems. The canonical parallel biconnectivity algorithm is the Tarjan-Vishkin algorithm, which hasO (n +m) optimal work (number of operations) and polylogarithmic span (longest dependent operations) on a graph with n vertices andm edges. However, Tarjan-Vishkin is not widely used in practice. We believe the reason is the space-inefficiency (it generates an auxiliary graph with O (m) edges). In practice, existing parallel implementations are based on breath-first search (BFS). Since BFS has span proportional to the diameter of the graph, existing parallel BCC implementations suffer from poor performance on large-diameter graphs and can be even slower than the sequential algorithm on many real-world graphs. We propose the first parallel biconnectivity algorithm (FAST-BCC) that has optimal work, polylogarithmic span, and is space-efficient. Our algorithm first generates a skeleton graph based on any spanning tree of the input graph. Then we use the connectivity information of the skeleton to compute the biconnectivity of the original input. All the steps in our algorithm are highly-parallel. We carefully analyze the correctness of our algorithm, which is highly non-trivial. We implemented FAST-BCC and compared it with existing implementations, including GBBS, Slota and Madduri\\u2019s algorithm, and the sequential Hopcroft-Tarjan algorithm. We ran them on a 96-core machine on 27 graphs, including social, web, road, k-NN, and synthetic graphs, with significantly varying sizes and edge distributions. FAST-BCC is the fastest on all 27 graphs. On average (geometric means), FAST-BCC is 5.1\\u00d7 faster than GBBS, and 3.1\\u00d7 faster than the best existing baseline on each graph. CCSConcepts: \\u2022Theory of computation\\u2192 Sharedmemory algorithms;Graph algorithms analysis;Parallel algorithms.\", \"venue\": \"ArXiv\", \"year\": 2023, \"referenceCount\": 68, \"citationCount\": 0, \"authors\": [{\"authorId\": \"2118186408\", \"name\": \"Xiaojun Dong\"}, {\"authorId\": \"2108528004\", \"name\": \"Letong Wang\"}, {\"authorId\": \"46964402\", \"name\": \"Yan Gu\"}, {\"authorId\": \"2108541101\", \"name\": \"Yihan Sun\"}]}, {\"paperId\": \"d9471e3eb8b7ccd429fa8de413266d84f6f9d041\", \"url\": \"https://www.semanticscholar.org/paper/d9471e3eb8b7ccd429fa8de413266d84f6f9d041\", \"title\": \"Parallel Connectivity Algorithms\", \"abstract\": \"We propose and implement two parallel algorithms to test the connectivity and find the connected components of a network in parallel. In both cases, the connectivity matrix of the graph is partitioned to p processors. The first parallel algorithm (Alg. 2) processors test connectivity in their partitions and then cooperate to decide. The second parallel algorithm (Alg. 4) forms a labelled connectivity matrix and then partitions this matrix to processors to find the components of a disconnected graph. We show both algorithms achieve significant speedups even with only few processors.\", \"venue\": \"2022 3rd International Informatics and Software Engineering Conference (IISEC)\", \"year\": 2022, \"referenceCount\": 5, \"citationCount\": 0, \"authors\": [{\"authorId\": \"1691511\", \"name\": \"K. Erciyes\"}, {\"authorId\": \"2198761892\", \"name\": \"Beh\\u00e7et Melih Sar\\u0131bat\\u0131r\"}]}, {\"paperId\": \"8a2177c38121e9b3694a6462d9cf65bddba33b7e\", \"url\": \"https://www.semanticscholar.org/paper/8a2177c38121e9b3694a6462d9cf65bddba33b7e\", \"title\": \"A Polynomial-Time Algorithm for MCS Partial Search Order on Chordal Graphs\", \"abstract\": \"We study the partial search order problem (PSOP) proposed recently by Schef\\ufb02er [WG 2022]. Given a graph G together with a partial order over the vertices of G , this problem determines if there is an S -ordering that is consistent with the given partial order, where S is a graph search paradigm like BFS, DFS, etc. This problem naturally generalizes the end-vertex problem which has received much attention over the past few years. It also generalizes the so-called F -tree recognition problem which has just been studied in the literature recently. Our main contribution is a polynomial-time dynamic programming algorithm for the PSOP on chordal graphs with respect to the maximum cardinality search (MCS). This resolves one of the most intriguing open questions left in the work of Shef\\ufb02er [WG 2022]. To obtain our result, we propose the notion of layer structure and study numerous related structural properties which might be of independent interest.\", \"venue\": \"ArXiv\", \"year\": 2022, \"referenceCount\": 32, \"citationCount\": 0, \"authors\": [{\"authorId\": \"1382860934\", \"name\": \"Guozhen Rong\"}, {\"authorId\": \"1784927883\", \"name\": \"Yongjie Yang\"}, {\"authorId\": \"2108953789\", \"name\": \"Wenjun Li\"}]}, {\"paperId\": \"d382ac12e7b2ea9f6fd961fc0df1285d18307684\", \"url\": \"https://www.semanticscholar.org/paper/d382ac12e7b2ea9f6fd961fc0df1285d18307684\", \"title\": \"On the strong metric dimension of composed graphs\", \"abstract\": \"Two vertices u and v of an undirected graph G are strongly resolved by a vertex w if there is a shortest path between w and u containing v or a shortest path between w and v containing u . A vertex set R is a strong resolving set for G if for each pair of vertices there is a vertex in R that strongly resolves them. The strong metric dimension of G is the size of a minimum strong resolving set for G . We show that a minimum strong resolving set for an undirected graph G can be computed e\\ufb03ciently if and only if a minimum strong resolving set for each biconnected component of G can be computed e\\ufb03ciently.\", \"venue\": \"ArXiv\", \"year\": 2022, \"referenceCount\": 29, \"citationCount\": 0, \"authors\": [{\"authorId\": \"2087643607\", \"name\": \"M. Wagner\"}, {\"authorId\": \"2047402952\", \"name\": \"Yannick Schmitz\"}, {\"authorId\": \"34919343\", \"name\": \"Egon Wanke\"}]}, {\"paperId\": \"4b64934894a9f84f371f87e39e1da9d70ce1de97\", \"url\": \"https://www.semanticscholar.org/paper/4b64934894a9f84f371f87e39e1da9d70ce1de97\", \"title\": \"On the rainbow planar Tur\\\\'an number of paths\", \"abstract\": \"An edge-colored graph is said to contain a rainbow- F if it contains F as a subgraph and every edge of F is a distinct color. The problem of maximizing edges among n -vertex properly edge-colored graphs not containing a rainbow- F , known as the rainbow Tur\\u00b4an problem, was initiated by Keevash, Mubayi, Sudakov and Verstra\\u00a8ete. We investigate a variation of this problem with the additional restriction that the graph is planar, and we denote the corresponding extremal number by ex \\u2217P ( n, F ). In particular, we determine ex \\u2217P ( n, P 5 ), where P 5 denotes the 5-vertex path.\", \"venue\": \"\", \"year\": 2023, \"referenceCount\": 11, \"citationCount\": 0, \"authors\": [{\"authorId\": \"102332665\", \"name\": \"Ervin GyHori\"}, {\"authorId\": \"145420400\", \"name\": \"Ryan R. Martin\"}, {\"authorId\": \"1387991114\", \"name\": \"Addisu Paulos\"}, {\"authorId\": \"34834046\", \"name\": \"C. Tompkins\"}, {\"authorId\": \"15266738\", \"name\": \"Kitti Varga\"}]}, {\"paperId\": \"125a12684d2aadf9666d5f439f34b32cf7b1dc9f\", \"url\": \"https://www.semanticscholar.org/paper/125a12684d2aadf9666d5f439f34b32cf7b1dc9f\", \"title\": \"Parallel Minimum Cuts in O(m log2 n) Work and Low Depth\", \"abstract\": \"We present a randomized O(m log2 n) work, O(polylog n) depth parallel algorithm for minimum cut. This algorithm matches the work bounds of a recent sequential algorithm by Gawrychowski, Mozes, and Weimann [ICALP\\u201920], and improves on the previously best parallel algorithm by Geissmann and Gianinazzi [SPAA\\u201918], which performs O(m log4 n) work in O(polylog n) depth. Our algorithm makes use of three components that might be of independent interest. Firstly, we design a parallel data structure that efficiently supports batched mixed queries and updates on trees. It generalizes and improves the work bounds of a previous data structure of Geissmann and Gianinazzi and is work efficient with respect to the best sequential algorithm. Secondly, we design a parallel algorithm for approximate minimum cut that improves on previous results by Karger and Motwani. We use this algorithm to give a work-efficient procedure to produce a tree packing, as in Karger\\u2019s sequential algorithm for minimum cuts. Lastly, we design an efficient parallel algorithm for solving the minimum 2-respecting cut problem.\", \"venue\": \"ACM Transactions on Parallel Computing\", \"year\": 2022, \"referenceCount\": 36, \"citationCount\": 0, \"authors\": [{\"authorId\": \"2116530848\", \"name\": \"Daniel Anderson\"}, {\"authorId\": \"1717462\", \"name\": \"G. Blelloch\"}]}]}";
+
     @Test
     void convertRecommendations() throws JsonProcessingException, JSONException {
-        new SemanticScholarWrapper().convertRecommendations(jsonRecommendations);
 
+        // execution
+        List<ApiPaper> apiPapers = new SemanticScholarWrapper().convertRecommendations(jsonRecommendations);
+
+        // test
+        System.out.println(apiPapers.size());
+        assertNotNull(apiPapers);
+
+        for (ApiPaper paper : apiPapers) {
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getId());
+        }
     }
 
     @Test
     void convertCitationsReferences() throws JSONException, JsonProcessingException {
-        new SemanticScholarWrapper().convertCitationsReferencesSearch(jsonReferences);
+
+        // test references
+        List<ApiPaper> references = new SemanticScholarWrapper().convertCitationsReferencesSearch(jsonReferences, "citedPaper");
+
+        assertNotNull(references);
+
+        for (ApiPaper paper : references) {
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getId());
+        }
+
+        // test citations
+        List<ApiPaper> citations = new SemanticScholarWrapper().convertCitationsReferencesSearch(jsonCitations, "citingPaper");
+
+        assertNotNull(citations);
+
+        for (ApiPaper paper : citations) {
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getId());
+        }
     }
 
     @Test
     void convertToPaper() throws JSONException, JsonProcessingException {
         List<ApiPaper> paper = new SemanticScholarWrapper().convertToPaper(jsonPaper);
         for (int i = 0; i < paper.get(0).getAuthors().size(); i++) {
-            System.out.println(paper.get(0).getAuthors().get(i).getName());
-            System.out.println(paper.get(0).getAuthors().get(i).getId());
+            assertNotNull(paper.get(0).getAuthors().get(i).getName());
+            assertNotNull(paper.get(0).getAuthors().get(i).getId());
         }
+        assertEquals(1, paper.size());
+        assertNotNull(paper.get(0).getId());
+        assertNotNull(paper.get(0).getTitle());
+        assertNotNull(paper.get(0).getPdfUrl());
+        assertNotNull(paper.get(0).getVenue());
+        assertNotNull(paper.get(0).getAbstractText());
 
     }
 }

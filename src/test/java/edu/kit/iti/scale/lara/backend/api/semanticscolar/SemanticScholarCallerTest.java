@@ -29,8 +29,8 @@ class SemanticScholarCallerTest {
     void callPostRequestRecommendations() throws IOException {
 
         // set up
-        JSONArray positives = new JSONArray().put("649def34f8be52c8b66281af98ae884c09aef38b");
-        JSONArray negatives = new JSONArray().put("ArXiv:1805.02262");
+        JSONArray positives = new JSONArray().put("385742fffcf113656f0d3cf6c06ef95cb8439dc6");
+        JSONArray negatives = new JSONArray().put("e24cdf73b3e7e590c2fe5ecac9ae8aa983801367");
         HttpMethod method = HttpMethod.POST;
         String url = "https://api.semanticscholar.org/recommendations/v1/papers/?offset=100&limit=10&fields=url,abstract,authors,title,venue,year,citationCount,referenceCount";
 

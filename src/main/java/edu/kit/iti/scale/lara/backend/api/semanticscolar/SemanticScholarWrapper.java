@@ -15,7 +15,6 @@ public class SemanticScholarWrapper implements ApiWrapper {
 
     private static final String API_PREFIX = "SemSchol";
     private static final String DATA = "data";
-    private static final String CITED_PAPER = "citedPaper";
     private static final String RECOMMENDED_PAPERS = "recommendedPapers";
 
     private static ObjectMapper objectMapper = new ObjectMapper();
@@ -49,7 +48,7 @@ public class SemanticScholarWrapper implements ApiWrapper {
         return apiPapers;
     }
 
-    public List<ApiPaper> convertCitationsReferencesSearch(String response) throws JSONException, JsonProcessingException {
+    public List<ApiPaper> convertCitationsReferencesSearch(String response, String type) throws JSONException, JsonProcessingException {
 
         List<ApiPaper> apiPapers = new ArrayList<>();
 
@@ -58,8 +57,24 @@ public class SemanticScholarWrapper implements ApiWrapper {
         JSONArray jsonPapers = jsonResponse.getJSONArray(DATA);
 
         for (int i = 0; i < jsonPapers.length(); i++) {
-            JSONObject jsonPaper = (JSONObject) jsonPapers.get(i);
-            String paperString = jsonPaper.getString(CITED_PAPER);
+            JSONObject jsonPaper = new JSONObject(jsonPapers.get(i).toString());
+            String paperString = jsonPaper.getJSONObject(type).toString();
+            apiPapers.addAll(convertToPaper(paperString));
+        }
+
+        return apiPapers;
+    }
+
+    public List<ApiPaper> convertSearchResults(String response) throws JSONException, JsonProcessingException {
+
+        List<ApiPaper> apiPapers = new ArrayList<>();
+
+        JSONObject jsonResponse = new JSONObject(response);
+
+        JSONArray jsonPapers = jsonResponse.getJSONArray(DATA);
+
+        for (int i = 0; i < jsonPapers.length(); i++) {
+            String paperString = jsonPapers.get(i).toString();
             apiPapers.addAll(convertToPaper(paperString));
         }
 

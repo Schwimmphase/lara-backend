@@ -20,6 +20,8 @@ public class SemanticScholarHandler implements ApiHandler {
     private static final String CITATIONS = "/citations";
     private static final String REFERENCES = "/references";
     private static final String PAPER_ATTRIBUTES ="?fields=title,authors,venue,year,citationCount,referenceCount,abstract,url";
+    private static final String CITED_PAPER = "citedPaper";
+    private static final String CITING_PAPER = "citingPaper";
     private static final HttpMethod GET = HttpMethod.GET;
     private static final HttpMethod POST = HttpMethod.POST;
 
@@ -30,7 +32,7 @@ public class SemanticScholarHandler implements ApiHandler {
         String response = new SemanticScholarCaller().call(URL + SEARCH + query.replace(" ", "+") + "&" + PAPER_ATTRIBUTES, GET, null, null);
 
         // convert response String to api papers
-        List<ApiPaper> papersByKeyword = new SemanticScholarWrapper().convertCitationsReferencesSearch(response);
+        List<ApiPaper> papersByKeyword = new SemanticScholarWrapper().convertSearchResults(response);
 
         return papersByKeyword;
     }
@@ -63,7 +65,7 @@ public class SemanticScholarHandler implements ApiHandler {
         String response = new SemanticScholarCaller().call(URL + paperId + CITATIONS + PAPER_ATTRIBUTES, GET, null, null);
 
         // convert response String to api papers
-        List<ApiPaper> citations = new SemanticScholarWrapper().convertCitationsReferencesSearch(response);
+        List<ApiPaper> citations = new SemanticScholarWrapper().convertCitationsReferencesSearch(response, CITING_PAPER);
 
         return citations;
     }
@@ -78,7 +80,7 @@ public class SemanticScholarHandler implements ApiHandler {
         String response = new SemanticScholarCaller().call(URL + paperId + REFERENCES + PAPER_ATTRIBUTES, GET, null, null);
 
         // convert response String to api papers
-        List<ApiPaper> references = new SemanticScholarWrapper().convertCitationsReferencesSearch(response);
+        List<ApiPaper> references = new SemanticScholarWrapper().convertCitationsReferencesSearch(response, CITED_PAPER);
 
         return references;
     }
