@@ -41,4 +41,8 @@ public class User {
         this.userCategory = userCategory;
         this.researches = new ArrayList<>();
     }
+
+    public boolean addResearch(Research research) {
+        return researches.add(research);
+    }
 }

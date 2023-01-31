@@ -2,7 +2,6 @@ package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
 import edu.kit.iti.scale.lara.backend.PersistentService;
-import edu.kit.iti.scale.lara.backend.TestInstanceProvider;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
@@ -27,22 +26,21 @@ public class PaperServiceTests {
     @Autowired
     private PersistentService persistentService;
 
-    private final TestInstanceProvider tip = new TestInstanceProvider();
 
     @Test
-    public void testSaveAndGetPaper() {
-        paperService.savePaperToDataBase(tip.getPaper1());
-        paperService.savePaperToDataBase(tip.getPaper2());
-        paperService.savePaperToDataBase(tip.getPaper3());
+    public void testSaveAndGetPaper(@Autowired Paper persistentPaper1, @Autowired Paper persistentPaper2, @Autowired Paper persistentPaper3) {
+        paperService.savePaperToDataBase(persistentPaper1);
+        paperService.savePaperToDataBase(persistentPaper2);
+        paperService.savePaperToDataBase(persistentPaper3);
 
         try {
             Paper returnedPaper1 = paperService.getPaper("1");
             Paper returnedPaper2 = paperService.getPaper("2");
             Paper returnedPaper3 = paperService.getPaper("3");
 
-            Assertions.assertThat(returnedPaper1).isEqualTo(tip.getPaper1());
-            Assertions.assertThat(returnedPaper2).isEqualTo(tip.getPaper2());
-            Assertions.assertThat(returnedPaper3).isEqualTo(tip.getPaper3());
+            Assertions.assertThat(returnedPaper1).isEqualTo(persistentPaper1);
+            Assertions.assertThat(returnedPaper2).isEqualTo(persistentPaper2);
+            Assertions.assertThat(returnedPaper3).isEqualTo(persistentPaper3);
         } catch (NotInDataBaseException e) {
             System.out.println("Failed to load Paper from Database");
         }
@@ -90,8 +88,9 @@ public class PaperServiceTests {
     }
 
     @Test
-    public void testGetSavedPapers(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1,
-                                   @Autowired Paper persistentPaper2, @Autowired Paper persistentPaper3) {
+    public void testGetSavedPapers(@Autowired Research persistentResearch1, @Autowired User persistentUser1,
+                                   @Autowired Paper persistentPaper1, @Autowired Paper persistentPaper2,
+                                   @Autowired Paper persistentPaper3) {
         persistentService.persist(persistentResearch1, persistentPaper1, persistentPaper2, persistentPaper3);
 
         SavedPaper savedPaper1 = paperService.createSavedPaper(persistentResearch1, persistentPaper1, SaveState.ADDED);
@@ -99,13 +98,12 @@ public class PaperServiceTests {
         SavedPaper savedPaper3 = paperService.createSavedPaper(persistentResearch1, persistentPaper3, SaveState.HIDDEN);
 
         try {
-            List<SavedPaper> savedPapers = paperService.getSavedPapers(persistentResearch1, tip.getUser1());
+            List<SavedPaper> savedPapers = paperService.getSavedPapers(persistentResearch1, persistentUser1);
             Assertions.assertThat(savedPapers).isEqualTo(List.of(savedPaper1, savedPaper2, savedPaper3));
         } catch (WrongUserException e) {
             System.out.println("User is´nt allowed to access this research");
         }
     }
-
 
     @Test
     public void testTagsOnPaper(@Autowired Research persistentResearch1, @Autowired Paper persistentPaper1) {

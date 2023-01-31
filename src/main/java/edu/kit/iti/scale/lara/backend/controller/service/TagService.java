@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.TagRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TagService {
 
     private final TagRepository tagRepository;
+    private final ResearchRepository researchRepository;
 
     public Tag createTag(String color, String name, Research research) {
         Tag tag = new Tag(color, name, research);
@@ -26,7 +28,8 @@ public class TagService {
     public Tag getTag(String tagId, User user) throws NotInDataBaseException, WrongUserException {
         if (tagRepository.findById(tagId).isPresent()) {
             Tag tag = tagRepository.findById(tagId).get();
-            if (user.getResearches().contains(tag.getResearch())) {
+            List<Research> test = researchRepository.findByUser(user);
+            if (test.contains(tag.getResearch())) {
                 return tag;
             } else {
                 throw new WrongUserException();

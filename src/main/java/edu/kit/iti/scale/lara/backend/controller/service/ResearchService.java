@@ -11,13 +11,11 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
-import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,10 +28,8 @@ public class ResearchService {
     private final SavedPaperRepository savedPaperRepository;
 
     public Research createResearch(User user, String title, String description) {
-        UserCategory userCategory = new UserCategory("#0000ff", "User-Category");
-        User user1 = new User("user", "password", userCategory);
-
-        Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user1);
+        Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
+        user.addResearch(research);
         researchRepository.save(research);
         return research;
     }
