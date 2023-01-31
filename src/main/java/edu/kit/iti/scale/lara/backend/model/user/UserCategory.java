@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "user-categories", schema = "lara")
 @NoArgsConstructor
@@ -26,4 +28,13 @@ public class UserCategory {
         this.color = color;
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserCategory)) return false;
+        UserCategory that = (UserCategory) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
 }
