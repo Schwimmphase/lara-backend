@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,5 +46,11 @@ public class SavedPaper {
     public static class SavedPaperId implements Serializable {
         private Research research;
         private Paper paper;
+    }
+
+    public SavedPaper(Paper paper, Research research, SaveState saveState) {
+        this.paper = paper;
+        this.research = research;
+        this.saveState = saveState;
     }
 }

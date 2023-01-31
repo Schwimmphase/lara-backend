@@ -7,7 +7,15 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +78,7 @@ public class AdminController {
     }
 
     @PostMapping("/category")
-    public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
+    public ResponseEntity<UserCategory> createCategory(@RequestBody CategoryRequest request, User admin) {
 
         // TODO: replace mock with code
         UserCategory newUserCategory = new UserCategory("bbbbb" ,"#0000FF", "New-User-Category");
@@ -79,7 +87,7 @@ public class AdminController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<Map<String, List<UserCategory>> >listCategories(User admin) {
+    public ResponseEntity<Map<String, List<UserCategory>>> listCategories(User admin) {
 
         // TODO: replace mock with code
         List<UserCategory> categories = new ArrayList<>();
