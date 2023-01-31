@@ -35,9 +35,10 @@ public class TagServiceTests {
 
     @Test
     public void createAndGetTag(@Autowired Research persistentResearch1, @Autowired User persistentUser1) {
-        persistentService.persist(persistentResearch1, persistentUser1);
-        researchRepository.save(persistentResearch1);
+        persistentService.persist(persistentUser1, persistentResearch1);
         userRepository.save(persistentUser1);
+        researchRepository.save(persistentResearch1);
+
 
         Tag tag1 = tagService.createTag("#FF0000", "Test-tag-1", persistentResearch1);
         Tag tag2 = tagService.createTag("#00FF00", "Test-tag-2", persistentResearch1);
@@ -53,7 +54,7 @@ public class TagServiceTests {
             Assertions.assertThat(returnedTag3).isEqualTo(tag3);
 
         } catch (NotInDataBaseException e) {
-            System.out.println("Failed to load Tag from Database");
+            Assertions.fail("Failed to load Tag from Database");
         } catch (WrongUserException e) {
             Assertions.fail("wrong User");
         }
@@ -63,7 +64,7 @@ public class TagServiceTests {
         } catch (NotInDataBaseException ee) {
             exceptionThrown = true;
         } catch (WrongUserException eee) {
-            System.out.println("User has no Tag with given Id2");
+            Assertions.fail("User has no Tag with given Id2");
         }
         Assertions.assertThat(exceptionThrown).isEqualTo(true);
     }
@@ -97,9 +98,9 @@ public class TagServiceTests {
         try {
             Assertions.assertThat(tagService.getTag(tag.getId(), persistentUser1)).isEqualTo(tag);
         } catch (WrongUserException e) {
-            System.out.println("Wrong User1");
+            Assertions.fail("Wrong User");
         } catch (NotInDataBaseException ee) {
-            System.out.println("Not in Database1");
+            Assertions.fail("Not in Database");
         }
 
         tagService.deleteTag(tag);
@@ -111,7 +112,7 @@ public class TagServiceTests {
         } catch (NotInDataBaseException ee) {
             exceptionThrown = true;
         } catch (WrongUserException eee) {
-            System.out.println("Wrong user2");
+            Assertions.fail("Wrong user");
         }
 
         Assertions.assertThat(exceptionThrown).isEqualTo(true);

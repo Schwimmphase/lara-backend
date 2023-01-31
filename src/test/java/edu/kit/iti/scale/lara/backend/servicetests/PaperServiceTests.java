@@ -73,9 +73,9 @@ public class PaperServiceTests {
             Assertions.assertThat(returnedPaper2).isEqualTo(savedPaper2);
             Assertions.assertThat(returnedPaper3).isEqualTo(savedPaper3);
         } catch (NotInDataBaseException e) {
-            System.out.println("Failed to load Paper from Database");
+            Assertions.fail("Failed to load Paper from Database");
         } catch (WrongUserException e) {
-            System.out.println("User did´nt saved the Paper");
+            Assertions.fail("User didn´t saved the Paper");
         }
         boolean exceptionThrown = false;
         try {
@@ -101,7 +101,7 @@ public class PaperServiceTests {
             List<SavedPaper> savedPapers = paperService.getSavedPapers(persistentResearch1, persistentUser1);
             Assertions.assertThat(savedPapers).isEqualTo(List.of(savedPaper1, savedPaper2, savedPaper3));
         } catch (WrongUserException e) {
-            System.out.println("User is´nt allowed to access this research");
+            Assertions.fail("User is´nt allowed to access this research");
         }
     }
 

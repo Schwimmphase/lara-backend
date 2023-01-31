@@ -20,7 +20,7 @@ public class UserCategoryServiceTests {
             UserCategory userCategory = userCategoryService.createCategory("Test-Category", "0000FF");
             Assertions.assertThat(userCategoryService.getUserCategory(userCategory.getId())).isEqualTo(userCategory);
         } catch (NotInDataBaseException e) {
-            System.out.println("UserCategory not in Database");
+            Assertions.fail("UserCategory not in Database");
         }
     }
 }
