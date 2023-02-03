@@ -14,6 +14,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -80,7 +81,7 @@ public class PaperService {
         savedPaperRepository.save(savedPaper);
     }
 
-    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) {
+    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) throws IOException {
         savedPaper.setSaveState(saveState);
         savedPaperRepository.save(savedPaper);
         if (saveState == SaveState.ADDED) {

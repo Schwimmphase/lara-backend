@@ -10,6 +10,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,7 +20,7 @@ public class CacheService {
     private final CachedPaperRepository cachedPaperRepository;
     private final ApiActionController apiActionController;
 
-    public void initializeCache(List<SavedPaper> savedPapers, Research research) {
+    public void initializeCache(List<SavedPaper> savedPapers, Research research) throws IOException {
         for (SavedPaper savedPaper : savedPapers) {
             List<Paper> citations = apiActionController.getCitations(savedPaper.getPaper());
             List<Paper> references = apiActionController.getReferences(savedPaper.getPaper());

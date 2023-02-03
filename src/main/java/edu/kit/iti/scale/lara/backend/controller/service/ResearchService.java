@@ -14,6 +14,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class ResearchService {
         researchRepository.delete(research);
     }
 
-    public List<Paper> getRecommendations(Research research) {
+    public List<Paper> getRecommendations(Research research) throws IOException {
         List<Paper> positives = new ArrayList<>();
         List<Paper> negatives = new ArrayList<>();
 
@@ -82,7 +83,7 @@ public class ResearchService {
         return referencesAndCitations;
     }
 
-    public List<Paper> searchByQuery(String query) {
+    public List<Paper> searchByQuery(String query) throws IOException {
         return apiActionController.getPapersByKeyword(query);
     }
 }

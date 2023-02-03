@@ -9,6 +9,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class RecommendationService {
     private final CacheService cacheService;
 
 
-    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {
+    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) throws IOException {
         return apiActionController.getRecommendations(positives, negatives);
     }
 
@@ -32,7 +33,7 @@ public class RecommendationService {
         return cacheService.getCitations(research, papers);
     }
 
-    public void paperAdded(Research research, Paper paper) {
+    public void paperAdded(Research research, Paper paper) throws IOException {
         List<Paper> citations = apiActionController.getCitations(paper);
         List<Paper> references = apiActionController.getReferences(paper);
 
