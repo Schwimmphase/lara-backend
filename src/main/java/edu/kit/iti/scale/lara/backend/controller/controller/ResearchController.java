@@ -113,7 +113,7 @@ public class ResearchController {
 
     @PostMapping("/{id}/papers")
     public ResponseEntity<Map<String, List<Paper>>> researchPapers(@PathVariable("id") String researchId,
-                                                      @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
                                                                    User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
@@ -136,9 +136,9 @@ public class ResearchController {
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
-                                                               @RequestParam RecommendationMethod method,
-                                                               @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                               User user) {
+                                                                            @RequestParam RecommendationMethod method,
+                                                                            @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                            User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         // TODO: replace mock with code
@@ -159,8 +159,8 @@ public class ResearchController {
 
     @PostMapping("/search")
     public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
-                                                      @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                      User user) {
+                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                   User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         // TODO: replace mock with code

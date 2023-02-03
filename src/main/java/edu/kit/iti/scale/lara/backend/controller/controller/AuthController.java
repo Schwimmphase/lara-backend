@@ -5,6 +5,7 @@ import edu.kit.iti.scale.lara.backend.controller.service.AuthService;
 import edu.kit.iti.scale.lara.backend.controller.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,12 +25,14 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest request) {
         if (userService.checkCredentials(request.password(), request.userId())) {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.userId(), request.password())
             );
-            return authService.generateToken(authentication);
+
+            return ResponseEntity.ok(Map.of("token", authService.generateToken(authentication),
+                    "user", userService.loadUserByUsername(request.userId())));
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +53,22 @@ public class UserService implements UserDetailsService {
         } catch (NotInDataBaseException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }
+    }
+
+    public List<User> getUsers()  {
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    public void updateUser(User user, String newName, String newPassword, UserCategory newCategory) {
+        user.setUsername(newName);
+        user.setUserCategory(newCategory);
+        if (newPassword != null) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+        }
+        userRepository.save(user);
     }
 }

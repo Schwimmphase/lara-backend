@@ -3,109 +3,107 @@ package edu.kit.iti.scale.lara.backend.controller.controller;
 import edu.kit.iti.scale.lara.backend.controller.request.CategoryRequest;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.request.UserRequest;
+import edu.kit.iti.scale.lara.backend.controller.service.UserCategoryService;
+import edu.kit.iti.scale.lara.backend.controller.service.UserService;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.model.organizer.OrganizerList;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/usermanagement")
+@RequiredArgsConstructor
 public class AdminController {
+
+    private final UserService userService;
+    private final UserCategoryService userCategoryService;
 
     @GetMapping("/")
     public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam List<OrganizerRequest> organizers) {
+        List<User> users = userService.getUsers();
 
-        //mock
-        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
-        List<User> users = new ArrayList<>();
-        User user1 = new User("one", "password1", testUser);
-        User user2 = new User("two", "password2", testUser);
-        User user3 = new User("three", "password3", testUser);
-        User user4 = new User("four", "password4", testUser);
-        User user5 = new User("five", "password5", testUser);
-        User user6 = new User("six", "password6", testUser);
-        User user7 = new User("seven", "password7", testUser);
-
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
-        users.add(user5);
-        users.add(user6);
-        users.add(user7);
-
+        OrganizerList.createFromOrganizerRequests(organizers);
         return ResponseEntity.ok(Map.of("users", users));
     }
 
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody UserRequest request, User admin) {
-
-        //mock
-        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
-        User user = new User("createdUser", "password", testUser);
-
-        return ResponseEntity.ok(user);
+        try {
+            UserCategory category = userCategoryService.getUserCategory(request.userCategory());
+            User user = userService.createUser(request.username(), request.password(), category);
+            return ResponseEntity.ok(user);
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this id not found");
+        }
     }
 
     @DeleteMapping("/{userId}")
-    public HttpStatus deleteUser(@PathVariable String userId, User admin) {
-
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+    public ResponseEntity<Void> deleteUser(@PathVariable String userId, User admin) {
+        try {
+            User user = userService.getUserById(userId);
+            userService.deleteUser(user);
+            return ResponseEntity.ok().build();
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with this id not found");
+        }
     }
 
     @PatchMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request, User admin) {
-
-        //mock
-        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
-        User user = new User("updatedUser", "password", testUser);
-
-        return ResponseEntity.ok(user);
+        try {
+            UserCategory category = userCategoryService.getUserCategory(request.userCategory());
+            User user = userService.getUserById(userId);
+            userService.updateUser(user, request.username(), request.password(), category);
+            return ResponseEntity.ok().build();
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category or user with this id not found");
+        }
     }
 
     @PostMapping("/category")
-    public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
-
-        //mock
-        UserCategory newUserCategory = new UserCategory("#0000FF", "New-User-Category");
-
-        return ResponseEntity.ok(newUserCategory);
+    public ResponseEntity<UserCategory> createCategory(@RequestBody CategoryRequest request, User admin) {
+        try {
+            UserCategory userCategory = userCategoryService.createCategory(request.name(), request.color());
+            return ResponseEntity.ok(userCategory);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @GetMapping("/category")
-    public ResponseEntity<Map<String, List<UserCategory>> >listCategories(User admin) {
-
-        // TODO: replace mock with code
-        List<UserCategory> categories = new ArrayList<>();
-
-        categories.add( new UserCategory("#0000FF", "Test-User"));
-        categories.add(new UserCategory("#0000FF", "New-User-Category"));
-
-        return ResponseEntity.ok(Map.of("categories", categories));
+    public ResponseEntity<Map<String, List<UserCategory>>> listCategories(User admin) {
+        List<UserCategory> userCategories = userCategoryService.getUserCategories();
+        return ResponseEntity.ok(Map.of("categories", userCategories));
     }
 
-        //mock
-        UserCategory updatedUserCategory = new UserCategory("#0000FF", "Updated-User-Category");
     @PostMapping("/category/{id}")
     public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
                                                        User admin) {
-
-        // TODO: replace mock with code
-        UserCategory updatedUserCategory = new UserCategory("#0000FF", "Updated-User-Category");
-
-        return ResponseEntity.ok(updatedUserCategory);
+        try {
+            UserCategory userCategory = userCategoryService.getUserCategory(id);
+            userCategoryService.updateCategory(userCategory, request.name(), request.color());
+            return ResponseEntity.ok().build();
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this id not found");
+        }
     }
 
     @DeleteMapping("/category/{id}")
-    public HttpStatus deleteCategory(@PathVariable String id, User admin) {
-
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+    public ResponseEntity<Void> deleteCategory(@PathVariable String id, User admin) {
+        try {
+            UserCategory userCategory = userCategoryService.getUserCategory(id);
+            userCategoryService.deleteCategory(userCategory);
+            return ResponseEntity.ok().build();
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this id not found");
+        }
     }
 }
