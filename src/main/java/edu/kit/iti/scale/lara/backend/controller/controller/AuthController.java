@@ -32,7 +32,7 @@ public class AuthController {
             );
 
             return ResponseEntity.ok(Map.of("token", authService.generateToken(authentication),
-                    "user", userService.readUserById(request.userId())));
+                    "user", userService.loadUserByUsername(request.userId())));
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);

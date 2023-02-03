@@ -1,96 +1,144 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
+import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
-import edu.kit.iti.scale.lara.backend.model.research.Comment;
+import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
+import edu.kit.iti.scale.lara.backend.controller.service.RecommendationService;
+import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
+import edu.kit.iti.scale.lara.backend.controller.service.TagService;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
-import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
-import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 @RestController
 @RequestMapping("/paper")
+@RequiredArgsConstructor
 public class PaperController {
 
+    private final ApiActionController apiActionController;
+    private final PaperService paperService;
+    private final ResearchService researchService;
+    private final TagService tagService;
+    private final RecommendationService recommendationService;
+
     @GetMapping("{id}")
-    public ResponseEntity<Object> paperDetails(@PathVariable String id, @PathVariable(required = false) String researchId,
+    public ResponseEntity<Object> paperDetails(@PathVariable String id, @RequestParam(required = false) String researchId,
                                                 User user) {
-
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper = new Paper("1234567890", "thePaper", 2023, "abstract",
-                0, 0, "venue", "https://arxiv.org/pdf/2110.11697.pdf", List.of(author));
-
         if (researchId == null) {
-            return ResponseEntity.ok(paper);
-        } else {
-            UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-            User user1 = new User("one","11111", "password1", category);
-            Research research = new Research(researchId, "randomResearch", new Comment("12345", "text"),
-                    ZonedDateTime.now(), user1);
-            return ResponseEntity.ok(new SavedPaper(paper, research, SaveState.SAVED));
+            return ResponseEntity.ok(apiActionController.getPaper(id));
         }
 
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            return ResponseEntity.ok(savedPaper);
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @PutMapping("{id}/tag")
-    public HttpStatus paperAddTag(@PathVariable String id, @RequestParam String researchId, @RequestParam String tagId,
-                                  User user) {
+    public ResponseEntity<Void> paperAddTag(@PathVariable String id, @RequestParam String researchId, @RequestParam String tagId,
+                                              User user) {
 
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            Tag tag = tagService.getTag(tagId, user);
+            paperService.addTagToPaper(savedPaper, tag);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper or tag not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @DeleteMapping("{id}/tag")
-    public HttpStatus paperTagRemove(@PathVariable String id, @RequestParam String researchId,
+    public ResponseEntity<Void> paperTagRemove(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam String tagId, User user) {
 
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            Tag tag = tagService.getTag(tagId, user);
+            paperService.removeTagFromPaper(savedPaper, tag);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper or tag not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @PatchMapping("{id}/comment")
-    public HttpStatus paperComment(@PathVariable String id, @RequestParam String researchId,
+    public ResponseEntity<Void> paperComment(@PathVariable String id, @RequestParam String researchId,
                                    @RequestParam String comment, User user) {
 
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            paperService.commentPaper(savedPaper, comment);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @PutMapping("{id}/save-state")
-    public HttpStatus paperSaveState(@PathVariable String id, @RequestParam String researchId,
+    public ResponseEntity<Void> paperSaveState(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam SaveState saveState, User user) {
 
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            paperService.changeSaveState(savedPaper, saveState);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @PatchMapping("{id}/relevance")
-    public HttpStatus paperRelevance(@PathVariable String id, @RequestParam String researchId,
+    public ResponseEntity<Void> paperRelevance(@PathVariable String id, @RequestParam String researchId,
                                      @RequestParam int relevance, User user) {
 
-        // TODO: replace mock with code
-        return HttpStatus.OK;
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            paperService.setRelevanceOfPaper(savedPaper, relevance);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
     }
 
     @PostMapping("{id}/recommendations")
@@ -100,11 +148,13 @@ public class PaperController {
                                                                          User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
-        // TODO: replace mock with code
-        List<Paper> papers = new ArrayList<>();
-        Author author = new Author("mockId", "mockName");
-        papers.add(new Paper("1234567890", "thePaper", 2023, "abstract",
-                0, 0, "venue", "url", List.of(author)));
-        return ResponseEntity.ok(Map.of("recommendations", papers));
+        try {
+            Paper paper = paperService.getPaper(id);
+            List<Paper> papers = recommendationService.getRecommendations(List.of(paper), List.of());
+            return ResponseEntity.ok(Map.of("recommendations", papers));
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        }
+
     }
 }

@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.controller.controller;
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.request.ResearchRequest;
+import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
@@ -12,6 +13,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +26,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/research")
+@RequiredArgsConstructor
 public class ResearchController {
+
+    private final ResearchService researchService;
 
     @PostMapping("/")
     public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, User user) {
-
-        UserCategory category = new UserCategory("#0000FF", "Test-User");
-        User user1 = new User("one", "password1", category);
-
-        Research research = new Research("New-Research", new Comment("description"), ZonedDateTime.now(), user);
-
+        Research research = researchService.createResearch(user, request.title(), request.description());
         return ResponseEntity.ok(research);
     }
 
@@ -131,9 +131,9 @@ public class ResearchController {
         Paper paper3 = new Paper("333333", "resPaper3", 2023, "abstract3",
                 3, 3, "venue3", "url3", List.of(author));
 
-        SavedPaper savedPaper1 = new SavedPaper(paper1, research, SaveState.SAVED);
-        SavedPaper savedPaper2 = new SavedPaper(paper2, research, SaveState.SAVED);
-        SavedPaper savedPaper3 = new SavedPaper(paper3, research, SaveState.SAVED);
+        SavedPaper savedPaper1 = new SavedPaper(paper1, research, SaveState.ADDED);
+        SavedPaper savedPaper2 = new SavedPaper(paper2, research, SaveState.ADDED);
+        SavedPaper savedPaper3 = new SavedPaper(paper3, research, SaveState.ADDED);
 
         List<SavedPaper> savedPapers = new ArrayList<>();
         savedPapers.add(savedPaper1);
