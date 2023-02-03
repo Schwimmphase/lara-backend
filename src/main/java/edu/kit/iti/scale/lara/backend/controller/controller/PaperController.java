@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
+import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +41,11 @@ public class PaperController {
     public ResponseEntity<Object> paperDetails(@PathVariable String id, @RequestParam(required = false) String researchId,
                                                 User user) {
         if (researchId == null) {
-            return ResponseEntity.ok(apiActionController.getPaper(id));
+            try {
+                return ResponseEntity.ok(apiActionController.getPaper(id));
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
         }
 
         try {
@@ -121,6 +127,8 @@ public class PaperController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -144,16 +152,29 @@ public class PaperController {
     @PostMapping("{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
                                                            @RequestParam String researchId,
+                                                           @RequestParam RecommendationMethod method,
                                                             @RequestBody Map<String, List<OrganizerRequest>> request,
                                                                          User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         try {
+            Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(id);
-            List<Paper> papers = recommendationService.getRecommendations(List.of(paper), List.of());
+            List<Paper> papers = switch (method) {
+                case ALGORITHM -> recommendationService.getRecommendations(List.of(paper), List.of());
+                case CITATIONS -> recommendationService.getCitations(research, List.of(paper)).stream()
+                        .map(cachedPaper -> cachedPaper.getCachedPaperId().getPaper()).toList();
+                case REFERENCES -> recommendationService.getReferences(research, List.of(paper)).stream()
+                        .map(cachedPaper -> cachedPaper.getCachedPaperId().getPaper()).toList();
+            };
+
             return ResponseEntity.ok(Map.of("recommendations", papers));
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper with this id not found");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
         }
 
     }

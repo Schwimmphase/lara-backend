@@ -3,17 +3,14 @@ package edu.kit.iti.scale.lara.backend.controller.controller;
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.request.ResearchRequest;
-import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
-import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +23,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/research")
-@RequiredArgsConstructor
 public class ResearchController {
-
-    private final ResearchService researchService;
 
     @PostMapping("/")
     public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, User user) {
-        Research research = researchService.createResearch(user, request.title(), request.description());
+
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
+
+        Research research = new Research("New-Research", new Comment("description"), ZonedDateTime.now(), user);
+
         return ResponseEntity.ok(research);
     }
 
@@ -113,16 +112,12 @@ public class ResearchController {
     }
 
     @PostMapping("/{id}/papers")
-    public ResponseEntity<Map<String, List<SavedPaper>>> researchPapers(@PathVariable("id") String researchId,
-                                                                        @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                                        User user) {
+    public ResponseEntity<Map<String, List<Paper>>> researchPapers(@PathVariable("id") String researchId,
+                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                   User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         // TODO: replace mock with code
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"),
-                ZonedDateTime.now(), user1);
         Author author = new Author("mockId", "mockName");
         Paper paper1 = new Paper("111111", "resPaper1", 2023, "abstract1",
                 1, 1, "venue1", "url1", List.of(author));
@@ -131,23 +126,19 @@ public class ResearchController {
         Paper paper3 = new Paper("333333", "resPaper3", 2023, "abstract3",
                 3, 3, "venue3", "url3", List.of(author));
 
-        SavedPaper savedPaper1 = new SavedPaper(paper1, research, SaveState.ADDED);
-        SavedPaper savedPaper2 = new SavedPaper(paper2, research, SaveState.ADDED);
-        SavedPaper savedPaper3 = new SavedPaper(paper3, research, SaveState.ADDED);
+        List<Paper> papers = new ArrayList<>();
+        papers.add(paper1);
+        papers.add(paper2);
+        papers.add(paper3);
 
-        List<SavedPaper> savedPapers = new ArrayList<>();
-        savedPapers.add(savedPaper1);
-        savedPapers.add(savedPaper2);
-        savedPapers.add(savedPaper3);
-
-        return ResponseEntity.ok(Map.of("savedPapers", savedPapers));
+        return ResponseEntity.ok(Map.of("papers", papers));
     }
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
-                                                               @RequestParam RecommendationMethod method,
-                                                               @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                               User user) {
+                                                                            @RequestParam RecommendationMethod method,
+                                                                            @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                            User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         // TODO: replace mock with code
@@ -168,8 +159,8 @@ public class ResearchController {
 
     @PostMapping("/search")
     public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
-                                                      @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                      User user) {
+                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
+                                                                   User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         // TODO: replace mock with code
