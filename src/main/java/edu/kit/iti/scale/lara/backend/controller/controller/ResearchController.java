@@ -35,14 +35,14 @@ public class ResearchController {
     private final TagService tagService;
 
     @PostMapping("/")
-    public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, User user) {
+    public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, @RequestAttribute("user") User user) {
         Research research = researchService.createResearch(user, request.title(), request.description());
 
         return ResponseEntity.ok(research);
     }
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, List<Research>>> listResearch(User user) {
+    public ResponseEntity<Map<String, List<Research>>> listResearch(@RequestAttribute("user") User user) {
         List<Research> researches = researchService.getResearches(user);
 
         return ResponseEntity.ok(Map.of("researches", researches));
@@ -50,7 +50,7 @@ public class ResearchController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Research> updateResearch(@PathVariable("id") String researchId,
-                                                   @RequestBody ResearchRequest request, User user) {
+                                                   @RequestBody ResearchRequest request, @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             researchService.updateResearch(research, request.title(), request.description());
@@ -63,7 +63,7 @@ public class ResearchController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteResearch(@PathVariable("id") String researchId, User user) {
+    public ResponseEntity<Void> deleteResearch(@PathVariable("id") String researchId, @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             researchService.deleteResearch(research);
@@ -77,7 +77,7 @@ public class ResearchController {
 
     @PutMapping("/{id}/paper")
     public ResponseEntity<Void> savePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
-                                @RequestParam("state") SaveState saveState, User user) {
+                                @RequestParam("state") SaveState saveState, @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(paperId);
@@ -91,7 +91,8 @@ public class ResearchController {
     }
 
     @DeleteMapping("/{id}/paper")
-    public ResponseEntity<Void> deletePaper(@PathVariable("id") String researchId, @RequestParam String paperId, User user) {
+    public ResponseEntity<Void> deletePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
+                                            @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(paperId);
@@ -107,7 +108,8 @@ public class ResearchController {
     }
 
     @GetMapping("/{id}/tags")
-    public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") String researchId, User user) {
+    public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") String researchId,
+                                                               @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             List<Tag> tags = tagService.getTags(research);

@@ -39,7 +39,7 @@ public class PaperController {
 
     @GetMapping("{id}")
     public ResponseEntity<Object> paperDetails(@PathVariable String id, @RequestParam(required = false) String researchId,
-                                                User user) {
+                                                @RequestAttribute("user") User user) {
         if (researchId == null) {
             try {
                 return ResponseEntity.ok(apiActionController.getPaper(id));
@@ -62,7 +62,7 @@ public class PaperController {
 
     @PutMapping("{id}/tag")
     public ResponseEntity<Void> paperAddTag(@PathVariable String id, @RequestParam String researchId, @RequestParam String tagId,
-                                              User user) {
+                                              @RequestAttribute("user") User user) {
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -80,7 +80,7 @@ public class PaperController {
 
     @DeleteMapping("{id}/tag")
     public ResponseEntity<Void> paperTagRemove(@PathVariable String id, @RequestParam String researchId,
-                                     @RequestParam String tagId, User user) {
+                                     @RequestParam String tagId, @RequestAttribute("user") User user) {
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -98,7 +98,7 @@ public class PaperController {
 
     @PatchMapping("{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable String id, @RequestParam String researchId,
-                                   @RequestParam String comment, User user) {
+                                   @RequestParam String comment, @RequestAttribute("user") User user) {
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -115,7 +115,7 @@ public class PaperController {
 
     @PutMapping("{id}/save-state")
     public ResponseEntity<Void> paperSaveState(@PathVariable String id, @RequestParam String researchId,
-                                     @RequestParam SaveState saveState, User user) {
+                                     @RequestParam SaveState saveState, @RequestAttribute("user") User user) {
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -134,7 +134,7 @@ public class PaperController {
 
     @PatchMapping("{id}/relevance")
     public ResponseEntity<Void> paperRelevance(@PathVariable String id, @RequestParam String researchId,
-                                     @RequestParam int relevance, User user) {
+                                     @RequestParam int relevance, @RequestAttribute("user") User user) {
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -154,7 +154,7 @@ public class PaperController {
                                                            @RequestParam String researchId,
                                                            @RequestParam RecommendationMethod method,
                                                             @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                                         User user) {
+                                                                         @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         try {

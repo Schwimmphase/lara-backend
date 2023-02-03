@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody UserRequest request, User admin) {
+    public ResponseEntity<User> createUser(@RequestBody UserRequest request, @RequestAttribute("user") User admin) {
         try {
             UserCategory category = userCategoryService.getUserCategory(request.userCategory());
             User user = userService.createUser(request.username(), request.password(), category);
@@ -57,7 +57,8 @@ public class AdminController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request, User admin) {
+    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request,
+                                           @RequestAttribute("user") User admin) {
         try {
             UserCategory category = userCategoryService.getUserCategory(request.userCategory());
             User user = userService.getUserById(userId);
@@ -69,7 +70,8 @@ public class AdminController {
     }
 
     @PostMapping("/category")
-    public ResponseEntity<UserCategory> createCategory(@RequestBody CategoryRequest request, User admin) {
+    public ResponseEntity<UserCategory> createCategory(@RequestBody CategoryRequest request,
+                                                       @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.createCategory(request.name(), request.color());
             return ResponseEntity.ok(userCategory);
@@ -79,14 +81,14 @@ public class AdminController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<Map<String, List<UserCategory>>> listCategories(User admin) {
+    public ResponseEntity<Map<String, List<UserCategory>>> listCategories(@RequestAttribute("user") User admin) {
         List<UserCategory> userCategories = userCategoryService.getUserCategories();
         return ResponseEntity.ok(Map.of("categories", userCategories));
     }
 
     @PostMapping("/category/{id}")
     public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
-                                                       User admin) {
+                                                       @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.getUserCategory(id);
             userCategoryService.updateCategory(userCategory, request.name(), request.color());
@@ -97,7 +99,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable String id, User admin) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable String id, @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.getUserCategory(id);
             userCategoryService.deleteCategory(userCategory);

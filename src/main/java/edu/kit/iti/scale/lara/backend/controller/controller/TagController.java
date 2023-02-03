@@ -23,7 +23,8 @@ public class TagController {
     private final ResearchService researchService;
 
     @PostMapping("/")
-    public ResponseEntity<Tag> createTag(@RequestParam String researchId, @RequestBody TagRequest request, User user) {
+    public ResponseEntity<Tag> createTag(@RequestParam String researchId, @RequestBody TagRequest request,
+                                         @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             Tag tag = tagService.createTag(request.color(), request.name(), research);
@@ -34,7 +35,8 @@ public class TagController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@PathVariable String id, @RequestBody TagRequest request, User user) {
+    public ResponseEntity<Tag> updateTag(@PathVariable String id, @RequestBody TagRequest request,
+                                         @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
             tagService.updateTag(tag, request.name(), request.color());
@@ -45,7 +47,7 @@ public class TagController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTag(@PathVariable String id, User user) {
+    public ResponseEntity<Void> deleteTag(@PathVariable String id, @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
             tagService.deleteTag(tag);

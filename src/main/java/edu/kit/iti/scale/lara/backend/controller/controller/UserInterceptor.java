@@ -2,6 +2,7 @@ package edu.kit.iti.scale.lara.backend.controller.controller;
 
 import edu.kit.iti.scale.lara.backend.controller.service.UserService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.model.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,8 @@ public class UserInterceptor implements HandlerInterceptor {
 
         if (principal != null) {
             try {
-                request.setAttribute("user", userService.getUserById(principal.getName()));
+                User user = userService.getUserById(principal.getName());
+                request.setAttribute("user", user);
             } catch (NotInDataBaseException e) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }
