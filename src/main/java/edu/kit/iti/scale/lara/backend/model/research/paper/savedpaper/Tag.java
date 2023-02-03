@@ -2,26 +2,27 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "tags", schema = "lara")
 @NoArgsConstructor
 public class Tag {
     @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String color;
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Research research;
 
-    public Tag(String id, String color, String name, Research research) {
-        this.id = id;
+    public Tag(String color, String name, Research research) {
         this.color = color;
         this.name = name;
         this.research = research;
@@ -59,4 +60,13 @@ public class Tag {
     public void setResearch(Research research) {
         this.research = research;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tag)) return false;
+        Tag tag = (Tag) o;
+        return Objects.equals(getId(), tag.getId());
+    }
+
 }

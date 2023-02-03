@@ -14,16 +14,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -38,10 +29,10 @@ public class ResearchController {
     @PostMapping("/")
     public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, User user) {
 
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research = new Research("12345", "New-Research", new Comment("12345", "description"), ZonedDateTime.now(), user);
+        Research research = new Research("New-Research", new Comment("description"), ZonedDateTime.now(), user);
 
         return ResponseEntity.ok(research);
     }
@@ -49,12 +40,12 @@ public class ResearchController {
     @GetMapping("/")
     public ResponseEntity<Map<String, List<Research>>> listResearch(User user) {
 
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research1 = new Research("12345", "Research1", new Comment("12345", "description"), ZonedDateTime.now(), user);
-        Research research3 = new Research("12345", "Research3", new Comment("12345", "description"), ZonedDateTime.now(), user);
-        Research research2 = new Research("12345", "Research2", new Comment("12345", "description"), ZonedDateTime.now(), user);
+        Research research1 = new Research("Research1", new Comment("description"), ZonedDateTime.now(), user1);
+        Research research3 = new Research("Research3", new Comment("description"), ZonedDateTime.now(), user1);
+        Research research2 = new Research("Research2", new Comment("description"), ZonedDateTime.now(), user1);
 
         List<Research> researches = new ArrayList<>();
         researches.add(research1);
@@ -69,10 +60,10 @@ public class ResearchController {
                                                    @RequestBody ResearchRequest request, User user) {
 
         // TODO: replace mock with code
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research = new Research("12345", "UpdatedResearch", new Comment("12345", "description"), ZonedDateTime.now(), user1);
+        Research research = new Research("UpdatedResearch", new Comment("description"), ZonedDateTime.now(), user1);
         return ResponseEntity.ok(research);
     }
 
@@ -102,14 +93,14 @@ public class ResearchController {
     public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") String researchId, User user) {
 
         // TODO: replace mock with code
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), ZonedDateTime.now(), user1);
-        Tag tag1 = new Tag("11111", "#0000FF", "New-Tag1", research);
-        Tag tag2 = new Tag("22222", "#0000FF", "New-Tag2", research);
-        Tag tag3 = new Tag("33333", "#0000FF", "New-Tag3", research);
-        Tag tag4 = new Tag("44444", "#0000FF", "New-Tag4", research);
+        Research research = new Research("randomResearch", new Comment("text"), ZonedDateTime.now(), user1);
+        Tag tag1 = new Tag("#0000FF", "New-Tag1", research);
+        Tag tag2 = new Tag("#0000FF", "New-Tag2", research);
+        Tag tag3 = new Tag("#0000FF", "New-Tag3", research);
+        Tag tag4 = new Tag("#0000FF", "New-Tag4", research);
 
         List<Tag> tags = new ArrayList<>();
 

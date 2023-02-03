@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -24,13 +22,26 @@ public class CachedPaper {
     private Paper paper;
     @Id
     @ManyToOne
+    private Paper parentPaper;
+    @Id
+    @ManyToOne
     @JsonIgnore
     private Research research;
-    @JsonIgnore
     private CachedPaperType type;
 
+    public CachedPaper(Paper paper, Paper parentPaper, Research research, CachedPaperType type) {
+        this.paper = paper;
+        this.parentPaper = parentPaper;
+        this.research = research;
+        this.type = type;
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @EqualsAndHashCode
     public static class CachedPaperId implements Serializable {
         private Research research;
         private Paper paper;
+
     }
 }

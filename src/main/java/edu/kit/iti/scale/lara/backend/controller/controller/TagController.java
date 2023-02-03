@@ -20,24 +20,24 @@ public class TagController {
     public ResponseEntity<Tag> createTag(@RequestParam String name, @RequestParam String researchId, User user) {
 
         // TODO: replace mock with code
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), ZonedDateTime.now(), user1);
+        Research research = new Research("randomResearch", new Comment("text"), ZonedDateTime.now(), user1);
 
-        return ResponseEntity.ok(new Tag("12345", "#0000FF", "New-Tag", research));
+        return ResponseEntity.ok(new Tag("#0000FF", "New-Tag", research));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Tag> updateTag(@PathVariable String id, @RequestBody TagRequest request, User user) {
 
         // TODO: replace mock with code
-        UserCategory category = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user1 = new User("one","11111", "password1", category);
+        UserCategory category = new UserCategory("#0000FF", "Test-User");
+        User user1 = new User("one", "password1", category);
 
-        Research research = new Research("12345", "randomResearch", new Comment("12345", "text"), ZonedDateTime.now(), user1);
+        Research research = new Research("randomResearch", new Comment("text"), ZonedDateTime.now(), user1);
 
-        return ResponseEntity.ok(new Tag("12345", "#0000FF", "Updated-Tag", research));
+        return ResponseEntity.ok(new Tag("#0000FF", "Updated-Tag", research));
     }
 
     @DeleteMapping("/{id}")
