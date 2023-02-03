@@ -13,16 +13,13 @@ public class SemanticScholarCaller implements ApiCaller {
 
 
     @Override
-    public String call(String url, HttpMethod method, JSONArray positives, JSONArray negatives) throws IOException {
+    public String call(String url, HttpMethod method, JSONObject jsonBody) throws IOException {
+
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         Request request;
 
         if (method == HttpMethod.POST) {
-
-            String listOfGivenPapers = "{\"positivePaperIds\": " + positives.toString() + ",\n \"negativePaperIds\": " + negatives.toString() + "}";
-
-            RequestBody body = RequestBody.create(listOfGivenPapers, JSON);
-
+            RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
             request = new Request.Builder().url(new URL(url)).post(body).build();
         }
         else {
@@ -30,15 +27,13 @@ public class SemanticScholarCaller implements ApiCaller {
         }
 
         OkHttpClient client = new OkHttpClient();
-
         Call call = client.newCall(request);
-
         Response response = call.execute();
 
+        return response.body().string();
+    }
 
-        String responseString = response.body().string();
-
-
-        return responseString;
+    public String call(String url, HttpMethod method) throws IOException {
+        return call(url, method, null);
     }
 }

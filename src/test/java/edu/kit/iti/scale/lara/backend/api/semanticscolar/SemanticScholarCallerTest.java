@@ -31,16 +31,17 @@ class SemanticScholarCallerTest {
         // set up
         JSONArray positives = new JSONArray().put("385742fffcf113656f0d3cf6c06ef95cb8439dc6");
         JSONArray negatives = new JSONArray().put("e24cdf73b3e7e590c2fe5ecac9ae8aa983801367");
+        JSONObject jsonBody = new JSONObject("{\"positivePaperIds\": " + positives.toString() + ",\n \"negativePaperIds\": " + negatives.toString() + "}");
         HttpMethod method = HttpMethod.POST;
         String url = "https://api.semanticscholar.org/recommendations/v1/papers/?offset=100&limit=10&fields=url,abstract,authors,title,venue,year,citationCount,referenceCount";
 
 
         // execution
-        String response = new SemanticScholarCaller().call(url, method, positives, negatives);
+        String response = new SemanticScholarCaller().call(url, method, jsonBody);
 
         JSONObject jsonResponse = new JSONObject(response);
 
-        System.out.println(response);
+        //System.out.println(response);
 
         // test
         assertNotNull(response);
@@ -68,11 +69,11 @@ class SemanticScholarCallerTest {
         HttpMethod method = HttpMethod.GET;
 
         // execution
-        String response = new SemanticScholarCaller().call(url, method, null, null);
+        String response = new SemanticScholarCaller().call(url, method, null);
 
         JSONObject jsonResponse = new JSONObject(response);
 
-        System.out.println(response);
+        //System.out.println(response);
 
         // test
         assertNotNull(response);
@@ -100,11 +101,11 @@ class SemanticScholarCallerTest {
         HttpMethod method = HttpMethod.GET;
 
         // execution
-        String response = new SemanticScholarCaller().call(url, method, null, null);
+        String response = new SemanticScholarCaller().call(url, method, null);
 
         JSONObject jsonResponse = new JSONObject(response);
 
-        System.out.println(response);
+        //System.out.println(response);
 
         // test
         assertNotNull(response);
@@ -135,11 +136,11 @@ class SemanticScholarCallerTest {
         HttpMethod method = HttpMethod.GET;
 
         // execution
-        String response = new SemanticScholarCaller().call(url, method, null, null);
+        String response = new SemanticScholarCaller().call(url, method, null);
 
         JSONObject jsonResponse = new JSONObject(response);
 
-        System.out.println(response);
+        //System.out.println(response);
 
         // test
         assertNotNull(response);
@@ -169,11 +170,11 @@ class SemanticScholarCallerTest {
         HttpMethod method = HttpMethod.GET;
 
         // execution
-        String response = new SemanticScholarCaller().call(url, method, null, null);
+        String response = new SemanticScholarCaller().call(url, method, null);
 
         JSONObject jsonResponse = new JSONObject(response);
 
-        System.out.println(response);
+        //System.out.println(response);
 
         // test
         assertNotNull(response);

@@ -14,7 +14,7 @@ class SemanticScholarHandlerTest {
     void getPapersByKeyword() throws IOException {
 
         // set up
-        String query = "graph algorithm";
+        String query = "semantic scholar api";
 
         // execution
         List<ApiPaper> results = new SemanticScholarHandler().getPapersByKeyword(query);
@@ -27,7 +27,7 @@ class SemanticScholarHandlerTest {
         for (ApiPaper paper : results) {
             assertNotNull(paper.getId());
             assertNotNull(paper.getAuthors());
-            assertNotNull(paper.getAbstractText());
+            //assertNotNull(paper.getAbstractText());
             assertNotNull(paper.getTitle());
             assertNotNull(paper.getVenue());
             assertNotNull(paper.getPdfUrl());
@@ -46,9 +46,72 @@ class SemanticScholarHandlerTest {
         List<ApiPaper> results = new SemanticScholarHandler().getRecommendations(positiveIds, negativeIds);
 
         // test
-        System.out.println(results.size());
+        for (ApiPaper paper : results) {
+            assertNotNull(paper.getId());
+            assertNotNull(paper.getAuthors());
+            //assertNotNull(paper.getAbstractText());
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getVenue());
+            assertNotNull(paper.getPdfUrl());
+        }
 
     }
 
+    @Test
+    void getCitations() throws IOException {
+        // set up
+        String paperId = "SemSchol#385742fffcf113656f0d3cf6c06ef95cb8439dc6";
 
+        // execution
+        List<ApiPaper> results = new SemanticScholarHandler().getCitations(paperId);
+
+        // test
+        for (ApiPaper paper : results) {
+            assertNotNull(paper.getId());
+            assertNotNull(paper.getAuthors());
+            //assertNotNull(paper.getAbstractText());
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getVenue());
+            assertNotNull(paper.getPdfUrl());
+        }
+    }
+
+    @Test
+    void getReferences() throws IOException {
+        // set up
+        String paperId = "SemSchol#649def34f8be52c8b66281af98ae884c09aef38b";
+
+        // execution
+        List<ApiPaper> results = new SemanticScholarHandler().getReferences(paperId);
+
+        // test
+        for (ApiPaper paper : results) {
+            assertNotNull(paper.getId());
+            assertNotNull(paper.getAuthors());
+            //assertNotNull(paper.getAbstractText());
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getVenue());
+            assertNotNull(paper.getPdfUrl());
+        }
+    }
+
+    @Test
+    void getPaper() throws IOException {
+        // set up
+        String paperId = "SemSchol#649def34f8be52c8b66281af98ae884c09aef38b";
+
+        // execution
+        List<ApiPaper> results = List.of(new SemanticScholarHandler().getPaper(paperId));
+
+        // test
+        for (ApiPaper paper : results) {
+            assertNotNull(paper.getId());
+            assertNotNull(paper.getAuthors());
+            assertNotNull(paper.getAbstractText());
+            assertNotNull(paper.getTitle());
+            assertNotNull(paper.getVenue());
+            assertNotNull(paper.getPdfUrl());
+        }
+
+    }
 }

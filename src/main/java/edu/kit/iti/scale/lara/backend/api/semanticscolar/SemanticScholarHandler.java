@@ -15,24 +15,29 @@ import java.util.List;
 public class SemanticScholarHandler implements ApiHandler {
 
     private static final String URL = "https://api.semanticscholar.org/graph/v1/paper/";
-    private static final String RECOMMENDATION_URL = "https://api.semanticscholar.org/recommendations/v1/papers/";
+    private static final String RECOMMENDATION_URL = "https://api.semanticscholar.org/recommendations/v1/papers/?";
     private static final String SEARCH = "search?query=";
     private static final String CITATIONS = "/citations";
     private static final String REFERENCES = "/references";
-    private static final String PAPER_ATTRIBUTES ="?fields=title,authors,venue,year,citationCount,referenceCount,abstract,url";
+    private static final String PAPER_ATTRIBUTES ="fields=title,authors,venue,year,citationCount,referenceCount,abstract,url";
     private static final String CITED_PAPER = "citedPaper";
     private static final String CITING_PAPER = "citingPaper";
+    private static final String RECOMMENDED_PAPERS = "recommendedPapers";
+    private static final String DATA = "data";
     private static final HttpMethod GET = HttpMethod.GET;
     private static final HttpMethod POST = HttpMethod.POST;
+
+    private final SemanticScholarWrapper semanticScholarWrapper = new SemanticScholarWrapper();
+    private final SemanticScholarCaller semanticScholarCaller = new SemanticScholarCaller();
 
     @Override
     public List<ApiPaper> getPapersByKeyword(String query) throws IOException, JSONException {
 
         // call Api
-        String response = new SemanticScholarCaller().call(URL + SEARCH + query.replace(" ", "+") + "&" + PAPER_ATTRIBUTES, GET, null, null);
+        String response = semanticScholarCaller.call(URL + SEARCH + query.replace(" ", "+") + "&" + PAPER_ATTRIBUTES, GET);
 
         // convert response String to api papers
-        List<ApiPaper> papersByKeyword = new SemanticScholarWrapper().convertSearchResults(response);
+        List<ApiPaper> papersByKeyword = semanticScholarWrapper.convertRecommendationsSearchResults(response, DATA);
 
         return papersByKeyword;
     }
@@ -44,15 +49,18 @@ public class SemanticScholarHandler implements ApiHandler {
         positiveIds = parseIds(positiveIds);
         negativeIds = parseIds(negativeIds);
 
+        // create body as JSONObject
+
         JSONArray positives = convertToJsonArray(positiveIds);
         JSONArray negatives = convertToJsonArray(negativeIds);
+        JSONObject jsonBody = new JSONObject("{\"positivePaperIds\": " + positives.toString() + ",\n \"negativePaperIds\": " + negatives.toString() + "}");
 
         // call Api
-        String response = new SemanticScholarCaller().call(RECOMMENDATION_URL + PAPER_ATTRIBUTES, POST, positives, negatives);
+        String response = semanticScholarCaller.call(RECOMMENDATION_URL + PAPER_ATTRIBUTES, POST, jsonBody);
 
         //convert response String to api papers
-        List<ApiPaper> recommendations = new SemanticScholarWrapper().convertRecommendations(response);
-        return null;
+        List<ApiPaper> recommendations = semanticScholarWrapper.convertRecommendationsSearchResults(response, RECOMMENDED_PAPERS);
+        return recommendations;
     }
 
     @Override
@@ -62,10 +70,11 @@ public class SemanticScholarHandler implements ApiHandler {
         paperId = parseIds(List.of(paperId)).get(0);
 
         // call Api
-        String response = new SemanticScholarCaller().call(URL + paperId + CITATIONS + PAPER_ATTRIBUTES, GET, null, null);
+        String response = semanticScholarCaller.call(URL + paperId + CITATIONS + "?" + PAPER_ATTRIBUTES, GET);
+
 
         // convert response String to api papers
-        List<ApiPaper> citations = new SemanticScholarWrapper().convertCitationsReferencesSearch(response, CITING_PAPER);
+        List<ApiPaper> citations = semanticScholarWrapper.convertCitationsReferencesSearch(response, CITING_PAPER);
 
         return citations;
     }
@@ -77,10 +86,10 @@ public class SemanticScholarHandler implements ApiHandler {
         paperId = parseIds(List.of(paperId)).get(0);
 
         // call Api
-        String response = new SemanticScholarCaller().call(URL + paperId + REFERENCES + PAPER_ATTRIBUTES, GET, null, null);
+        String response = semanticScholarCaller.call(URL + paperId + REFERENCES + "?" + PAPER_ATTRIBUTES, GET);
 
         // convert response String to api papers
-        List<ApiPaper> references = new SemanticScholarWrapper().convertCitationsReferencesSearch(response, CITED_PAPER);
+        List<ApiPaper> references = semanticScholarWrapper.convertCitationsReferencesSearch(response, CITED_PAPER);
 
         return references;
     }
@@ -92,7 +101,7 @@ public class SemanticScholarHandler implements ApiHandler {
         paperId = parseIds(List.of(paperId)).get(0);
 
         // call Api
-        String response = new SemanticScholarCaller().call(URL + paperId + PAPER_ATTRIBUTES, GET, null, null);
+        String response = new SemanticScholarCaller().call(URL + paperId + "?" + PAPER_ATTRIBUTES, GET);
 
         // convert response String to api paper
         List<ApiPaper> apiPaper = new SemanticScholarWrapper().convertToPaper(response);

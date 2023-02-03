@@ -10,26 +10,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Controller
 public class ApiActionController {
 
+    private SemanticScholarHandler semanticScholarHandler = new SemanticScholarHandler();
+    private ApiPaperConverter apiPaperConverter = new ApiPaperConverter();
+
     public Paper getPaper(String paperId) throws JSONException, IOException {
 
-        ApiPaper apiPaper = new SemanticScholarHandler().getPaper(paperId);
-        Paper paper = new ApiPaperConverter().convert(apiPaper);
+        ApiPaper apiPaper = semanticScholarHandler.getPaper(paperId);
+        Paper paper = apiPaperConverter.convert(apiPaper);
 
         return paper;
     }
 
     public List<Paper> getPapersByKeyword(String query) throws IOException, JSONException {
 
-        List<ApiPaper> apiPapers = new SemanticScholarHandler().getPapersByKeyword(query);
+        List<ApiPaper> apiPapers = semanticScholarHandler.getPapersByKeyword(query);
 
         List<Paper> papers = new ArrayList<>();
 
         // convert resulting Api papers to papers
         for (ApiPaper apiPaper : apiPapers) {
-            papers.add(new ApiPaperConverter().convert(apiPaper));
+            papers.add(apiPaperConverter.convert(apiPaper));
         }
 
         return papers;
@@ -50,13 +55,13 @@ public class ApiActionController {
             negativeIds.add(paper.getPaperId());
         }
 
-        List<ApiPaper> recommendedApiPapers = new SemanticScholarHandler().getRecommendations(positiveIds, negativeIds);
+        List<ApiPaper> recommendedApiPapers = semanticScholarHandler.getRecommendations(positiveIds, negativeIds);
 
         List<Paper> recommendedPapers = new ArrayList<>();
 
         // convert recommended Api papers to papers
         for (ApiPaper apiPaper : recommendedApiPapers) {
-            recommendedPapers.add(new ApiPaperConverter().convert(apiPaper));
+            recommendedPapers.add(apiPaperConverter.convert(apiPaper));
         }
 
         return recommendedPapers;
@@ -64,13 +69,13 @@ public class ApiActionController {
 
     public List<Paper> getCitations(Paper paper) throws IOException, JSONException {
 
-        List<ApiPaper> citationsApiPapers = new SemanticScholarHandler().getCitations(paper.getPaperId());
+        List<ApiPaper> citationsApiPapers = semanticScholarHandler.getCitations(paper.getPaperId());
 
         List<Paper> citations = new ArrayList<>();
 
         // convert citations from Api paper to paper
         for (ApiPaper apiPaper : citationsApiPapers) {
-            citations.add(new ApiPaperConverter().convert(apiPaper));
+            citations.add(apiPaperConverter.convert(apiPaper));
         }
 
         return citations;
@@ -78,13 +83,13 @@ public class ApiActionController {
 
     public List<Paper> getReferences(Paper paper) throws IOException, JSONException {
 
-        List<ApiPaper> referencesApiPaper = new SemanticScholarHandler().getReferences(paper.getPaperId());
+        List<ApiPaper> referencesApiPaper = semanticScholarHandler.getReferences(paper.getPaperId());
 
         List<Paper> references = new ArrayList<>();
 
         // convert citations from Api paper to paper
         for (ApiPaper apiPaper : referencesApiPaper) {
-            references.add(new ApiPaperConverter().convert(apiPaper));
+            references.add(apiPaperConverter.convert(apiPaper));
         }
 
         return references;
