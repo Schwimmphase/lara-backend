@@ -5,7 +5,6 @@ import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 
 @Service
 public class UserCategoryService {
