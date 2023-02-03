@@ -10,9 +10,19 @@ import edu.kit.iti.scale.lara.backend.model.organizer.OrganizerList;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -27,7 +37,7 @@ public class AdminController {
     private final UserCategoryService userCategoryService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam List<OrganizerRequest> organizers) {
+    public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam @NotNull List<OrganizerRequest> organizers) {
         List<User> users = userService.getUsers();
 
         OrganizerList.createFromOrganizerRequests(organizers);
@@ -35,7 +45,11 @@ public class AdminController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> createUser(@RequestBody UserRequest request, @RequestAttribute("user") User admin) {
+    public ResponseEntity<User> createUser(@RequestBody @NotNull UserRequest request, @RequestAttribute("user") User admin) {
+        if (request.password() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password must not be null");
+        }
+
         try {
             UserCategory category = userCategoryService.getUserCategory(request.userCategory());
             User user = userService.createUser(request.username(), request.password(), category);
@@ -46,7 +60,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String userId, User admin) {
+    public ResponseEntity<Void> deleteUser(@PathVariable @NotNull String userId, User admin) {
         try {
             User user = userService.getUserById(userId);
             userService.deleteUser(user);
@@ -57,7 +71,8 @@ public class AdminController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request,
+    public ResponseEntity<User> updateUser(@PathVariable @NotNull String userId,
+                                           @RequestBody @NotNull UserRequest request,
                                            @RequestAttribute("user") User admin) {
         try {
             UserCategory category = userCategoryService.getUserCategory(request.userCategory());
@@ -70,7 +85,7 @@ public class AdminController {
     }
 
     @PostMapping("/category")
-    public ResponseEntity<UserCategory> createCategory(@RequestBody CategoryRequest request,
+    public ResponseEntity<UserCategory> createCategory(@RequestBody @NotNull CategoryRequest request,
                                                        @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.createCategory(request.name(), request.color());
@@ -87,7 +102,8 @@ public class AdminController {
     }
 
     @PostMapping("/category/{id}")
-    public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
+    public ResponseEntity<UserCategory> updateCategory(@PathVariable @NotNull String id,
+                                                       @RequestBody @NotNull CategoryRequest request,
                                                        @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.getUserCategory(id);
@@ -99,7 +115,8 @@ public class AdminController {
     }
 
     @DeleteMapping("/category/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable String id, @RequestAttribute("user") User admin) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable @NotNull String id,
+                                               @RequestAttribute("user") User admin) {
         try {
             UserCategory userCategory = userCategoryService.getUserCategory(id);
             userCategoryService.deleteCategory(userCategory);

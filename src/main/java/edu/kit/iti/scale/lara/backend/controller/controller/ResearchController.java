@@ -15,9 +15,20 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -35,7 +46,8 @@ public class ResearchController {
     private final TagService tagService;
 
     @PostMapping("/")
-    public ResponseEntity<Research> createResearch(@RequestBody ResearchRequest request, @RequestAttribute("user") User user) {
+    public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
+                                                   @RequestAttribute("user") User user) {
         Research research = researchService.createResearch(user, request.title(), request.description());
 
         return ResponseEntity.ok(research);
@@ -49,8 +61,9 @@ public class ResearchController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Research> updateResearch(@PathVariable("id") String researchId,
-                                                   @RequestBody ResearchRequest request, @RequestAttribute("user") User user) {
+    public ResponseEntity<Research> updateResearch(@PathVariable("id") @NotNull String researchId,
+                                                   @RequestBody @NotNull ResearchRequest request,
+                                                   @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             researchService.updateResearch(research, request.title(), request.description());
@@ -63,7 +76,8 @@ public class ResearchController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteResearch(@PathVariable("id") String researchId, @RequestAttribute("user") User user) {
+    public ResponseEntity<Void> deleteResearch(@PathVariable("id") @NotNull String researchId,
+                                               @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             researchService.deleteResearch(research);
@@ -76,8 +90,10 @@ public class ResearchController {
     }
 
     @PutMapping("/{id}/paper")
-    public ResponseEntity<Void> savePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
-                                @RequestParam("state") SaveState saveState, @RequestAttribute("user") User user) {
+    public ResponseEntity<Void> savePaper(@PathVariable("id") @NotNull String researchId,
+                                          @RequestParam @NotNull String paperId,
+                                          @RequestParam("state") @NotNull SaveState saveState,
+                                          @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(paperId);
@@ -91,7 +107,8 @@ public class ResearchController {
     }
 
     @DeleteMapping("/{id}/paper")
-    public ResponseEntity<Void> deletePaper(@PathVariable("id") String researchId, @RequestParam String paperId,
+    public ResponseEntity<Void> deletePaper(@PathVariable("id") @NotNull String researchId,
+                                            @RequestParam @NotNull String paperId,
                                             @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -108,7 +125,7 @@ public class ResearchController {
     }
 
     @GetMapping("/{id}/tags")
-    public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") String researchId,
+    public ResponseEntity<Map<String, List<Tag>>> researchTags(@PathVariable("id") @NotNull String researchId,
                                                                @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -122,9 +139,9 @@ public class ResearchController {
     }
 
     @PostMapping("/{id}/papers")
-    public ResponseEntity<Map<String, List<SavedPaper>>> researchPapers(@PathVariable("id") String researchId,
-                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                                   User user) {
+    public ResponseEntity<Map<String, List<SavedPaper>>> researchPapers(@PathVariable("id") @NotNull String researchId,
+                                                  @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                              @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         try {
@@ -140,9 +157,9 @@ public class ResearchController {
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
-                                                                            @RequestParam RecommendationMethod method,
-                                                                            @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                                            User user) {
+                                                     @RequestParam @NotNull RecommendationMethod method,
+                                                      @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                  @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         try {
@@ -170,8 +187,8 @@ public class ResearchController {
 
     @PostMapping("/search")
     public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
-                                                                   @RequestBody Map<String, List<OrganizerRequest>> request,
-                                                                   User user) {
+                                             @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                         @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
 
         try {

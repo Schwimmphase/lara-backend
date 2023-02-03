@@ -1,12 +1,13 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import edu.kit.iti.scale.lara.backend.controller.record.LoginRequest;
+import edu.kit.iti.scale.lara.backend.controller.request.LoginRequest;
 import edu.kit.iti.scale.lara.backend.controller.service.AuthService;
 import edu.kit.iti.scale.lara.backend.controller.service.UserService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody @NotNull LoginRequest request) {
         if (userService.checkCredentials(request.password(), request.userId())) {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.userId(), request.password())

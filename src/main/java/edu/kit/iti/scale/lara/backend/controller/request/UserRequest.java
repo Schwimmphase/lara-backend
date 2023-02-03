@@ -1,4 +1,7 @@
 package edu.kit.iti.scale.lara.backend.controller.request;
 
-public record UserRequest(String username, String password, String userCategory) {
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public record UserRequest(@NotNull String username, @Nullable String password, @NotNull String userCategory) {
 }

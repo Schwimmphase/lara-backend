@@ -1,4 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.request;
 
-public record ResearchRequest(String title, String description) {
+import org.jetbrains.annotations.NotNull;
+
+public record ResearchRequest(@NotNull String title, @NotNull String description) {
 }

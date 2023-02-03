@@ -1,4 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.request;
 
-public record LoginRequest(String username, String password) {
+import org.jetbrains.annotations.NotNull;
+
+public record LoginRequest(@NotNull String userId, @NotNull String password) {
 }

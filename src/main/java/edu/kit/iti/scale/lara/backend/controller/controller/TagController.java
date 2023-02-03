@@ -9,9 +9,18 @@ import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -23,7 +32,8 @@ public class TagController {
     private final ResearchService researchService;
 
     @PostMapping("/")
-    public ResponseEntity<Tag> createTag(@RequestParam String researchId, @RequestBody TagRequest request,
+    public ResponseEntity<Tag> createTag(@RequestParam @NotNull String researchId,
+                                         @RequestBody @NotNull TagRequest request,
                                          @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -35,7 +45,8 @@ public class TagController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@PathVariable String id, @RequestBody TagRequest request,
+    public ResponseEntity<Tag> updateTag(@PathVariable @NotNull String id,
+                                         @RequestBody @NotNull TagRequest request,
                                          @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
@@ -47,7 +58,7 @@ public class TagController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTag(@PathVariable String id, @RequestAttribute("user") User user) {
+    public ResponseEntity<Void> deleteTag(@PathVariable @NotNull String id, @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
             tagService.deleteTag(tag);
