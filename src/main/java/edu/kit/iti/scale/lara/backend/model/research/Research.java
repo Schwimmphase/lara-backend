@@ -79,4 +79,9 @@ public class Research {
         return cachedPapers.add(cachedPaper);
     }
 
+    @Override
+    public String toString() {
+        return this.title;
+    }
+
 }
