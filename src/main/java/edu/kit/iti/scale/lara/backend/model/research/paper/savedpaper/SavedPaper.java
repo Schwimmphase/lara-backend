@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "saved-papers", schema = "lara")
+@Table(name = "saved-papers")
 @NoArgsConstructor
 @Getter
 @Setter

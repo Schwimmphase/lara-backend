@@ -4,9 +4,7 @@ import edu.kit.iti.scale.lara.backend.controller.config.RsaKeyProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 
-@Profile("!nodb")
 @SpringBootApplication
 @EnableConfigurationProperties(RsaKeyProperties.class)
 public class LaraBackendApplication {

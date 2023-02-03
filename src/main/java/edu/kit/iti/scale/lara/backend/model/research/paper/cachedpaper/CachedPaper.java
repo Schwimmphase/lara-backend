@@ -10,7 +10,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "cached-papers", schema = "lara")
+@Table(name = "cached-papers")
 @NoArgsConstructor
 @Getter
 @Setter

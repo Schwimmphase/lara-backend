@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tags", schema = "lara")
+@Table(name = "tags")
 @NoArgsConstructor
 public class Tag {
     @Id

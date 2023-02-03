@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user-categories", schema = "lara")
+@Table(name = "user-categories")
 @NoArgsConstructor
 @Getter
 @Setter

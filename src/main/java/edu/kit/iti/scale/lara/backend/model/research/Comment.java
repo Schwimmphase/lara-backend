@@ -12,7 +12,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "comments", schema = "lara")
+@Table(name = "comments")
 @NoArgsConstructor
 @Getter
 @Setter
