@@ -21,20 +21,20 @@ public class CacheService {
 
     public void initializeCache(List<SavedPaper> savedPapers, Research research) {
         for (SavedPaper savedPaper : savedPapers) {
-            List<Paper> citations = apiActionController.getCitations(savedPaper.getPaper());
-            List<Paper> references = apiActionController.getReferences(savedPaper.getPaper());
+            List<Paper> citations = apiActionController.getCitations(savedPaper.getSavedPaperId().getPaper());
+            List<Paper> references = apiActionController.getReferences(savedPaper.getSavedPaperId().getPaper());
 
             for (Paper paper : citations) {
-                createCachedPaper(research, paper, savedPaper.getPaper(), CachedPaperType.CITATION);
+                createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.CITATION);
             }
             for (Paper paper : references) {
-                createCachedPaper(research, paper, savedPaper.getPaper(), CachedPaperType.REFERENCE);
+                createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.REFERENCE);
             }
         }
     }
 
     public void flushCacheResearch(Research research) {
-        List<CachedPaper> cache = cachedPaperRepository.findByResearch(research);
+        List<CachedPaper> cache = cachedPaperRepository.findByCachedPaperIdResearch(research);
         cachedPaperRepository.deleteAllInBatch(cache);
     }
 
@@ -45,23 +45,23 @@ public class CacheService {
     }
 
     public void removePaper(Paper paper, Research research) {
-        List<CachedPaper> cachedPapers = cachedPaperRepository.findByParentPaper(paper);
+        List<CachedPaper> cachedPapers = cachedPaperRepository.findByCachedPaperIdParentPaper(paper);
         for (CachedPaper cachedPaper : cachedPapers) {
-            if (cachedPaper.getResearch().equals(research)) {
+            if (cachedPaper.getCachedPaperId().getResearch().equals(research)) {
                 cachedPaperRepository.delete(cachedPaper);
             }
         }
     }
 
     public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
-        List<CachedPaper> references = cachedPaperRepository.findByResearch(research);
-        references.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.REFERENCE || !papers.contains(cachedPaper.getParentPaper()));
+        List<CachedPaper> references = cachedPaperRepository.findByCachedPaperIdResearch(research);
+        references.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.REFERENCE || !papers.contains(cachedPaper.getCachedPaperId().getParentPaper()));
         return references;
     }
 
     public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
-        List<CachedPaper> citations = cachedPaperRepository.findByResearch(research);
-        citations.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.CITATION || !papers.contains(cachedPaper.getParentPaper()));
+        List<CachedPaper> citations = cachedPaperRepository.findByCachedPaperIdResearch(research);
+        citations.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.CITATION || !papers.contains(cachedPaper.getCachedPaperId().getParentPaper()));
         return citations;
     }
 }
