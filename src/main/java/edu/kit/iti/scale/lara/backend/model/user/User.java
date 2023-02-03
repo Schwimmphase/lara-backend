@@ -7,18 +7,21 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user", schema = "lara")
+@Table(name = "users", schema = "lara")
 @NoArgsConstructor
 @Getter
 @Setter
 public class User {
     private String username;
     @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @JsonProperty("userId")
     private String id;
     @JsonIgnore
@@ -26,17 +29,20 @@ public class User {
     @ManyToOne
     @JsonIgnore
     private Research activeResearch;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Research> researches;
 
-    public User(String username, String id, String password, UserCategory userCategory) {
+    public User(String username, String password, UserCategory userCategory) {
         this.username = username;
-        this.id = id;
         this.password = password;
         this.userCategory = userCategory;
         this.researches = new ArrayList<>();
+    }
+
+    public boolean addResearch(Research research) {
+        return researches.add(research);
     }
 }

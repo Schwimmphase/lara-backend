@@ -1,5 +1,7 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.controller.repository.UserCategoryRepository;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.springframework.stereotype.Service;
 
@@ -8,22 +10,32 @@ import java.awt.*;
 @Service
 public class UserCategoryService {
 
-    public UserCategory createCategory(String name, Color color) {
+    private final UserCategoryRepository userCategoryRepository;
 
-        // TODO
-
-        return null;
+    public UserCategoryService(UserCategoryRepository userCategoryRepository) {
+        this.userCategoryRepository = userCategoryRepository;
     }
 
-    public void updateCategory(String id, String newName, Color newColor) {
-
-        // TODO
-
+    public UserCategory createCategory(String name, String color) {
+        UserCategory userCategory = new UserCategory(color, name);
+        userCategoryRepository.save(userCategory);
+        return userCategory;
     }
 
-    public void deleteCategory(String id) {
+    public UserCategory getUserCategory(String id) throws NotInDataBaseException {
+        if(userCategoryRepository.findById(id).isPresent()) {
+            return userCategoryRepository.findById(id).get();
+        } else {
+            throw new NotInDataBaseException();
+        }
+    }
 
-        //  TODO
+    public void updateCategory(UserCategory userCategory, String newName, String newColor) {
+        userCategory.setName(newName);
+        userCategory.setColor(newColor);
+    }
 
+    public void deleteCategory(UserCategory userCategory) {
+        userCategoryRepository.delete(userCategory);
     }
 }

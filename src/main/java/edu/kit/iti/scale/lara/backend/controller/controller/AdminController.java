@@ -20,16 +20,16 @@ public class AdminController {
     @GetMapping("/")
     public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam List<OrganizerRequest> organizers) {
 
-        // TODO: replace mock with code
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
+        //mock
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
         List<User> users = new ArrayList<>();
-        User user1 = new User("one","11111", "password1", testUser);
-        User user2 = new User("two","22222", "password2", testUser);
-        User user3 = new User("three","33333", "password3", testUser);
-        User user4 = new User("four","44444", "password4", testUser);
-        User user5 = new User("five","55555", "password5", testUser);
-        User user6 = new User("six","66666", "password6", testUser);
-        User user7 = new User("seven","77777", "password7", testUser);
+        User user1 = new User("one", "password1", testUser);
+        User user2 = new User("two", "password2", testUser);
+        User user3 = new User("three", "password3", testUser);
+        User user4 = new User("four", "password4", testUser);
+        User user5 = new User("five", "password5", testUser);
+        User user6 = new User("six", "password6", testUser);
+        User user7 = new User("seven", "password7", testUser);
 
         users.add(user1);
         users.add(user2);
@@ -45,9 +45,9 @@ public class AdminController {
     @PostMapping("/")
     public ResponseEntity<User> createUser(@RequestBody UserRequest request, User admin) {
 
-        // TODO: replace mock with code
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user = new User("createdUser","12345", "password", testUser);
+        //mock
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
+        User user = new User("createdUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
@@ -62,9 +62,9 @@ public class AdminController {
     @PatchMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable String userId, @RequestBody UserRequest request, User admin) {
 
-        // TODO: replace mock with code
-        UserCategory testUser = new UserCategory("aaaaa" ,"#0000FF", "Test-User");
-        User user = new User("updatedUser","12345", "password", testUser);
+        //mock
+        UserCategory testUser = new UserCategory("#0000FF", "Test-User");
+        User user = new User("updatedUser", "password", testUser);
 
         return ResponseEntity.ok(user);
     }
@@ -72,8 +72,8 @@ public class AdminController {
     @PostMapping("/category")
     public ResponseEntity<UserCategory> createCategory(CategoryRequest request, User admin) {
 
-        // TODO: replace mock with code
-        UserCategory newUserCategory = new UserCategory("bbbbb" ,"#0000FF", "New-User-Category");
+        //mock
+        UserCategory newUserCategory = new UserCategory("#0000FF", "New-User-Category");
 
         return ResponseEntity.ok(newUserCategory);
     }
@@ -84,18 +84,20 @@ public class AdminController {
         // TODO: replace mock with code
         List<UserCategory> categories = new ArrayList<>();
 
-        categories.add( new UserCategory("aaaaa" ,"#0000FF", "Test-User"));
-        categories.add(new UserCategory("bbbbb" ,"#0000FF", "New-User-Category"));
+        categories.add( new UserCategory("#0000FF", "Test-User"));
+        categories.add(new UserCategory("#0000FF", "New-User-Category"));
 
         return ResponseEntity.ok(Map.of("categories", categories));
     }
 
+        //mock
+        UserCategory updatedUserCategory = new UserCategory("#0000FF", "Updated-User-Category");
     @PostMapping("/category/{id}")
     public ResponseEntity<UserCategory> updateCategory(@PathVariable String id, @RequestBody CategoryRequest request,
                                                        User admin) {
 
         // TODO: replace mock with code
-        UserCategory updatedUserCategory = new UserCategory("ccccc" ,"#0000FF", "Updated-User-Category");
+        UserCategory updatedUserCategory = new UserCategory("#0000FF", "Updated-User-Category");
 
         return ResponseEntity.ok(updatedUserCategory);
     }
