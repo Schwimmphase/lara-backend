@@ -1,0 +1,874 @@
+{
+  "offset": 0,
+  "data": [
+    {
+      "citedPaper": {
+        "paperId": "1fec9d41d372267b4474f18cbeadd806c8b67adb",
+        "title": "Extracting Scientific Figures with Distantly Supervised Neural Networks",
+        "abstract": "Non-textual components such as charts, diagrams and tables provide key information in many scientific documents, but the lack of large labeled datasets has impeded the development of data-driven methods for scientific figure extraction. In this paper, we induce high-quality training labels for the task of figure extraction in a large number of scientific documents, with no human intervention. To accomplish this we leverage the auxiliary data provided in two large web collections of scientific documents (arXiv and PubMed) to locate figures and their associated captions in the rasterized PDF. We share the resulting dataset of over 5.5 million induced labels---4,000 times larger than the previous largest figure extraction dataset---with an average precision of 96.8%, to enable the development of modern data-driven methods for this task. We use this dataset to train a deep neural network for end-to-end figure detection, yielding a model that can be more easily extended to new domains compared to previous work. The model was successfully deployed in Semantic Scholar,\\footnote\\urlhttps://www.semanticscholar.org/ a large-scale academic search engine, and used to extract figures in 13 million scientific documents.\\footnoteA demo of our system is available at \\urlhttp://labs.semanticscholar.org/deepfigures/,and our dataset of induced labels can be downloaded at \\urlhttps://s3-us-west-2.amazonaws.com/ai2-s2-research-public/deepfigures/jcdl-deepfigures-labels.tar.gz. Code to run our system locally can be found at \\urlhttps://github.com/allenai/deepfigures-open.",
+        "venue": "ACM/IEEE Joint Conference on Digital Libraries",
+        "year": 2018,
+        "referenceCount": 29,
+        "citationCount": 83,
+        "openAccessPdf": {
+          "url": "http://arxiv.org/pdf/1804.02445",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1500370330",
+            "name": "Noah Siegel"
+          },
+          {
+            "authorId": "35219984",
+            "name": "Nicholas Lourie"
+          },
+          {
+            "authorId": "39071178",
+            "name": "Russell Power"
+          },
+          {
+            "authorId": "145585097",
+            "name": "Waleed Ammar"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "921b2958cac4138d188fd5047aa12bbcf37ac867",
+        "title": "Content-Based Citation Recommendation",
+        "abstract": "We present a content-based method for recommending citations in an academic paper draft. We embed a given query document into a vector space, then use its nearest neighbors as candidates, and rerank the candidates using a discriminative model trained to distinguish between observed and unobserved citations. Unlike previous work, our method does not require metadata such as author names which can be missing, e.g., during the peer review process. Without using metadata, our method outperforms the best reported results on PubMed and DBLP datasets with relative improvements of over 18% in F1@20 and over 22% in MRR. We show empirically that, although adding metadata improves the performance on standard metrics, it favors self-citations which are less useful in a citation recommendation setup. We release an online portal for citation recommendation based on our method, (URL: http://bit.ly/citeDemo) and a new dataset OpenCorpus of 7 million research articles to facilitate future research on this task.",
+        "venue": "North American Chapter of the Association for Computational Linguistics",
+        "year": 2018,
+        "referenceCount": 28,
+        "citationCount": 100,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/N18-1022.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1857797",
+            "name": "Chandra Bhagavatula"
+          },
+          {
+            "authorId": "46411828",
+            "name": "Sergey Feldman"
+          },
+          {
+            "authorId": "39071178",
+            "name": "Russell Power"
+          },
+          {
+            "authorId": "145585097",
+            "name": "Waleed Ammar"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "2264e14e35dc5a3db93437bc408a03171af8c59d",
+        "title": "The AI2 system at SemEval-2017 Task 10 (ScienceIE): semi-supervised end-to-end entity and relation extraction",
+        "abstract": "This paper describes our submission for the ScienceIE shared task (SemEval- 2017 Task 10) on entity and relation extraction from scientific papers. Our model is based on the end-to-end relation extraction model of Miwa and Bansal (2016) with several enhancements such as semi-supervised learning via neural language models, character-level encoding, gazetteers extracted from existing knowledge bases, and model ensembles. Our official submission ranked first in end-to-end entity and relation extraction (scenario 1), and second in the relation-only extraction (scenario 3).",
+        "venue": "International Workshop on Semantic Evaluation",
+        "year": 2017,
+        "referenceCount": 9,
+        "citationCount": 53,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/S17-2097.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "145585097",
+            "name": "Waleed Ammar"
+          },
+          {
+            "authorId": "39139825",
+            "name": "Matthew E. Peters"
+          },
+          {
+            "authorId": "1857797",
+            "name": "Chandra Bhagavatula"
+          },
+          {
+            "authorId": "39071178",
+            "name": "Russell Power"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "74a69228157b3fa1c7adc14e7715039e54f4b067",
+        "title": "MetaMap Lite: an evaluation of a new Java implementation of MetaMap",
+        "abstract": "MetaMap is a widely used named entity recognition tool that identifies concepts from the Unified Medical Language System Metathesaurus in text. This study presents MetaMap Lite, an implementation of some of the basic MetaMap functions in Java. On several collections of biomedical literature and clinical text, MetaMap Lite demonstrated real-time speed and precision, recall, and F1 scores comparable to or exceeding those of MetaMap and other popular biomedical text processing tools, clinical Text Analysis and Knowledge Extraction System (cTAKES) and DNorm.",
+        "venue": "J. Am. Medical Informatics Assoc.",
+        "year": 2017,
+        "referenceCount": 21,
+        "citationCount": 119,
+        "openAccessPdf": {
+          "url": "https://academic.oup.com/jamia/article-pdf/24/4/841/25421974/ocw177.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1398175407",
+            "name": "Dina Demner-Fushman"
+          },
+          {
+            "authorId": "34708703",
+            "name": "Willie J. Rogers"
+          },
+          {
+            "authorId": "1703414",
+            "name": "A. Aronson"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "6bed23ebd9998e85bad446b9a56ea53f463d0f8a",
+        "title": "Learning to Predict Citation-Based Impact Measures",
+        "abstract": "Citations implicitly encode a community's judgment of a paper's importance and thus provide a unique signal by which to study scientific impact. Efforts in understanding and refining this signal are reflected in the probabilistic modeling of citation networks and the proliferation of citation-based impact measures such as Hirsch's h-index. While these efforts focus on understanding the past and present, they leave open the question of whether scientific impact can be predicted into the future. Recent work addressing this deficiency has employed linear and simple probabilistic models; we show that these results can be handily outperformed by leveraging non-linear techniques. In particular, we find that these AI methods can predict measures of scientific impact for papers and authors, namely citation rates and h-indices, with surprising accuracy, even 10 years into the future. Moreover, we demonstrate how existing probabilistic models for paper citations can be extended to better incorporate refined prior knowledge. While predictions of scientific impact should be approached with healthy skepticism, our results improve upon prior efforts and form a baseline against which future progress can be easily judged.",
+        "venue": "ACM/IEEE Joint Conference on Digital Libraries",
+        "year": 2017,
+        "referenceCount": 31,
+        "citationCount": 31,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "20745881",
+            "name": "Luca Weihs"
+          },
+          {
+            "authorId": "1741101",
+            "name": "Oren Etzioni"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "32ce5467ff884d2f90a233f4d9606c6e18b1a9d6",
+        "title": "Learning a Neural Semantic Parser from User Feedback",
+        "abstract": "We present an approach to rapidly and easily build natural language interfaces to databases for new domains, whose performance improves over time based on user feedback, and requires minimal intervention. To achieve this, we adapt neural sequence models to map utterances directly to SQL with its full expressivity, bypassing any intermediate meaning representations. These models are immediately deployed online to solicit feedback from real users to flag incorrect queries. Finally, the popularity of SQL facilitates gathering annotations for incorrect predictions using the crowd, which is directly used to improve our models. This complete feedback loop, without intermediate representations or database specific engineering, opens up new ways of building high quality semantic parsers. Experiments suggest that this approach can be deployed quickly for any new target domain, as we show by learning a semantic parser for an online academic database from scratch.",
+        "venue": "Annual Meeting of the Association for Computational Linguistics",
+        "year": 2017,
+        "referenceCount": 37,
+        "citationCount": 274,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/P17-1089.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1900163",
+            "name": "Srini Iyer"
+          },
+          {
+            "authorId": "2621022",
+            "name": "Ioannis Konstas"
+          },
+          {
+            "authorId": "144385783",
+            "name": "Alvin Cheung"
+          },
+          {
+            "authorId": "2517825",
+            "name": "Jayant Krishnamurthy"
+          },
+          {
+            "authorId": "1982950",
+            "name": "Luke Zettlemoyer"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "a26accf878216be4388ad9a0474e658aa03d33e2",
+        "title": "SemEval 2017 Task 10: ScienceIE - Extracting Keyphrases and Relations from Scientific Publications",
+        "abstract": "We describe the SemEval task of extracting keyphrases and relations between them from scientific documents, which is crucial for understanding which publications describe which processes, tasks and materials. Although this was a new task, we had a total of 26 submissions across 3 evaluation scenarios. We expect the task and the findings reported in this paper to be relevant for researchers working on understanding scientific content, as well as the broader knowledge base population and information extraction communities.",
+        "venue": "International Workshop on Semantic Evaluation",
+        "year": 2017,
+        "referenceCount": 45,
+        "citationCount": 249,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/S17-2091.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1736067",
+            "name": "Isabelle Augenstein"
+          },
+          {
+            "authorId": "2067611182",
+            "name": "Mrinal Das"
+          },
+          {
+            "authorId": "145941665",
+            "name": "S. Riedel"
+          },
+          {
+            "authorId": "10704743",
+            "name": "Lakshmi Vikraman"
+          },
+          {
+            "authorId": "143753639",
+            "name": "A. McCallum"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "b30481dd5467a187b7e1a5a2dd326d97cafd95ac",
+        "title": "Explicit Semantic Ranking for Academic Search via Knowledge Graph Embedding",
+        "abstract": "This paper introduces Explicit Semantic Ranking (ESR), a new ranking technique that leverages knowledge graph embedding. Analysis of the query log from our academic search engine, SemanticScholar.org, reveals that a major error source is its inability to understand the meaning of research concepts in queries. To addresses this challenge, ESR represents queries and documents in the entity space and ranks them based on their semantic connections from their knowledge graph embedding. Experiments demonstrate ESR's ability in improving Semantic Scholar's online production system, especially on hard queries where word-based ranking fails.",
+        "venue": "The Web Conference",
+        "year": 2017,
+        "referenceCount": 31,
+        "citationCount": 282,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "144628574",
+            "name": "Chenyan Xiong"
+          },
+          {
+            "authorId": "39071178",
+            "name": "Russell Power"
+          },
+          {
+            "authorId": "144987107",
+            "name": "Jamie Callan"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "0bb4cadc80c0afaf29c57518dc9c06f8fcfa5f38",
+        "title": "Semi-supervised sequence tagging with bidirectional language models",
+        "abstract": "Pre-trained word embeddings learned from unlabeled text have become a standard component of neural network architectures for NLP tasks. However, in most cases, the recurrent network that operates on word-level representations to produce context sensitive representations is trained on relatively little labeled data. In this paper, we demonstrate a general semi-supervised approach for adding pretrained context embeddings from bidirectional language models to NLP systems and apply it to sequence labeling tasks. We evaluate our model on two standard datasets for named entity recognition (NER) and chunking, and in both cases achieve state of the art results, surpassing previous systems that use other forms of transfer or joint learning with additional labeled data and task specific gazetteers.",
+        "venue": "Annual Meeting of the Association for Computational Linguistics",
+        "year": 2017,
+        "referenceCount": 49,
+        "citationCount": 535,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/P17-1161.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "39139825",
+            "name": "Matthew E. Peters"
+          },
+          {
+            "authorId": "145585097",
+            "name": "Waleed Ammar"
+          },
+          {
+            "authorId": "1857797",
+            "name": "Chandra Bhagavatula"
+          },
+          {
+            "authorId": "39071178",
+            "name": "Russell Power"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "1f6c303718a69f0a74b8dd85ba5dfaf4df08e18d",
+        "title": "Swanson linking revisited: Accelerating literature-based discovery across domains using a conceptual influence graph",
+        "abstract": "We introduce a modular approach for literature-based discovery consisting of a machine reading and knowledge assembly component that together produce a graph of influence relations (e.g., “A promotes B”) from a collection of publications. A search engine is used to explore direct and indirect influence chains. Query results are substantiated with textual evidence, ranked according to their relevance, and presented in both a table-based view, as well as a network graph visualization. Our approach operates in both domain-specific settings, where there are knowledge bases and ontologies available to guide reading, and in multi-domain settings where such resources are absent. We demonstrate that this deep reading and search system reduces the effort needed to uncover “undiscovered public knowledge”, and that with the aid of this tool a domain expert was able to drastically reduce her model building time from months to two days.",
+        "venue": "Annual Meeting of the Association for Computational Linguistics",
+        "year": 2017,
+        "referenceCount": 16,
+        "citationCount": 5,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/P17-4018.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1405276703",
+            "name": "Gus Hahn-Powell"
+          },
+          {
+            "authorId": "1403473008",
+            "name": "M. Valenzuela-Escarcega"
+          },
+          {
+            "authorId": "1760868",
+            "name": "M. Surdeanu"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "61322ec6cfc54fe9723d4637239b8fb9938dc501",
+        "title": "BioCreative V CDR task corpus: a resource for chemical disease relation extraction",
+        "abstract": "Community-run, formal evaluations and manually annotated text corpora are critically important for advancing biomedical text-mining research. Recently in BioCreative V, a new challenge was organized for the tasks of disease named entity recognition (DNER) and chemical-induced disease (CID) relation extraction. Given the nature of both tasks, a test collection is required to contain both disease/chemical annotations and relation annotations in the same set of articles. Despite previous efforts in biomedical corpus construction, none was found to be sufficient for the task. Thus, we developed our own corpus called BC5CDR during the challenge by inviting a team of Medical Subject Headings (MeSH) indexers for disease/chemical entity annotation and Comparative Toxicogenomics Database (CTD) curators for CID relation annotation. To ensure high annotation quality and productivity, detailed annotation guidelines and automatic annotation tools were provided. The resulting BC5CDR corpus consists of 1500 PubMed articles with 4409 annotated chemicals, 5818 diseases and 3116 chemical-disease interactions. Each entity annotation includes both the mention text spans and normalized concept identifiers, using MeSH as the controlled vocabulary. To ensure accuracy, the entities were first captured independently by two annotators followed by a consensus annotation: The average inter-annotator agreement (IAA) scores were 87.49% and 96.05% for the disease and chemicals, respectively, in the test set according to the Jaccard similarity coefficient. Our corpus was successfully used for the BioCreative V challenge tasks and should serve as a valuable resource for the text-mining research community. Database URL: http://www.biocreative.org/tasks/biocreative-v/track-3-cdr/",
+        "venue": "Database J. Biol. Databases Curation",
+        "year": 2016,
+        "referenceCount": 34,
+        "citationCount": 482,
+        "openAccessPdf": {
+          "url": "https://academic.oup.com/database/article-pdf/doi/10.1093/database/baw068/8224483/baw068.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "2117970351",
+            "name": "Jiao Li"
+          },
+          {
+            "authorId": "2116969756",
+            "name": "Yueping Sun"
+          },
+          {
+            "authorId": "2000280",
+            "name": "Robin J. Johnson"
+          },
+          {
+            "authorId": "2160494",
+            "name": "D. Sciaky"
+          },
+          {
+            "authorId": "3252035",
+            "name": "Chih-Hsuan Wei"
+          },
+          {
+            "authorId": "2277706",
+            "name": "Robert Leaman"
+          },
+          {
+            "authorId": "108109364",
+            "name": "A. P. Davis"
+          },
+          {
+            "authorId": "3283642",
+            "name": "C. Mattingly"
+          },
+          {
+            "authorId": "1922749",
+            "name": "Thomas C. Wiegers"
+          },
+          {
+            "authorId": "144202084",
+            "name": "Zhiyong Lu"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "24158c9fc293c8a998ac552b1188404a877da292",
+        "title": "Neural Architectures for Named Entity Recognition",
+        "abstract": "Comunicacio presentada a la 2016 Conference of the North American Chapter of the Association for Computational Linguistics, celebrada a San Diego (CA, EUA) els dies 12 a 17 de juny 2016.",
+        "venue": "North American Chapter of the Association for Computational Linguistics",
+        "year": 2016,
+        "referenceCount": 48,
+        "citationCount": 3283,
+        "openAccessPdf": {
+          "url": "https://www.aclweb.org/anthology/N16-1030.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1830914",
+            "name": "Guillaume Lample"
+          },
+          {
+            "authorId": "143668305",
+            "name": "Miguel Ballesteros"
+          },
+          {
+            "authorId": "50324141",
+            "name": "Sandeep Subramanian"
+          },
+          {
+            "authorId": "2189948",
+            "name": "Kazuya Kawakami"
+          },
+          {
+            "authorId": "1745899",
+            "name": "Chris Dyer"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "8ffcad9346c4978a211566fde6807d6fb4bfa5ed",
+        "title": "TabEL: Entity Linking in Web Tables",
+        "abstract": null,
+        "venue": "International Workshop on the Semantic Web",
+        "year": 2015,
+        "referenceCount": 40,
+        "citationCount": 139,
+        "openAccessPdf": {
+          "url": "https://link.springer.com/content/pdf/10.1007/978-3-319-25007-6_25.pdf",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1857797",
+            "name": "Chandra Bhagavatula"
+          },
+          {
+            "authorId": "3113866",
+            "name": "Thanapon Noraset"
+          },
+          {
+            "authorId": "145612610",
+            "name": "Doug Downey"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "c6b53dd64d79a59f49f261baac8d2581a29ca06a",
+        "title": "Design Challenges for Entity Linking",
+        "abstract": "Recent research on entity linking (EL) has introduced a plethora of promising techniques, ranging from deep neural networks to joint inference. But despite numerous papers there is surprisingly little understanding of the state of the art in EL. We attack this confusion by analyzing differences between several versions of the EL problem and presenting a simple yet effective, modular, unsupervised system, called Vinculum, for entity linking. We conduct an extensive evaluation on nine data sets, comparing Vinculum with two state-of-the-art systems, and elucidate key aspects of the system that include mention extraction, candidate generation, entity type prediction, entity coreference, and coherence.",
+        "venue": "International Conference on Topology, Algebra and Categories in Logic",
+        "year": 2015,
+        "referenceCount": 42,
+        "citationCount": 197,
+        "openAccessPdf": {
+          "url": "http://www.mitpressjournals.org/doi/pdf/10.1162/tacl_a_00141",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "145787377",
+            "name": "Xiao Ling"
+          },
+          {
+            "authorId": "34650964",
+            "name": "Sameer Singh"
+          },
+          {
+            "authorId": "1780531",
+            "name": "Daniel S. Weld"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "1c7be3fc28296a97607d426f9168ad4836407e4b",
+        "title": "Identifying Meaningful Citations",
+        "abstract": "We introduce the novel task of identifying important citations in scholarly literature, i.e., citations that indicate that the cited work is used or extended in the new effort. We believe this task is a crucial component in algorithms that detect and follow research topics and in methods that measure the quality of publications.We model this task as a supervised classification problem at two levels of detail: a coarse one with classes (important vs. non-important), and a more detailed one with four importance classes. We annotate a dataset of approximately 450 citations with this information, and release it publicly. We propose a supervised classification approach that addresses this task with a battery of features that range from citation counts to where the citation appears in the body of the paper, and show that,our approach achieves a precision of 65% for a recall of 90%.",
+        "venue": "AAAI Workshop: Scholarly Big Data",
+        "year": 2015,
+        "referenceCount": 20,
+        "citationCount": 158,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "1403473008",
+            "name": "M. Valenzuela-Escarcega"
+          },
+          {
+            "authorId": "4480314",
+            "name": "Vu A. Ha"
+          },
+          {
+            "authorId": "1741101",
+            "name": "Oren Etzioni"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "d755a7e943009af26e0a5b617ef60c29c1d4f4e0",
+        "title": "CHEMDNER: The drugs and chemical names extraction challenge",
+        "abstract": null,
+        "venue": "Journal of Cheminformatics",
+        "year": 2015,
+        "referenceCount": 63,
+        "citationCount": 186,
+        "openAccessPdf": {
+          "url": "https://jcheminf.biomedcentral.com/track/pdf/10.1186/1758-2946-7-S1-S1",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "3286328",
+            "name": "Martin Krallinger"
+          },
+          {
+            "authorId": "48978124",
+            "name": "F. Leitner"
+          },
+          {
+            "authorId": "3357404",
+            "name": "O. Rabal"
+          },
+          {
+            "authorId": "145019636",
+            "name": "M. Vazquez"
+          },
+          {
+            "authorId": "1889900",
+            "name": "J. Oyarzábal"
+          },
+          {
+            "authorId": "145786321",
+            "name": "A. Valencia"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "dfb25cf7efec9a7c114f6327e4b06a306cce5cb6",
+        "title": "CiteSeerX: AI in a Digital Library Search Engine",
+        "abstract": "CiteSeerX is a digital library search engine that provides access to more than 4 million academic documents with nearly a million users and millions of hits per day. Artificial intelligence (AI) technologies are used in many components of CiteSeerX e.g. to accurately extract metadata, intelligently crawl the web, and ingest documents. We present key AI technologies used in the following components: document classification and deduplication, document and citation clustering, automatic metadata extraction and indexing, and author disambiguation. These AI technologies have been developed by CiteSeerX group members over the past 5–6 years. We also show the usage status, payoff, development challenges, main design concepts, and deployment and maintenance requirements. While it is challenging to rebuild a system like CiteSeerX from scratch, many of these AI technologies are transferable to other digital libraries and/or search engines.",
+        "venue": "The AI Magazine",
+        "year": 2014,
+        "referenceCount": 39,
+        "citationCount": 92,
+        "openAccessPdf": {
+          "url": "https://aaai.org/ojs/index.php/aimagazine/article/download/2601/2496",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "46365617",
+            "name": "Jian Wu"
+          },
+          {
+            "authorId": "1387721327",
+            "name": "Kyle Williams"
+          },
+          {
+            "authorId": "2365770",
+            "name": "Hung-Hsuan Chen"
+          },
+          {
+            "authorId": "2072010",
+            "name": "Madian Khabsa"
+          },
+          {
+            "authorId": "1690656",
+            "name": "Cornelia Caragea"
+          },
+          {
+            "authorId": "2038777",
+            "name": "Suppawong Tuarob"
+          },
+          {
+            "authorId": "3038767",
+            "name": "Alexander Ororbia"
+          },
+          {
+            "authorId": "23675687",
+            "name": "Douglas Jordan"
+          },
+          {
+            "authorId": "143930195",
+            "name": "P. Mitra"
+          },
+          {
+            "authorId": "145200131",
+            "name": "C. L. Giles"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "f37e1b62a767a307c046404ca96bc140b3e68cb5",
+        "title": "GloVe: Global Vectors for Word Representation",
+        "abstract": "Recent methods for learning vector space representations of words have succeeded in capturing fine-grained semantic and syntactic regularities using vector arithmetic, but the origin of these regularities has remained opaque. We analyze and make explicit the model properties needed for such regularities to emerge in word vectors. The result is a new global logbilinear regression model that combines the advantages of the two major model families in the literature: global matrix factorization and local context window methods. Our model efficiently leverages statistical information by training only on the nonzero elements in a word-word cooccurrence matrix, rather than on the entire sparse matrix or on individual context windows in a large corpus. The model produces a vector space with meaningful substructure, as evidenced by its performance of 75% on a recent word analogy task. It also outperforms related models on similarity tasks and named entity recognition.",
+        "venue": "Conference on Empirical Methods in Natural Language Processing",
+        "year": 2014,
+        "referenceCount": 32,
+        "citationCount": 25522,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "143845796",
+            "name": "Jeffrey Pennington"
+          },
+          {
+            "authorId": "2166511",
+            "name": "R. Socher"
+          },
+          {
+            "authorId": "144783904",
+            "name": "Christopher D. Manning"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "43bfbc53482a83e2141d044493ccbb65a472be55",
+        "title": "Clinical review: Efficacy of antimicrobial-impregnated catheters in external ventricular drainage - a systematic review and meta-analysis",
+        "abstract": null,
+        "venue": "Critical Care",
+        "year": 2013,
+        "referenceCount": 39,
+        "citationCount": 55,
+        "openAccessPdf": {
+          "url": "https://ccforum.biomedcentral.com/counter/pdf/10.1186/cc12608",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "2144798232",
+            "name": "Xiang Wang"
+          },
+          {
+            "authorId": "47754298",
+            "name": "Yan Dong"
+          },
+          {
+            "authorId": "6986934",
+            "name": "X. Qi"
+          },
+          {
+            "authorId": "50024896",
+            "name": "Yi-ming Li"
+          },
+          {
+            "authorId": "6939052",
+            "name": "Cheng-guang Huang"
+          },
+          {
+            "authorId": "153821536",
+            "name": "Li-jun Hou"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "e23020fdab3e46254468f694c159d7d6a3a9fb55",
+        "title": "Search needs a shake-up",
+        "abstract": null,
+        "venue": "Nature",
+        "year": 2011,
+        "referenceCount": 1,
+        "citationCount": 72,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "1741101",
+            "name": "Oren Etzioni"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "bc1022b031dc6c7019696492e8116598097a8c12",
+        "title": "Natural Language Processing (Almost) from Scratch",
+        "abstract": "We propose a unified neural network architecture and learning algorithm that can be applied to various natural language processing tasks including part-of-speech tagging, chunking, named entity recognition, and semantic role labeling. This versatility is achieved by trying to avoid task-specific engineering and therefore disregarding a lot of prior knowledge. Instead of exploiting man-made input features carefully optimized for each task, our system learns internal representations on the basis of vast amounts of mostly unlabeled training data. This work is then used as a basis for building a freely available tagging system with good performance and minimal computational requirements.",
+        "venue": "Journal of machine learning research",
+        "year": 2011,
+        "referenceCount": 100,
+        "citationCount": 7083,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "2939803",
+            "name": "Ronan Collobert"
+          },
+          {
+            "authorId": "145183709",
+            "name": "J. Weston"
+          },
+          {
+            "authorId": "52184096",
+            "name": "L. Bottou"
+          },
+          {
+            "authorId": "21432929",
+            "name": "Michael Karlen"
+          },
+          {
+            "authorId": "2645384",
+            "name": "K. Kavukcuoglu"
+          },
+          {
+            "authorId": "46283650",
+            "name": "P. Kuksa"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "ecfaab27ac62f6a63146b6d75ae9f9d232abd31b",
+        "title": "Exploiting MeSH indexing in MEDLINE to generate a data set for word sense disambiguation",
+        "abstract": null,
+        "venue": "BMC Bioinformatics",
+        "year": 2011,
+        "referenceCount": 37,
+        "citationCount": 101,
+        "openAccessPdf": {
+          "url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-12-223",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "1399097376",
+            "name": "Antonio Jimeno-Yepes"
+          },
+          {
+            "authorId": "1967721",
+            "name": "Bridget T. McInnes"
+          },
+          {
+            "authorId": "1703414",
+            "name": "A. Aronson"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "b18fbdff9b5feac766bd9cde9b266de274d8c4b2",
+        "title": "TAGME: on-the-fly annotation of short text fragments (by wikipedia entities)",
+        "abstract": "We designed and implemented TAGME, a system that is able to efficiently and judiciously augment a plain-text with pertinent hyperlinks to Wikipedia pages. The specialty of TAGME with respect to known systems [5,8] is that it may annotate texts which are short and poorly composed, such as snippets of search-engine results, tweets, news, etc.. This annotation is extremely informative, so any task that is currently addressed using the bag-of-words paradigm could benefit from using this annotation to draw upon (the millions of) Wikipedia pages and their inter-relations.",
+        "venue": "International Conference on Information and Knowledge Management",
+        "year": 2010,
+        "referenceCount": 23,
+        "citationCount": 780,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "1681278",
+            "name": "P. Ferragina"
+          },
+          {
+            "authorId": "2104451",
+            "name": "Ugo Scaiella"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "d84b57362e2010f6f65357267df7e0157af30684",
+        "title": "Distant supervision for relation extraction without labeled data",
+        "abstract": "Modern models of relation extraction for tasks like ACE are based on supervised learning of relations from small hand-labeled corpora. We investigate an alternative paradigm that does not require labeled corpora, avoiding the domain dependence of ACE-style algorithms, and allowing the use of corpora of any size. Our experiments use Freebase, a large semantic database of several thousand relations, to provide distant supervision. For each pair of entities that appears in some Freebase relation, we find all sentences containing those entities in a large unlabeled corpus and extract textual features to train a relation classifier. Our algorithm combines the advantages of supervised IE (combining 400,000 noisy pattern features in a probabilistic classifier) and unsupervised IE (extracting large numbers of relations from large corpora of any domain). Our model is able to extract 10,000 instances of 102 relations at a precision of 67.6%. We also analyze feature performance, showing that syntactic parse features are particularly helpful for relations that are ambiguous or lexically distant in their expression.",
+        "venue": "Annual Meeting of the Association for Computational Linguistics",
+        "year": 2009,
+        "referenceCount": 27,
+        "citationCount": 2705,
+        "openAccessPdf": {
+          "url": "https://dl.acm.org/doi/pdf/10.5555/1690219.1690287",
+          "status": null
+        },
+        "authors": [
+          {
+            "authorId": "36181176",
+            "name": "Mike D. Mintz"
+          },
+          {
+            "authorId": "87299088",
+            "name": "Steven Bills"
+          },
+          {
+            "authorId": "144621026",
+            "name": "R. Snow"
+          },
+          {
+            "authorId": "1746807",
+            "name": "Dan Jurafsky"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "9f62067945d991cd78a62cf647de17f01d1b54d3",
+        "title": "Frustratingly Easy Domain Adaptation",
+        "abstract": "We describe an approach to domain adaptation that is appropriate exactly in the case when one has enough “target” data to do slightly better than just using only “source” data. Our approach is incredibly simple, easy to implement as a preprocessing step (10 lines of Perl!) and outperforms stateof-the-art approaches on a range of datasets. Moreover, it is trivially extended to a multidomain adaptation problem, where one has data from a variety of different domains.",
+        "venue": "Annual Meeting of the Association for Computational Linguistics",
+        "year": 2007,
+        "referenceCount": 7,
+        "citationCount": 1683,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "1722360",
+            "name": "Hal Daumé"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "9125de5b8dd7f3a18ef2c5d94c17e552826c006f",
+        "title": "Author Disambiguation using Error-driven Machine Learning with a Ranking Loss Function",
+        "abstract": "Author disambiguation is the problem of determining whether records in a publications database refer to the same person. A common supervised machine learning approach is to build a classifier to predict whether a pair of records is coreferent, followed by a clustering step to enforce transitivity. However, this approach ignores powerful evidence obtainable by examining sets (rather than pairs) of records, such as the number of publications or co-authors an author has. In this paper we propose a representation that enables these first-order features over sets of records. We then propose a training algorithm well-suited to this representation that is (1) error-driven in that training examples are generated from incorrect predictions on the training data, and (2) rankbased in that the classifier induces a ranking over candidate predictions. We evaluate our algorithms on three author disambiguation datasets and demonstrate error reductions of up to 60% over the standard binary classification approach. Introduction Record deduplication is the problem of deciding whether two records in a database refer to the same object. This problem is widespread in any large-scale database, and is particularly acute when records are constructed automatically from text mining. Author disambiguation, the problem of deduplicating author records, is a critical concern for digital publication libraries such as Citeseer, DBLP, Rexa, and Google Scholar. Author disambiguation is difficult in these domains because of abbreviations (e.g., Y. Smith) misspellings (e.g., Y. Smiht), and extraction errors (e.g., Smith Statistical). Many supervised machine learning approaches to author disambiguation have been proposed. Most of these are variants of the following recipe: (1) train a binary classifier to predict whether a pair of authors are duplicates, (2) apply the classifier to each pair of ambiguous authors, (3) combine the classification predictions to cluster the records into duplicate sets. Copyright c © 2007, American Association for Artificial Intelligence (www.aaai.org). All rights reserved. This approach can be quite accurate, and is attractive because it builds upon existing machine learning technology (e.g., classification and clustering). However, because the core of this approach is a classifier over record pairs, nowhere are aggregate features of an author modeled explicitly. That is, by restricting the model representation to evidence over pairs of authors, we cannot leverage evidence available from examining more than two records. For example, we would like to model the fact that authors are generally affiliated with only a few institutions, have only one or two different email addresses, and are unlikely to publish more than thirty publications in one year. None of these constraints can be captured with a pairwise classifier, which, for example, can only consider whether pairs of institutions or emails match. In this paper we propose a representation for author disambiguation that enables these aggregate constraints. The representation can be understood as a scoring function over a set of authors, indicating how likely it is that all members of the set are duplicates. While flexible, this new representation can make it difficult to estimate the model parameters from training data. We therefore propose a class of training algorithms to estimate the parameters of models adopting this representation. The method has two main characteristics essential to its performance. First, it is errordriven in that training examples are generated based on mistakes made by the prediction algorithm. This approach focuses training effort on the types of examples expected during prediction. Second, it is rank-based in that the loss function induces a ranking over candidate predictions. By representing the difference between predictions, preferences can be expressed over partially-correct or incomplete solutions; additionally, intractable normalization constants can be avoided because the loss function is a ratio of terms. In the following sections, we describe the representation in more detail, then present our proposed training methods. We evaluate our proposals on three real-world author deduplication datasets and demonstrate errorreductions of up to 60%. Author Title Institution Year Y. Li Understanding Social Networks Stanford 2003 Y. Li Understanding Network Protocols Carnegie Mellon 2002 Y. Li Virtual Network Protocols Peking Univ. 2001 Table 1: Author disambiguation example with multiple institutions. Author Co-authors Title P. Cohen A. Howe How evaluation guides AI research P. Cohen M. Greenberg, A. Howe, ... Trial by Fire: Understanding the design requirements ... in complex environments P. Cohen M. Greenberg MU: a development environment for prospective reasoning systems Table 2: Author disambiguation example with overlapping co-authors.",
+        "venue": "",
+        "year": 2007,
+        "referenceCount": 16,
+        "citationCount": 91,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "1741453",
+            "name": "A. Culotta"
+          },
+          {
+            "authorId": "47039613",
+            "name": "Pallika H. Kanani"
+          },
+          {
+            "authorId": "2069313459",
+            "name": "Robert J. Hall"
+          },
+          {
+            "authorId": "2987641",
+            "name": "Michael L. Wick"
+          },
+          {
+            "authorId": "143753639",
+            "name": "A. McCallum"
+          }
+        ]
+      }
+    },
+    {
+      "citedPaper": {
+        "paperId": "44d2abe2175df8153f465f6c39b68b76a0d40ab9",
+        "title": "Long Short-Term Memory",
+        "abstract": "Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms.",
+        "venue": "Neural Computation",
+        "year": 1997,
+        "referenceCount": 49,
+        "citationCount": 60486,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "3308557",
+            "name": "S. Hochreiter"
+          },
+          {
+            "authorId": "145341374",
+            "name": "J. Schmidhuber"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "paperId": "649def34f8be52c8b66281af98ae884c09aef38b",
+  "title": "Construction of the Literature Graph in Semantic Scholar",
+  "abstract": "We describe a deployed scalable system for organizing published scientific literature into a heterogeneous graph to facilitate algorithmic manipulation and discovery. The resulting literature graph consists of more than 280M nodes, representing papers, authors, entities and various interactions between them (e.g., authorships, citations, entity mentions). We reduce literature graph construction into familiar NLP tasks (e.g., entity extraction and linking), point out research challenges due to differences from standard formulations of these tasks, and report empirical results for each task. The methods described in this paper are used to enable semantic features in www.semanticscholar.org.",
+  "venue": "North American Chapter of the Association for Computational Linguistics",
+  "year": 2018,
+  "referenceCount": 27,
+  "citationCount": 289,
+  "openAccessPdf": {
+    "url": "https://www.aclweb.org/anthology/N18-3011.pdf",
+    "status": "HYBRID"
+  },
+  "authors": [
+    {
+      "authorId": "145585097",
+      "name": "Waleed Ammar"
+    },
+    {
+      "authorId": "3458736",
+      "name": "Dirk Groeneveld"
+    },
+    {
+      "authorId": "1857797",
+      "name": "Chandra Bhagavatula"
+    },
+    {
+      "authorId": "46181066",
+      "name": "Iz Beltagy"
+    },
+    {
+      "authorId": "46230609",
+      "name": "Miles Crawford"
+    },
+    {
+      "authorId": "145612610",
+      "name": "Doug Downey"
+    },
+    {
+      "authorId": "38092776",
+      "name": "Jason Dunkelberger"
+    },
+    {
+      "authorId": "143718836",
+      "name": "Ahmed Elgohary"
+    },
+    {
+      "authorId": "46411828",
+      "name": "Sergey Feldman"
+    },
+    {
+      "authorId": "4480314",
+      "name": "Vu A. Ha"
+    },
+    {
+      "authorId": "143967880",
+      "name": "Rodney Michael Kinney"
+    },
+    {
+      "authorId": "41018147",
+      "name": "Sebastian Kohlmeier"
+    },
+    {
+      "authorId": "46258841",
+      "name": "Kyle Lo"
+    },
+    {
+      "authorId": "144240185",
+      "name": "Tyler C. Murray"
+    },
+    {
+      "authorId": "46256862",
+      "name": "Hsu-Han Ooi"
+    },
+    {
+      "authorId": "39139825",
+      "name": "Matthew E. Peters"
+    },
+    {
+      "authorId": "39561369",
+      "name": "Joanna L. Power"
+    },
+    {
+      "authorId": "46181683",
+      "name": "Sam Skjonsberg"
+    },
+    {
+      "authorId": "31860505",
+      "name": "Lucy Lu Wang"
+    },
+    {
+      "authorId": "46212260",
+      "name": "Christopher Wilhelm"
+    },
+    {
+      "authorId": "2112339497",
+      "name": "Zheng Yuan"
+    },
+    {
+      "authorId": "15292561",
+      "name": "Madeleine van Zuylen"
+    },
+    {
+      "authorId": "1741101",
+      "name": "Oren Etzioni"
+    }
+  ]
+}

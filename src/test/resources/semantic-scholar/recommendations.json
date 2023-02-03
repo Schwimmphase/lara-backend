@@ -1,0 +1,1379 @@
+{
+  "recommendedPapers": [
+    {
+      "paperId": "cb92a7f9d9dbcf9145e32fdfa0e70e2a6b828eb1",
+      "title": "The Semantic Scholar Open Data Platform",
+      "abstract": "The volume of scientific output is creating an urgent need for automated tools to help scientists keep up with developments in their field. Semantic Scholar (S2) is an open data platform and website aimed at accelerating science by helping scholars discover and understand scientific literature. We combine public and proprietary data sources using state-of-theart techniques for scholarly PDF content extraction and automatic knowledge graph construction to build the Semantic Scholar Academic Graph, the largest open scientific literature graph to-date, with 200M+ papers, 80M+ authors, 550M+ paper-authorship edges, and 2.4B+ citation edges. The graph includes advanced semantic features such as structurally parsed text, natural language summaries, and vector embeddings. In this paper, we describe the components of the S2 data processing pipeline and the associated APIs offered by the platform. We will update this living document to reflect changes as we add new data offerings and improve existing services.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 17,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "143967880",
+          "name": "Rodney Michael Kinney"
+        },
+        {
+          "authorId": "1667818755",
+          "name": "Chloe Anastasiades"
+        },
+        {
+          "authorId": "2202417686",
+          "name": "Russell Authur"
+        },
+        {
+          "authorId": "46181066",
+          "name": "Iz Beltagy"
+        },
+        {
+          "authorId": "2699105",
+          "name": "Jonathan Bragg"
+        },
+        {
+          "authorId": "2202412440",
+          "name": "Alexandra Buraczynski"
+        },
+        {
+          "authorId": "51199773",
+          "name": "Isabel Cachola"
+        },
+        {
+          "authorId": "2202412446",
+          "name": "Stefan Candra"
+        },
+        {
+          "authorId": "1648642525",
+          "name": "Yoganand Chandrasekhar"
+        },
+        {
+          "authorId": "2527954",
+          "name": "Arman Cohan"
+        },
+        {
+          "authorId": "46230609",
+          "name": "Miles Crawford"
+        },
+        {
+          "authorId": "145612610",
+          "name": "Doug Downey"
+        },
+        {
+          "authorId": "2064772563",
+          "name": "J. Dunkelberger"
+        },
+        {
+          "authorId": "1741101",
+          "name": "Oren Etzioni"
+        },
+        {
+          "authorId": "80530391",
+          "name": "R. Evans"
+        },
+        {
+          "authorId": "46411828",
+          "name": "Sergey Feldman"
+        },
+        {
+          "authorId": "2202417961",
+          "name": "Joseph Gorney"
+        },
+        {
+          "authorId": "2052859168",
+          "name": "D. Graham"
+        },
+        {
+          "authorId": "2200023814",
+          "name": "F.Q. Hu"
+        },
+        {
+          "authorId": "153179615",
+          "name": "Regan Huff"
+        },
+        {
+          "authorId": "145104486",
+          "name": "Daniel King"
+        },
+        {
+          "authorId": "41018147",
+          "name": "Sebastian Kohlmeier"
+        },
+        {
+          "authorId": "2003338023",
+          "name": "Bailey Kuehl"
+        },
+        {
+          "authorId": "48758753",
+          "name": "Michael Langan"
+        },
+        {
+          "authorId": "2116442078",
+          "name": "Daniel Lin"
+        },
+        {
+          "authorId": "2143857321",
+          "name": "Haokun Liu"
+        },
+        {
+          "authorId": "46258841",
+          "name": "Kyle Lo"
+        },
+        {
+          "authorId": "3047023",
+          "name": "Jaron Lochner"
+        },
+        {
+          "authorId": "2071601396",
+          "name": "Kelsey MacMillan"
+        },
+        {
+          "authorId": "2057256191",
+          "name": "Tyler Murray"
+        },
+        {
+          "authorId": "145541350",
+          "name": "Christopher Newell"
+        },
+        {
+          "authorId": "2115660042",
+          "name": "Smita Rao"
+        },
+        {
+          "authorId": "49356109",
+          "name": "Shaurya Rohatgi"
+        },
+        {
+          "authorId": "114609552",
+          "name": "P. Sayre"
+        },
+        {
+          "authorId": "101568984",
+          "name": "Zejiang Shen"
+        },
+        {
+          "authorId": "2116287642",
+          "name": "Amanpreet Singh"
+        },
+        {
+          "authorId": "3328733",
+          "name": "Luca Soldaini"
+        },
+        {
+          "authorId": "48813613",
+          "name": "Shivashankar Subramanian"
+        },
+        {
+          "authorId": "2125122431",
+          "name": "A. Tanaka"
+        },
+        {
+          "authorId": "1860983",
+          "name": "Alex D Wade"
+        },
+        {
+          "authorId": "82676859",
+          "name": "Linda M. Wagner"
+        },
+        {
+          "authorId": "31860505",
+          "name": "Lucy Lu Wang"
+        },
+        {
+          "authorId": "46212260",
+          "name": "Christopher Wilhelm"
+        },
+        {
+          "authorId": "2109360564",
+          "name": "Caroline Wu"
+        },
+        {
+          "authorId": "82148460",
+          "name": "Jiangjiang Yang"
+        },
+        {
+          "authorId": "98442688",
+          "name": "A. Zamarron"
+        },
+        {
+          "authorId": "15292561",
+          "name": "Madeleine van Zuylen"
+        },
+        {
+          "authorId": "1780531",
+          "name": "Daniel S. Weld"
+        }
+      ]
+    },
+    {
+      "paperId": "383ee78afce788035434f4ffb90649bdb034d29a",
+      "title": "Leveraging Knowledge Graph Embeddings to Disambiguate Author Names in Scientific Data",
+      "abstract": "Access to scientific data is dependent on the proper indexing of such data for findability (alongside other FAIR standards) on portals, aggregators and more generally-speaking on the Web. Due to a lack of uptake in terms of standards (e.g., on unique identifiers, ORCID records, etc.), author name disambiguation continues to represent a major issue in organizing such research data. In this work, we present a novel approach to resolving name ambiguity for scientific authors as they appear in data about publications, grants or scientific datasets. Specifically, we leverage metadata present in a document in order to cluster similar authors: In addition to commonly-used information such as co-authorship, we include named entity similarities obtained from knowledge graphs as an additional source of information to further improve document representation and, subsequently, cluster the documents by authors. Due to the computational complexity of graph algorithms, we leverage knowledge graph embeddings to approximate the structure of large graphs. We evaluate our approach against an existing solution on a gold standard dataset and show that our approach provides notable improvement, especially when other information is sparse. In addition, we provide a novel, manually-annotated dataset for this task, consisting of scientific publications and project data.",
+      "venue": "2022 IEEE International Conference on Big Data (Big Data)",
+      "year": 2022,
+      "referenceCount": 47,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "34011720",
+          "name": "Laura Rettig"
+        },
+        {
+          "authorId": "2203159670",
+          "name": "Kurt Baumann"
+        },
+        {
+          "authorId": "101319694",
+          "name": "Sebastian Sigloch"
+        },
+        {
+          "authorId": "1393644275",
+          "name": "P. Cudré-Mauroux"
+        }
+      ]
+    },
+    {
+      "paperId": "b0f3a38ae2cddb0a4ad8c68503038ebcee6a4afc",
+      "title": "SumMER: Structural Summarization for RDF/S KGs",
+      "abstract": "Knowledge graphs are becoming more and more prevalent on the web, ranging from small taxonomies, to large knowledge bases containing a vast amount of information. To construct such knowledge graphs either automatically or manually, tools are necessary for their quick exploration and understanding. Semantic summaries have been proposed as a key technology enabling the quick understanding and exploration of large knowledge graphs. Among the methods proposed for generating summaries, structural methods exploit primarily the structure of the graph in order to generate the result summaries. Approaches in the area focus on identifying the most important nodes and usually employ a single centrality measure, capturing a specific perspective on the notion of a node’s importance. Moving from one centrality measure to many however, has the potential to generate a more objective view on nodes’ importance, leading to better summaries. In this paper, we present SumMER, the first structural summarization technique exploiting machine learning techniques for RDF/S KGs. SumMER explores eight centrality measures and then exploits machine learning techniques for optimally selecting the most important nodes. Then those nodes are linked formulating a subgraph out of the original graph. We experimentally show that combining centrality measures with machine learning effectively increases the quality of the generated summaries.",
+      "venue": "Algorithms",
+      "year": 2022,
+      "referenceCount": 15,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "https://www.mdpi.com/1999-4893/16/1/18/pdf?version=1672143650",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "2133417872",
+          "name": "Georgia Eirini Trouli"
+        },
+        {
+          "authorId": "1947423",
+          "name": "Alexandros Pappas"
+        },
+        {
+          "authorId": "2279222",
+          "name": "Georgia Troullinou"
+        },
+        {
+          "authorId": "49786676",
+          "name": "L. Koumakis"
+        },
+        {
+          "authorId": "2165866089",
+          "name": "Nikos Papadakis"
+        },
+        {
+          "authorId": "1821005",
+          "name": "H. Kondylakis"
+        }
+      ]
+    },
+    {
+      "paperId": "26ce7eaa2ca6b1819ec6fe7b91bb174c6d138b9f",
+      "title": "An Efficient Approach for Discovering Graph Entity Dependencies (GEDs)",
+      "abstract": "Graph entity dependencies (GEDs) are novel graph constraints, unifying keys and functional dependencies, for property graphs. They have been found useful in many real-world data quality and data management tasks, including fact checking on social media networks and entity resolution. In this paper, we study the discovery problem of GEDs – ﬁnding a minimal cover of valid GEDs in a given graph data. We formalise the problem, and propose an eﬀective and eﬃcient approach to overcome major bottlenecks in GED discovery. In particular, we leverage existing graph partitioning algorithms to enable fast GED-scope discovery, and employ eﬀective pruning strategies over the prohibitively large space of candidate dependencies. Furthermore, we deﬁne an interestingness measure for GEDs based on the minimum description",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 54,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2201608910",
+          "name": "Dehua Liu"
+        },
+        {
+          "authorId": "2251545",
+          "name": "Selasi Kwashie"
+        },
+        {
+          "authorId": "2201605275",
+          "name": "Yidi Zhang"
+        },
+        {
+          "authorId": "8383776",
+          "name": "Guangtong Zhou"
+        },
+        {
+          "authorId": "10399827",
+          "name": "Michael Bewong"
+        },
+        {
+          "authorId": "2108067682",
+          "name": "Xiaoying Wu"
+        },
+        {
+          "authorId": "2201605378",
+          "name": "Xi Guo"
+        },
+        {
+          "authorId": "2793678",
+          "name": "K. He"
+        },
+        {
+          "authorId": "3162519",
+          "name": "Zaiwen Feng"
+        }
+      ]
+    },
+    {
+      "paperId": "bdc0c64aeb43f4bdace18d89206b6ff223ea5dce",
+      "title": "CONNOR: Exploring Similarities in Graphs with Concepts of Neighbors",
+      "abstract": "Since its first formalization, the Formal Concept Analysis (FCA) field has shown diverse extensions of the FCA paradigm. A recent example is Graph-FCA, an extension of FCA to graphs. In the context of Graph-FCA, a notion of concept of neighbors has been introduced to support a form of nearest neighbor search over the nodes of a graph. Concepts of neighbors have been used for diverse tasks, such as knowledge graph completion and relation classification in texts. In this paper, we present CONNOR, a Java library for the computation of concepts of neighbors on RDF graphs.",
+      "venue": "International Conference on Concept Lattices and their Applications",
+      "year": 2022,
+      "referenceCount": 7,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "90371557",
+          "name": "Hugo Ayats"
+        },
+        {
+          "authorId": "24194345",
+          "name": "Peggy Cellier"
+        },
+        {
+          "authorId": "3000041",
+          "name": "Sébastien Ferré"
+        }
+      ]
+    },
+    {
+      "paperId": "25b625b8f26a2adb155677850b34ab7c5deca1a8",
+      "title": "CoEPinKB: Evaluating Path Search Strategies in Knowledge Bases",
+      "abstract": "A knowledge base, expressed using the Resource Description Framework (RDF), can be viewed as a graph whose nodes represent entities and whose edges denote relationships. The entity relatedness problem refers to the problem of discovering and understanding how two entities are related, directly or indirectly, that is, how they are connected by paths in a knowledge base. Strategies designed to solve the entity relatedness problem typically adopt an entity similarity measure to reduce the path search space and a path ranking measure to order and filter the list of paths returned. This article presents a framework, called CoEPinKB, that supports the empirical evaluation of such strategies. The proposed framework allows combining entity similarity and path ranking measures to generate different path search strategies. The main goals of this article are to describe the framework and present a performance evaluation of nine different path search strategies.",
+      "venue": "Journal of the Brazilian Computer Society",
+      "year": 2022,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "https://sol.sbc.org.br/journals/index.php/jbcs/article/download/2211/2123",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "1725430137",
+          "name": "J. G. Jiménez"
+        },
+        {
+          "authorId": "2756827",
+          "name": "Luiz André Portes Paes Leme"
+        },
+        {
+          "authorId": "145771411",
+          "name": "M. Casanova"
+        }
+      ]
+    },
+    {
+      "paperId": "6369f9489aa54be177e21a4328e2725dde52478a",
+      "title": "Meta2KG: transforming metadata to knowledge graphs",
+      "abstract": "Metadata is used to describe data. It includes information about the who, when, where, how, and why of data collection. Ideally, it should be in a machine-understandable format like RDF. This enables queries using structured query languages like SPARQL and empowers further data usage. In this paper, we investigate metadata as a source for generating Knowledge Graphs (KGs). We introduce a fully automatic approach that transforms raw metadata files into a Knowledge Graph (KG). Our resources and code are publicly available 1 .",
+      "venue": "OM@ISWC",
+      "year": 2022,
+      "referenceCount": 3,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "1578367014",
+          "name": "Nora Abdelmageed"
+        },
+        {
+          "authorId": "1389035902",
+          "name": "B. König‐Ries"
+        }
+      ]
+    },
+    {
+      "paperId": "239ba40f46baf184334f3fc5ded04eefbc46aa60",
+      "title": "GraphMatcher: a graph representation learning approach for ontology matching",
+      "abstract": "Ontology matching is defined as finding a relationship or correspondence between two or more entities in two or more ontologies. To solve the interoperability problem of the domain ontologies, semantically similar entities in these ontologies must be found and aligned before merging them. GraphMatcher, developed in this study, is an ontology matching system using a graph attention approach to compute higher-level representation of a class together with its surrounding terms. The GraphMatcher has obtained remarkable results in in the Ontology Alignment Evaluation Initiative (OAEI) 2022 conference track. Its codes are available at https://github.com/sefeoglu/gat_ontology_matching.",
+      "venue": "OM@ISWC",
+      "year": 2022,
+      "referenceCount": 11,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2189018699",
+          "name": "Sefika Efeoglu"
+        }
+      ]
+    },
+    {
+      "paperId": "f6df64be33b247e00cb57357b7fa2451fe82417e",
+      "title": "Author Name Disambiguation via Heterogeneous Network Embedding from Structural and Semantic Perspectives",
+      "abstract": "—Name ambiguity is common in academic digital libraries, such as multiple authors having the same name. This creates challenges for academic data management and analysis, thus name disambiguation becomes necessary. The procedure of name disambiguation is to divide publications with the same name into different groups, each group belonging to a unique author. A large amount of attribute information in publications makes traditional methods fall into the quagmire of feature selection. These methods always select attributes artiﬁcially and equally, which usually causes a negative impact on accuracy. The proposed method is mainly based on representation learning for heterogeneous networks and clustering and exploits the self-attention technology to solve the problem. The presentation of publications is a synthesis of structural and semantic representations. The structural representation is obtained by meta-path- based sampling and a skip-gram-based embedding method, and meta-path level attention is introduced to automatically learn the weight of each feature. The semantic representation is generated using NLP tools. Our proposal performs better in terms of name disambiguation accuracy compared with baselines and the ablation experiments demonstrate the improvement by feature selection and the meta-path level attention in our method. The experimental results show the superiority of our new method for capturing the most attributes from publications and reducing the impact of redundant information.",
+      "venue": "ArXiv",
+      "year": 2022,
+      "referenceCount": 40,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2093922863",
+          "name": "Wenjin Xie"
+        },
+        {
+          "authorId": "1399921602",
+          "name": "Siyuan Liu"
+        },
+        {
+          "authorId": "47119090",
+          "name": "Xiaomeng Wang"
+        },
+        {
+          "authorId": "2056067894",
+          "name": "Tao Jia"
+        }
+      ]
+    },
+    {
+      "paperId": "af06ff742c72973c15beed930aeaade2d717e1fa",
+      "title": "LamAPI: a comprehensive tool for string-based entity retrieval with type-base filters",
+      "abstract": "When information available in unstructured or semi-structured formats, e . g ., tables or texts, comes in, finding links between strings appearing in these sources and the entities they refer to in some background Knowledge Graphs (KGs) is a key step to integrate, enrich and extend the data and/or KGs. This Entity Linking task is usually decomposed into Entity Retrieval and Entity Disambiguation because of the large entity search space. This paper presents an Entity Retrieval service (LamAPI) and discusses the impact of different retrieval configurations, i . e ., query and filtering strategies, on the retrieval of entities. The approach is to augment the search activity with extra information, like types, associated with the strings in the original datasets. The results have been empirically validated against public datasets.",
+      "venue": "OM@ISWC",
+      "year": 2022,
+      "referenceCount": 23,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "1565656201",
+          "name": "R. Avogadro"
+        },
+        {
+          "authorId": "115251752",
+          "name": "M. Cremaschi"
+        },
+        {
+          "authorId": "2202223394",
+          "name": "Fabio D'Adda"
+        },
+        {
+          "authorId": "1744309",
+          "name": "F. Paoli"
+        },
+        {
+          "authorId": "2525935",
+          "name": "M. Palmonari"
+        }
+      ]
+    },
+    {
+      "paperId": "85c78db9ad0566f5829ba7baae8febb280eaf100",
+      "title": "ParaGraph: Mapping Wikidata Tail Entities to Wikipedia Paragraphs",
+      "abstract": "Bridging unstructured data with knowledge bases is an essential task in many problems related to natural language understanding. Traditionally, this task is considered in one direction only: linking entity mentions in a text to their counterpart in a knowledge base (also known as entity linking). In this paper, we propose to tackle this problem from a different angle: linking entities from a knowledge base to paragraphs describing those entities. We argue that such a new perspective can be beneficial to several applications, including information retrieval, knowledge base population, and joint entity and word embedding. We present a transformer-based model, ParaGraph, which, given a Wikidata entity as input, retrieves its corresponding Wikipedia section. To perform this task, ParaGraph first generates an entity summary and compares it to sections to select an initial set of candidates. The candidates are then ranked using additional information from the entity’s textual description and contextual information. Our experimental results show that ParaGraph achieves 87% Hits@10 when ranking Wikipedia sections given a Wikidata entity as input. The obtained results show that ParaGraph can reduce the information gap between Wikipedia-based entities and tail entities and demonstrate the effectiveness of our proposed approach towards linking knowledge graph entities to their text counterparts.",
+      "venue": "2022 IEEE International Conference on Big Data (Big Data)",
+      "year": 2022,
+      "referenceCount": 41,
+      "citationCount": 1,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "89958471",
+          "name": "Natalia Ostapuk"
+        },
+        {
+          "authorId": "1695677",
+          "name": "D. Difallah"
+        },
+        {
+          "authorId": "1393644275",
+          "name": "P. Cudré-Mauroux"
+        }
+      ]
+    },
+    {
+      "paperId": "102110351b44dfa8164ab020bb98e6ba6936b7fd",
+      "title": "Semantic Units: Organizing knowledge graphs into semantically meaningful units of representation",
+      "abstract": "Background: Knowledge graphs and ontologies are becoming increasingly important as technical solutions for Findable, Accessible, Interoperable, and Reusable data and metadata (FAIR Guiding Principles). We discuss four challenges that impede the use of FAIR knowledge graphs. Results: Semantic units have the potential to solve the challenges by structuring a knowledge graph into identifiable and semantically meaningful subgraphs. Each semantic unit is represented by its own resource, instantiates a corresponding semantic unit class, and can be implemented as a FAIR Digital Object and a nanopublication in RDF/OWL and property graphs. We distinguish statement and compound units as basic categories of semantic units. Statement units represent smallest, independent propositions that are semantically meaningful for a human reader. They consist of one or more triples and mathematically partition a knowledge graph. We distinguish assertional, contingent (prototypical), and universal statement units as basic types of statement units and propose representational schemes and formal semantics for them (including for absence statements, negations, and cardinality restrictions) that do not involve blank nodes and that translate back to OWL. Compound units, on the other hand, represent semantically meaningful collections of semantic units and we distinguish various types of compound units, representing different levels of representational granularity, different types of granularity trees, and different frames of reference. Conclusions: Semantic units support making statements about statements, can be used for graphalignment, subgraph-matching, knowledge graph profiling, and for managing access restrictions to sensitive data. Organizing the graph into semantic units supports the separation of ontological, diagnostic (i.e., referential), and discursive information, and it also supports the differentiation of multiple frames of reference.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 88,
+      "citationCount": 1,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "144875556",
+          "name": "Lars Vogt"
+        },
+        {
+          "authorId": "145727607",
+          "name": "Tobias Kuhn"
+        },
+        {
+          "authorId": "1798963",
+          "name": "R. Hoehndorf"
+        }
+      ]
+    },
+    {
+      "paperId": "8f70b4a4de7eb73f06386a9e22de8d55618e1808",
+      "title": "Exploring the Application of Graph-FCA to the Problem of Knowledge Graph Alignment",
+      "abstract": "Knowledge Graphs (KG) have become a widespread knowledge representation. When different KGs exist for some domain, it is valuable to merge them into a richer KG. This is known as the problem of KG alignement, which encompasses related problems such as entity alignement or ontology matching. Although most recent approaches rely on supervised representation learning, Formal Concept Analysis (FCA) has also been proposed as a basis for symbolic and unsupervised approaches. We here explore the application of Graph-FCA, an extension of FCA for KGs, to different scenarios of KG alignments: (A) when the two KGs have common values, and (B) when pre-aligned pairs are known. We show that, compared to previous FCA-based approaches, Graph-FCA allows for a more natural and scalable representation of the KGs to be aligned, and makes it simpler to extract alignments from the concepts. It also features flexibility w.r.t. different alignment scenarios.",
+      "venue": "International Conference on Concept Lattices and their Applications",
+      "year": 2022,
+      "referenceCount": 15,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "3000041",
+          "name": "Sébastien Ferré"
+        }
+      ]
+    },
+    {
+      "paperId": "fcd18edd3a2a1607e5fa20ec2cbd629fa0c2a3fd",
+      "title": "TED: Towards Discovering Top-k Edge-Diversified Patterns in a Graph Database",
+      "abstract": "With an exponentially growing number of graphs from disparate repositories, there is a strong need to analyze a graph database containing an extensive collection of small- or medium-sized data graphs ( e.g., chemical compounds). Although subgraph enumeration and subgraph mining have been proposed to bring insights into a graph database by a set of subgraph structures, they often end up with similar or homogenous topologies, which is undesirable in many graph applications. To address this limitation, we propose the Top-k Edge-Diversified Patterns Discovery problem to retrieve a set of subgraphs that cover the maximum number of edges in a database. To efficiently process such query, we present a generic and extensible framework called Ted which achieves a guaranteed approximation ratio to the optimal result. Two optimization strategies are further developed to improve the performance. Experimental studies on real-world datasets demonstrate the superiority of Ted to traditional techniques.",
+      "venue": "ArXiv",
+      "year": 2022,
+      "referenceCount": 55,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2112767999",
+          "name": "Kai Huang"
+        },
+        {
+          "authorId": "2152901944",
+          "name": "Haibo Hu"
+        },
+        {
+          "authorId": "151483414",
+          "name": "Qingqing Ye"
+        },
+        {
+          "authorId": "2049048118",
+          "name": "Kai Tian"
+        },
+        {
+          "authorId": "2790268",
+          "name": "Bolong Zheng"
+        },
+        {
+          "authorId": "2180369166",
+          "name": "Xiaofang Zhou"
+        }
+      ]
+    },
+    {
+      "paperId": "4052564ff1d45fae8a282d29e95b0c056b5ab909",
+      "title": "Academic Graph: A Literature Review System",
+      "abstract": "As the number of academic publications increase, preparing a literature review becomes more challenging. This paper introduces an automated literature review support system to ease the literature review process for academia with reference graphs, abstract and full document summaries, paper clusters by keywords, abstracts, and abstract summaries combined. The output of the proposed system may ease exploring the state-of-the-art research.",
+      "venue": "2022 IEEE International Conference on Big Data (Big Data)",
+      "year": 2022,
+      "referenceCount": 28,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2059023885",
+          "name": "Mustafa Çataltas"
+        },
+        {
+          "authorId": "2839817",
+          "name": "Semih Yumusak"
+        },
+        {
+          "authorId": "2059018090",
+          "name": "Kasım Öztoprak"
+        }
+      ]
+    },
+    {
+      "paperId": "4c7a0508a89841da2da4310006dd0e83f87697b4",
+      "title": "Graggle: A Graph-based Approach to Document Clustering",
+      "abstract": "Document recommendation systems have traditionally relied upon high-dimensional vector representations that scale poorly in corpora with diverse vocabularies. Existing graph-based approaches focus on the metadata of documents and, unfortunately, ignore the content of the papers. In this work, we have designed and implemented a new system we call Graggle, which builds a graph to model a corpus. Nodes are papers, and edges represent significant words shared between them. We then leverage modern graph learning techniques to turn this graph into a highly efficient tool for dimensionality reduction. Documents are represented as low-dimensional vector embeddings generated with a graph autoencoder. Our experiments show that this approach outperforms traditional document vector-based and text autoencoding approaches on labeled data. Additionally, we have applied this technique to a repository of unlabeled research documents about the novel coronavirus to demonstrate its effectiveness as a real-world tool.",
+      "venue": "2022 IEEE International Conference on Big Data (Big Data)",
+      "year": 2022,
+      "referenceCount": 36,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2162749253",
+          "name": "I. J. King"
+        },
+        {
+          "authorId": "2107466791",
+          "name": "H. H. Huang"
+        }
+      ]
+    },
+    {
+      "paperId": "4ac1c46d07c67ce01b304d6a4fde578205f8f498",
+      "title": "Learning Framework of Entity and Entity Type Composition Representation for Knowledge Graph Completion",
+      "abstract": "This paper proposes a simple Knowledge Graph Embedding (KGE) framework that considers the entity types. The KGE finds appropriate representations of entities and relations by learning structured information in triples and uses these representations to predict the missing links in a knowledge graph (KG). The entity types are included in many KGs, but most of the existing methods ignored its potential for the link prediction task. The proposed framework, which is called EETCRL (Entity and Entity Type Composition Representation Learning), learns representations for entities and entity types in a simple way. Those combined representations are used for link prediction. The proposed framework is evaluated on three datasets and the results show that while the overall performance was comparable to baseline methods, its performance depends on the entity type. This paper also discusses how the information about entity types affects the link prediction through analysis of the fine-grained results.",
+      "venue": "2022 IEEE International Conference on Big Data (Big Data)",
+      "year": 2022,
+      "referenceCount": 27,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2112917642",
+          "name": "Runyu Ni"
+        },
+        {
+          "authorId": "2090607962",
+          "name": "H. Shibata"
+        },
+        {
+          "authorId": "1768055",
+          "name": "Y. Takama"
+        }
+      ]
+    },
+    {
+      "paperId": "f691e2c50ed2b89a31c90ce48706ef0f0670f4ed",
+      "title": "Entity Factor: A Balanced Method for Table Filling in Joint Entity and Relation Extraction",
+      "abstract": "The knowledge graph is an effective tool for improving natural language processing, but manually annotating enormous amounts of knowledge is expensive. Academics have conducted research on entity and relation extraction techniques, among which, the end-to-end table-filling approach is a popular direction for achieving joint entity and relation extraction. However, once the table has been populated in a uniform label space, a large number of null labels are generated within the array, causing label-imbalance problems, which could result in a tendency of the model’s encoder to predict null labels; that is, model generalization performance decreases. In this paper, we propose a method to mitigate non-essential null labels in matrices. This method utilizes a score matrix to calculate the count of non-entities and the percentage of non-essential null labels in the matrix, which is then projected by the power of natural constant to generate an entity-factor matrix. This is then incorporated into the scoring matrix. In the back-propagation process, the gradient of non-essential null-labeled cells in the entity factor layer is affected and shrinks, the amplitude of which is related to the size of the entity factor, thereby reducing the feature learning of the model for a large number of non-essential null labels. Experiments with two publicly available benchmark datasets show that the incorporation of entity factors significantly improved model performance, especially in the relation extraction task, by 1.5% in both cases.",
+      "venue": "Electronics",
+      "year": 2022,
+      "referenceCount": 7,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "https://www.mdpi.com/2079-9292/12/1/121/pdf?version=1672227666",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "2109114475",
+          "name": "Zhifeng Liu"
+        },
+        {
+          "authorId": "2198709772",
+          "name": "Mingcheng Tao"
+        },
+        {
+          "authorId": "2110616186",
+          "name": "Conghua Zhou"
+        }
+      ]
+    },
+    {
+      "paperId": "6c1f3a2647af95a89c640f9bf1085b24ef56c141",
+      "title": "Joint Extraction of Entities and Relations via Entity and Relation Heterogeneous Graph Attention Networks",
+      "abstract": "Entity and relation extraction (ERE) is a core task in information extraction. This task has always faced the overlap problem. It was found that heterogeneous graph attention networks could enhance semantic analysis and fusion between entities and relations to improve the ERE performance in our previous work. In this paper, an entity and relation heterogeneous graph attention network (ERHGA) is proposed for joint ERE. A heterogeneous graph attention network with a gate mechanism was constructed containing word nodes, subject nodes, and relation nodes to learn and enhance the embedding of parts for relational triple extraction. The ERHGA was evaluated on the public relation extraction dataset named WebNLG. The experimental results demonstrate that the ERHGA, by taking subjects and relations as a priori information, can effectively handle the relational triple extraction problem and outperform all baselines to 93.3%, especially overlapping relational triples.",
+      "venue": "Applied Sciences",
+      "year": 2023,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "https://www.mdpi.com/2076-3417/13/2/842/pdf?version=1673084796",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "2199993185",
+          "name": "Bo Jiang"
+        },
+        {
+          "authorId": "2004169707",
+          "name": "J. Cao"
+        }
+      ]
+    },
+    {
+      "paperId": "28401be6c503afe8cbda4293bd5c46c1200baa29",
+      "title": "’ s repository of research publications and other research outputs R-classify : Extracting research papers ’ relevant concepts from a controlled vocabulary Journal Item",
+      "abstract": "In the past few decades, we saw a proliferation of scientific articles available online. This data-rich environment offers several opportunities but also challenges, since it is problematic to explore these resources and identify all the relevant content. Hence, it is crucial that they are appropriately annotated with their relevant concepts so to increase their chance of being properly indexed and retrieved. In this paper, we present R-Classify, a web tool that assists users in identifying the most relevant concepts according to a large-scale ontology of research areas in the field of Computer Science.",
+      "venue": "",
+      "year": 2022,
+      "referenceCount": 26,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2191153188",
+          "name": "Tanay Aggarwal"
+        },
+        {
+          "authorId": "40520756",
+          "name": "Angelo Salatino"
+        },
+        {
+          "authorId": "2052329",
+          "name": "Francesco Osborne"
+        },
+        {
+          "authorId": "1721851",
+          "name": "E. Motta"
+        }
+      ]
+    },
+    {
+      "paperId": "525b8afd64309ca94b7066156571b75f243b0996",
+      "title": "Learning Ontology Classes from Text by",
+      "abstract": ". Many tools for knowledge management and the Semantic Web presuppose the existence of an arrangement of instances into classes, i.e. an ontology. Creating such an ontology, however, is a labor-intensive task. We present an unsupervised method to learn an ontology from text. We rely on pre-trained language models to generate lexical substitutes of given entities and then use matrix factorization to induce new classes and their entities. Our method differs from previous approaches in that (1) it captures the polysemy of entities; (2) it produces interpretable labels of the induced classes; (3) it does not require any particular structure of the text; (4) no re-training is required. We evaluate our method on German and English WikiNER corpora and demonstrate the improvements over state of the art approaches.",
+      "venue": "",
+      "year": 2022,
+      "referenceCount": 36,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "1708021",
+          "name": "V. Mireles"
+        },
+        {
+          "authorId": "3490007",
+          "name": "Peter Bourgonje"
+        },
+        {
+          "authorId": "1410801026",
+          "name": "J. Moreno-Schneider"
+        },
+        {
+          "authorId": "9572817",
+          "name": "Maria Khvalchik"
+        },
+        {
+          "authorId": "77903998",
+          "name": "G. Rehm"
+        }
+      ]
+    },
+    {
+      "paperId": "eb0a86e33ee061bc96e2652b5fb879241f43387b",
+      "title": "Research on technical architecture of knowledge extraction in vertical field",
+      "abstract": "How to extract high-value knowledge quickly, accurately and comprehensively from high volume, and high variety data in vertical field, is a major issue to be solved in the intelligent construction of various fields. Knowledge extraction, which extracts large-scale structured knowledge from multi-source heterogeneous data, can provide a strong support for many applications, such as knowledge graph construction, automatic question answering, situation awareness and intelligent decision. In this paper, we first summarize the critic problems and challenges of knowledge extraction in vertical field by surveying the key technologies involved in knowledge extraction. Then, we propose a unified framework of knowledge extraction targeting for vertical field. This framework presents a detail solution for the key problems in knowledge extraction and indicates the potential research work to be carried out in the future.",
+      "venue": "Conference on Computer Science and Communication Technology",
+      "year": 2022,
+      "referenceCount": 11,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2155955578",
+          "name": "Jing Xu"
+        },
+        {
+          "authorId": "2230435",
+          "name": "Wangqun Lin"
+        },
+        {
+          "authorId": "2198758996",
+          "name": "Chengping Tian"
+        },
+        {
+          "authorId": "2198759914",
+          "name": "Peng Sun"
+        },
+        {
+          "authorId": "153916114",
+          "name": "Baoyun Peng"
+        },
+        {
+          "authorId": "2027185295",
+          "name": "Yu Tian"
+        }
+      ]
+    },
+    {
+      "paperId": "5e8f4b437c3774a29221c925c6cefea6a39e3709",
+      "title": "A Brief Survey of Methods for Analytics over RDF Knowledge Graphs",
+      "abstract": "There are several Knowledge Graphs expressed in RDF (Resource Description Framework) that aggregate/integrate data from various sources for providing unified access services and enabling insightful analytics. We observe this trend in almost every domain of our life. However, the provision of effective, efficient, and user-friendly analytic services and systems is quite challenging. In this paper we survey the approaches, systems and tools that enable the formulation of analytic queries over KGs expressed in RDF. We identify the main challenges, we distinguish two main categories of analytic queries (domain specific and quality-related), and five kinds of approaches for analytics over RDF. Then, we describe in brief the works of each category and related aspects, like efficiency and visualization. We hope this collection to be useful for researchers and engineers for advancing the capabilities and user-friendliness of methods for analytics over knowledge graphs.",
+      "venue": "Analytics",
+      "year": 2023,
+      "referenceCount": 52,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "https://www.mdpi.com/2813-2203/2/1/4/pdf?version=1674018520",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "2133113415",
+          "name": "Maria-Evangelia Papadaki"
+        },
+        {
+          "authorId": "1801959",
+          "name": "Yannis Tzitzikas"
+        },
+        {
+          "authorId": "2081511",
+          "name": "M. Mountantonakis"
+        }
+      ]
+    },
+    {
+      "paperId": "ba8b3e12207ae6938d84d296dd766cfc03abac2a",
+      "title": "Semantic Similarity as a Window into Vector- and Graph-Based Metrics",
+      "abstract": "In this work, we use sentence similarity as a lens through which to investigate the representation of meaning in graphs vs. vectors. On semantic textual similarity data, we examine how similarity metrics based on vectors alone (SENTENCE-BERT and BERTSCORE) fare compared to metrics based on AMR graphs (SMATCH and S2MATCH). Quantitative and qualitative analyses show that the AMR-based metrics can better capture meanings dependent on sentence structures, but can also be distracted by structural differences—whereas the BERT-based metrics represent finer-grained meanings of individual words, but often fail to capture the ordering effect of words within sentences and suffer from interpretability problems. These findings contribute to our understanding of each approach to semantic representation and motivate distinct use cases for graph and vector-based representations.",
+      "venue": "IEEE Games Entertainment Media Conference",
+      "year": 2022,
+      "referenceCount": 30,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2174110363",
+          "name": "Wai Ching Leung"
+        },
+        {
+          "authorId": "1387852377",
+          "name": "Shira Wein"
+        },
+        {
+          "authorId": "145254207",
+          "name": "Nathan Schneider"
+        }
+      ]
+    },
+    {
+      "paperId": "0fdb7f40a5bdf2f8f53412c553b0adf409adf57e",
+      "title": "RDF Graph Summarization Based on Node Characteristic and Centrality",
+      "abstract": "The explosive growth of RDF data makes it difficult to be efficiently queried, understood and used. RDF graph (RDFG) summarization aims to extract the most relevant and crucial data as summaries according to different criteria. Current summarization approaches mainly apply single strategies such as graph structure, pattern mining or relevance metrics to calculate RDFG summaries. Different to the existing approaches, this paper proposes a summarization approach to automatically generating RDFG summary, which can capture both structure and centrality information. Specifically, we present three algorithms, SumW (merging nodes based on node characteristics or similar types), SumS (merging nodes based on typed node characteristics) and SummaryFL (retrieving central nodes by combining node frequency and bridging coefficient). The three algorithms can be used by two summarization strategies: SumS or SumW only, and SumS+SummaryFL or SumW+SummaryFL. We conducted experiments over large and real-world RDF datasets to verify the effectiveness of our method with respect to time complexity, compression capability and coverage of the summary. The experiment results demonstrate that our approach outperformed the comparative algorithms.",
+      "venue": "Journal of Web Engineering",
+      "year": 2022,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2157557590",
+          "name": "Jimao Guo"
+        },
+        {
+          "authorId": "2154461910",
+          "name": "Yi Wang"
+        }
+      ]
+    },
+    {
+      "paperId": "8f52464d89cf2efe1fbeaff6753b53700e6d454f",
+      "title": "Entity Retrieval from Multilingual Knowledge Graphs",
+      "abstract": "Knowledge Graphs (KGs) are structured databases that capture real-world entities and their relationships. The task of entity retrieval from a KG aims at retrieving a ranked list of entities relevant to a given user query. While English-only entity retrieval has attracted considerable attention, user queries, as well as the information contained in the KG, may be represented in multiple—and possibly distinct—languages. Furthermore, KG content may vary between languages due to different information sources and points of view. Recent advances in language representation have enabled natural ways of bridging gaps between languages. In this paper, we therefore propose to utilise language models (LMs) and diverse entity representations to enable truly multilingual entity retrieval. We propose two approaches: (i) an array of monolingual retrievers and (ii) a single multilingual retriever, trained using queries and documents in multiple languages. We show that while our approach is on par with the significantly more complex state-of-the-art method for the English task, it can be successfully applied to virtually any language with a LM. Furthermore, it allows languages to benefit from one another, yielding significantly better performance, both for low- and high-resource languages.",
+      "venue": "MRL",
+      "year": 2022,
+      "referenceCount": 70,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": null,
+          "name": "Saher Esmeir"
+        },
+        {
+          "authorId": null,
+          "name": "Arthur Câmara"
+        },
+        {
+          "authorId": null,
+          "name": "Edgar Meij"
+        }
+      ]
+    },
+    {
+      "paperId": "94b8558a1664ec1829f74a55900e1cce1659f702",
+      "title": "Helio: A framework for implementing the life cycle of knowledge graphs",
+      "abstract": "Building and publishing knowledge graphs (KG) as Linked Data, either on the Web or in private companies, has become a relevant and crucial process in many domains. This process requires that users perform a wide number of tasks conforming to the life cycle of a KG, and these tasks usually involve different unrelated research topics, such as RDF materialisation or link discovery. There is already a large corpus of tools and methods designed to perform these tasks; however, the lack of one tool that gathers them all leads practitioners to develop ad-hoc pipelines that are not generic and, thus, non-reusable. As a result, building and publishing a KG is becoming a complex and resource-consuming process. In this paper, a generic framework called Helio is presented. The framework aims to cover a set of requirements elicited from the KG life cycle and provide a tool capable of performing the different tasks required to build and publish KGs. As a result, Helio aims at providing users with the means for reducing the effort required to perform this process and, also, Helio aims to prevent the development of ad-hoc pipelines. Furthermore, the Helio framework has been applied in many different contexts, from European projects to research work.",
+      "venue": "Semantic Web",
+      "year": 2023,
+      "referenceCount": 82,
+      "citationCount": 2,
+      "openAccessPdf": {
+        "url": "https://content.iospress.com:443/download/semantic-web/sw233224?id=semantic-web%2Fsw233224",
+        "status": "HYBRID"
+      },
+      "authors": [
+        {
+          "authorId": "3413290",
+          "name": "Andrea Cimmino"
+        },
+        {
+          "authorId": "1398854351",
+          "name": "R. García-Castro"
+        }
+      ]
+    },
+    {
+      "paperId": "a704c395e04722b35e5ed15461ec7bea06cc8a89",
+      "title": "Unsupervised Entity Linking with Guided Summarization and Multiple-Choice Selection",
+      "abstract": "Entity linking, the task of linking potentially ambiguous mentions in texts to corresponding knowledge-base entities, is an important component for language understanding. We address two challenge in entity linking: how to leverage wider contexts surrounding a mention, and how to deal with limited training data. We propose a fully unsupervised model called SumMC that first generates a guided summary of the contexts conditioning on the mention, and then casts the task to a multiple-choice problem where the model chooses an entity from a list of candidates. In addition to evaluating our model on existing datasets that focus on named entities, we create a new dataset that links noun phrases from WikiHow to Wikidata. We show that our SumMC model achieves state-of-the-art unsupervised performance on our new dataset and on exiting datasets.",
+      "venue": "Conference on Empirical Methods in Natural Language Processing",
+      "year": 2022,
+      "referenceCount": 30,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": []
+    },
+    {
+      "paperId": "1c9cfe2c0fcbf4d0e34209692a1abc7e6d119c7f",
+      "title": "Graph-based Semantical Extractive Text Analysis",
+      "abstract": "—In the past few decades, there has been an explosion in the amount of available data produced from various sources with different topics. The availability of this enormous data necessitates us to adopt effective computational tools to explore the data. This leads to an intense growing interest in the research community to develop computational methods focused on processing this text data. A line of study focused on condensing the text so that we are able to get a higher level of understanding in a shorter time. The two important tasks to do this are keyword extraction and text summarization. In keyword extraction, we are interested in ﬁnding the key important words from a text. This makes us familiar with the general topic of a text. In text summarization, we are interested in producing a short-length text which includes important information about the document. The TextRank algorithm, an unsupervised learning method that is an extension of the PageRank (algorithm which is the base algorithm of Google search engine for searching pages and ranking them) has shown its efﬁcacy in large-scale text mining, especially for text summarization and keyword extraction. this algorithm can automatically extract the important parts of a text (keywords or sentences) and declare them as the result. However, this algorithm neglects the semantic similarity between the different parts. In this work, we improved the results of the TextRank algorithm by incorporating the semantic similarity between parts of the text. Aside from keyword extraction and text summarization, we develop a topic clustering algorithm based on our framework which can be used individually or as a part of generating the summary to overcome coverage problems.",
+      "venue": "ArXiv",
+      "year": 2022,
+      "referenceCount": 22,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "1518605305",
+          "name": "Mina Samizadeh"
+        }
+      ]
+    },
+    {
+      "paperId": "f9cffc87c0b9f08db9f1375d9467b7723f389033",
+      "title": "Extracting JSON Schemas with tagged unions",
+      "abstract": "With data lakes and schema-free NoSQL document stores, extracting a descriptive schema from JSON data collections is an acute challenge. In this paper, we target the discovery of tagged unions, a JSON Schema design pattern where the value of one property of an object (the tag) conditionally implies subschemas for sibling properties. We formalize these implications as conditional functional dependencies and capture them using the JSON Schema operators if-then-else. We further motivate our heuristics to avoid overfitting. Experiments with our prototype implementation are promising, and show that this form of tagged unions can successfully be detected in real-world GeoJSON and TopoJSON datasets. In discussing future work, we outline how our approach can be extended further.",
+      "venue": "DEco@VLDB",
+      "year": 2022,
+      "referenceCount": 51,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2158368246",
+          "name": "Stefan Klessinger"
+        },
+        {
+          "authorId": "1685783",
+          "name": "Meike Klettke"
+        },
+        {
+          "authorId": "1710463",
+          "name": "U. Störl"
+        },
+        {
+          "authorId": "1703312",
+          "name": "Stefanie Scherzinger"
+        }
+      ]
+    },
+    {
+      "paperId": "735e744e0d24b601924c09b73fbbccc0b5706345",
+      "title": "Dynamic Force-directed Graph with Weighted Nodes for Scholar Network Visualization",
+      "abstract": "—Through the growth of portals and venues to publish academic publications, the number of academic publications is growing exponentially in recent years. An effective exploration and fast navigation in the collection of academic publications become an urgent need to help academic researchers find publications related to their research and the surrounding community. A scholar network visualization approach is proposed to help users to explore a large number of academic publications concerning the strength of the relationship between each publication. The approach is realized by creating a web-based interface using D3 JavaScript algorithm that allows the visualization to focus on how data are connected to each other more accurately than the conventional lines of data seen in traditional data representation. The proposed approach visualizes data by incorporating a force-directed graph with weighted nodes and vertices to give more descriptive information of millions of raw data such as author names, publication title, publication year, publication venue and number of citations from the scholar network dataset. By introducing a weighted relationship in the network visualization, the proposed approach can give a more insightful detail of each publication such as a highly cited publication by looking at and exploring the generated interactive graph. The proposal is targeted to be incorporated into a larger-scale scholar network analytical dashboard that can offer various visualization approaches under one flagship application.",
+      "venue": "International Journal of Advanced Computer Science and Applications",
+      "year": 2022,
+      "referenceCount": 28,
+      "citationCount": 0,
+      "openAccessPdf": {
+        "url": "http://thesai.org/Downloads/Volume13No12/Paper_89-Dynamic_Force_directed_Graph_with_Weighted_Nodes.pdf",
+        "status": "GOLD"
+      },
+      "authors": [
+        {
+          "authorId": "2199092124",
+          "name": "Khalid Al-Walid Mohd. Aris"
+        },
+        {
+          "authorId": "84533946",
+          "name": "Chitra Ramasamy"
+        },
+        {
+          "authorId": "35563934",
+          "name": "T. N. M. Aris"
+        },
+        {
+          "authorId": "2393554",
+          "name": "M. Zolkepli"
+        }
+      ]
+    },
+    {
+      "paperId": "47a541269d4ef70f37f0d3a57483312c4c6c2ad5",
+      "title": "Crawling the Internal Knowledge-Base of Language Models",
+      "abstract": "Language models are trained on large volumes of text, and as a result their parameters might contain a signiﬁcant body of factual knowledge. Any downstream task performed by these models implicitly builds on these facts, and thus it is highly desirable to have means for representing this body of knowledge in an interpretable way. However, there is currently no mechanism for such a representation. Here, we propose to address this goal by extracting a knowledge-graph of facts from a given language model. We describe a procedure for “crawling” the internal knowledge-base of a language model. Speciﬁcally, given a seed entity, we expand a knowledge-graph around it. The crawling procedure is decomposed into sub-tasks, realized through specially designed prompts that control for both precision (i.e., that no wrong facts are generated) and recall (i.e., the number of facts generated). We eval-uate our approach on graphs crawled starting from dozens of seed entities, and show it yields high precision graphs (82-92%), while emit-ting a reasonable number of facts per entity.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 26,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2203359700",
+          "name": "Roi Cohen"
+        },
+        {
+          "authorId": "22245981",
+          "name": "Mor Geva"
+        },
+        {
+          "authorId": "1750652",
+          "name": "Jonathan Berant"
+        },
+        {
+          "authorId": "1786843",
+          "name": "A. Globerson"
+        }
+      ]
+    },
+    {
+      "paperId": "d105cda3a8bfe7a86f28e39dfc7884e50708de50",
+      "title": "An eye on representation learning in ontology matching",
+      "abstract": "Representation learning has received increased attention in the last few years in several tasks, including knowledge graph completion, entity resolution, and ontology matching. This paper presents an overview of representation learning approaches applied to the ontology matching task. It proposes to classify such approaches into the following dimensions: lexical unit segmentation, training strategy, and information representation complexity. A discussion on them is presented together with their pros and cons. Perspectives for further developments are also discussed.",
+      "venue": "OM@ISWC",
+      "year": 2022,
+      "referenceCount": 58,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2202263084",
+          "name": "Guilherme Sousa"
+        },
+        {
+          "authorId": "144130746",
+          "name": "Rinaldo Lima"
+        },
+        {
+          "authorId": "3469495",
+          "name": "C. Trojahn"
+        }
+      ]
+    },
+    {
+      "paperId": "c15635d8c6aab4a7540e29ee46aaab49dfdd721f",
+      "title": "Social Network Analysis and Co-Occurrence: Identifying the Gaps",
+      "abstract": "Social Network Analysis is widely used in the humanities. However, historical and narrative texts in ancient languages are usually challenging for NLP (natural language processing) methods and AI (artificial intelligence) technologies developed for modern languages due to their complexity and missing models. In this article, we will focus on biblical texts. Here, linguistic resources are already available. However, no approaches for the automated linking of actors and other information, e.g. spatiality, are available. Thus, in this paper, we will analyze if co-occurrence might improve the linking of data in manual exegetical work. We will provide a detailed analysis and evaluation to identify the gaps for further research. The results of this paper are not limited to theology, but can be applied in all fields working with textual information.",
+      "venue": "CHAI@KI",
+      "year": 2022,
+      "referenceCount": 28,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "25849508",
+          "name": "J. Dörpinghaus"
+        }
+      ]
+    },
+    {
+      "paperId": "343f9081b749f0a931d572ddc68cc9c51aa0a7ae",
+      "title": "IRT2: Inductive Linking and Ranking in Knowledge Graphs of Varying Scale",
+      "abstract": ": We address the challenge of building domain-specific knowledge models for industrial use cases, where labelled data and taxonomic information is initially scarce. Our focus is on inductive link prediction models as a basis for practical tools that support knowledge engineers with exploring text collections and discovering and linking new (so-called open-world) entities to the knowledge graph. We argue that – though neural approaches to text mining have yielded impressive results in the past years – current benchmarks do not reflect the typical challenges encountered in the industrial wild properly. Therefore, our first contribution is an open benchmark coined IRT2 (inductive reasoning with text) that (1) covers knowledge graphs of varying sizes (including very small ones), (2) comes with incidental, low-quality text mentions, and (3) includes not only triple completion but also ranking, which is relevant for supporting experts with discovery tasks. We investigate two neural models for inductive link prediction, one based on end-to-end learning and one that learns from the knowledge graph and text data in separate steps. These models compete with a strong bag-of-words baseline. The results show a significant advance in performance for the neural approaches as soon as the available graph data decreases for linking. For ranking, the results are promising, and the neural approaches outperform the sparse retriever by a wide margin.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 40,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "153589204",
+          "name": "Felix Hamann"
+        },
+        {
+          "authorId": "1782440",
+          "name": "A. Ulges"
+        },
+        {
+          "authorId": "2199117843",
+          "name": "Maurice Falk"
+        }
+      ]
+    },
+    {
+      "paperId": "1c183484f0fe48da3781336b73665da5ee1e8b9a",
+      "title": "Content Summaries of Selected Best Papers for the 2022 IMIA Yearbook, Section Knowledge Representation and Management",
+      "abstract": "In this article, Vogt places his research in the context of big data and he argues the interest of ontologies to represent data and to satisfy the criteria of machine usability (i.e. eScience-compliant) and therefore f indable, accessible, interoperable and reusable (FAIR). But this is not the main interest of the article. The article is extremely complete, recalling all the concepts necessary to understand it and unfolding very precise examples of biological phenotype (insects with their heads and antennas). Vogt then develops a long discussion on the different approaches to knowledge modelling, on the computability of each of the chosen representation modes, on the interest of metadata, on the questions raised by the Open World Assumption and on the use of reasoners. A long part of the article compares the two approaches: the TBox semantic graph approach based on classes, called Semantic Phenotype, and the ABox semantic graph approach based on instances, called Phenotype Knowledge Graph. He concludes that, from a conceptual point of view, the advantages of the instance-based ABox semantic graph approach outweigh its shortcomings and outweigh the advantages of the class-based TBox semantic graph approach. Therefore, he recommends the instance-based ABox approach as a FAIR approach for documenting and communicating empirical data and metadata in a knowledge graph. Further to this conclusion, this article specifies descriptions and arguments for both types of representation and, in passing, specifies the interest of semantic representations in general and their computability difficulty. It is a thought-provoking article.",
+      "venue": "",
+      "year": 2022,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": []
+    },
+    {
+      "paperId": "4e563124f4f67470e56ac2826b2d9ecdcc4ffb70",
+      "title": "Joint Completion and Alignment of Multilingual Knowledge Graphs",
+      "abstract": "Knowledge Graph Completion (KGC) predicts missing facts in an incomplete Knowledge Graph (KG). Multilingual KGs associate entities and relations with surface forms written in different languages. An entity or relation may be associated with distinct IDs in different KGs, necessitating entity alignment (EA) and relation alignment (RA). Many effective algorithms have been proposed for completion and alignment as separate tasks. Here we show that these tasks are synergistic and best solved together. Our multitask approach starts with a state-of-the-art KG embedding scheme, but adds a novel relation representation based on sets of embeddings of (subject, object) entity pairs. This representation leads to a new relation alignment loss term based on a maximal bipartite matching between two sets of embedding vectors. This loss is combined with traditional KGC loss and optionally, losses based on text embeddings of entity (and relation) names. In experiments over KGs in seven languages, we find that our system achieves large improvements in KGC compared to a strong completion model that combines known facts in all languages. It also outperforms strong EA and RA baselines, underscoring the value of joint alignment and completion.",
+      "venue": "Conference on Empirical Methods in Natural Language Processing",
+      "year": 2022,
+      "referenceCount": 40,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": null,
+          "name": "Soumen Chakrabarti"
+        },
+        {
+          "authorId": null,
+          "name": "Harkanwar Singh"
+        },
+        {
+          "authorId": null,
+          "name": "Shubham Lohiya"
+        },
+        {
+          "authorId": null,
+          "name": "Prachi Jain"
+        },
+        {
+          "authorId": null,
+          "name": "Mausam -"
+        }
+      ]
+    },
+    {
+      "paperId": "e7b2f6960aa1eb34cb84af01f23df7ce230f1a95",
+      "title": "Scientific Paper Extractive Summarization Enhanced by Citation Graphs",
+      "abstract": "In a citation graph, adjacent paper nodes share related scientiﬁc terms and topics. The graph thus conveys unique structure information of document-level relatedness that can be utilized in the paper summarization task, for explor-ing beyond the intra-document information. In this work, we focus on leveraging citation graphs to improve scientiﬁc paper extractive summarization under different settings. We ﬁrst propose a Multi-granularity Unsupervised Summarization model (MUS) as a simple and low-cost solution to the task. MUS ﬁnetunes a pre-trained encoder model on the citation graph by link prediction tasks. Then, the abstract sentences are extracted from the corresponding paper considering multi-granularity information. Preliminary results demonstrate that citation graph is helpful even in a simple unsupervised framework. Motivated by this, we next propose a Graph-based Supervised Summarization model (GSS) to achieve more accurate results on the task when large-scale labeled data are available. Apart from employing the link prediction as an auxiliary task, GSS introduces a gated sentence encoder and a graph information fusion module to take advantage of the graph information to polish the sentence representation. Experiments on a public benchmark dataset show that MUS and GSS bring substantial improvements over the prior state-of-the-art model.",
+      "venue": "ArXiv",
+      "year": 2022,
+      "referenceCount": 31,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "46772896",
+          "name": "Xiuying Chen"
+        },
+        {
+          "authorId": "2135609879",
+          "name": "Mingzhe Li"
+        },
+        {
+          "authorId": "2112311595",
+          "name": "Shen Gao"
+        },
+        {
+          "authorId": "2055863987",
+          "name": "Rui Yan"
+        },
+        {
+          "authorId": "2118502950",
+          "name": "Xin Gao"
+        },
+        {
+          "authorId": "2928371",
+          "name": "Xiangliang Zhang"
+        }
+      ]
+    },
+    {
+      "paperId": "cd47cc6b4cfa460c01250acfad5ec95b4e7db9df",
+      "title": "Towards Improving the Explainability of Text-based Information Retrieval with Knowledge Graphs",
+      "abstract": "Thanks to recent advancements in machine learning, vector-based methods have been adopted in many modern information retrieval (IR) systems. While showing promising retrieval performance, these approaches typically fail to explain why a particular document is retrieved as a query result to address explainable information retrieval (XIR). Knowledge graphs record structured information about entities and inherently explainable relationships. Most of existing XIR approaches focus exclusively on the retrieval model with little consideration on using existing knowledge graphs for providing an explanation. In this paper, we propose a general architecture to incorporate knowledge graphs for XIR in various steps of the retrieval process. Furthermore, we create two instances of the architecture for different types of explanation. We evaluate our approaches on well-known IR benchmarks using standard metrics and compare them with vector-based methods as baselines.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 46,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2882606",
+          "name": "Boqi Chen"
+        },
+        {
+          "authorId": "145578365",
+          "name": "Kuan-Yu Chen"
+        },
+        {
+          "authorId": "3001727",
+          "name": "Yujiu Yang"
+        },
+        {
+          "authorId": "2201327459",
+          "name": "Afshin Amini"
+        },
+        {
+          "authorId": "2201329609",
+          "name": "Bharat Saxena"
+        },
+        {
+          "authorId": "2201319560",
+          "name": "Cecilia Ch'avez-Garc'ia"
+        },
+        {
+          "authorId": "2587928",
+          "name": "Majid Babaei"
+        },
+        {
+          "authorId": "15845853",
+          "name": "A. Feizpour"
+        },
+        {
+          "authorId": "71971228",
+          "name": "Dániel Varró"
+        }
+      ]
+    },
+    {
+      "paperId": "99e375bcde62a1a70c97dcd56cb00995725a2171",
+      "title": "GNN-based retrieval and recommadation system: A semantic enhenced graph model",
+      "abstract": "As a general method that captures knowledge from relation, graph modeling has been widely used in many fields including recommendation in Internet applications. A typical graph based system must be provided with a nodes and edges. To get information from both nodes and edges efficiently, many re-search use Graph Neural Network (GNN) to process their data. We propose a retrieving and recommendation system based on GNN to be spe-cific for learning the graph data with disordered topology structure, we lead a semantic clustering phase into GNN classification phase which promotes the search accuracy. At training phase, we give a try to go to a deeper layer. In the end, quantitative and qualitative experiments demonstrate the distinctly-improved effectiveness of the proposed approach towards the application of recommendation system.",
+      "venue": "IEEE Advanced Information Management, Communicates, Electronic and Automation Control Conference",
+      "year": 2022,
+      "referenceCount": 17,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2111542881",
+          "name": "Long Wang"
+        },
+        {
+          "authorId": "2108241609",
+          "name": "Xiangpeng Li"
+        },
+        {
+          "authorId": "1735668",
+          "name": "Haisu Zhang"
+        },
+        {
+          "authorId": "2203067510",
+          "name": "Yalan Dai"
+        },
+        {
+          "authorId": "38654394",
+          "name": "Shenmin Zhang"
+        }
+      ]
+    },
+    {
+      "paperId": "ab108d6ee4179be3eca223a8156dc167aaaa9eac",
+      "title": "Tutorial on Semantic Automation for Data Discovery",
+      "abstract": "Data discovery is a multi-dimensional field encompassing information extraction, information retrieval, exploratory data analysis, visualization and recommendations among other things. Data Marketplaces are platforms where users discover and shop for data products. These products themselves are produced by modern data stacks governed by frameworks like Data Fabric. Knowledge Graphs and semantic technologies already form a core part of Data Fabric and hence could be leveraged for data discovery. In this tutorial, we’ll present state of the art semantic technologies that enable automation of various tasks in data discovery. In particular, we’ll focus on data enrichment, datasets search and recommendations, and explorations within a dataset.",
+      "venue": "COMAD/CODS",
+      "year": 2023,
+      "referenceCount": 28,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2199253333",
+          "name": "Rajmohan"
+        },
+        {
+          "authorId": "38488764",
+          "name": "Ritwik Chaudhuri"
+        },
+        {
+          "authorId": "27526892",
+          "name": "Balaji Ganesan"
+        },
+        {
+          "authorId": "49441432",
+          "name": "Anupam Sanghi"
+        },
+        {
+          "authorId": "2078528713",
+          "name": "Arvind Agarwal"
+        },
+        {
+          "authorId": "145640180",
+          "name": "S. Mehta"
+        }
+      ]
+    },
+    {
+      "paperId": "5cb13825a91e1dfbe3d2890c4c2c62affacc4ecd",
+      "title": "Pylon: Semantic Table Union Search in Data Lakes",
+      "abstract": "—The large size and fast growth of data repositories, such as data lakes, has spurred the need for data discovery to help analysts ﬁnd related data. The problem has become challenging as (i) a user typically does not know what datasets exist in an enormous data repository; and (ii) there is usually a lack of a uniﬁed data model to capture the interrelationships between heterogeneous datasets from disparate sources. In this work, we address one important class of discovery needs: ﬁnding union-able tables. The task is to ﬁnd tables in a data lake that can be unioned with a given query table. The challenge is to recognize union- able columns even if they are represented differently. In this paper, we propose a data-driven learning approach: speciﬁcally, an unsupervised representation learning and embedding retrieval task. Our key idea is to exploit self-supervised contrastive learning to learn an embedding model that takes into account the indexing/search data structure and produces embeddings close by for columns with semantically similar values while pushing apart columns with semantically dissimilar values. We then ﬁnd union-able tables based on similarities between their constituent columns in embedding space. On a real-world data lake, we demonstrate that our best-performing model achieves signiﬁcant improvements in precision ( 16% ↑ ), recall ( 17% ↑ ), and query response time (7x faster) compared to the state-of-the-art.",
+      "venue": "ArXiv",
+      "year": 2023,
+      "referenceCount": 35,
+      "citationCount": 1,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "1432234356",
+          "name": "Tianji Cong"
+        },
+        {
+          "authorId": "2315516",
+          "name": "F. Nargesian"
+        },
+        {
+          "authorId": "145531067",
+          "name": "H. Jagadish"
+        }
+      ]
+    },
+    {
+      "paperId": "8c788879923fef2b019bd0c7a698cc038538cb0d",
+      "title": "Modeling Complex Structures in Graph-FCA: Illustration on Natural Language Syntax",
+      "abstract": "Graph-FCA is an extension of formal concept analysis for multi-relational data. In this paper, we discuss the freedom of representation offered by Graph-FCA, in particular by its support of n-ary relations, considering natural language syntax as a use case.",
+      "venue": "International Conference on Concept Lattices and their Applications",
+      "year": 2022,
+      "referenceCount": 8,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "3000041",
+          "name": "Sébastien Ferré"
+        },
+        {
+          "authorId": "24194345",
+          "name": "Peggy Cellier"
+        }
+      ]
+    },
+    {
+      "paperId": "6b3a705e38ec54d33b11a427b04861dc62f8fee1",
+      "title": "WorldCat Entities",
+      "abstract": "on Wikidata. The content of the readings in these sections are more recent, too. The final section, Thing 8: BIBFRAME, is informative and a good introduction to BIBFRAME, a conceptual model (and editor) that allows library resources to be described using linked data. But sadly, the material is slightly dated because so many changes have been made to the BIBFRAME editor, which is now called MARVA. Nevertheless, the content of the Amber Billey’s video is excellent, and users come away from this section with some sense of how BIBFRAME will operate. The best things about 23 Linked Data Things are that the entire online program could be completed in a short period of time (under a week) and that users would have a solid base from which to explore more deeply some of the topics introduced such as Resource Description Framework (RDF), the different serializations, SPARQL, and Wikidata. It does not replace taking a semester long course on linked data or reading a book or two on linked data, but it does adequately what it purports to do. That is, it “provides a structure for investigating linked data projects.” Rating: 4 out of 5",
+      "venue": "Technical Services Quarterly",
+      "year": 2022,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2068972938",
+          "name": "Gregory K Tharp"
+        }
+      ]
+    },
+    {
+      "paperId": "870aed102f568e4ecc424c04cf988d85e47e8a2c",
+      "title": "A lightweight semantic‐enhanced interactive network for efficient short‐text matching",
+      "abstract": "Knowledge‐enhanced short‐text matching has been a significant task attracting much attention in recent years. However, the existing approaches cannot effectively balance effect and efficiency. Effective models usually consist of complex network structures leading to slow inference speed and the difficulties of applications in actual practice. In addition, most knowledge‐enhanced models try to link the mentions in the text to the entities of the knowledge graphs—the difficulties of entity linking decrease the generalizability among different datasets. To address these problems, we propose a lightweight Semantic‐Enhanced Interactive Network (SEIN) model for efficient short‐text matching. Unlike most current research, SEIN employs an unsupervised method to select WordNet's most appropriate paraphrase description as the external semantic knowledge. It focuses on integrating semantic information and interactive information of text while simplifying the structure of other modules. We conduct intensive experiments on four real‐world datasets, that is, Quora, Twitter‐URL, SciTail, and SICK‐E. Compared with state‐of‐the‐art methods, SEIN achieves the best performance on most datasets. The experimental results proved that introducing external knowledge could effectively improve the performance of the short‐text matching models. The research sheds light on the role of lightweight models in leveraging external knowledge to improve the effect of short‐text matching.",
+      "venue": "Journal of the Association for Information Science and Technology",
+      "year": 2022,
+      "referenceCount": 58,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "7530559",
+          "name": "Chuanming Yu"
+        },
+        {
+          "authorId": "32067532",
+          "name": "Haodong Xue"
+        },
+        {
+          "authorId": "2070309682",
+          "name": "Lu An"
+        },
+        {
+          "authorId": "2155119122",
+          "name": "Gang Li"
+        }
+      ]
+    },
+    {
+      "paperId": "06378ead1f7e6d791ccbde5e7265caec8e6fea94",
+      "title": "Semantic-Based K-Means Clustering for IMDB and Wiki top 100 movies",
+      "abstract": "Textual documents are growing rapidly through the internet in today’s modern technology era. Electronic structured databases archive offline and online documents, e-mails, webpages, blog and social network posts. Without appropriate ranking and demand clustering when there is classification without any specifics, it is quite difficult to retain and access these documents. K-means is one of the methods that is frequently used for clustering. In terms of determining the proximity of meaning or semantics between data, the distance-based K-means method still has flaws. To get around this issue, semantic similarity can be estimated by measuring the level of similarity between objects in a cluster. This research provides a method for clustering documents based on semantic similarity. The approach is carried out by defining document synopses from the IMDB and Wikipedia databases using the NLTK dictionary, and we provide a semantic-based K-means clustering approach that assesses not only the similarity of the data represented as a vector space model with TFIDF, but also the semantic similarity of the data Precision, recall, and F-measure, we demonstrate how well the semantic-based K-means clustering technique works using experimental findings from the IMDB and Wikipedia  top 100 movies datasets. \n ",
+      "venue": "Journal of Applied Science and Technology Trends",
+      "year": 2022,
+      "referenceCount": 0,
+      "citationCount": 0,
+      "openAccessPdf": null,
+      "authors": [
+        {
+          "authorId": "2036582917",
+          "name": "Niyaz Salih"
+        }
+      ]
+    }
+  ]
+}

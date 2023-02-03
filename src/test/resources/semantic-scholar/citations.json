@@ -1,0 +1,234 @@
+{
+  "offset": 0,
+  "next": 2,
+  "data": [
+    {
+      "citingPaper": {
+        "paperId": "1a37f43db8108af003bc9af181460ddaacf9e815",
+        "title": "Convolutional Learning on Simplicial Complexes",
+        "abstract": "We propose a simplicial complex convolutional neural network (SCCNN) to learn data representations on simplicial complexes. It performs convolutions based on the multi-hop simplicial adjacencies via common faces and cofaces independently and captures the inter-simplicial couplings, gen-eralizing state-of-the-art. Upon studying symmetries of the simplicial domain and the data space, it is shown to be permutation and orientation equivariant, thus, incorporating such inductive biases. Based on the Hodge theory, we perform a spectral analysis to understand how SCCNNs regulate data in different frequencies, showing that the convolutions via faces and cofaces operate in two orthogonal data spaces. Lastly, we study the stability of SCCNNs to domain deformations and examine the effects of various factors. Empirical results show the beneﬁts of higher-order convolutions and inter-simplicial couplings in simplex prediction and trajectory prediction.",
+        "venue": "ArXiv",
+        "year": 2023,
+        "referenceCount": 74,
+        "citationCount": 0,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "2040416515",
+            "name": "Maosheng Yang"
+          },
+          {
+            "authorId": "1815210",
+            "name": "E. Isufi"
+          }
+        ]
+      }
+    },
+    {
+      "citingPaper": {
+        "paperId": "cb92a7f9d9dbcf9145e32fdfa0e70e2a6b828eb1",
+        "title": "The Semantic Scholar Open Data Platform",
+        "abstract": "The volume of scientific output is creating an urgent need for automated tools to help scientists keep up with developments in their field. Semantic Scholar (S2) is an open data platform and website aimed at accelerating science by helping scholars discover and understand scientific literature. We combine public and proprietary data sources using state-of-theart techniques for scholarly PDF content extraction and automatic knowledge graph construction to build the Semantic Scholar Academic Graph, the largest open scientific literature graph to-date, with 200M+ papers, 80M+ authors, 550M+ paper-authorship edges, and 2.4B+ citation edges. The graph includes advanced semantic features such as structurally parsed text, natural language summaries, and vector embeddings. In this paper, we describe the components of the S2 data processing pipeline and the associated APIs offered by the platform. We will update this living document to reflect changes as we add new data offerings and improve existing services.",
+        "venue": "ArXiv",
+        "year": 2023,
+        "referenceCount": 17,
+        "citationCount": 0,
+        "openAccessPdf": null,
+        "authors": [
+          {
+            "authorId": "143967880",
+            "name": "Rodney Michael Kinney"
+          },
+          {
+            "authorId": "1667818755",
+            "name": "Chloe Anastasiades"
+          },
+          {
+            "authorId": "2202417686",
+            "name": "Russell Authur"
+          },
+          {
+            "authorId": "46181066",
+            "name": "Iz Beltagy"
+          },
+          {
+            "authorId": "2699105",
+            "name": "Jonathan Bragg"
+          },
+          {
+            "authorId": "2202412440",
+            "name": "Alexandra Buraczynski"
+          },
+          {
+            "authorId": "51199773",
+            "name": "Isabel Cachola"
+          },
+          {
+            "authorId": "2202412446",
+            "name": "Stefan Candra"
+          },
+          {
+            "authorId": "1648642525",
+            "name": "Yoganand Chandrasekhar"
+          },
+          {
+            "authorId": "2527954",
+            "name": "Arman Cohan"
+          },
+          {
+            "authorId": "46230609",
+            "name": "Miles Crawford"
+          },
+          {
+            "authorId": "145612610",
+            "name": "Doug Downey"
+          },
+          {
+            "authorId": "2064772563",
+            "name": "J. Dunkelberger"
+          },
+          {
+            "authorId": "1741101",
+            "name": "Oren Etzioni"
+          },
+          {
+            "authorId": "80530391",
+            "name": "R. Evans"
+          },
+          {
+            "authorId": "46411828",
+            "name": "Sergey Feldman"
+          },
+          {
+            "authorId": "2202417961",
+            "name": "Joseph Gorney"
+          },
+          {
+            "authorId": "2052859168",
+            "name": "D. Graham"
+          },
+          {
+            "authorId": "2200023814",
+            "name": "F.Q. Hu"
+          },
+          {
+            "authorId": "153179615",
+            "name": "Regan Huff"
+          },
+          {
+            "authorId": "145104486",
+            "name": "Daniel King"
+          },
+          {
+            "authorId": "41018147",
+            "name": "Sebastian Kohlmeier"
+          },
+          {
+            "authorId": "2003338023",
+            "name": "Bailey Kuehl"
+          },
+          {
+            "authorId": "48758753",
+            "name": "Michael Langan"
+          },
+          {
+            "authorId": "2116442078",
+            "name": "Daniel Lin"
+          },
+          {
+            "authorId": "2143857321",
+            "name": "Haokun Liu"
+          },
+          {
+            "authorId": "46258841",
+            "name": "Kyle Lo"
+          },
+          {
+            "authorId": "3047023",
+            "name": "Jaron Lochner"
+          },
+          {
+            "authorId": "2071601396",
+            "name": "Kelsey MacMillan"
+          },
+          {
+            "authorId": "2057256191",
+            "name": "Tyler Murray"
+          },
+          {
+            "authorId": "145541350",
+            "name": "Christopher Newell"
+          },
+          {
+            "authorId": "2115660042",
+            "name": "Smita Rao"
+          },
+          {
+            "authorId": "49356109",
+            "name": "Shaurya Rohatgi"
+          },
+          {
+            "authorId": "114609552",
+            "name": "P. Sayre"
+          },
+          {
+            "authorId": "101568984",
+            "name": "Zejiang Shen"
+          },
+          {
+            "authorId": "2116287642",
+            "name": "Amanpreet Singh"
+          },
+          {
+            "authorId": "3328733",
+            "name": "Luca Soldaini"
+          },
+          {
+            "authorId": "48813613",
+            "name": "Shivashankar Subramanian"
+          },
+          {
+            "authorId": "2125122431",
+            "name": "A. Tanaka"
+          },
+          {
+            "authorId": "1860983",
+            "name": "Alex D Wade"
+          },
+          {
+            "authorId": "82676859",
+            "name": "Linda M. Wagner"
+          },
+          {
+            "authorId": "31860505",
+            "name": "Lucy Lu Wang"
+          },
+          {
+            "authorId": "46212260",
+            "name": "Christopher Wilhelm"
+          },
+          {
+            "authorId": "2109360564",
+            "name": "Caroline Wu"
+          },
+          {
+            "authorId": "82148460",
+            "name": "Jiangjiang Yang"
+          },
+          {
+            "authorId": "98442688",
+            "name": "A. Zamarron"
+          },
+          {
+            "authorId": "15292561",
+            "name": "Madeleine van Zuylen"
+          },
+          {
+            "authorId": "1780531",
+            "name": "Daniel S. Weld"
+          }
+        ]
+      }
+    }
+  ]
+}

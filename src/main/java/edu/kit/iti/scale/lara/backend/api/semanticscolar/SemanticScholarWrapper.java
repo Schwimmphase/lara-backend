@@ -2,12 +2,13 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.kit.iti.scale.lara.backend.api.ApiPaper;
+import edu.kit.iti.scale.lara.backend.api.ApiWrapper;
 import edu.kit.iti.scale.lara.backend.api.IdParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import edu.kit.iti.scale.lara.backend.api.ApiPaper;
-import edu.kit.iti.scale.lara.backend.api.ApiWrapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,16 @@ public class SemanticScholarWrapper implements ApiWrapper {
     @Override
     public List<ApiPaper> convertToPaper(String response) throws JsonProcessingException {
 
-        ApiPaper apiPaper = objectMapper.readValue(response, ApiPaper.class);
+        SemanticScholarPaper paper = objectMapper.readValue(response, SemanticScholarPaper.class);
 
-        // changing ID from SemanticScholar id to our lara ID: SemSchol#{SemanticScholarID}
-        apiPaper.setId(idParser.encodedId(API_PREFIX, apiPaper.getId()));
+        // changing ID from SemanticScholar id to our lara ID: SemSchol${SemanticScholarID}
+
+        ApiPaper apiPaper = new ApiPaper(paper.authors(), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
+                paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
+                paper.openAccessPdf() == null ? null : paper.openAccessPdf().url());
 
         // TODO: skipping papers with Id null
-        if (apiPaper.getId() == null) {
+        if (apiPaper.id() == null) {
             return new ArrayList<>();
         }
         else {

@@ -19,7 +19,7 @@ public class SemanticScholarHandler implements ApiHandler {
     private static final String SEARCH = "search?query=";
     private static final String CITATIONS = "/citations";
     private static final String REFERENCES = "/references";
-    private static final String PAPER_ATTRIBUTES ="fields=title,authors,venue,year,citationCount,referenceCount,abstract,url";
+    private static final String PAPER_ATTRIBUTES ="fields=title,authors,venue,year,citationCount,referenceCount,abstract,openAccessPdf";
     private static final String CITED_PAPER = "citedPaper";
     private static final String CITING_PAPER = "citingPaper";
     private static final String RECOMMENDED_PAPERS = "recommendedPapers";

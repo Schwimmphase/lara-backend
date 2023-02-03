@@ -25,12 +25,12 @@ class SemanticScholarHandlerTest {
         assertNotNull(results);
 
         for (ApiPaper paper : results) {
-            assertNotNull(paper.getId());
-            assertNotNull(paper.getAuthors());
+            assertNotNull(paper.id());
+            assertNotNull(paper.authors());
             //assertNotNull(paper.getAbstractText());
-            assertNotNull(paper.getTitle());
-            assertNotNull(paper.getVenue());
-            assertNotNull(paper.getPdfUrl());
+            assertNotNull(paper.title());
+            assertNotNull(paper.venue());
+            //assertNotNull(paper.pdfUrl());
         }
     }
 
@@ -47,12 +47,12 @@ class SemanticScholarHandlerTest {
 
         // test
         for (ApiPaper paper : results) {
-            assertNotNull(paper.getId());
-            assertNotNull(paper.getAuthors());
+            assertNotNull(paper.id());
+            assertNotNull(paper.authors());
             //assertNotNull(paper.getAbstractText());
-            assertNotNull(paper.getTitle());
-            assertNotNull(paper.getVenue());
-            assertNotNull(paper.getPdfUrl());
+            assertNotNull(paper.title());
+            assertNotNull(paper.venue());
+            //assertNotNull(paper.pdfUrl());
         }
 
     }
@@ -67,12 +67,12 @@ class SemanticScholarHandlerTest {
 
         // test
         for (ApiPaper paper : results) {
-            assertNotNull(paper.getId());
-            assertNotNull(paper.getAuthors());
+            assertNotNull(paper.id());
+            assertNotNull(paper.authors());
             //assertNotNull(paper.getAbstractText());
-            assertNotNull(paper.getTitle());
-            assertNotNull(paper.getVenue());
-            assertNotNull(paper.getPdfUrl());
+            assertNotNull(paper.title());
+            assertNotNull(paper.venue());
+            //assertNotNull(paper.pdfUrl());
         }
     }
 
@@ -86,12 +86,12 @@ class SemanticScholarHandlerTest {
 
         // test
         for (ApiPaper paper : results) {
-            assertNotNull(paper.getId());
-            assertNotNull(paper.getAuthors());
+            assertNotNull(paper.id());
+            assertNotNull(paper.authors());
             //assertNotNull(paper.getAbstractText());
-            assertNotNull(paper.getTitle());
-            assertNotNull(paper.getVenue());
-            assertNotNull(paper.getPdfUrl());
+            assertNotNull(paper.title());
+            assertNotNull(paper.venue());
+            //assertNotNull(paper.pdfUrl());
         }
     }
 
@@ -105,12 +105,12 @@ class SemanticScholarHandlerTest {
 
         // test
         for (ApiPaper paper : results) {
-            assertNotNull(paper.getId());
-            assertNotNull(paper.getAuthors());
-            assertNotNull(paper.getAbstractText());
-            assertNotNull(paper.getTitle());
-            assertNotNull(paper.getVenue());
-            assertNotNull(paper.getPdfUrl());
+            assertNotNull(paper.id());
+            assertNotNull(paper.authors());
+            assertNotNull(paper.abstractText());
+            assertNotNull(paper.title());
+            assertNotNull(paper.venue());
+            assertNotNull(paper.pdfUrl());
         }
 
     }
