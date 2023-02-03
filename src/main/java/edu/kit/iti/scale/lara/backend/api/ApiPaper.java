@@ -1,90 +1,31 @@
 package edu.kit.iti.scale.lara.backend.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter @Setter
 public class ApiPaper {
 
-    private String id;
-    private String title;
-    private int year;
-    private String abstractText;
-    private int citationCount;
-    private int referenceCount;
-    private String venue;
-    private String pdfUrl;
+    @JsonProperty("authors")
     private List<Author> authors;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getAbstractText() {
-        return abstractText;
-    }
-
-    public void setAbstractText(String abstractText) {
-        this.abstractText = abstractText;
-    }
-
-    public int getCitationCount() {
-        return citationCount;
-    }
-
-    public void setCitationCount(int citationCount) {
-        this.citationCount = citationCount;
-    }
-
-    public int getReferenceCount() {
-        return referenceCount;
-    }
-
-    public void setReferenceCount(int referenceCount) {
-        this.referenceCount = referenceCount;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public String getPdfUrl() {
-        return pdfUrl;
-    }
-
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
-    }
-
-    public List<Author> getAuthor() {
-        return authors;
-    }
-
-    public void setAuthor(List<Author> authors) {
-        this.authors = authors;
-    }
+    @JsonProperty("paperId")
+    private String id;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("year")
+    private int year;
+    @JsonProperty("abstract")
+    private String abstractText;
+    @JsonProperty("citationCount")
+    private int citationCount;
+    @JsonProperty("referenceCount")
+    private int referenceCount;
+    @JsonProperty("venue")
+    private String venue;
+    @JsonProperty("url")
+    private String pdfUrl;
 }

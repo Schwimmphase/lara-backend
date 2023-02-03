@@ -1,98 +1,97 @@
 package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 
-import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
+import edu.kit.iti.scale.lara.backend.api.ApiPaper;
+import edu.kit.iti.scale.lara.backend.api.semanticscolar.SemanticScholarHandler;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import org.json.JSONException;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 @Controller
 public class ApiActionController {
 
-    public Paper getPaper(String paperId) {
+    private SemanticScholarHandler semanticScholarHandler = new SemanticScholarHandler();
+    private ApiPaperConverter apiPaperConverter = new ApiPaperConverter();
 
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper = new Paper(paperId, "thePaper", 2023, "abstract",
-                0, 0,"venue", "url", List.of(author));
+    public Paper getPaper(String paperId) throws JSONException, IOException {
+
+        ApiPaper apiPaper = semanticScholarHandler.getPaper(paperId);
+        Paper paper = apiPaperConverter.convert(apiPaper);
 
         return paper;
     }
 
-    public List<Paper> getPapersByKeyword(String query) {
+    public List<Paper> getPapersByKeyword(String query) throws IOException, JSONException {
 
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper1 = new Paper("111111", "KeyPaper1", 2023, "abstract1",
-                1, 1,"venue1", "url1", List.of(author));
-        Paper paper2 = new Paper("222222", "KeyPaper2", 2023, "abstract2",
-                2, 2,"venue2", "url2", List.of(author));
-        Paper paper3 = new Paper("333333", "KeyPaper3", 2023, "abstract3",
-                3, 3,"venue3", "url3", List.of(author));
+        List<ApiPaper> apiPapers = semanticScholarHandler.getPapersByKeyword(query);
 
         List<Paper> papers = new ArrayList<>();
-        papers.add(paper1);
-        papers.add(paper2);
-        papers.add(paper3);
+
+        // convert resulting Api papers to papers
+        for (ApiPaper apiPaper : apiPapers) {
+            papers.add(apiPaperConverter.convert(apiPaper));
+        }
 
         return papers;
     }
 
-    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) {
+    public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) throws IOException, JSONException {
 
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper1 = new Paper("111111", "recPaper1", 2023, "abstract1",
-                1, 1,"venue1", "url1", List.of(author));
-        Paper paper2 = new Paper("222222", "recPaper2", 2023, "abstract2",
-                2, 2,"venue2", "url2", List.of(author));
-        Paper paper3 = new Paper("333333", "recPaper3", 2023, "abstract3",
-                3, 3,"venue3", "url3", List.of(author));
+        List<String> positiveIds = new ArrayList<>();
+        List<String> negativeIds = new ArrayList<>();
 
-        List<Paper> papers = new ArrayList<>();
-        papers.add(paper1);
-        papers.add(paper2);
-        papers.add(paper3);
+        // get Ids from positive papers
+        for (Paper paper : positives) {
+            positiveIds.add(paper.getPaperId());
+        }
 
-        return papers;
+        // get Ids from negative papers
+        for (Paper paper : negatives) {
+            negativeIds.add(paper.getPaperId());
+        }
+
+        List<ApiPaper> recommendedApiPapers = semanticScholarHandler.getRecommendations(positiveIds, negativeIds);
+
+        List<Paper> recommendedPapers = new ArrayList<>();
+
+        // convert recommended Api papers to papers
+        for (ApiPaper apiPaper : recommendedApiPapers) {
+            recommendedPapers.add(apiPaperConverter.convert(apiPaper));
+        }
+
+        return recommendedPapers;
     }
 
-    public List<Paper> getCitations(Paper paper) {
+    public List<Paper> getCitations(Paper paper) throws IOException, JSONException {
 
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper1 = new Paper("111111", "citPaper1", 2023, "abstract1",
-                1, 1,"venue1", "url1", List.of(author));
-        Paper paper2 = new Paper("222222", "citPaper2", 2023, "abstract2",
-                2, 2,"venue2", "url2", List.of(author));
-        Paper paper3 = new Paper("333333", "citPaper3", 2023, "abstract3",
-                3, 3,"venue3", "url3", List.of(author));
+        List<ApiPaper> citationsApiPapers = semanticScholarHandler.getCitations(paper.getPaperId());
 
-        List<Paper> papers = new ArrayList<>();
-        papers.add(paper1);
-        papers.add(paper2);
-        papers.add(paper3);
+        List<Paper> citations = new ArrayList<>();
 
-        return papers;
+        // convert citations from Api paper to paper
+        for (ApiPaper apiPaper : citationsApiPapers) {
+            citations.add(apiPaperConverter.convert(apiPaper));
+        }
+
+        return citations;
     }
 
-    public List<Paper> getReferences(Paper paper) {
+    public List<Paper> getReferences(Paper paper) throws IOException, JSONException {
 
-        // TODO: replace mock with code
-        Author author = new Author("mockId", "mockName");
-        Paper paper1 = new Paper("111111", "refPaper1", 2023, "abstract1",
-                1, 1,"venue1", "url1", List.of(author));
-        Paper paper2 = new Paper("222222", "refPaper2", 2023, "abstract2",
-                2, 2,"venue2", "url2", List.of(author));
-        Paper paper3 = new Paper("333333", "refPaper3", 2023, "abstract3",
-                3, 3,"venue3", "url3", List.of(author));
+        List<ApiPaper> referencesApiPaper = semanticScholarHandler.getReferences(paper.getPaperId());
 
-        List<Paper> papers = new ArrayList<>();
-        papers.add(paper1);
-        papers.add(paper2);
-        papers.add(paper3);
+        List<Paper> references = new ArrayList<>();
 
-        return papers;
+        // convert citations from Api paper to paper
+        for (ApiPaper apiPaper : referencesApiPaper) {
+            references.add(apiPaperConverter.convert(apiPaper));
+        }
+
+        return references;
     }
 }

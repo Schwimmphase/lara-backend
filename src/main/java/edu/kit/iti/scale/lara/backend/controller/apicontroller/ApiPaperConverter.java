@@ -6,10 +6,8 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 
 public class ApiPaperConverter {
 
-    public Paper convert(ApiPaper apiPaper) {
-        return new Paper(apiPaper.getId(), apiPaper.getTitle(), apiPaper.getYear(), apiPaper.getAbstractText(),
-                apiPaper.getCitationCount(), apiPaper.getReferenceCount(), apiPaper.getVenue(), apiPaper.getPdfUrl(),
-                apiPaper.getAuthor());
+    public edu.kit.iti.scale.lara.backend.model.research.paper.Paper convert(ApiPaper paper) {
+        return new Paper(paper.getId(), paper.getTitle(), paper.getYear(), paper.getAbstractText(), paper.getCitationCount(), paper.getReferenceCount(), paper.getVenue(), paper.getPdfUrl(), paper.getAuthors());
     }
 
 }
