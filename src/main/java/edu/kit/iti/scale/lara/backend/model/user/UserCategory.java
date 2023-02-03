@@ -17,6 +17,9 @@ import java.util.Objects;
 @Getter
 @Setter
 public class UserCategory {
+
+    public static final String ADMIN_CATEGORY = "ADMIN";
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -32,8 +35,7 @@ public class UserCategory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserCategory)) return false;
-        UserCategory that = (UserCategory) o;
+        if (!(o instanceof UserCategory that)) return false;
         return Objects.equals(getId(), that.getId());
     }
 

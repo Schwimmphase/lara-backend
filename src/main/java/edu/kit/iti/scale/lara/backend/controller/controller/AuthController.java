@@ -3,6 +3,9 @@ package edu.kit.iti.scale.lara.backend.controller.controller;
 import edu.kit.iti.scale.lara.backend.controller.record.LoginRequest;
 import edu.kit.iti.scale.lara.backend.controller.service.AuthService;
 import edu.kit.iti.scale.lara.backend.controller.service.UserService;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.model.user.User;
+import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +34,15 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(request.userId(), request.password())
             );
 
-            return ResponseEntity.ok(Map.of("token", authService.generateToken(authentication),
-                    "user", userService.loadUserByUsername(request.userId())));
+            try {
+                User user = userService.getUserById(request.userId());
+                boolean isAdmin = user.getUserCategory().getName().equals(UserCategory.ADMIN_CATEGORY);
+
+                return ResponseEntity.ok(Map.of("token", authService.generateToken(authentication, isAdmin),
+                        "user", user));
+            } catch (NotInDataBaseException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
         }
 
         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
