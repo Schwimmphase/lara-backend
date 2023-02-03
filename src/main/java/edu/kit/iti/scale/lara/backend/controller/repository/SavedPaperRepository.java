@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SavedPaperRepository extends JpaRepository<SavedPaper, SavedPaper.SavedPaperId> {
 
-    List<SavedPaper> findByResearch(Research research);
+    List<SavedPaper> findBySavedPaperIdResearch(Research research);
 }

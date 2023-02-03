@@ -29,9 +29,10 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public void createUser(String username, String password, UserCategory userCategory) {
+    public User createUser(String username, String password, UserCategory userCategory) {
         User user = new User(username, password, userCategory);
         userRepository.save(user);
+        return user;
     }
 
     public boolean checkCredentials(String password, String userId) {
