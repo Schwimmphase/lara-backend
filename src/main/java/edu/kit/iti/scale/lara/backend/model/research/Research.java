@@ -35,10 +35,10 @@ public class Research {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private User user;
-    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "savedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cachedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
 

@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
+import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
@@ -14,6 +15,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +28,12 @@ public class ResearchService {
     private final ApiActionController apiActionController;
     private final RecommendationService recommendationService;
     private final SavedPaperRepository savedPaperRepository;
+    private final UserRepository userRepository;
 
     public Research createResearch(User user, String title, String description) {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
+        userRepository.save(user);
         researchRepository.save(research);
         return research;
     }
@@ -61,16 +65,16 @@ public class ResearchService {
         researchRepository.delete(research);
     }
 
-    public List<Paper> getRecommendations(Research research) {
+    public List<Paper> getRecommendations(Research research) throws IOException {
         List<Paper> positives = new ArrayList<>();
         List<Paper> negatives = new ArrayList<>();
 
-        List<SavedPaper> savedPapers = savedPaperRepository.findByResearch(research);
+        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
 
         for (SavedPaper savedPaper : savedPapers) {
             switch (savedPaper.getSaveState()) {
-                case ADDED -> positives.add(savedPaper.getPaper());
-                case HIDDEN -> negatives.add(savedPaper.getPaper());
+                case ADDED -> positives.add(savedPaper.getSavedPaperId().getPaper());
+                case HIDDEN -> negatives.add(savedPaper.getSavedPaperId().getPaper());
             }
         }
         return recommendationService.getRecommendations(positives, negatives);
@@ -82,7 +86,7 @@ public class ResearchService {
         return referencesAndCitations;
     }
 
-    public List<Paper> searchByQuery(String query) {
+    public List<Paper> searchByQuery(String query) throws IOException {
         return apiActionController.getPapersByKeyword(query);
     }
 }

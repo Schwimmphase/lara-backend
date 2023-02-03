@@ -15,20 +15,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "saved-papers", schema = "lara")
-@IdClass(SavedPaper.SavedPaperId.class)
 @NoArgsConstructor
 @Getter
 @Setter
 public class SavedPaper {
-    @Id
-    @ManyToOne
+    @EmbeddedId
     @JsonUnwrapped
-    private Paper paper;
-    @Id
-    @ManyToOne
-    @JsonUnwrapped
-    @JsonIncludeProperties({ "id" })
-    private Research research;
+    private SavedPaperId savedPaperId;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonUnwrapped
     private Comment comment;
@@ -40,14 +33,21 @@ public class SavedPaper {
     @NoArgsConstructor
     @AllArgsConstructor
     @EqualsAndHashCode
+    @Embeddable
+    @Getter
+    @Setter
     public static class SavedPaperId implements Serializable {
-        private Research research;
+        @ManyToOne
+        @JsonUnwrapped
         private Paper paper;
+        @ManyToOne
+        @JsonUnwrapped
+        @JsonIncludeProperties({"id"})
+        private Research research;
     }
 
     public SavedPaper(Paper paper, Research research, Comment comment, int relevance, SaveState saveState) {
-        this.paper = paper;
-        this.research = research;
+        this.savedPaperId = new SavedPaperId(paper, research);
         this.comment = comment;
         this.tags = new ArrayList<>();
         this.relevance = relevance;
@@ -59,14 +59,11 @@ public class SavedPaper {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SavedPaper that = (SavedPaper) o;
-        if (!Objects.equals(paper, that.paper)) return false;
-        return Objects.equals(research, that.research);
+        return Objects.equals(this.savedPaperId, that.savedPaperId);
     }
 
     @Override
     public int hashCode() {
-        int result = paper != null ? paper.hashCode() : 0;
-        result = 31 * result + (research != null ? research.hashCode() : 0);
-        return result;
+        return savedPaperId != null ? savedPaperId.hashCode() : 0;
     }
 }

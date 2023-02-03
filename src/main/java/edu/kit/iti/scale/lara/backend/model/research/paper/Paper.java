@@ -30,10 +30,10 @@ public class Paper {
     private int referenceCount;
     private String venue;
     private String pdfUrl;
-    @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cachedPaperId.paper", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
-    @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "savedPaperId.paper", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<SavedPaper> savedPapers;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

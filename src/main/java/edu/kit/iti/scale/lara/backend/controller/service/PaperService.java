@@ -14,6 +14,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -45,11 +46,11 @@ public class PaperService {
     }
 
     public SavedPaper getSavedPaper(User user, Paper paper, Research research) throws WrongUserException, NotInDataBaseException {
-        SavedPaper.SavedPaperId id = new SavedPaper.SavedPaperId(research, paper);
+        SavedPaper.SavedPaperId id = new SavedPaper.SavedPaperId(paper, research);
 
         if (savedPaperRepository.findById(id).isPresent()) {
             SavedPaper savedPaper = savedPaperRepository.findById(id).get();
-            if (user.getResearches().contains(savedPaper.getResearch())) {
+            if (user.getResearches().contains(savedPaper.getSavedPaperId().getResearch())) {
                 return savedPaper;
             } else {
                 throw new WrongUserException();
@@ -59,7 +60,7 @@ public class PaperService {
 
     public List<SavedPaper> getSavedPapers(Research research, User user) throws WrongUserException {
         if (user.getResearches().contains(research)) {
-            return savedPaperRepository.findByResearch(research);
+            return savedPaperRepository.findBySavedPaperIdResearch(research);
         } else {
             throw new WrongUserException();
         }
@@ -80,11 +81,11 @@ public class PaperService {
         savedPaperRepository.save(savedPaper);
     }
 
-    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) {
+    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) throws IOException {
         savedPaper.setSaveState(saveState);
         savedPaperRepository.save(savedPaper);
         if (saveState == SaveState.ADDED) {
-            recommendationService.paperAdded(savedPaper.getResearch(), savedPaper.getPaper());
+            recommendationService.paperAdded(savedPaper.getSavedPaperId().getResearch(), savedPaper.getSavedPaperId().getPaper());
         }
     }
 

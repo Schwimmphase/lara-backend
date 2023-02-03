@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface CachedPaperRepository extends JpaRepository<CachedPaper, CachedPaper.CachedPaperId> {
 
-    List<CachedPaper> findByParentPaper(Paper parentPaper);
+    List<CachedPaper> findByCachedPaperIdParentPaper(Paper parentPaper);
 
-    List<CachedPaper> findByResearch(Research research);
+    List<CachedPaper> findByCachedPaperIdResearch(Research research);
 
 }
