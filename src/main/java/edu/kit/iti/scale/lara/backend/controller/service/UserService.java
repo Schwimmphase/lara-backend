@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User createUser(String username, String password, UserCategory userCategory) {
-        User user = new User(username, password, userCategory);
+        User user = new User(username, passwordEncoder.encode(password), userCategory);
         userRepository.save(user);
         return user;
     }
