@@ -38,9 +38,6 @@ public class CacheServiceTests {
     ResearchRepository researchRepository;
 
     @Autowired
-    AuthorRepository authorRepository;
-
-    @Autowired
     PaperService paperService;
 
     @Autowired
