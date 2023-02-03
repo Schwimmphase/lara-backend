@@ -80,10 +80,12 @@ public class ResearchService {
         return recommendationService.getRecommendations(positives, negatives);
     }
 
-    public List<CachedPaper> getReferencesAndCitations(Research research, List<Paper> papers) { //Todo: split in two methods
-        List<CachedPaper> referencesAndCitations = recommendationService.getReferences(research, papers);
-        referencesAndCitations.addAll(recommendationService.getCitations(research, papers));
-        return referencesAndCitations;
+    public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
+        return recommendationService.getReferences(research, papers);
+    }
+
+    public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
+        return recommendationService.getCitations(research, papers);
     }
 
     public List<Paper> searchByQuery(String query) throws IOException {

@@ -72,4 +72,8 @@ public class Research {
         return cachedPapers.add(cachedPaper);
     }
 
+    public boolean removeSavedPaper(SavedPaper savedPaper) {
+        return savedPapers.remove(savedPaper);
+    }
+
 }

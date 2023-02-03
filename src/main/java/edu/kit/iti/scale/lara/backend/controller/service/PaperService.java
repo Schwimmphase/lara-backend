@@ -45,6 +45,11 @@ public class PaperService {
         return savedPaper;
     }
 
+    public void removeSavedPaper(Research research, SavedPaper savedPaper) {
+        research.removeSavedPaper(savedPaper);
+        savedPaperRepository.delete(savedPaper);
+    }
+
     public SavedPaper getSavedPaper(User user, Paper paper, Research research) throws WrongUserException, NotInDataBaseException {
         SavedPaper.SavedPaperId id = new SavedPaper.SavedPaperId(paper, research);
 
