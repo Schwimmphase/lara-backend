@@ -1,10 +1,22 @@
 package edu.kit.iti.scale.lara.backend.model.organizer.sorting;
 
+import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.model.organizer.Organizer;
 
-public abstract class Sorter extends Organizer {
+import java.util.Arrays;
+
+public abstract class Sorter implements Organizer {
 
     private SortingDirection sortingDirection;
+
+    public Sorter(OrganizerRequest request) {
+        if (Arrays.stream(SortingDirection.values())
+                .anyMatch(sortingDirection -> sortingDirection.getApiName().equals(request.argument()))) {
+            this.sortingDirection = sortingDirection.getByApiName(request.argument());
+        } else {
+            throw new IllegalArgumentException("Sorting direction not found");
+        }
+    }
 
     public SortingDirection getSortingDirection() {
         return sortingDirection;
