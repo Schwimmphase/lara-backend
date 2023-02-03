@@ -37,10 +37,14 @@ public class AdminController {
     private final UserCategoryService userCategoryService;
 
     @GetMapping("/")
-    public ResponseEntity<Map<String, List<User>>> listUsers(@RequestParam @NotNull List<OrganizerRequest> organizers) {
+    public ResponseEntity<Map<String, List<User>>> listUsers(
+            @RequestParam @NotNull Map<String, List<OrganizerRequest>> request) {
+        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
+        OrganizerList<User> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
+
         List<User> users = userService.getUsers();
 
-        OrganizerList.createFromOrganizerRequests(organizers);
+        users = organizerList.organize(users);
         return ResponseEntity.ok(Map.of("users", users));
     }
 

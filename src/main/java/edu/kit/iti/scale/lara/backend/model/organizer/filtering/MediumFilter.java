@@ -6,10 +6,10 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.List;
 
 @NamedOrganizer("MediumFilter")
-public class MediumFilter implements Filter {
+public class MediumFilter<T extends Paper> implements Filter<T> {
 
     @Override
-    public List<Paper> organize(List<Paper> papers) {
+    public List<T> organize(List<T> papers) {
         //todo
         return null;
     }

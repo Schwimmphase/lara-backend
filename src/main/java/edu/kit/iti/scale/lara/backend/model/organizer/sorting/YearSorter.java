@@ -7,14 +7,14 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.List;
 
 @NamedOrganizer("YearSorter")
-public class YearSorter extends Sorter {
+public class YearSorter<T extends Paper> extends Sorter<T>  {
 
     public YearSorter(OrganizerRequest request) {
         super(request);
     }
 
     @Override
-    public List<Paper> organize(List<Paper> papers) {
+    public List<T> organize(List<T> papers) {
         //todo
         return null;
     }

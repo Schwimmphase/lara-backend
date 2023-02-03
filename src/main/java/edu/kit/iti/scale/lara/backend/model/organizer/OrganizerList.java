@@ -1,44 +1,47 @@
 package edu.kit.iti.scale.lara.backend.model.organizer;
 
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
-import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class OrganizerList {
+public class OrganizerList<T> {
 
-    private List<Organizer> organizers;
+    private List<Organizer<T>> organizers;
 
-    public List<Paper> organize(List<Paper> papers) {
-        //todo
-        return null;
+    public List<T> organize(List<T> elements) {
+        List<T> organizedElements = new ArrayList<>(elements);
+        for (Organizer<T> organizer : organizers) {
+            organizedElements = organizer.organize(organizedElements);
+        }
+        return organizedElements;
     }
 
-    public boolean add(Organizer organizer) {
+    public boolean add(Organizer<T> organizer) {
         return organizers.add(organizer);
     }
 
-    public boolean remove(Organizer organizer) {
+    public boolean remove(Organizer<T> organizer) {
         return organizers.remove(organizer);
     }
 
-    public List<Organizer> getOrganizers() {
+    public List<Organizer<T>> getOrganizers() {
         return organizers;
     }
 
-    public void setOrganizers(List<Organizer> organizers) {
+    public void setOrganizers(List<Organizer<T>> organizers) {
         this.organizers = organizers;
     }
 
-    public static OrganizerList createFromOrganizerRequests(List<OrganizerRequest> requests)
+    public static <T> OrganizerList<T> createFromOrganizerRequests(List<OrganizerRequest> requests)
             throws IllegalArgumentException, IllegalStateException {
-        OrganizerList organizerList = new OrganizerList();
+        OrganizerList<T> organizerList = new OrganizerList<T>();
 
         for (OrganizerRequest request : requests) {
             organizerList.add(getOrganizerByName(request.name(), request.argument()));
@@ -47,7 +50,7 @@ public class OrganizerList {
         return organizerList;
     }
 
-    private static Organizer getOrganizerByName(String name, String arguments) {
+    private static <T> Organizer<T> getOrganizerByName(String name, String arguments) {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forJavaClassPath()).setScanners(Scanners.TypesAnnotated));
         Set<Class<?>> classes = reflections.getTypesAnnotatedWith(NamedOrganizer.class);
@@ -58,7 +61,7 @@ public class OrganizerList {
             }
 
             try {
-                return (Organizer) clazz.getDeclaredConstructor(String.class).newInstance(arguments);
+                return (Organizer<T>) clazz.getDeclaredConstructor(String.class).newInstance(arguments);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new IllegalStateException("Organizer with now string constructor");

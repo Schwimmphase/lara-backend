@@ -5,7 +5,7 @@ import edu.kit.iti.scale.lara.backend.model.organizer.Organizer;
 
 import java.util.Arrays;
 
-public abstract class Sorter implements Organizer {
+public abstract class Sorter<T> implements Organizer<T> {
 
     private SortingDirection sortingDirection;
 

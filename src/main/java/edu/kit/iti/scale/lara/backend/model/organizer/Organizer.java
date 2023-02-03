@@ -1,11 +1,9 @@
 package edu.kit.iti.scale.lara.backend.model.organizer;
 
-import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-
 import java.util.List;
 
-public interface Organizer {
+public interface Organizer<T> {
 
-    List<Paper> organize(List<Paper> papers);
+    List<T> organize(List<T> elements);
 
 }

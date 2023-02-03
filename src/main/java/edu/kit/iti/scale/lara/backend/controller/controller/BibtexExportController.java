@@ -6,6 +6,7 @@ import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
+import edu.kit.iti.scale.lara.backend.model.organizer.OrganizerList;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
@@ -38,11 +39,13 @@ public class BibtexExportController {
                                         @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
                                     @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
+        OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
             List<Paper> papers = paperService.getSavedPapers(research, user).stream()
                     .map(savedPaper -> savedPaper.getSavedPaperId().getPaper()).toList();
+            papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("export", bibtexConverterService.export(papers)));
         } catch (NotInDataBaseException | WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research not owned by user");

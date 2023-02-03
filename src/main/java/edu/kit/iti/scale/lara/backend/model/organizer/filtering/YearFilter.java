@@ -6,9 +6,9 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.List;
 
 @NamedOrganizer("YearFiler")
-public class YearFilter implements Filter {
+public class YearFilter<T extends Paper> implements Filter<T> {
     @Override
-    public List<Paper> organize(List<Paper> papers) {
+    public List<T> organize(List<T> papers) {
         //todo
         return null;
     }

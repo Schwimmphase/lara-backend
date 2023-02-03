@@ -8,6 +8,7 @@ import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.controller.service.TagService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
+import edu.kit.iti.scale.lara.backend.model.organizer.OrganizerList;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
@@ -143,10 +144,12 @@ public class ResearchController {
                                                   @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
                                               @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
+        OrganizerList<SavedPaper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
+            papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("papers", papers));
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
@@ -161,6 +164,7 @@ public class ResearchController {
                                                       @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
                                                   @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
+        OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
@@ -175,6 +179,8 @@ public class ResearchController {
                 case REFERENCES -> researchService.getReferences(research, researchPapers).stream()
                         .map(cachedPaper -> cachedPaper.getCachedPaperId().getPaper()).toList();
             };
+
+            papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("papers", papers));
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
@@ -190,10 +196,12 @@ public class ResearchController {
                                              @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
                                          @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
+        OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             List<Paper> papers = researchService.searchByQuery(query);
 
+            papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("papers", papers));
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

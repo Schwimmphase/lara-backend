@@ -7,14 +7,14 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.List;
 
 @NamedOrganizer("CitationCountSorter")
-public class CitationCountSorter extends Sorter {
+public class CitationCountSorter<T extends Paper> extends Sorter<T> {
 
     public CitationCountSorter(OrganizerRequest request) {
         super(request);
     }
 
     @Override
-    public List<Paper> organize(List<Paper> papers) {
+    public List<T> organize(List<T> papers) {
         //todo
         return null;
     }
