@@ -30,6 +30,8 @@ public class SecurityConfig {
     private final RsaKeyProperties rsaKeys;
     private final UserService userService;
 
+    public static final String ADMIN_AUTHORITY = "ADMIN";
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -37,6 +39,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // maybe change
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/usermanagement/**").hasAuthority(ADMIN_AUTHORITY)
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

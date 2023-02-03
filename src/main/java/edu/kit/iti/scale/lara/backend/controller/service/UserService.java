@@ -1,10 +1,12 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,8 +50,13 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         try {
             User user = getUserById(userId);
-            return new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(),
-                    Collections.emptyList()); // TODO: Admin Authority
+            List<GrantedAuthority> authorities = List.of();
+
+            if (user.getUserCategory().getName().equals(UserCategory.ADMIN_CATEGORY)) {
+                authorities = Collections.singletonList((GrantedAuthority) () -> SecurityConfig.ADMIN_AUTHORITY);
+            }
+
+            return new org.springframework.security.core.userdetails.User(user.getId(), user.getPassword(), authorities);
         } catch (NotInDataBaseException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }
