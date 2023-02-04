@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class OrganizerList<T> {
 
-    private List<Organizer<T>> organizers;
+    private List<Organizer<T>> organizers = new ArrayList<>();
 
     public List<T> organize(List<T> elements) {
         List<T> organizedElements = new ArrayList<>(elements);
@@ -41,7 +41,7 @@ public class OrganizerList<T> {
 
     public static <T> OrganizerList<T> createFromOrganizerRequests(List<OrganizerRequest> requests)
             throws IllegalArgumentException, IllegalStateException {
-        OrganizerList<T> organizerList = new OrganizerList<T>();
+        OrganizerList<T> organizerList = new OrganizerList<>();
 
         for (OrganizerRequest request : requests) {
             organizerList.add(getOrganizerByName(request.name(), request.argument()));
