@@ -46,7 +46,7 @@ public class ResearchController {
     private final PaperService paperService;
     private final TagService tagService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
                                                    @RequestAttribute("user") User user) {
         Research research = researchService.createResearch(user, request.title(), request.description());
@@ -54,7 +54,7 @@ public class ResearchController {
         return ResponseEntity.ok(research);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Map<String, List<Research>>> listResearch(@RequestAttribute("user") User user) {
         List<Research> researches = researchService.getResearches(user);
 

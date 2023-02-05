@@ -50,7 +50,7 @@ public class PaperController {
     private final TagService tagService;
     private final RecommendationService recommendationService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> paperDetails(@PathVariable @NotNull String id,
                                                @RequestParam(required = false) @Nullable String researchId,
                                                @RequestAttribute("user") User user) {
@@ -74,7 +74,7 @@ public class PaperController {
         }
     }
 
-    @PutMapping("{id}/tag")
+    @PutMapping("/{id}/tag")
     public ResponseEntity<Void> paperAddTag(@PathVariable @NotNull String id,
                                             @RequestParam @NotNull String researchId,
                                             @RequestParam @NotNull String tagId,
@@ -94,7 +94,7 @@ public class PaperController {
         }
     }
 
-    @DeleteMapping("{id}/tag")
+    @DeleteMapping("/{id}/tag")
     public ResponseEntity<Void> paperTagRemove(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
                                                @RequestParam @NotNull String tagId,
@@ -114,7 +114,7 @@ public class PaperController {
         }
     }
 
-    @PatchMapping("{id}/comment")
+    @PatchMapping("/{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable @NotNull String id,
                                              @RequestParam @NotNull String researchId,
                                              @RequestParam @NotNull String comment,
@@ -133,7 +133,7 @@ public class PaperController {
         }
     }
 
-    @PutMapping("{id}/save-state")
+    @PutMapping("/{id}/save-state")
     public ResponseEntity<Void> paperSaveState(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
                                                @RequestParam @NotNull SaveState saveState,
@@ -154,7 +154,7 @@ public class PaperController {
         }
     }
 
-    @PatchMapping("{id}/relevance")
+    @PatchMapping("/{id}/relevance")
     public ResponseEntity<Void> paperRelevance(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
                                                @RequestParam int relevance,
@@ -173,7 +173,7 @@ public class PaperController {
         }
     }
 
-    @PostMapping("{id}/recommendations")
+    @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
                                                   @RequestParam @NotNull String researchId,
                                                   @RequestParam @NotNull RecommendationMethod method,

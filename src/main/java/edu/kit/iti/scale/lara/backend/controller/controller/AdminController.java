@@ -35,7 +35,7 @@ public class AdminController {
     private final UserService userService;
     private final UserCategoryService userCategoryService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<Map<String, List<User>>> listUsers(
             @RequestParam(value = "organizer", required = false) List<OrganizerRequest> organizers) {
         if (organizers == null) {
@@ -54,7 +54,7 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody @NotNull UserRequest request) {
         if (request.password() == null || request.password().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password must not be null or empty");

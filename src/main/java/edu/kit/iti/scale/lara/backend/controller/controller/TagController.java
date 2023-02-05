@@ -31,7 +31,7 @@ public class TagController {
     private final TagService tagService;
     private final ResearchService researchService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Tag> createTag(@RequestParam @NotNull String researchId,
                                          @RequestBody @NotNull TagRequest request,
                                          @RequestAttribute("user") User user) {
