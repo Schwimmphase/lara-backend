@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cached-papers", schema = "lara")
@@ -42,5 +43,13 @@ public class CachedPaper {
         private Research research;
         @ManyToOne
         private Paper parentPaper;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CachedPaper)) return false;
+        CachedPaper that = (CachedPaper) o;
+        return Objects.equals(getCachedPaperId(), that.getCachedPaperId());
     }
 }
