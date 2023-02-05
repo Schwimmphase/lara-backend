@@ -64,7 +64,7 @@ public class AdminControllerTest {
         given(userService.getUsers()).willReturn(users);
 
         mvc.perform(
-                get("/usermanagement/")
+                get("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
                         .with(jwt()))
@@ -85,7 +85,7 @@ public class AdminControllerTest {
         userObject.put("password", "password");
         userObject.put("userCategory", "ADMIN");
 
-        mvc.perform(post("/usermanagement/")
+        mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userObject.toString())
                         .with(jwt()))
@@ -106,7 +106,7 @@ public class AdminControllerTest {
         userObject.put("password", "password");
         userObject.put("userCategory", "INVALID");
 
-        mvc.perform(post("/usermanagement/")
+        mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userObject.toString())
                         .with(jwt()))
@@ -124,7 +124,7 @@ public class AdminControllerTest {
         userObject.put("password", "");
         userObject.put("userCategory", "ADMIN");
 
-        mvc.perform(post("/usermanagement/")
+        mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userObject.toString())
                         .with(jwt()))
@@ -142,7 +142,7 @@ public class AdminControllerTest {
         userObject.put("password", "password");
         userObject.put("userCategory", "ADMIN");
 
-        mvc.perform(post("/usermanagement/")
+        mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(userObject.toString())
                         .with(jwt()))
