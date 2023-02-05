@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -36,14 +37,21 @@ public class AdminController {
 
     @GetMapping("/")
     public ResponseEntity<Map<String, List<User>>> listUsers(
-            @RequestBody @NotNull Map<String, List<OrganizerRequest>> request) {
-        List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
-        OrganizerList<User> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
+            @RequestParam(value = "organizer", required = false) List<OrganizerRequest> organizers) {
+        if (organizers == null) {
+            return ResponseEntity.ok(Map.of("users", userService.getUsers()));
+        }
 
-        List<User> users = userService.getUsers();
+        try {
+            OrganizerList<User> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
-        users = organizerList.organize(users);
-        return ResponseEntity.ok(Map.of("users", users));
+            List<User> users = userService.getUsers();
+
+            users = organizerList.organize(users);
+            return ResponseEntity.ok(Map.of("users", users));
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 
     @PostMapping("/")
