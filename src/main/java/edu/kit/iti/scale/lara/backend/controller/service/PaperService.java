@@ -40,9 +40,10 @@ public class PaperService {
 
     public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
-        research.addSavedPaper(savedPaper);
         savedPaperRepository.save(savedPaper);
         return savedPaper;
+        //savedPaper isn´t save in research.savedPapers to avoid duplicates
+
     }
 
     public SavedPaper getSavedPaper(User user, Paper paper, Research research) throws WrongUserException, NotInDataBaseException {
