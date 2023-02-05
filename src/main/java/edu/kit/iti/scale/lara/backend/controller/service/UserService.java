@@ -32,6 +32,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User createUser(String username, String password, UserCategory userCategory) {
+        password = passwordEncoder.encode(password);
         User user = new User(username, password, userCategory);
         userRepository.save(user);
         return user;
@@ -70,12 +71,13 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
-    public void updateUser(User user, String newName, String newPassword, UserCategory newCategory) {
+    public User updateUser(User user, String newName, String newPassword, UserCategory newCategory) {
         user.setUsername(newName);
         user.setUserCategory(newCategory);
         if (newPassword != null) {
             user.setPassword(passwordEncoder.encode(newPassword));
         }
         userRepository.save(user);
+        return user;
     }
 }

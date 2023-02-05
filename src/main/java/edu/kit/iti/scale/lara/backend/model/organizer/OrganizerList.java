@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class OrganizerList<T> {
 
-    private List<Organizer<T>> organizers;
+    private List<Organizer<T>> organizers = new ArrayList<>();
 
     public List<T> organize(List<T> elements) {
         List<T> organizedElements = new ArrayList<>(elements);
