@@ -41,7 +41,7 @@ public class OrganizerList<T> {
 
     public static <T> OrganizerList<T> createFromOrganizerRequests(List<OrganizerRequest> requests)
             throws IllegalArgumentException, IllegalStateException {
-        OrganizerList<T> organizerList = new OrganizerList<T>();
+        OrganizerList<T> organizerList = new OrganizerList<>();
 
         for (OrganizerRequest request : requests) {
             organizerList.add(getOrganizerByName(request.name(), request.argument()));

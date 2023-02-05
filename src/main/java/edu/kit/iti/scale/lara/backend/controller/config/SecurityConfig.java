@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // maybe change
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        //.requestMatchers("/usermanagement/**").hasAuthority(ADMIN_AUTHORITY)
+                        //.requestMatchers("/usermanagement/**").hasAuthority(ADMIN_AUTHORITY) TODO: enable when fixed
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
