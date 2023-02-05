@@ -42,9 +42,10 @@ public class UserCategoryService {
         }
     }
 
-    public void updateCategory(UserCategory userCategory, String newName, String newColor) {
+    public UserCategory updateCategory(UserCategory userCategory, String newName, String newColor) {
         userCategory.setName(newName);
         userCategory.setColor(newColor);
+        return userCategory;
     }
 
     public void deleteCategory(UserCategory userCategory) {
