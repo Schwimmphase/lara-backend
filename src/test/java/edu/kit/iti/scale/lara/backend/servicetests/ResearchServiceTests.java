@@ -49,8 +49,8 @@ public class ResearchServiceTests {
         Research research1 = researchService.createResearch(user, "research1", "1");
         Research research2 = researchService.createResearch(user, "research2", "2");
 
-        Assertions.assertThat(researchService.getResearches(user)).isEqualTo(List.of(research1, research2));
-        Assertions.assertThat(List.of(research1, research2)).isEqualTo(user.getResearches());
+        Assertions.assertThat(researchService.getResearches(user).stream().toList()).isEqualTo(List.of(research1, research2));
+       // Assertions.assertThat(List.of(research1, research2)).isEqualTo(user.getResearches());
     }
 
     @Test

@@ -31,18 +31,15 @@ public class User {
     private Research activeResearch;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
-    @JsonIgnore
-    private List<Research> researches;
 
     public User(String username, String password, UserCategory userCategory) {
         this.username = username;
         this.password = password;
         this.userCategory = userCategory;
-        this.researches = new ArrayList<>();
     }
 
+    @Deprecated
     public boolean addResearch(Research research) {
-        return researches.add(research);
+        return true;
     }
 }

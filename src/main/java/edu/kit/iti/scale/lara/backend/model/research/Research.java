@@ -32,7 +32,7 @@ public class Research {
     @JsonUnwrapped
     private Comment description;
     private ZonedDateTime startDate;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     private User user;
     @OneToMany(mappedBy = "savedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -78,7 +78,7 @@ public class Research {
 
     @Override
     public String toString() {
-        return this.title;
+        return this.id + '$' + this.title;
     }
 
 
