@@ -12,11 +12,11 @@ public class SaveStateConverter implements Converter<String, SaveState> {
 
     @Override
     public SaveState convert(@NotNull String source) {
-        if (Arrays.stream(SaveState.values()).noneMatch(saveState -> saveState.name().equals(source))) {
-            throw new IllegalArgumentException("Invalid save state: " + source);
+        if (Arrays.stream(SaveState.values()).noneMatch(saveState -> saveState.name().equals(source.toUpperCase()))) {
+            throw new IllegalArgumentException("Invalid save state: " + source.toUpperCase());
         }
 
-        return SaveState.valueOf(source);
+        return SaveState.valueOf(source.toUpperCase());
     }
 
 }
