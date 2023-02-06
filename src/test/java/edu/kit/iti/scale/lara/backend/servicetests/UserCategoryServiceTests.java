@@ -44,6 +44,13 @@ public class UserCategoryServiceTests {
 
         Assertions.assertThat(userCategory.getName()).isEqualTo("new-name");
         Assertions.assertThat(userCategory.getColor()).isEqualTo("FF0000");
+
+        try {
+            Assertions.assertThat(userCategoryService.getUserCategory(userCategory.getId()).getName()).isEqualTo("new-name");
+            Assertions.assertThat(userCategoryService.getUserCategory(userCategory.getId()).getColor()).isEqualTo("FF0000");
+        } catch (NotInDataBaseException e) {
+            Assertions.fail("Not in database");
+        }
     }
 
     @Test
