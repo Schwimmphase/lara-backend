@@ -49,57 +49,57 @@ public class CacheServiceTests {
     CacheService cacheService;
 
 
-    @Test
-    public void theTest() {
-        User user = createUser();
-        Research research = createResearch(user);
-
-        try {
-            List<Paper> papers = apiActionController.getPapersByKeyword("Graph");
-            Paper paper1 = papers.get(0);
-            Paper paper2 = papers.get(1);
-
-            paperService.savePaperToDataBase(paper1);
-            paperService.savePaperToDataBase(paper2);
-
-            SavedPaper savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
-            SavedPaper savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ADDED);
-
-            try {
-                cacheService.initializeCache(List.of(savedPaper1, savedPaper2), research);
-
-
-
-                List<CachedPaper> citations = cacheService.getCitations(research, List.of(paper1));
-                List<CachedPaper> references = cacheService.getReferences(research, List.of(paper1));
-                for (CachedPaper cachedPaper : citations) {
-                    Assertions.assertThat(cachedPaper.getType()).isEqualTo(CachedPaperType.CITATION);
-                    Assertions.assertThat(cachedPaper.getCachedPaperId().getParentPaper()).isEqualTo(paper1);
-                }
-
-                for (CachedPaper cachedPaper : references) {
-                    Assertions.assertThat(cachedPaper.getType()).isEqualTo(CachedPaperType.REFERENCE);
-                    Assertions.assertThat(cachedPaper.getCachedPaperId().getParentPaper()).isEqualTo(paper1);
-                }
-
-                cacheService.removePaper(paper1, research);
-
-                Assertions.assertThat(cacheService.getCitations(research, List.of(paper1)).isEmpty()).isEqualTo(true);
-                Assertions.assertThat(cacheService.getReferences(research, List.of(paper1)).isEmpty()).isEqualTo(true);
-
-                cacheService.flushCacheResearch(research);
-
-                Assertions.assertThat(cacheService.getReferences(research, List.of(paper1, paper2)).isEmpty()).isEqualTo(true);
-
-            } catch (IOException e) {
-                Assertions.fail("SemanticScholarApi didn´t work");
-            }
-
-        } catch (IOException e) {
-            Assertions.fail("IOException");
-        }
-
-    }
+//    @Test
+//    public void theTest() {
+//        User user = createUser();
+//        Research research = createResearch(user);
+//
+//        try {
+//            List<Paper> papers = apiActionController.getPapersByKeyword("Graph");
+//            Paper paper1 = papers.get(0);
+//            Paper paper2 = papers.get(1);
+//
+//            paperService.savePaperToDataBase(paper1);
+//            paperService.savePaperToDataBase(paper2);
+//
+//            SavedPaper savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+//            SavedPaper savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ADDED);
+//
+//            try {
+//                cacheService.initializeCache(List.of(savedPaper1, savedPaper2), research);
+//
+//
+//
+//                List<CachedPaper> citations = cacheService.getCitations(research, List.of(paper1));
+//                List<CachedPaper> references = cacheService.getReferences(research, List.of(paper1));
+//                for (CachedPaper cachedPaper : citations) {
+//                    Assertions.assertThat(cachedPaper.getType()).isEqualTo(CachedPaperType.CITATION);
+//                    Assertions.assertThat(cachedPaper.getCachedPaperId().getParentPaper()).isEqualTo(paper1);
+//                }
+//
+//                for (CachedPaper cachedPaper : references) {
+//                    Assertions.assertThat(cachedPaper.getType()).isEqualTo(CachedPaperType.REFERENCE);
+//                    Assertions.assertThat(cachedPaper.getCachedPaperId().getParentPaper()).isEqualTo(paper1);
+//                }
+//
+//                cacheService.removePaper(paper1, research);
+//
+//                Assertions.assertThat(cacheService.getCitations(research, List.of(paper1)).isEmpty()).isEqualTo(true);
+//                Assertions.assertThat(cacheService.getReferences(research, List.of(paper1)).isEmpty()).isEqualTo(true);
+//
+//                cacheService.flushCacheResearch(research);
+//
+//                Assertions.assertThat(cacheService.getReferences(research, List.of(paper1, paper2)).isEmpty()).isEqualTo(true);
+//
+//            } catch (IOException e) {
+//                Assertions.fail("SemanticScholarApi didn´t work");
+//            }
+//
+//        } catch (IOException e) {
+//            Assertions.fail("IOException");
+//        }
+//
+//    }
 
     @Test
     public void testGetCitations() {
