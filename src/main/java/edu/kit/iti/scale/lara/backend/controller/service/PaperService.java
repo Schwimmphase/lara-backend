@@ -1,5 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
+import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
@@ -24,6 +25,7 @@ public class PaperService {
     private final PaperRepository paperRepository;
     private final SavedPaperRepository savedPaperRepository;
     private final RecommendationService recommendationService;
+    private final ApiActionController apiActionController;
 
     public void savePaperToDataBase(Paper paper) {
         paperRepository.save(paper);
@@ -33,7 +35,13 @@ public class PaperService {
         if (paperRepository.findById(id).isPresent()) {
             return paperRepository.findById(id).get();
         } else {
-            throw new NotInDataBaseException();
+            try {
+                Paper paper = apiActionController.getPaper(id);
+                savePaperToDataBase(paper);
+                return paper;
+            } catch (IOException e) {
+                throw new NotInDataBaseException("Could not get paper from API", e);
+            }
         }
 
     }

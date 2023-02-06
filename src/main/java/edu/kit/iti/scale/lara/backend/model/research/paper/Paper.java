@@ -4,7 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +31,7 @@ public class Paper {
     @JsonProperty("year")
     private int yearPublished;
     @JsonProperty("abstract")
+    @Column(length = 10000)
     private String abstractText;
     private int citationCount;
     private int referenceCount;
