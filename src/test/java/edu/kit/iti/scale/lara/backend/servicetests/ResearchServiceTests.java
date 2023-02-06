@@ -51,7 +51,6 @@ public class ResearchServiceTests {
 
         Assertions.assertThat(researchService.getResearches(user)).isEqualTo(List.of(research1, research2));
         Assertions.assertThat(List.of(research1, research2)).isEqualTo(user.getResearches());
-
     }
 
     @Test

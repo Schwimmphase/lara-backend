@@ -51,7 +51,7 @@ public class PaperService {
 
         if (savedPaperRepository.findById(id).isPresent()) {
             SavedPaper savedPaper = savedPaperRepository.findById(id).get();
-            if (user.getResearches().contains(savedPaper.getSavedPaperId().getResearch())) {
+            if (user.getActiveResearch().equals(savedPaper.getSavedPaperId().getResearch())) {
                 return savedPaper;
             } else {
                 throw new WrongUserException();
@@ -60,7 +60,7 @@ public class PaperService {
     }
 
     public List<SavedPaper> getSavedPapers(Research research, User user) throws WrongUserException {
-        if (user.getResearches().contains(research)) {
+        if (user.getActiveResearch().equals(research)) {
             return savedPaperRepository.findBySavedPaperIdResearch(research);
         } else {
             throw new WrongUserException();
