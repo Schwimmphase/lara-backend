@@ -76,4 +76,11 @@ public class Research {
         return savedPapers.remove(savedPaper);
     }
 
+    @Override
+    public String toString() {
+        return this.title;
+    }
+
+
+
 }

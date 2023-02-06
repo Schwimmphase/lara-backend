@@ -39,10 +39,11 @@ public class CacheService {
         cachedPaperRepository.deleteAllInBatch(cache);
     }
 
-    public void createCachedPaper(Research research, Paper paper, Paper parent, CachedPaperType cachedPaperType) {
+    public CachedPaper createCachedPaper(Research research, Paper paper, Paper parent, CachedPaperType cachedPaperType) {
         CachedPaper cachedPaper = new CachedPaper(paper, parent, research, cachedPaperType);
-        research.addCachedPaper(cachedPaper);
         cachedPaperRepository.save(cachedPaper);
+        return cachedPaper;
+        //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
     }
 
     public void removePaper(Paper paper, Research research) {

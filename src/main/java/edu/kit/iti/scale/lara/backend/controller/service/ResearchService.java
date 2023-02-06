@@ -41,7 +41,7 @@ public class ResearchService {
     public Research getResearch(String researchId, User user) throws NotInDataBaseException, WrongUserException {
         if (researchRepository.findById(researchId).isPresent()) {
             Research research = researchRepository.findById(researchId).get();
-            if (user.getResearches().contains(research)) {
+            if (researchRepository.findByUser(user).contains(research)) {
                 return research;
             } else {
                 throw new WrongUserException();
