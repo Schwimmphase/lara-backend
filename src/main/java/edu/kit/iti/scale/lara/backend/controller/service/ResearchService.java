@@ -35,7 +35,6 @@ public class ResearchService {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
         userRepository.save(user);
-        researchRepository.save(research);
         return research;
     }
 

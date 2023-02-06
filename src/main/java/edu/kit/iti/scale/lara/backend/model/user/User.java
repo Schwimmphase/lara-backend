@@ -31,7 +31,7 @@ public class User {
     private Research activeResearch;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
-    @OneToMany(orphanRemoval = true, fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
     @JsonIgnore
     private List<Research> researches;
 
