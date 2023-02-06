@@ -17,8 +17,20 @@ public class UserCategoryServiceTests {
     @Test
     public void testCreateAndGetUserCategory() {
         try {
-            UserCategory userCategory = userCategoryService.createCategory("Test-Category", "0000FF");
-            Assertions.assertThat(userCategoryService.getUserCategory(userCategory.getId())).isEqualTo(userCategory);
+            UserCategory userCategory1 = userCategoryService.createCategory("Test-Category1", "0000FF");
+            Assertions.assertThat(userCategoryService.getUserCategory(userCategory1.getId())).isEqualTo(userCategory1);
+
+            UserCategory userCategory2 = userCategoryService.createCategory("Test-Category2", "0000FF");
+            Assertions.assertThat(userCategoryService.getUserCategory(userCategory2.getId())).isEqualTo(userCategory2);
+
+            boolean exceptionThrown = false;
+            try {
+                UserCategory userCategory3 = userCategoryService.createCategory("Test-Category2", "0000FF");
+            } catch (IllegalArgumentException e) {
+                exceptionThrown = true;
+            }
+            Assertions.assertThat(exceptionThrown).isEqualTo(true);
+
         } catch (NotInDataBaseException e) {
             Assertions.fail("UserCategory not in Database");
         }
