@@ -83,7 +83,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "test-admin");
         userObject.put("password", "password");
-        userObject.put("userCategory", "ADMIN");
+        userObject.put("usercategory", "ADMIN");
 
         mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -189,7 +189,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "new-password");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -233,7 +233,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -65,7 +65,7 @@ public class AdminController {
         }
 
         try {
-            UserCategory category = userCategoryService.getUserCategoryByName(request.userCategory());
+            UserCategory category = userCategoryService.getUserCategoryByName(request.usercategory());
             User user = userService.createUser(request.username(), request.password(), category);
             return ResponseEntity.ok(user);
         } catch (NotInDataBaseException e) {
@@ -92,7 +92,7 @@ public class AdminController {
         }
 
         try {
-            UserCategory category = userCategoryService.getUserCategoryByName(request.userCategory());
+            UserCategory category = userCategoryService.getUserCategoryByName(request.usercategory());
             User user = userService.getUserById(userId);
             user = userService.updateUser(user, request.username(), request.password(), category);
             return ResponseEntity.ok(user);
