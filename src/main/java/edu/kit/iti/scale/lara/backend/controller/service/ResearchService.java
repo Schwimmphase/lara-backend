@@ -14,6 +14,7 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -30,6 +31,7 @@ public class ResearchService {
     private final SavedPaperRepository savedPaperRepository;
     private final UserRepository userRepository;
 
+    @Transactional
     public Research createResearch(User user, String title, String description) {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
