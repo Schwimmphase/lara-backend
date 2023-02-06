@@ -1,6 +1,7 @@
 package edu.kit.iti.scale.lara.backend.controller.config;
 
-import edu.kit.iti.scale.lara.backend.controller.repository.OrganizerRequestConverter;
+import edu.kit.iti.scale.lara.backend.controller.config.converter.OrganizerRequestConverter;
+import edu.kit.iti.scale.lara.backend.controller.config.converter.SaveStateConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -25,5 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new OrganizerRequestConverter());
+        registry.addConverter(new SaveStateConverter());
     }
 }
