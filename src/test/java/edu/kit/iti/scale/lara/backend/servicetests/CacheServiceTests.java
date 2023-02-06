@@ -2,14 +2,12 @@ package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
-import edu.kit.iti.scale.lara.backend.controller.repository.AuthorRepository;
-import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
-import edu.kit.iti.scale.lara.backend.controller.repository.UserCategoryRepository;
-import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
+import edu.kit.iti.scale.lara.backend.controller.repository.*;
 import edu.kit.iti.scale.lara.backend.controller.service.CacheService;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
@@ -23,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @InMemoryTest
@@ -38,6 +37,9 @@ public class CacheServiceTests {
     ResearchRepository researchRepository;
 
     @Autowired
+    AuthorRepository authorRepository;
+
+    @Autowired
     PaperService paperService;
 
     @Autowired
@@ -45,6 +47,7 @@ public class CacheServiceTests {
 
     @Autowired
     CacheService cacheService;
+
 
     @Test
     public void theTest() {
@@ -64,6 +67,8 @@ public class CacheServiceTests {
 
             try {
                 cacheService.initializeCache(List.of(savedPaper1, savedPaper2), research);
+
+
 
                 List<CachedPaper> citations = cacheService.getCitations(research, List.of(paper1));
                 List<CachedPaper> references = cacheService.getReferences(research, List.of(paper1));
@@ -97,8 +102,24 @@ public class CacheServiceTests {
     }
 
     @Test
-    public void testCreateCachedPaper() {
+    public void testGetCitations() {
+        User user = createUser();
+        Research research = createResearch(user);
+        Author author = createAuthor();
 
+        Paper paper = new Paper("id1", "paper", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(paper);
+
+        Paper parentPaper = new Paper("id2", "parentPaper", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(parentPaper);
+
+        CachedPaper cachedPaper = cacheService.createCachedPaper(research, paper, parentPaper, CachedPaperType.CITATION);
+
+        List<CachedPaper> citations = cacheService.getCitations(research, List.of(parentPaper));
+
+        Assertions.assertThat(citations).isEqualTo(List.of(cachedPaper));
     }
 
     private User createUser() {
@@ -127,5 +148,14 @@ public class CacheServiceTests {
         Assertions.assertThat(researchRepository.findById(research.getId()).get()).isEqualTo(research);
 
         return research;
+    }
+
+    private Author createAuthor() {
+        Author author = new Author("testId", "test-author");
+        authorRepository.save(author);
+
+        Assertions.assertThat(authorRepository.findById(author.getId()).isPresent()).isEqualTo(true);
+        Assertions.assertThat(authorRepository.findById(author.getId()).get()).isEqualTo(author);
+        return author;
     }
 }
