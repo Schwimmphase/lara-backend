@@ -13,7 +13,7 @@ public class YearFilter<T extends Paper> implements Filter<T> {
     private final int max;
 
     public YearFilter(String argument) {
-        if (argument == null || argument.matches("[0-9]+-[0-9]+")) {
+        if (argument == null || !argument.matches("[0-9]+-[0-9]+")) {
             throw new IllegalArgumentException("Argument must not be null or not match the pattern [0-9]+-[0-9]+");
         }
 
