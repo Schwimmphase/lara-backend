@@ -16,9 +16,13 @@ public class UserCategoryService {
     }
 
     public UserCategory createCategory(String name, String color) {
-        UserCategory userCategory = new UserCategory(color, name);
-        userCategoryRepository.save(userCategory);
-        return userCategory;
+        if (!userCategoryRepository.existsByName(name)) {
+            UserCategory userCategory = new UserCategory(color, name);
+            userCategoryRepository.save(userCategory);
+            return userCategory;
+        } else {
+            throw new IllegalArgumentException("User category with this name already exists");
+        }
     }
 
     public UserCategory getUserCategory(String id) throws NotInDataBaseException {
