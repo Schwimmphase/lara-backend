@@ -32,9 +32,16 @@ public class PaperService {
     }
 
     public Paper getPaper(String id) throws NotInDataBaseException {
+        return getPaper(id, false);
+    }
+
+    public Paper getPaper(String id, boolean lookInApi) throws NotInDataBaseException {
         if (paperRepository.findById(id).isPresent()) {
             return paperRepository.findById(id).get();
         } else {
+            if (!lookInApi)
+                throw new NotInDataBaseException("Paper not in database");
+
             try {
                 Paper paper = apiActionController.getPaper(id);
                 savePaperToDataBase(paper);
