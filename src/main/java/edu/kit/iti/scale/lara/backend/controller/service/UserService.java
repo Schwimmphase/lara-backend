@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
+import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,11 @@ public class UserService implements UserDetailsService {
         User user = new User(username, password, userCategory);
         userRepository.save(user);
         return user;
+    }
+
+    public void setActiveResearch(User user, Research research) {
+        user.setActiveResearch(research);
+        userRepository.save(user);
     }
 
     public boolean checkCredentials(String password, String userId) {

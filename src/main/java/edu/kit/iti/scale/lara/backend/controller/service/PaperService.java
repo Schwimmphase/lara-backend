@@ -40,9 +40,10 @@ public class PaperService {
 
     public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
-        research.addSavedPaper(savedPaper);
         savedPaperRepository.save(savedPaper);
         return savedPaper;
+        //savedPaper isn´t save in research.savedPapers to avoid duplicates
+
     }
 
     public void removeSavedPaper(Research research, SavedPaper savedPaper) {
@@ -55,7 +56,7 @@ public class PaperService {
 
         if (savedPaperRepository.findById(id).isPresent()) {
             SavedPaper savedPaper = savedPaperRepository.findById(id).get();
-            if (user.getResearches().contains(savedPaper.getSavedPaperId().getResearch())) {
+            if (user.getActiveResearch().equals(savedPaper.getSavedPaperId().getResearch())) {
                 return savedPaper;
             } else {
                 throw new WrongUserException();
@@ -64,7 +65,7 @@ public class PaperService {
     }
 
     public List<SavedPaper> getSavedPapers(Research research, User user) throws WrongUserException {
-        if (user.getResearches().contains(research)) {
+        if (user.getActiveResearch().equals(research)) {
             return savedPaperRepository.findBySavedPaperIdResearch(research);
         } else {
             throw new WrongUserException();

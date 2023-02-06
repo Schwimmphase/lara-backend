@@ -34,7 +34,6 @@ public class ResearchService {
     public Research createResearch(User user, String title, String description) {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
-        userRepository.save(user);
         researchRepository.save(research);
         return research;
     }
@@ -42,7 +41,7 @@ public class ResearchService {
     public Research getResearch(String researchId, User user) throws NotInDataBaseException, WrongUserException {
         if (researchRepository.findById(researchId).isPresent()) {
             Research research = researchRepository.findById(researchId).get();
-            if (user.getResearches().contains(research)) {
+            if (researchRepository.findByUser(user).contains(research)) {
                 return research;
             } else {
                 throw new WrongUserException();
