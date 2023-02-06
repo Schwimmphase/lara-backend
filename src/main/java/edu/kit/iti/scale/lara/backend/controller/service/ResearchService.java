@@ -31,7 +31,6 @@ public class ResearchService {
     private final SavedPaperRepository savedPaperRepository;
     private final UserRepository userRepository;
 
-    @Transactional
     public Research createResearch(User user, String title, String description) {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
