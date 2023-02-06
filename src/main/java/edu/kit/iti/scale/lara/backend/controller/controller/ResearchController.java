@@ -6,6 +6,7 @@ import edu.kit.iti.scale.lara.backend.controller.request.ResearchRequest;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.controller.service.TagService;
+import edu.kit.iti.scale.lara.backend.controller.service.UserService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.organizer.OrganizerList;
@@ -45,6 +46,7 @@ public class ResearchController {
     private final ResearchService researchService;
     private final PaperService paperService;
     private final TagService tagService;
+    private  final UserService userService;
 
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
@@ -148,6 +150,7 @@ public class ResearchController {
 
         try {
             Research research = researchService.getResearch(researchId, user);
+            userService.setActiveResearch(user, research);
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("papers", papers));

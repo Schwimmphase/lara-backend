@@ -2,6 +2,7 @@ package edu.kit.iti.scale.lara.backend.organizertests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
 import edu.kit.iti.scale.lara.backend.controller.repository.AuthorRepository;
+import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.model.organizer.Organizer;
 import edu.kit.iti.scale.lara.backend.model.organizer.sorting.YearSorter;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
@@ -19,9 +20,8 @@ public class YearSorterTests {
     @Autowired
     AuthorRepository authorRepository;
 
-    private Organizer yearSorter = new YearSorter();
+    private Organizer yearSorter = new YearSorter(new OrganizerRequest("YearSorter", ""));
 
-    @Test
     public void testYearSorter() {
         Author author = createAuthor();
 

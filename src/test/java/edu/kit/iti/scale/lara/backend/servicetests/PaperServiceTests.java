@@ -226,6 +226,7 @@ public class PaperServiceTests {
         Research research = new Research("test-research", new Comment("test-comment"), ZonedDateTime.now(), user);
         researchRepository.save(research);
         user.addResearch(research);
+        user.setActiveResearch(research);
         userRepository.save(user);
 
         Assertions.assertThat(researchRepository.findById(research.getId()).isPresent()).isEqualTo(true);
