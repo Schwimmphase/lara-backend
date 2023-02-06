@@ -83,7 +83,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "test-admin");
         userObject.put("password", "password");
-        userObject.put("userCategory", "ADMIN");
+        userObject.put("usercategory", "ADMIN");
 
         mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -104,7 +104,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "test-admin");
         userObject.put("password", "password");
-        userObject.put("userCategory", "INVALID");
+        userObject.put("usercategory", "INVALID");
 
         mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -122,7 +122,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "test-admin");
         userObject.put("password", "");
-        userObject.put("userCategory", "ADMIN");
+        userObject.put("usercategory", "ADMIN");
 
         mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -140,7 +140,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "");
         userObject.put("password", "password");
-        userObject.put("userCategory", "ADMIN");
+        userObject.put("usercategory", "ADMIN");
 
         mvc.perform(post("/usermanagement")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -189,7 +189,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "new-password");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -208,7 +208,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "new-password");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/INVALID")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -233,7 +233,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -250,7 +250,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "");
         userObject.put("password", "new-password");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -266,7 +266,7 @@ public class AdminControllerTest {
         JSONObject userObject = new JSONObject();
         userObject.put("username", "new-username");
         userObject.put("password", "new-password");
-        userObject.put("userCategory", "new-category");
+        userObject.put("usercategory", "new-category");
 
         mvc.perform(patch("/usermanagement/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -305,7 +305,7 @@ public class AdminControllerTest {
 
     @Test
     public void testUpdateCategory() throws Exception {
-        mockGetCategoryByNameValid();
+        mockGetCategoryValid();
 
         given(userCategoryService.updateCategory(any(UserCategory.class), anyString(), anyString())).willAnswer(invocation -> {
             String name = invocation.getArgument(1);
@@ -328,7 +328,7 @@ public class AdminControllerTest {
 
     @Test
     public void testUpdateCategoryInvalid() throws Exception {
-        mockGetCategoryByNameInvalid();
+        mockGetCategoryInvalid();
 
         JSONObject categoryObject = new JSONObject();
         categoryObject.put("name", "new-category");
@@ -386,6 +386,19 @@ public class AdminControllerTest {
 
     private void mockGetCategoryByNameInvalid() throws NotInDataBaseException {
         given(userCategoryService.getUserCategoryByName(anyString())).willAnswer(invocation -> {
+            throw new NotInDataBaseException();
+        });
+    }
+
+    private void mockGetCategoryValid() throws NotInDataBaseException {
+        given(userCategoryService.getUserCategory(anyString())).willAnswer(invocation -> {
+            String name = invocation.getArgument(0);
+            return new UserCategory("0000FF", name);
+        });
+    }
+
+    private void mockGetCategoryInvalid() throws NotInDataBaseException {
+        given(userCategoryService.getUserCategory(anyString())).willAnswer(invocation -> {
             throw new NotInDataBaseException();
         });
     }

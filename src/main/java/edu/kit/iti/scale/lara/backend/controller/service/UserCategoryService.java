@@ -45,6 +45,7 @@ public class UserCategoryService {
     public UserCategory updateCategory(UserCategory userCategory, String newName, String newColor) {
         userCategory.setName(newName);
         userCategory.setColor(newColor);
+        userCategoryRepository.save(userCategory);
         return userCategory;
     }
 
