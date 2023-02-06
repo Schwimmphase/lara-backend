@@ -11,6 +11,12 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
 
+/**
+ * Represents category that is used to further specify and categories a User
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "user-categories")
 @NoArgsConstructor
@@ -27,6 +33,12 @@ public class UserCategory {
     private String color;
     private String name;
 
+    /**
+     * Constructor for a new UserCategory
+     *
+     * @param color a string representation of the hex-value for the color of the UserCategory
+     * @param name  the name of the UserCategory. Each instance has to have a unique name.
+     */
     public UserCategory(String color, String name) {
         this.color = color;
         this.name = name;

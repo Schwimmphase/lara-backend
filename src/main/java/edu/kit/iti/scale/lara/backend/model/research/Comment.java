@@ -11,6 +11,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * Represents a Comment that at the moment is only used to make notices about a SavedPaper
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "comments")
 @NoArgsConstructor
@@ -26,6 +32,11 @@ public class Comment {
     @JsonProperty("comment")
     private String text;
 
+    /**
+     * Constructs a new Comment
+     *
+     * @param text the content of the comment
+     */
     public Comment(String text) {
         this.text = text;
     }

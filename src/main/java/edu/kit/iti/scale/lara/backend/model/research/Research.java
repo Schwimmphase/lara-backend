@@ -16,6 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * Represents a Research that a User has started
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "researches")
 @NoArgsConstructor
@@ -42,6 +49,14 @@ public class Research {
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
 
+    /**
+     * Constructs a new Research
+     *
+     * @param title       teh title of the Research
+     * @param description a description to specify the Research
+     * @param startDate   the date the User created the Research
+     * @param user        the User that has created the Research
+     */
     public Research(String title, Comment description, ZonedDateTime startDate, User user) {
         this.title = title;
         this.description = description;
@@ -64,14 +79,17 @@ public class Research {
         return id != null ? id.hashCode() : 0;
     }
 
+    //Todo: clean up
     public boolean addSavedPaper(SavedPaper savedPaper) {
         return savedPapers.add(savedPaper);
     }
 
+    //Todo: clean up
     public boolean addCachedPaper(CachedPaper cachedPaper) {
         return cachedPapers.add(cachedPaper);
     }
 
+    //Todo: clean up
     public boolean removeSavedPaper(SavedPaper savedPaper) {
         return savedPapers.remove(savedPaper);
     }
@@ -80,7 +98,6 @@ public class Research {
     public String toString() {
         return this.id + '$' + this.title;
     }
-
 
 
 }

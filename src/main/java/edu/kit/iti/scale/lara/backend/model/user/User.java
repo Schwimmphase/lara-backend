@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Represents a User of the application
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -32,12 +35,20 @@ public class User {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
 
+    /**
+     * Constructs a new User
+     *
+     * @param username     the username
+     * @param password     the already encoded password of the User
+     * @param userCategory the UserCategory of the User
+     */
     public User(String username, String password, UserCategory userCategory) {
         this.username = username;
         this.password = password;
         this.userCategory = userCategory;
     }
 
+    //Todo: clean up
     @Deprecated
     public boolean addResearch(Research research) {
         return true;

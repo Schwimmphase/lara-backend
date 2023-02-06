@@ -3,14 +3,24 @@ package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
 
+/**
+ * Represents a Tag that can be attached to SavedPapers of a Research to further specify and categorise them
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "tags")
 @NoArgsConstructor
+@Getter
+@Setter
 public class Tag {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -22,43 +32,18 @@ public class Tag {
     @JsonIgnore
     private Research research;
 
+    /**
+     * Constructs a new Tag
+     *
+     * @param color    a string representation of the hex-value for the color of the Tag
+     * @param name     the name of the Tag
+     * @param research the research in whose context the Tag exists
+     */
     public Tag(String color, String name, Research research) {
         this.color = color;
         this.name = name;
         this.research = research;
 
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Research getResearch() {
-        return research;
-    }
-
-    public void setResearch(Research research) {
-        this.research = research;
     }
 
     @Override

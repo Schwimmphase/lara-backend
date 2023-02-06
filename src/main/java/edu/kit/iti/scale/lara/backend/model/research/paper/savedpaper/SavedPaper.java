@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A SavedPaper acts as a pointer to an actual Paper and also holds additional information about the paper
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "saved-papers")
 @NoArgsConstructor
@@ -30,6 +36,13 @@ public class SavedPaper {
     private int relevance;
     private SaveState saveState;
 
+    /**
+     * The id of a SavedPaper is represented by the SavedPaperId Class. It contains the Paper the SavedPaper points to
+     * and the Research the SavedPaper is saved to.
+     *
+     * @author unqkm
+     * @version 1.0
+     */
     @NoArgsConstructor
     @AllArgsConstructor
     @EqualsAndHashCode
@@ -46,6 +59,15 @@ public class SavedPaper {
         private Research research;
     }
 
+    /**
+     * Constructs a new SavedPaper
+     *
+     * @param paper     the Paper the savedPaper points to
+     * @param research  the Research for which the SavedPaper was saved
+     * @param comment   a Comment to make notes about the Paper
+     * @param relevance indicates on a scale from 0-3 how relevant the Paper is for the Research
+     * @param saveState the SaveState of the Paper
+     */
     public SavedPaper(Paper paper, Research research, Comment comment, int relevance, SaveState saveState) {
         this.savedPaperId = new SavedPaperId(paper, research);
         this.comment = comment;

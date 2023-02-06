@@ -10,17 +10,31 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ * Represents an Author of a Paper
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "authors")
 @NoArgsConstructor
 @Getter
 @Setter
 public class Author {
-    @Id @JsonProperty("authorId")
+    @Id
+    @JsonProperty("authorId")
     private String id;
     @JsonProperty("name")
     private String name;
 
+    /**
+     * Constructs an Author
+     *
+     * @param id   the id of the Author
+     * @param name the name of the Author
+     */
+    //Todo: generate id automatically
     public Author(String id, String name) {
         this.id = id;
         this.name = name;

@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a Paper that Users can save to their Researches
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Entity
 @Table(name = "papers")
 @NoArgsConstructor
@@ -39,6 +45,20 @@ public class Paper {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Author> authors;
 
+    /**
+     * Constructs a new Paper
+     *
+     * @param paperId        the id of the Paper. It consists of a prefix that tells the origin of the paper, a separator and
+     *                       the id of the original Paper from the origin.
+     * @param title          the title of the paper
+     * @param yearPublished  the year the paper was published
+     * @param abstractText   the abstract of the paper
+     * @param citationCount  indicates how often the paper was cited
+     * @param referenceCount indicates how manx other papers this paper references
+     * @param venue          the venue the paper was published in
+     * @param pdfUrl         a link to a pdf document of the paper
+     * @param authors        the authors of the paper
+     */
     public Paper(String paperId, String title, int yearPublished, String abstractText, int citationCount, int referenceCount,
                  String venue, String pdfUrl, List<Author> authors) {
         this.paperId = paperId;
