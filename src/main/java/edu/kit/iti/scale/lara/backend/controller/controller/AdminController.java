@@ -130,7 +130,7 @@ public class AdminController {
         }
 
         try {
-            UserCategory userCategory = userCategoryService.getUserCategoryByName(id);
+            UserCategory userCategory = userCategoryService.getUserCategory(id);
             userCategory = userCategoryService.updateCategory(userCategory, request.name(), request.color());
             return ResponseEntity.ok(userCategory);
         } catch (NotInDataBaseException e) {
@@ -141,7 +141,7 @@ public class AdminController {
     @DeleteMapping("/category/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable @NotNull String id) {
         try {
-            UserCategory userCategory = userCategoryService.getUserCategoryByName(id);
+            UserCategory userCategory = userCategoryService.getUserCategory(id);
             userCategoryService.deleteCategory(userCategory);
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException e) {

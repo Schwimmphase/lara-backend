@@ -305,7 +305,7 @@ public class AdminControllerTest {
 
     @Test
     public void testUpdateCategory() throws Exception {
-        mockGetCategoryByNameValid();
+        mockGetCategoryValid();
 
         given(userCategoryService.updateCategory(any(UserCategory.class), anyString(), anyString())).willAnswer(invocation -> {
             String name = invocation.getArgument(1);
@@ -328,7 +328,7 @@ public class AdminControllerTest {
 
     @Test
     public void testUpdateCategoryInvalid() throws Exception {
-        mockGetCategoryByNameInvalid();
+        mockGetCategoryInvalid();
 
         JSONObject categoryObject = new JSONObject();
         categoryObject.put("name", "new-category");
@@ -386,6 +386,19 @@ public class AdminControllerTest {
 
     private void mockGetCategoryByNameInvalid() throws NotInDataBaseException {
         given(userCategoryService.getUserCategoryByName(anyString())).willAnswer(invocation -> {
+            throw new NotInDataBaseException();
+        });
+    }
+
+    private void mockGetCategoryValid() throws NotInDataBaseException {
+        given(userCategoryService.getUserCategory(anyString())).willAnswer(invocation -> {
+            String name = invocation.getArgument(0);
+            return new UserCategory("0000FF", name);
+        });
+    }
+
+    private void mockGetCategoryInvalid() throws NotInDataBaseException {
+        given(userCategoryService.getUserCategory(anyString())).willAnswer(invocation -> {
             throw new NotInDataBaseException();
         });
     }
