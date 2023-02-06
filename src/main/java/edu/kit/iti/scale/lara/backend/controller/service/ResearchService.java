@@ -33,6 +33,7 @@ public class ResearchService {
     public Research createResearch(User user, String title, String description) {
         Research research = new Research(title, new Comment(description), ZonedDateTime.now(), user);
         user.addResearch(research);
+        userRepository.save(user);
         researchRepository.save(research);
         return research;
     }
