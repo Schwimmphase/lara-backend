@@ -99,7 +99,7 @@ public class ResearchController {
                                           @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
-            Paper paper = paperService.getPaper(paperId);
+            Paper paper = paperService.getPaper(paperId, true);
             paperService.createSavedPaper(research, paper, saveState);
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException e) {
