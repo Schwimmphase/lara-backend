@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.model.organizer.filtering;
 import edu.kit.iti.scale.lara.backend.model.organizer.NamedOrganizer;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 
+import java.util.ArrayList;
 import java.util.List;
 @NamedOrganizer("medium-filter")
 public class MediumFilter<T extends Paper> implements Filter<T> {
@@ -11,13 +12,14 @@ public class MediumFilter<T extends Paper> implements Filter<T> {
 
     public MediumFilter(String argument) {
         if (argument == null || argument.isEmpty()) {
-            throw new IllegalArgumentException("Argument must not be null");
+            throw new IllegalArgumentException("Argument must not be null or empty");
         }
         medium = argument;
     }
 
     @Override
     public List<T> organize(List<T> papers) {
+        papers = new ArrayList<>(papers);
         papers.removeIf(paper -> !paper.getVenue().equals(medium));
         return papers;
     }
