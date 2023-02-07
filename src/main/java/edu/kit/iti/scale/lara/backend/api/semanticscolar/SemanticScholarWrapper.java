@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.kit.iti.scale.lara.backend.api.ApiPaper;
 import edu.kit.iti.scale.lara.backend.api.ApiWrapper;
 import edu.kit.iti.scale.lara.backend.api.IdParser;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class SemanticScholarWrapper implements ApiWrapper {
 
@@ -29,7 +31,7 @@ public class SemanticScholarWrapper implements ApiWrapper {
 
         // changing ID from SemanticScholar id to our lara ID: SemSchol${SemanticScholarID}
 
-        ApiPaper apiPaper = new ApiPaper(paper.authors(), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
+        ApiPaper apiPaper = new ApiPaper(getAuthors(paper), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
                 paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
                 paper.openAccessPdf() == null ? getArXivPdf(paper) : getPdf(paper));
 
@@ -86,4 +88,15 @@ public class SemanticScholarWrapper implements ApiWrapper {
     private String getPdf(SemanticScholarPaper paper) {
         return paper.openAccessPdf().url().replace("http:", "https:"); //replace http: in url with https: so there are no problems displaying the pdf
     }
+
+    private List<Author> getAuthors(SemanticScholarPaper paper) {
+        List<Author> authors = paper.authors();
+        for (Author author : authors) {
+            if (author.getId() == null) {
+                author.setId(UUID.randomUUID().toString());
+            }
+        }
+        return authors;
+    }
+
 }
