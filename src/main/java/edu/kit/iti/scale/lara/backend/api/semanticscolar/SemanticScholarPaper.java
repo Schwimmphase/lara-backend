@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 
 import java.util.List;
+import java.util.Map;
 
 public record SemanticScholarPaper(
         @JsonProperty("authors")
@@ -23,7 +24,9 @@ public record SemanticScholarPaper(
         @JsonProperty("venue")
         String venue,
         @JsonProperty("openAccessPdf")
-        OpenAccessPdf openAccessPdf) {
+        OpenAccessPdf openAccessPdf,
+        @JsonProperty("externalIds")
+        Map<String, String> externalIds) {
 
     public record OpenAccessPdf(@JsonProperty("url") String url, @JsonProperty("status") String status) {
 
