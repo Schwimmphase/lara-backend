@@ -13,18 +13,18 @@ public class BibtexConverterService {
         StringBuilder bibTexBuilder = new StringBuilder();
         for (Paper paper : papers) {
             bibTexBuilder.append(paperToBibTex(paper));
-            bibTexBuilder.append("\n");
+            bibTexBuilder.append("\n\n");
         }
         return bibTexBuilder.toString();
     }
 
     private String paperToBibTex(Paper paper) {
-        //todo
         return "@article{Test," +
                 "title={" + paper.getTitle() + "}," +
-                getAuthorsAsBibTex(paper.getAuthors()) +
+                getAuthorsAsBibTex(paper.getAuthors()) + ", " +
                 "year={" + paper.getYearPublished() + "}," +
-                "journal={" + paper.getVenue() + "}";
+                "journal={" + paper.getVenue() + "}" +
+                "}";
     }
 
     private String getAuthorsAsBibTex(List<Author> authors) {
@@ -38,7 +38,7 @@ public class BibtexConverterService {
             first = false;
             authorsAsBibTexBuilder.append(author.getName());
         }
-        authorsAsBibTexBuilder.replace(0, 4, "");
+        authorsAsBibTexBuilder.append("}");
         return authorsAsBibTexBuilder.toString();
     }
 }
