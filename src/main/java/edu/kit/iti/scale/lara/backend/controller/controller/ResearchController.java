@@ -96,6 +96,8 @@ public class ResearchController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research or paper with this id not found");
         } catch (WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research or paper not owned by user");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not update cache");
         }
     }
 

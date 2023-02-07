@@ -79,7 +79,12 @@ public class PaperServiceTests {
                 0, 0, "venue", "url", List.of(author));
         paperService.savePaperToDataBase(paper);
 
-        SavedPaper savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         try {
             SavedPaper returnedPaper = paperService.getSavedPaper(user, paper, research);
@@ -118,9 +123,17 @@ public class PaperServiceTests {
                 0, 0, "venue3", "url3", List.of(author));
         paperService.savePaperToDataBase(paper3);
 
-        SavedPaper savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
-        SavedPaper savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ENQUEUED);
-        SavedPaper savedPaper3 = paperService.createSavedPaper(research, paper3, SaveState.HIDDEN);
+        SavedPaper savedPaper1 = null;
+        SavedPaper savedPaper2 = null;
+        SavedPaper savedPaper3 = null;
+
+        try {
+            savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+            savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ENQUEUED);
+            savedPaper3 = paperService.createSavedPaper(research, paper3, SaveState.HIDDEN);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         try {
             List<SavedPaper> savedPapers = paperService.getSavedPapers(research, user);
@@ -140,7 +153,12 @@ public class PaperServiceTests {
                 0, 0, "venue", "url", List.of(author));
         paperService.savePaperToDataBase(paper);
 
-        SavedPaper savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         Tag tag = new Tag("#0000FF", "Test-Tag", research);
 
@@ -161,7 +179,12 @@ public class PaperServiceTests {
                 0, 0, "venue", "url", List.of(author));
         paperService.savePaperToDataBase(paper);
 
-        SavedPaper savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         paperService.commentPaper(savedPaper, "test");
 
@@ -178,7 +201,12 @@ public class PaperServiceTests {
                 0, 0, "venue", "url", List.of(author));
         paperService.savePaperToDataBase(paper);
 
-        SavedPaper savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         try {
             paperService.changeSaveState(savedPaper, SaveState.HIDDEN);
@@ -198,7 +226,12 @@ public class PaperServiceTests {
                 0, 0, "venue", "url", List.of(author));
         paperService.savePaperToDataBase(paper);
 
-        SavedPaper savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
 
         paperService.setRelevanceOfPaper(savedPaper, 3);
 
