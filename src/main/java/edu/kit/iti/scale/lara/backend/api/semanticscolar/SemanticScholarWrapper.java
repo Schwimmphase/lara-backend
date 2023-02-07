@@ -74,6 +74,9 @@ public class SemanticScholarWrapper implements ApiWrapper {
     }
 
     private String getArXivPdf(SemanticScholarPaper paper) {
+        if (paper.externalIds() == null) {
+            return null;
+        }
         if (paper.externalIds().containsKey("ArXiv")) {
             return "https://arxiv.org/pdf/" + paper.externalIds().get("ArXiv") + ".pdf";
         }
