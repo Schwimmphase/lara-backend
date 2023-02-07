@@ -84,6 +84,6 @@ public class SemanticScholarWrapper implements ApiWrapper {
     }
 
     private String getPdf(SemanticScholarPaper paper) {
-        return paper.openAccessPdf().url().replace("http:", "https:");
+        return paper.openAccessPdf().url().replace("http:", "https:"); //replace http: in url with https: so there are no problems displaying the pdf
     }
 }
