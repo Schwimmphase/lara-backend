@@ -23,7 +23,7 @@ import java.util.Objects;
 @Setter
 public class Author {
     @Id
-    @JsonProperty("authorId")
+    @JsonProperty(value = "authorId", access = JsonProperty.Access.WRITE_ONLY)
     private String id;
     @JsonProperty("name")
     private String name;

@@ -136,7 +136,7 @@ public class PaperController {
     @PutMapping("/{id}/save-state")
     public ResponseEntity<Void> paperSaveState(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
-                                               @RequestParam @NotNull SaveState saveState,
+                                               @RequestParam("save-state") @NotNull SaveState saveState,
                                                @RequestAttribute("user") User user) {
 
         try {
@@ -175,10 +175,10 @@ public class PaperController {
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
-                                                  @RequestParam @NotNull String researchId,
-                                                  @RequestParam @NotNull RecommendationMethod method,
-                                                   @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                               @RequestAttribute("user") User user) {
+                                                                         @RequestParam @NotNull String researchId,
+                                                                         @RequestParam @NotNull RecommendationMethod method,
+                                                                         @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                         @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 

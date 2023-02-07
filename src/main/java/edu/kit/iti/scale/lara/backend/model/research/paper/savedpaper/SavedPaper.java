@@ -51,11 +51,8 @@ public class SavedPaper {
     @Setter
     public static class SavedPaperId implements Serializable {
         @ManyToOne
-        @JsonUnwrapped
         private Paper paper;
         @ManyToOne
-        @JsonUnwrapped
-        @JsonIncludeProperties({"id"})
         private Research research;
     }
 
@@ -75,6 +72,15 @@ public class SavedPaper {
         this.relevance = relevance;
         this.saveState = saveState;
     }
+
+    public Paper getPaper() {
+        return savedPaperId.paper;
+    }
+
+    public Research getResearch() {
+        return savedPaperId.research;
+    }
+
 
     @Override
     public boolean equals(Object o) {

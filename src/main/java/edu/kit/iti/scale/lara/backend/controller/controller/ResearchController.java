@@ -146,14 +146,21 @@ public class ResearchController {
                                                   @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
                                               @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
-        OrganizerList<SavedPaper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
+        OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
             userService.setActiveResearch(user, research);
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
-            papers = organizerList.organize(papers);
-            return ResponseEntity.ok(Map.of("papers", papers));
+            List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());
+
+            List<SavedPaper> organizedSavedPapers = organizedPapers.stream()
+                    .map(paper -> papers.stream()
+                            .filter(savedPaper -> savedPaper.getPaper().equals(paper))
+                            .findFirst().orElseThrow()).toList();
+
+            return ResponseEntity.ok(Map.of("papers", organizedSavedPapers));
+
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
         } catch (WrongUserException e) {
