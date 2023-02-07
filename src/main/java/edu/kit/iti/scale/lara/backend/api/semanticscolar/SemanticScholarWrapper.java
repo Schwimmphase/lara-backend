@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SemanticScholarWrapper implements ApiWrapper {
 
-    private static final String API_PREFIX = "SemSchol";
+    private static final String API_PREFIX = "S2";
     private static final String DATA = "data";
 
     private IdParser idParser = new IdParser();
@@ -27,11 +27,11 @@ public class SemanticScholarWrapper implements ApiWrapper {
 
         SemanticScholarPaper paper = objectMapper.readValue(response, SemanticScholarPaper.class);
 
-        // changing ID from SemanticScholar id to our lara ID: SemSchol${SemanticScholarID}
-
+        // changing ID from SemanticScholar id to our lara ID: S2${SemanticScholarID}
         ApiPaper apiPaper = new ApiPaper(paper.authors(), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
                 paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
                 paper.openAccessPdf() == null ? getArXivPdf(paper) : getPdf(paper));
+
 
 
         // TODO: skipping papers with Id null

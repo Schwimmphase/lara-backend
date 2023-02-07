@@ -3,13 +3,15 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 import edu.kit.iti.scale.lara.backend.api.ApiCaller;
 import edu.kit.iti.scale.lara.backend.api.HttpMethod;
 import okhttp3.*;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class SemanticScholarCaller implements ApiCaller {
+
+    private static final int HTTP_STATE_OK = 200;
 
 
     @Override
@@ -30,7 +32,12 @@ public class SemanticScholarCaller implements ApiCaller {
         Call call = client.newCall(request);
         Response response = call.execute();
 
-        return response.body().string();
+        // checking if request was valid
+        if (response.code() != HTTP_STATE_OK) {
+            throw new IllegalArgumentException();
+        }
+
+        return Objects.requireNonNull(response.body()).string();
     }
 
     public String call(String url, HttpMethod method) throws IOException {

@@ -53,7 +53,7 @@ public class SemanticScholarHandler implements ApiHandler {
 
         JSONArray positives = convertToJsonArray(positiveIds);
         JSONArray negatives = convertToJsonArray(negativeIds);
-        JSONObject jsonBody = new JSONObject("{\"positivePaperIds\": " + positives.toString() + ",\n \"negativePaperIds\": " + negatives.toString() + "}");
+        JSONObject jsonBody = new JSONObject("{\"positivePaperIds\": " + positives + ",\n \"negativePaperIds\": " + negatives + "}");
 
         // call Api
         String response = semanticScholarCaller.call(RECOMMENDATION_URL + PAPER_ATTRIBUTES, POST, jsonBody);
