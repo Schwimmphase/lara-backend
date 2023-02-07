@@ -117,7 +117,7 @@ public class PaperController {
     @PatchMapping("/{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable @NotNull String id,
                                              @RequestParam @NotNull String researchId,
-                                             @RequestParam @NotNull String comment,
+                                             @RequestBody @NotNull String comment,
                                              @RequestAttribute("user") User user) {
 
         try {
