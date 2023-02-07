@@ -89,7 +89,8 @@ public class SemanticScholarWrapper implements ApiWrapper {
         return paper.openAccessPdf().url().replace("http:", "https:"); //replace http: in url with https: so there are no problems displaying the pdf
     }
 
-    private List<Author> getAuthors(SemanticScholarPaper paper) {
+    private List<Author> getAuthors(SemanticScholarPaper paper) {    //assures that there are no authors without an id
+
         List<Author> authors = paper.authors();
         for (Author author : authors) {
             if (author.getId() == null) {
