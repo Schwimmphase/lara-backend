@@ -69,8 +69,12 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> getUsers()  {
+    public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public List<User> getUsersByUserCategory(UserCategory userCategory) {
+        return userRepository.findByUserCategory(userCategory);
     }
 
     public void deleteUser(User user) {

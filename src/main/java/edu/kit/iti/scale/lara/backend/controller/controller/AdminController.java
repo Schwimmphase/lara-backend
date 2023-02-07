@@ -142,8 +142,12 @@ public class AdminController {
     public ResponseEntity<Void> deleteCategory(@PathVariable @NotNull String id) {
         try {
             UserCategory userCategory = userCategoryService.getUserCategory(id);
-            userCategoryService.deleteCategory(userCategory);
-            return ResponseEntity.ok().build();
+            if (userService.getUsersByUserCategory(userCategory).isEmpty()) {
+                userCategoryService.deleteCategory(userCategory);
+                return ResponseEntity.ok().build();
+            } else {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category cannot be deleted because a User has this category");
+            }
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this name not found");
         }
