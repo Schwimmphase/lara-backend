@@ -56,7 +56,9 @@ public class OrganizerList<T> {
         Set<Class<?>> classes = reflections.getTypesAnnotatedWith(NamedOrganizer.class);
 
         for (Class<?> clazz : classes) {
-            if (!clazz.isInstance(Organizer.class) || !clazz.getAnnotation(NamedOrganizer.class).value().equals(name)) {
+            String className = clazz.getAnnotation(NamedOrganizer.class).value();
+
+            if (!className.equals(name)) {
                 continue;
             }
 
@@ -64,7 +66,7 @@ public class OrganizerList<T> {
                 return (Organizer<T>) clazz.getDeclaredConstructor(String.class).newInstance(arguments);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
-                throw new IllegalStateException("Organizer with now string constructor");
+                throw new IllegalStateException(String.format("Organizer '%s' with no string constructor", className), e);
             }
         }
 
