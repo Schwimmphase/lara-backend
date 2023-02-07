@@ -6,6 +6,7 @@ import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserCategoryRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
+import edu.kit.iti.scale.lara.backend.controller.service.RecommendationService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
@@ -20,6 +21,7 @@ import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -42,6 +44,9 @@ public class PaperServiceTests {
 
     @Autowired
     private PaperService paperService;
+
+    @MockBean
+    private RecommendationService recommendationService;
 
 
     @Test
