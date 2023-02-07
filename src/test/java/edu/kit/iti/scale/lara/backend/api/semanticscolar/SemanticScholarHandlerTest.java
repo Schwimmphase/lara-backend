@@ -1,6 +1,8 @@
 package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.kit.iti.scale.lara.backend.api.ApiPaper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -112,6 +114,16 @@ class SemanticScholarHandlerTest {
             assertNotNull(paper.venue());
             assertNotNull(paper.pdfUrl());
         }
-
+    }
+    @Test
+    void testArXivPdf() {
+        try {
+            List<ApiPaper> papers = new SemanticScholarHandler().getPapersByKeyword("Graph");
+            for (ApiPaper paper : papers) {
+                System.out.println(paper.pdfUrl());
+            }
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage());
+        }
     }
 }

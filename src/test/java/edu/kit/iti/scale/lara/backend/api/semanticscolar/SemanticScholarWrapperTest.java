@@ -3,6 +3,7 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.kit.iti.scale.lara.backend.api.ApiPaper;
 import org.json.JSONException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -87,6 +88,5 @@ class SemanticScholarWrapperTest {
         assertNotNull(paper.get(0).pdfUrl());
         assertNotNull(paper.get(0).venue());
         assertNotNull(paper.get(0).abstractText());
-
     }
 }

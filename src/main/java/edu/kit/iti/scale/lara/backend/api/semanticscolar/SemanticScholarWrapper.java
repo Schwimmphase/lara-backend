@@ -31,13 +31,13 @@ public class SemanticScholarWrapper implements ApiWrapper {
 
         ApiPaper apiPaper = new ApiPaper(paper.authors(), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
                 paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
-                paper.openAccessPdf() == null ? null : paper.openAccessPdf().url());
+                paper.openAccessPdf() == null ? getArXivPdf(paper) : getPdf(paper));
+
 
         // TODO: skipping papers with Id null
         if (apiPaper.id() == null) {
             return new ArrayList<>();
-        }
-        else {
+        } else {
             return List.of(apiPaper);
         }
     }
@@ -71,5 +71,16 @@ public class SemanticScholarWrapper implements ApiWrapper {
         }
 
         return apiPapers;
+    }
+
+    private String getArXivPdf(SemanticScholarPaper paper) {
+        if (paper.externalIds().containsKey("ArXiv")) {
+            return "https://arxiv.org/pdf/" + paper.externalIds().get("ArXiv") + ".pdf";
+        }
+        return null;
+    }
+
+    private String getPdf(SemanticScholarPaper paper) {
+        return paper.openAccessPdf().url().replace("http:", "https:");
     }
 }
