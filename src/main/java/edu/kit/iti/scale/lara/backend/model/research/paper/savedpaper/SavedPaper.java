@@ -1,12 +1,22 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,11 +48,8 @@ public class SavedPaper {
     @Setter
     public static class SavedPaperId implements Serializable {
         @ManyToOne
-        @JsonUnwrapped
         private Paper paper;
         @ManyToOne
-        @JsonUnwrapped
-        @JsonIncludeProperties({"id"})
         private Research research;
     }
 
@@ -52,6 +59,14 @@ public class SavedPaper {
         this.tags = new ArrayList<>();
         this.relevance = relevance;
         this.saveState = saveState;
+    }
+
+    public Paper getPaper() {
+        return savedPaperId.paper;
+    }
+
+    public Research getResearch() {
+        return savedPaperId.research;
     }
 
     @Override

@@ -136,7 +136,7 @@ public class PaperController {
     @PutMapping("/{id}/save-state")
     public ResponseEntity<Void> paperSaveState(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
-                                               @RequestParam @NotNull SaveState saveState,
+                                               @RequestParam("save-state") @NotNull SaveState saveState,
                                                @RequestAttribute("user") User user) {
 
         try {

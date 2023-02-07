@@ -16,7 +16,8 @@ import java.util.Objects;
 @Getter
 @Setter
 public class Author {
-    @Id @JsonProperty("authorId")
+    @Id
+    @JsonProperty(value = "authorId", access = JsonProperty.Access.WRITE_ONLY)
     private String id;
     @JsonProperty("name")
     private String name;
@@ -29,8 +30,7 @@ public class Author {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Author)) return false;
-        Author author = (Author) o;
+        if (!(o instanceof Author author)) return false;
         return Objects.equals(getId(), author.getId());
     }
 
