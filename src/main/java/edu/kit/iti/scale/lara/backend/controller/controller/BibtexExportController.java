@@ -52,7 +52,7 @@ public class BibtexExportController {
         }
     }
 
-    @PostMapping("/paper/{paperId}")
+    @GetMapping("/paper/{paperId}")
     public ResponseEntity<Map<String, String>> exportPaper(@PathVariable String paperId,
                                                            @RequestAttribute("user") User user) {
 
