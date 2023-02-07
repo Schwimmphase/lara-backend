@@ -1,6 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.config;
 
-import edu.kit.iti.scale.lara.backend.controller.repository.OrganizerRequestConverter;
+import edu.kit.iti.scale.lara.backend.controller.config.converter.OrganizerRequestConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
