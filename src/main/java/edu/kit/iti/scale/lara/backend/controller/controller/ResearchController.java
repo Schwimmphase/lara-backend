@@ -83,7 +83,7 @@ public class ResearchController {
                                                @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
-            researchService.deleteResearch(research);
+            researchService.deleteResearch(research, user);
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");

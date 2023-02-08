@@ -67,7 +67,7 @@ public class ResearchServiceTests {
             Assertions.fail("Not in database");
         }
 
-        researchService.deleteResearch(research);
+        researchService.deleteResearch(research, user);
         boolean exceptionThrown = false;
         try {
             researchService.getResearch(research.getId(), user);

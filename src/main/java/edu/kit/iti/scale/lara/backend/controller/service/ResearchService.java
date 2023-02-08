@@ -61,7 +61,8 @@ public class ResearchService {
         researchRepository.save(research);
     }
 
-    public void deleteResearch(Research research) {
+    public void deleteResearch(Research research, User user) {
+        user.setActiveResearch(null);
         researchRepository.delete(research);
     }
 
