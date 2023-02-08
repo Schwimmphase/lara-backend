@@ -47,7 +47,7 @@ public class RecommendationService {
         }
     }
 
-    public void paperRemoved(Research research, Paper paper) { //todo: seems unnecessary
+    public void paperRemoved(Research research, Paper paper) {
         cacheService.removePaper(paper, research);
     }
 }
