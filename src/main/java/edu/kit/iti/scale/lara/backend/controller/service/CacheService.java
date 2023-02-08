@@ -51,7 +51,7 @@ public class CacheService {
         //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
     }
 
-    public void removePaper(Paper paper, Research research) {
+    public void removeRelatedCachedPapers(Paper paper, Research research) {
         List<CachedPaper> cachedPapers = cachedPaperRepository.findByCachedPaperIdParentPaper(paper);
         for (CachedPaper cachedPaper : cachedPapers) {
             if (cachedPaper.getCachedPaperId().getResearch().equals(research)) {
@@ -60,13 +60,13 @@ public class CacheService {
         }
     }
 
-    public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
+    public List<CachedPaper> getCachedReferences(Research research, List<Paper> papers) {
         List<CachedPaper> references = cachedPaperRepository.findByCachedPaperIdResearch(research);
         references.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.REFERENCE || !papers.contains(cachedPaper.getCachedPaperId().getParentPaper()));
         return references;
     }
 
-    public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
+    public List<CachedPaper> getCachedCitations(Research research, List<Paper> papers) {
         List<CachedPaper> citations = cachedPaperRepository.findByCachedPaperIdResearch(research);
         citations.removeIf(cachedPaper -> cachedPaper.getType() != CachedPaperType.CITATION || !papers.contains(cachedPaper.getCachedPaperId().getParentPaper()));
         return citations;

@@ -25,12 +25,12 @@ public class RecommendationService {
         return apiActionController.getRecommendations(positives, negatives);
     }
 
-    public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
-        return cacheService.getReferences(research, papers);
+    public List<CachedPaper> getCachedReferences(Research research, List<Paper> papers) {
+        return cacheService.getCachedReferences(research, papers);
     }
 
-    public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
-        return cacheService.getCitations(research, papers);
+    public List<CachedPaper> getCachedCitations(Research research, List<Paper> papers) {
+        return cacheService.getCachedCitations(research, papers);
     }
 
     public void paperAdded(Research research, Paper paper) throws IOException {
@@ -48,6 +48,6 @@ public class RecommendationService {
     }
 
     public void paperRemoved(Research research, Paper paper) {
-        cacheService.removePaper(paper, research);
+        cacheService.removeRelatedCachedPapers(paper, research);
     }
 }

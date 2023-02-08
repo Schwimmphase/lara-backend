@@ -1,7 +1,6 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
-import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.*;
 import edu.kit.iti.scale.lara.backend.controller.service.CacheService;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
@@ -57,7 +56,7 @@ public class CacheServiceTests {
 
         CachedPaper cachedPaper = cacheService.createCachedPaper(research, paper, parentPaper, CachedPaperType.CITATION);
 
-        List<CachedPaper> citations = cacheService.getCitations(research, List.of(parentPaper));
+        List<CachedPaper> citations = cacheService.getCachedCitations(research, List.of(parentPaper));
 
         Assertions.assertThat(citations).isEqualTo(List.of(cachedPaper));
     }

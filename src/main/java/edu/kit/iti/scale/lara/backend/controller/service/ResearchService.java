@@ -14,7 +14,6 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -82,11 +81,11 @@ public class ResearchService {
     }
 
     public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
-        return recommendationService.getReferences(research, papers);
+        return recommendationService.getCachedReferences(research, papers);
     }
 
     public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
-        return recommendationService.getCitations(research, papers);
+        return recommendationService.getCachedCitations(research, papers);
     }
 
     public List<Paper> searchByQuery(String query) throws IOException {
