@@ -142,7 +142,7 @@ public class ResearchController {
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            userService.setActiveResearch(user, research);
+            userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());
 
@@ -157,6 +157,8 @@ public class ResearchController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
         } catch (WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research not owned by user");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was a problem loading the CachedPapers for this Research");
         }
     }
 
