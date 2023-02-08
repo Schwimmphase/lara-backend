@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
     public void UserOpenedResearch(User user, Research research) throws IOException {
         cacheService.initializeCache(research);
         user.setActiveResearch(research);
-        //userRepository.save(user);
+        userRepository.save(user);
     }
 
     public boolean checkCredentials(String password, String userId) {
