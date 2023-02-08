@@ -2,6 +2,7 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.CachedPaperRepository;
+import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
@@ -18,9 +19,13 @@ import java.util.List;
 public class CacheService {
 
     private final CachedPaperRepository cachedPaperRepository;
+
+    private final SavedPaperRepository savedPaperRepository;
     private final ApiActionController apiActionController;
 
-    public void initializeCache(List<SavedPaper> savedPapers, Research research) throws IOException {
+    public void initializeCache(Research research) throws IOException {
+        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
+
         for (SavedPaper savedPaper : savedPapers) {
             List<Paper> citations = apiActionController.getCitations(savedPaper.getSavedPaperId().getPaper());
             List<Paper> references = apiActionController.getReferences(savedPaper.getSavedPaperId().getPaper());

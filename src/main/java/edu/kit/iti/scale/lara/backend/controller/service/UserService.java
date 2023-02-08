@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class UserService implements UserDetailsService {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final CacheService cacheService;
 
     public User getUserById(String id) throws NotInDataBaseException {
         if (userRepository.findById(id).isPresent()) {
@@ -39,7 +41,8 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public void setActiveResearch(User user, Research research) {
+    public void UserOpenedResearch(User user, Research research) throws IOException {
+        cacheService.initializeCache(research);
         user.setActiveResearch(research);
         userRepository.save(user);
     }
