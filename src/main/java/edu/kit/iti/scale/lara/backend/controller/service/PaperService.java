@@ -109,12 +109,12 @@ public class PaperService {
 
     public void addTagToPaper(SavedPaper savedPaper, Tag tag) {
         savedPaper.getTags().add(tag);
-        savedPaperRepository.save(savedPaper);
+        //savedPaperRepository.save(savedPaper);
     }
 
     public void removeTagFromPaper(SavedPaper savedPaper, Tag tag) {
         savedPaper.getTags().remove(tag);
-        savedPaperRepository.save(savedPaper);
+        //savedPaperRepository.save(savedPaper);
     }
 
     public void commentPaper(SavedPaper savedPaper, String comment) {
