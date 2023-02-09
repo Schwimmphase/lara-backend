@@ -1,7 +1,6 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
-import edu.kit.iti.scale.lara.backend.controller.repository.CachedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
@@ -25,7 +24,6 @@ public class PaperService {
 
     private final PaperRepository paperRepository;
     private final SavedPaperRepository savedPaperRepository;
-    private final CachedPaperRepository cachedPaperRepository;
     private final RecommendationService recommendationService;
     private final ApiActionController apiActionController;
 
@@ -67,13 +65,8 @@ public class PaperService {
     }
 
     public void deleteSavedPaper(Research research, SavedPaper savedPaper) {
-        Paper paper = savedPaper.getSavedPaperId().getPaper();
         research.removeSavedPaper(savedPaper);
         savedPaperRepository.delete(savedPaper);
-        if (savedPaperRepository.findBySavedPaperIdPaper(paper).isEmpty() &&
-                cachedPaperRepository.findByCachedPaperIdPaperOrParentPaper(paper).isEmpty()) {
-            paperRepository.delete(paper);
-        }
     }
 
     public SavedPaper getSavedPaper(User user, Paper paper, Research research) throws WrongUserException, NotInDataBaseException {

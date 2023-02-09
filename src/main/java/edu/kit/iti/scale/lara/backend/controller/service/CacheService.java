@@ -2,7 +2,6 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.CachedPaperRepository;
-import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
@@ -20,8 +19,8 @@ import java.util.List;
 public class CacheService {
 
     private final CachedPaperRepository cachedPaperRepository;
+
     private final SavedPaperRepository savedPaperRepository;
-    private final PaperRepository paperRepository;
     private final ApiActionController apiActionController;
 
     public void initializeCache(Research research) throws IOException {
@@ -59,10 +58,6 @@ public class CacheService {
 
     public void deleteCachedPaper(Paper paper, Research research) {
         cachedPaperRepository.deleteByCachedPaperIdResearchAndCachedPaperIdPaper(research, paper);
-        if (cachedPaperRepository.findByCachedPaperIdPaperOrParentPaper(paper).isEmpty() &&
-                savedPaperRepository.findBySavedPaperIdPaper(paper).isEmpty()) {
-            paperRepository.delete(paper);
-        }
     }
 
     public void removeRelatedCachedPapers(Paper paper, Research research) {
