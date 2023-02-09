@@ -19,10 +19,10 @@ public class BibtexConverterService {
     }
 
     private String paperToBibTex(Paper paper) {
-        return "@article{Test," +
-                "title={" + paper.getTitle() + "}," +
+        return "@article{" + getIdentifier(paper) + "}, " +
+                "title={" + paper.getTitle() + "}, " +
                 getAuthorsAsBibTex(paper.getAuthors()) + ", " +
-                "year={" + paper.getYearPublished() + "}," +
+                "year={" + paper.getYearPublished() + "}, " +
                 "journal={" + paper.getVenue() + "}" +
                 "}";
     }
@@ -40,6 +40,16 @@ public class BibtexConverterService {
         }
         authorsAsBibTexBuilder.append("}");
         return authorsAsBibTexBuilder.toString();
+    }
+
+    private String getIdentifier(Paper paper) {
+        StringBuilder identifierBuilder = new StringBuilder();
+        identifierBuilder.append(paper.getAuthors().get(0).getName(), 0, 2);
+        identifierBuilder.append(paper.getYearPublished());
+        identifierBuilder.append(paper.getTitle()
+                        .replace(" ", ""),
+                0, 3);
+        return identifierBuilder.toString();
     }
 }
 
