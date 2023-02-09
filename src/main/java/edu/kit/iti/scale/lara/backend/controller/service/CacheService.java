@@ -56,6 +56,10 @@ public class CacheService {
         //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
     }
 
+    public void deleteCachedPaper(Paper paper, Research research) {
+        List<CachedPaper> cachedPapers = cachedPaperRepository.deleteByCachedPaperIdResearchAndCachedPaperIdPaper(research, paper);
+    }
+
     public void removeRelatedCachedPapers(Paper paper, Research research) {
         List<CachedPaper> cachedPapers = cachedPaperRepository.findByCachedPaperIdParentPaper(paper);
         for (CachedPaper cachedPaper : cachedPapers) {

@@ -20,11 +20,15 @@ public class VenueFilter<T extends Paper> implements Filter<T> {
 
     @Override
     public List<T> organize(List<T> papers) {
-        papers = new ArrayList<>(papers);
+        List<T> organizedPapers = new ArrayList<>();
         for (String venue : venues) {
-            papers.removeIf(paper -> !paper.getVenue().equals(venue));
+            for (T paper : papers) {
+                if (paper.getVenue().equals(venue)) {
+                    organizedPapers.add(paper);
+                }
+            }
         }
-        return papers;
+        return organizedPapers;
     }
 
 }

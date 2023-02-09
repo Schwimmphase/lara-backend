@@ -38,6 +38,8 @@ public class RecommendationService {
     }
 
     public void paperAdded(Research research, Paper paper) throws IOException {
+        cacheService.deleteCachedPaper(paper, research);
+
         List<Paper> citations = apiActionController.getCitations(paper);
         List<Paper> references = apiActionController.getReferences(paper);
 

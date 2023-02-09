@@ -34,7 +34,7 @@ public class Author {
      * @param id   the id of the Author
      * @param name the name of the Author
      */
-    //Todo: generate id automatically
+
     public Author(String id, String name) {
         this.id = id;
         this.name = name;
