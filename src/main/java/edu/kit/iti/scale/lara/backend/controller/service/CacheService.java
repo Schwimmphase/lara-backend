@@ -60,6 +60,8 @@ public class CacheService {
 
     public void deleteCachedPaper(Paper paper, Research research) {
         cachedPaperRepository.deleteByCachedPaperIdResearchAndCachedPaperIdPaper(research, paper);
+
+        //deletes the Paper from the PaperRepository as well if no other Saved- or CachedPaper points to it
         if (savedPaperRepository.findBySavedPaperIdPaper(paper).isEmpty() &&
                 cachedPaperRepository.findByCachedPaperIdPaperOrCachedPaperIdParentPaper(paper, paper).isEmpty()) {
             paperRepository.delete(paper);
