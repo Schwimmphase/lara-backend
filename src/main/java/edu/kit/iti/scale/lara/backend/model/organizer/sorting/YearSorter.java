@@ -17,11 +17,12 @@ public class YearSorter<T extends Paper> extends Sorter<T> {
 
     @Override
     public List<T> organize(List<T> papers) {
-        papers = new ArrayList<>(papers);
-        papers.sort(Comparator.comparing(Paper::getYearPublished));
-        if (getSortingDirection().equals(SortingDirection.DESCENDING)) {
-            papers.sort(Collections.reverseOrder());
+        List<T> sortingPapers = new ArrayList<>(papers);
+        if (getSortingDirection() == SortingDirection.DESCENDING) {
+            sortingPapers.sort(Comparator.comparing(Paper::getYearPublished, Collections.reverseOrder()));
+        } else {
+            sortingPapers.sort(Comparator.comparing(Paper::getYearPublished));
         }
-        return papers;
+        return sortingPapers;
     }
 }
