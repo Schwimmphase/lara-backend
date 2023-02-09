@@ -39,7 +39,30 @@ public class CacheServiceTests {
 
     @Autowired
     CacheService cacheService;
+    @Autowired
+    private PaperRepository paperRepository;
 
+    @Test
+    public void testDeleteCachedPaper() {
+        User user = createUser();
+        Research research = createResearch(user);
+        Author author = createAuthor();
+
+        Paper paper = new Paper("id1", "paper", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(paper);
+
+        Paper parentPaper = new Paper("id2", "parentPaper", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(parentPaper);
+
+        CachedPaper cachedPaper = cacheService.createCachedPaper(research, paper, parentPaper, CachedPaperType.CITATION);
+        cacheService.deleteCachedPaper(paper, research);
+
+        Assertions.assertThat(paperRepository.findById("id1").isPresent()).isEqualTo(false);
+        Assertions.assertThat(paperRepository.findById("id2").isPresent()).isEqualTo(false);
+
+    }
     @Test
     public void testGetCitations() {
         User user = createUser();
