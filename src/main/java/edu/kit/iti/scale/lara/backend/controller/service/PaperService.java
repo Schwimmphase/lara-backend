@@ -90,6 +90,16 @@ public class PaperService {
         }
     }
 
+    public List<Paper> getAddedPapers(Research research, User user) throws WrongUserException {
+        if (user.getActiveResearch().equals(research)) {
+            List<SavedPaper> addedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
+            addedPapers.removeIf(savedPaper -> savedPaper.getSaveState() != SaveState.ADDED);
+            return addedPapers.stream().map(savedPaper -> savedPaper.getSavedPaperId().getPaper()).toList();
+        } else {
+            throw new WrongUserException();
+        }
+    }
+
     public void addTagToPaper(SavedPaper savedPaper, Tag tag) {
         savedPaper.getTags().add(tag);
         savedPaperRepository.save(savedPaper);

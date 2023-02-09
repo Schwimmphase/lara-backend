@@ -185,8 +185,7 @@ public class ResearchController {
         try {
             Research research = researchService.getResearch(researchId, user);
 
-            List<Paper> researchPapers = paperService.getSavedPapers(research, user).stream()
-                    .map(savedPaper -> savedPaper.getSavedPaperId().getPaper()).toList();
+            List<Paper> researchPapers = paperService.getAddedPapers(research, user);
 
             List<Paper> papers = switch (method) {
                 case ALGORITHM -> researchService.getRecommendations(research);
