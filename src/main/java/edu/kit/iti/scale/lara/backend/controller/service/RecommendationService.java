@@ -22,6 +22,10 @@ public class RecommendationService {
 
 
     public List<Paper> getRecommendations(List<Paper> positives, List<Paper> negatives) throws IOException {
+        if (positives.isEmpty()) {
+            return List.of();
+        }
+
         return apiActionController.getRecommendations(positives, negatives);
     }
 
