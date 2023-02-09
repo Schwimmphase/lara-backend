@@ -152,7 +152,7 @@ public class ResearchController {
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            if (!user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
+            if (user.getActiveResearch() == null || !user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
                 userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
             }
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
