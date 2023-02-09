@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +28,18 @@ public class UserService implements UserDetailsService {
     private final CacheService cacheService;
 
     public User getUserById(String id) throws NotInDataBaseException {
-        if (userRepository.findById(id).isPresent()) {
-            return userRepository.findById(id).get();
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new NotInDataBaseException();
+        }
+    }
+
+    public User getUserByName(String name) throws NotInDataBaseException {
+        Optional<User> user = userRepository.findByUsername(name);
+        if (user.isPresent()) {
+            return user.get();
         } else {
             throw new NotInDataBaseException();
         }

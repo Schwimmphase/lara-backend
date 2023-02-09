@@ -26,7 +26,7 @@ public class UserInterceptor implements HandlerInterceptor {
 
         if (principal != null) {
             try {
-                User user = userService.getUserById(principal.getName());
+                User user = userService.getUserByName(principal.getName());
                 request.setAttribute("user", user);
             } catch (NotInDataBaseException e) {
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
