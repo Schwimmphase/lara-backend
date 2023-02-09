@@ -16,7 +16,7 @@ class SemanticScholarHandlerTest {
     void getPapersByKeyword() throws IOException {
 
         // set up
-        String query = "semantic scholar api";
+        String query = "graph";
 
         // execution
         List<ApiPaper> results = new SemanticScholarHandler().getPapersByKeyword(query);
@@ -40,8 +40,8 @@ class SemanticScholarHandlerTest {
     void getRecommendations() throws IOException {
 
         // set up
-        List<String> positiveIds = List.of("SemSchol$385742fffcf113656f0d3cf6c06ef95cb8439dc6");
-        List<String> negativeIds = List.of("SemSchol$e24cdf73b3e7e590c2fe5ecac9ae8aa983801367");
+        List<String> positiveIds = List.of("S2$385742fffcf113656f0d3cf6c06ef95cb8439dc6");
+        List<String> negativeIds = List.of("S2$e24cdf73b3e7e590c2fe5ecac9ae8aa983801367");
 
 
         // execution
@@ -62,7 +62,7 @@ class SemanticScholarHandlerTest {
     @Test
     void getCitations() throws IOException {
         // set up
-        String paperId = "SemSchol$385742fffcf113656f0d3cf6c06ef95cb8439dc6";
+        String paperId = "S2$385742fffcf113656f0d3cf6c06ef95cb8439dc6";
 
         // execution
         List<ApiPaper> results = new SemanticScholarHandler().getCitations(paperId);
@@ -81,7 +81,7 @@ class SemanticScholarHandlerTest {
     @Test
     void getReferences() throws IOException {
         // set up
-        String paperId = "SemSchol$649def34f8be52c8b66281af98ae884c09aef38b";
+        String paperId = "S2$649def34f8be52c8b66281af98ae884c09aef38b";
 
         // execution
         List<ApiPaper> results = new SemanticScholarHandler().getReferences(paperId);
@@ -100,7 +100,7 @@ class SemanticScholarHandlerTest {
     @Test
     void getPaper() throws IOException {
         // set up
-        String paperId = "SemSchol$649def34f8be52c8b66281af98ae884c09aef38b";
+        String paperId = "S2$649def34f8be52c8b66281af98ae884c09aef38b";
 
         // execution
         List<ApiPaper> results = List.of(new SemanticScholarHandler().getPaper(paperId));

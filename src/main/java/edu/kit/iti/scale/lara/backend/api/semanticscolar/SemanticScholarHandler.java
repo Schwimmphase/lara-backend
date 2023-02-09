@@ -24,8 +24,11 @@ public class SemanticScholarHandler implements ApiHandler {
     private static final String CITING_PAPER = "citingPaper";
     private static final String RECOMMENDED_PAPERS = "recommendedPapers";
     private static final String DATA = "data";
+    private static final String POSITIVE_PAPER_IDS = "positivePaperIds";
+    private static final String NEGATIVE_PAPER_IDS = "negativePaperIds";
     private static final HttpMethod GET = HttpMethod.GET;
     private static final HttpMethod POST = HttpMethod.POST;
+
 
     private final SemanticScholarWrapper semanticScholarWrapper = new SemanticScholarWrapper();
     private final SemanticScholarCaller semanticScholarCaller = new SemanticScholarCaller();
@@ -53,7 +56,9 @@ public class SemanticScholarHandler implements ApiHandler {
 
         JSONArray positives = convertToJsonArray(positiveIds);
         JSONArray negatives = convertToJsonArray(negativeIds);
-        JSONObject jsonBody = new JSONObject("{\"positivePaperIds\": " + positives.toString() + ",\n \"negativePaperIds\": " + negatives.toString() + "}");
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put(POSITIVE_PAPER_IDS, positives);
+        jsonBody.put(NEGATIVE_PAPER_IDS, negatives);
 
         // call Api
         String response = semanticScholarCaller.call(RECOMMENDATION_URL + PAPER_ATTRIBUTES, POST, jsonBody);
