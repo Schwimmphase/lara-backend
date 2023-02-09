@@ -20,7 +20,17 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -36,7 +46,7 @@ public class ResearchController {
     private final ResearchService researchService;
     private final PaperService paperService;
     private final TagService tagService;
-    private  final UserService userService;
+    private final UserService userService;
 
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
@@ -73,7 +83,7 @@ public class ResearchController {
                                                @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
-            researchService.deleteResearch(research);
+            researchService.deleteResearch(research, user);
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
@@ -96,6 +106,8 @@ public class ResearchController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research or paper with this id not found");
         } catch (WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research or paper not owned by user");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Could not update cache");
         }
     }
 
@@ -133,14 +145,16 @@ public class ResearchController {
 
     @PostMapping("/{id}/papers")
     public ResponseEntity<Map<String, List<SavedPaper>>> researchPapers(@PathVariable("id") @NotNull String researchId,
-                                                  @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                              @RequestAttribute("user") User user) {
+                                                                        @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                        @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            userService.setActiveResearch(user, research);
+            if (user.getActiveResearch() == null || !user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
+                userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
+            }
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());
 
@@ -155,14 +169,16 @@ public class ResearchController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
         } catch (WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research not owned by user");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There was a problem loading the CachedPapers for this Research");
         }
     }
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
-                                                     @RequestParam @NotNull RecommendationMethod method,
-                                                      @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                                  @RequestAttribute("user") User user) {
+                                                                            @RequestParam @NotNull RecommendationMethod method,
+                                                                            @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                            @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
@@ -181,7 +197,7 @@ public class ResearchController {
             };
 
             papers = organizerList.organize(papers);
-            return ResponseEntity.ok(Map.of("papers", papers));
+            return ResponseEntity.ok(Map.of("recommendations", papers));
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research with this id not found");
         } catch (WrongUserException e) {
@@ -193,8 +209,8 @@ public class ResearchController {
 
     @PostMapping("/search")
     public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
-                                             @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                         @RequestAttribute("user") User user) {
+                                                                   @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                   @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 

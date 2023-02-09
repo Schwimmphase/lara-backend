@@ -118,7 +118,7 @@ class SemanticScholarHandlerTest {
     @Test
     void testArXivPdf() {
         try {
-            List<ApiPaper> papers = new SemanticScholarHandler().getPapersByKeyword("Graph");
+            List<ApiPaper> papers = new SemanticScholarHandler().getPapersByKeyword("Joint scattering Environment");
             for (ApiPaper paper : papers) {
                 System.out.println(paper.pdfUrl());
             }

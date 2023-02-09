@@ -117,7 +117,7 @@ public class PaperController {
     @PatchMapping("/{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable @NotNull String id,
                                              @RequestParam @NotNull String researchId,
-                                             @RequestParam @NotNull String comment,
+                                             @RequestBody @NotNull String comment,
                                              @RequestAttribute("user") User user) {
 
         try {
@@ -175,22 +175,17 @@ public class PaperController {
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
-                                                                         @RequestParam @NotNull String researchId,
                                                                          @RequestParam @NotNull RecommendationMethod method,
-                                                                         @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                                                         @RequestAttribute("user") User user) {
+                                                                         @RequestBody @NotNull Map<String, List<OrganizerRequest>> request) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
-            Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(id);
             List<Paper> papers = switch (method) {
-                case ALGORITHM -> recommendationService.getRecommendations(List.of(paper), List.of());
-                case CITATIONS -> recommendationService.getCitations(research, List.of(paper)).stream()
-                        .map(cachedPaper -> cachedPaper.getCachedPaperId().getPaper()).toList();
-                case REFERENCES -> recommendationService.getReferences(research, List.of(paper)).stream()
-                        .map(cachedPaper -> cachedPaper.getCachedPaperId().getPaper()).toList();
+                case ALGORITHM -> apiActionController.getRecommendations(List.of(paper), List.of());
+                case CITATIONS -> apiActionController.getCitations(paper);
+                case REFERENCES -> apiActionController.getReferences(paper);
             };
 
             papers = organizerList.organize(papers);
@@ -199,9 +194,6 @@ public class PaperController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper with this id not found");
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        } catch (WrongUserException e) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
         }
-
     }
 }

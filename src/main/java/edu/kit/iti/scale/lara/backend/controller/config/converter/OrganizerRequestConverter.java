@@ -1,9 +1,11 @@
-package edu.kit.iti.scale.lara.backend.controller.repository;
+package edu.kit.iti.scale.lara.backend.controller.config.converter;
 
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrganizerRequestConverter implements Converter<String, OrganizerRequest> {
 
     @Override

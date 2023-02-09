@@ -53,9 +53,10 @@ public class PaperService {
 
     }
 
-    public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) {
+    public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) throws IOException {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
         savedPaperRepository.save(savedPaper);
+        recommendationService.paperAdded(research, paper);
         return savedPaper;
         //savedPaper isn´t save in research.savedPapers to avoid duplicates
 
@@ -105,8 +106,11 @@ public class PaperService {
     public void changeSaveState(SavedPaper savedPaper, SaveState saveState) throws IOException {
         savedPaper.setSaveState(saveState);
         savedPaperRepository.save(savedPaper);
-        if (saveState == SaveState.ADDED) {
-            recommendationService.paperAdded(savedPaper.getSavedPaperId().getResearch(), savedPaper.getSavedPaperId().getPaper());
+        if (saveState.equals(SaveState.ADDED)) {
+            recommendationService.paperAdded(savedPaper.getSavedPaperId().getResearch(), savedPaper.getPaper());
+        }
+        if (saveState.equals(SaveState.HIDDEN)) {
+            recommendationService.paperRemoved(savedPaper.getSavedPaperId().getResearch(), savedPaper.getPaper());
         }
     }
 
