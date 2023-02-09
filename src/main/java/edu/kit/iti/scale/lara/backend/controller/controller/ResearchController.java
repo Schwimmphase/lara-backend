@@ -120,7 +120,7 @@ public class ResearchController {
             Paper paper = paperService.getPaper(paperId);
             SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
 
-            paperService.removeSavedPaper(research, savedPaper);
+            paperService.deleteSavedPaper(research, savedPaper);
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research or paper with this id not found");

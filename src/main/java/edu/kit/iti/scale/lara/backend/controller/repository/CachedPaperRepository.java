@@ -12,6 +12,8 @@ public interface CachedPaperRepository extends JpaRepository<CachedPaper, Cached
 
     List<CachedPaper> findByCachedPaperIdParentPaper(Paper parentPaper);
 
+    List<CachedPaper> findByCachedPaperIdPaperOrParentPaper(Paper paper);
+
     List<CachedPaper> findByCachedPaperIdResearch(Research research);
 
     List<CachedPaper> findByCachedPaperIdResearchUser(User user);
