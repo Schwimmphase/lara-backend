@@ -58,9 +58,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public boolean checkCredentials(String password, String userId) {
+    public boolean checkCredentials(String password, String username) {
         try {
-            return passwordEncoder.matches(password, getUserById(userId).getPassword());
+            return passwordEncoder.matches(password, getUserByName(username).getPassword());
 
         } catch (NotInDataBaseException e) {
             return false;

@@ -30,13 +30,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @NotNull LoginRequest request) {
-        if (userService.checkCredentials(request.password(), request.username())) {
+        if (userService.checkCredentials(request.password(), request.userId())) {
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.username(), request.password())
+                    new UsernamePasswordAuthenticationToken(request.userId(), request.password())
             );
 
             try {
-                User user = userService.getUserByName(request.username());
+                User user = userService.getUserByName(request.userId());
                 boolean isAdmin = user.getUserCategory().getName().equals(UserCategory.ADMIN_CATEGORY);
 
                 return ResponseEntity.ok(Map.of("token", authService.generateToken(authentication, isAdmin),

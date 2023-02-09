@@ -2,5 +2,6 @@ package edu.kit.iti.scale.lara.backend.controller.request;
 
 import org.jetbrains.annotations.NotNull;
 
-public record LoginRequest(@NotNull String username, @NotNull String password) {
+// TODO: userId -> username wait for frontend
+public record LoginRequest(@NotNull String userId, @NotNull String password) {
 }
