@@ -32,8 +32,8 @@ public class UserServiceTests {
         UserCategory userCategory = new UserCategory("test-category", "0000FF");
         User user = userService.createUser("test-user", "password", userCategory);
 
-        Assertions.assertThat(userService.checkCredentials("password", user.getId())).isEqualTo(true);
+        Assertions.assertThat(userService.checkCredentials("password", user.getUsername())).isEqualTo(true);
 
-        Assertions.assertThat(userService.checkCredentials("blabediblubla", user.getId())).isEqualTo(false);
+        Assertions.assertThat(userService.checkCredentials("blabediblubla", user.getUsername())).isEqualTo(false);
     }
 }
