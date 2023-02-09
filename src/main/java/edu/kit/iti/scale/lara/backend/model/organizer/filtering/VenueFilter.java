@@ -5,22 +5,25 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 
 import java.util.ArrayList;
 import java.util.List;
-@NamedOrganizer("medium-filter")
-public class MediumFilter<T extends Paper> implements Filter<T> {
 
-    private final String medium;
+@NamedOrganizer("venue-filter")
+public class VenueFilter<T extends Paper> implements Filter<T> {
 
-    public MediumFilter(String argument) {
+    private final String[] venues;
+
+    public VenueFilter(String argument) {
         if (argument == null || argument.isEmpty()) {
             throw new IllegalArgumentException("Argument must not be null or empty");
         }
-        medium = argument;
+        venues = argument.split(",");
     }
 
     @Override
     public List<T> organize(List<T> papers) {
         papers = new ArrayList<>(papers);
-        papers.removeIf(paper -> !paper.getVenue().equals(medium));
+        for (String venue : venues) {
+            papers.removeIf(paper -> !paper.getVenue().equals(venue));
+        }
         return papers;
     }
 

@@ -56,7 +56,9 @@ public class PaperService {
     public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) throws IOException {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
         savedPaperRepository.save(savedPaper);
-        recommendationService.paperAdded(research, paper);
+        if (!saveState.equals(SaveState.HIDDEN)) {
+            recommendationService.paperAdded(research, paper);
+        }
         return savedPaper;
         //savedPaper isn´t save in research.savedPapers to avoid duplicates
 

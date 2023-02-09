@@ -24,8 +24,13 @@ public class CacheService {
     private final ApiActionController apiActionController;
 
     public void initializeCache(Research research) throws IOException {
-        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
 
+        //empty the cache for the user
+        List<CachedPaper> userCache = cachedPaperRepository.findByCachedPaperIdResearchUser(research.getUser());
+        cachedPaperRepository.deleteAllInBatch(userCache);
+
+        //load the cache for this research
+        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
         for (SavedPaper savedPaper : savedPapers) {
             List<Paper> citations = apiActionController.getCitations(savedPaper.getSavedPaperId().getPaper());
             List<Paper> references = apiActionController.getReferences(savedPaper.getSavedPaperId().getPaper());
