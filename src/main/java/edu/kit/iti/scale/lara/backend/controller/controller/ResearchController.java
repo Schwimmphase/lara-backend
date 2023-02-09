@@ -46,7 +46,7 @@ public class ResearchController {
     private final ResearchService researchService;
     private final PaperService paperService;
     private final TagService tagService;
-    private  final UserService userService;
+    private final UserService userService;
 
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
@@ -145,14 +145,16 @@ public class ResearchController {
 
     @PostMapping("/{id}/papers")
     public ResponseEntity<Map<String, List<SavedPaper>>> researchPapers(@PathVariable("id") @NotNull String researchId,
-                                                  @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                              @RequestAttribute("user") User user) {
+                                                                        @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                        @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
+            if (!user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
+                userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
+            }
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());
 
@@ -174,9 +176,9 @@ public class ResearchController {
 
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> researchRecommendations(@PathVariable("id") String researchId,
-                                                     @RequestParam @NotNull RecommendationMethod method,
-                                                      @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                                  @RequestAttribute("user") User user) {
+                                                                            @RequestParam @NotNull RecommendationMethod method,
+                                                                            @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                            @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
@@ -207,8 +209,8 @@ public class ResearchController {
 
     @PostMapping("/search")
     public ResponseEntity<Map<String, List<Paper>>> researchSearch(@RequestParam String query,
-                                             @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                         @RequestAttribute("user") User user) {
+                                                                   @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                                   @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
