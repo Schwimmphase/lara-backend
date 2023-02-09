@@ -68,9 +68,9 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            User user = getUserById(userId);
+            User user = getUserByName(username);
             List<GrantedAuthority> authorities = List.of();
 
             if (user.getUserCategory().getName().equals(UserCategory.ADMIN_CATEGORY)) {
