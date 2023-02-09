@@ -4,6 +4,7 @@ import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionControll
 import edu.kit.iti.scale.lara.backend.controller.repository.CachedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
@@ -58,12 +59,25 @@ public class CacheService {
         //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
     }
 
-    public void deleteCachedPaper(Paper paper, Research research) {
-        cachedPaperRepository.deleteByCachedPaperIdResearchAndCachedPaperIdPaper(research, paper);
+    public void deleteCachedPaper(Paper paper, Research research) throws NotInDataBaseException {
+        List<CachedPaper> cachedPaper = cachedPaperRepository.deleteByCachedPaperIdResearchAndCachedPaperIdPaper(research, paper);
 
-        //deletes the Paper from the PaperRepository as well if no other Saved- or CachedPaper points to it
-        if (savedPaperRepository.findBySavedPaperIdPaper(paper).isEmpty() &&
-                cachedPaperRepository.findByCachedPaperIdPaperOrCachedPaperIdParentPaper(paper, paper).isEmpty()) {
+        if (cachedPaper.isEmpty()) {
+            throw new NotInDataBaseException("Cannot delete cachedPaper since it doesn't exist");
+        }
+        Paper parentPaper = cachedPaper.get(0).getCachedPaperId().getParentPaper();
+
+        //deletes the parentPaper from the PaperRepository as well if no other Saved- or CachedPaper points to it
+        if (savedPaperRepository.countBySavedPaperIdPaper(parentPaper) == 0 &&
+                cachedPaperRepository.countByCachedPaperIdPaper(parentPaper) == 0 &&
+                cachedPaperRepository.countByCachedPaperIdParentPaper(parentPaper) == 0) {
+            paperRepository.delete(parentPaper);
+        }
+
+        //deletes the paper from the PaperRepository as well if no other Saved- or CachedPaper points to it
+        if (savedPaperRepository.countBySavedPaperIdPaper(paper) == 0 &&
+                cachedPaperRepository.countByCachedPaperIdPaper(paper) == 0 &&
+                cachedPaperRepository.countByCachedPaperIdParentPaper(paper) == 0) {
             paperRepository.delete(paper);
         }
     }

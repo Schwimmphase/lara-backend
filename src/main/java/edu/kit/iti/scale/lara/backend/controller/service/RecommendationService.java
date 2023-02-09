@@ -2,6 +2,7 @@ package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
@@ -38,7 +39,10 @@ public class RecommendationService {
     }
 
     public void paperAdded(Research research, Paper paper) throws IOException {
-        cacheService.deleteCachedPaper(paper, research);
+        try {
+            cacheService.deleteCachedPaper(paper, research);
+        } catch (NotInDataBaseException ignored) {//should never happen
+        }
 
         List<Paper> citations = apiActionController.getCitations(paper);
         List<Paper> references = apiActionController.getReferences(paper);

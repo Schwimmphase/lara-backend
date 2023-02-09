@@ -12,4 +12,6 @@ public interface SavedPaperRepository extends JpaRepository<SavedPaper, SavedPap
     List<SavedPaper> findBySavedPaperIdResearch(Research research);
 
     List<SavedPaper> findBySavedPaperIdPaper(Paper paper);
+
+    long countBySavedPaperIdPaper(Paper paper);
 }

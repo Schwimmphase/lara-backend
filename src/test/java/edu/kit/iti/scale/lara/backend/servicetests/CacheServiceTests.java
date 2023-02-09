@@ -4,6 +4,7 @@ import edu.kit.iti.scale.lara.backend.InMemoryTest;
 import edu.kit.iti.scale.lara.backend.controller.repository.*;
 import edu.kit.iti.scale.lara.backend.controller.service.CacheService;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
+import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
@@ -57,12 +58,17 @@ public class CacheServiceTests {
         paperService.savePaperToDataBase(parentPaper);
 
         CachedPaper cachedPaper = cacheService.createCachedPaper(research, paper, parentPaper, CachedPaperType.CITATION);
-        cacheService.deleteCachedPaper(paper, research);
+        try {
+            cacheService.deleteCachedPaper(paper, research);
+        } catch (NotInDataBaseException e) {
+            Assertions.fail(e.getMessage());
+        }
 
         Assertions.assertThat(paperRepository.findById("id1").isPresent()).isEqualTo(false);
         //Assertions.assertThat(paperRepository.findById("id2").isPresent()).isEqualTo(false);
 
     }
+
     @Test
     public void testGetCitations() {
         User user = createUser();
@@ -104,7 +110,7 @@ public class CacheServiceTests {
         Research research = new Research("test-research", new Comment("test-comment"), ZonedDateTime.now(), user);
         researchRepository.save(research);
         user.addResearch(research);
-        user.setActiveResearch(research);
+        user.setActiveResearch(research); //probably unnecessary
         userRepository.save(user);
 
         Assertions.assertThat(researchRepository.findById(research.getId()).isPresent()).isEqualTo(true);
