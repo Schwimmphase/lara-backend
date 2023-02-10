@@ -104,7 +104,7 @@ public class ResearchService {
      * @param user     the user the research belongs to
      */
     public void deleteResearch(Research research, User user) {
-        if (user.getActiveResearch().equals(research)) {
+        if (user.getActiveResearch() != null && user.getActiveResearch().equals(research)) {
             user.setActiveResearch(null);
             userRepository.save(user);
         }
