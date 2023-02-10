@@ -4,7 +4,6 @@ import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
 import edu.kit.iti.scale.lara.backend.controller.request.OrganizerRequest;
 import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
-import edu.kit.iti.scale.lara.backend.controller.service.RecommendationService;
 import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.controller.service.TagService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
@@ -21,17 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -48,7 +37,6 @@ public class PaperController {
     private final PaperService paperService;
     private final ResearchService researchService;
     private final TagService tagService;
-    private final RecommendationService recommendationService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> paperDetails(@PathVariable @NotNull String id,
@@ -79,12 +67,16 @@ public class PaperController {
                                             @RequestParam @NotNull String researchId,
                                             @RequestParam @NotNull String tagId,
                                             @RequestAttribute("user") User user) {
-
         try {
             Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(id);
             SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
             Tag tag = tagService.getTag(tagId, user);
+
+            if (savedPaper.getTags().contains(tag)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper already has this tag");
+            }
+
             paperService.addTagToPaper(savedPaper, tag);
             return ResponseEntity.ok().build();
         } catch (WrongUserException e) {
@@ -105,6 +97,11 @@ public class PaperController {
             Paper paper = paperService.getPaper(id);
             SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
             Tag tag = tagService.getTag(tagId, user);
+
+            if (!savedPaper.getTags().contains(tag)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper does not has this tag");
+            }
+
             paperService.removeTagFromPaper(savedPaper, tag);
             return ResponseEntity.ok().build();
         } catch (WrongUserException e) {
