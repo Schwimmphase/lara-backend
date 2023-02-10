@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@NamedOrganizer("citation-count-sorter")
-public class CitationCountSorter<T extends Paper> extends Sorter<T> {
+@NamedOrganizer("reference-count-sorter")
+public class ReferenceCountSorter<T extends Paper> extends Sorter<T> {
 
-    public CitationCountSorter(String argument) {
+    public ReferenceCountSorter(String argument) {
         super(argument);
     }
 
@@ -19,10 +19,11 @@ public class CitationCountSorter<T extends Paper> extends Sorter<T> {
     public List<T> organize(List<T> papers) {
         List<T> sortingPapers = new ArrayList<>(papers);
         if (getSortingDirection() == SortingDirection.DESCENDING) {
-            sortingPapers.sort(Comparator.comparing(Paper::getCitationCount, Collections.reverseOrder()));
+            sortingPapers.sort(Comparator.comparing(Paper::getReferenceCount, Collections.reverseOrder()));
         } else {
-            sortingPapers.sort(Comparator.comparing(Paper::getCitationCount));
+            sortingPapers.sort(Comparator.comparing(Paper::getReferenceCount));
         }
         return sortingPapers;
     }
+
 }
