@@ -250,5 +250,6 @@ public class PaperService {
             throw new IllegalArgumentException("The relevance of a paper has to be between 0-3");
         }
         savedPaper.setRelevance(relevance);
+        savedPaperRepository.save(savedPaper);
     }
 }
