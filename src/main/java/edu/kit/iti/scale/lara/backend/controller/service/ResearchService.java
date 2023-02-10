@@ -24,7 +24,6 @@ import java.util.List;
  * This class manages everything that falls under the context of a research
  *
  * @author ukgcc
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

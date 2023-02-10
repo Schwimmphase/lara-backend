@@ -23,7 +23,6 @@ import java.util.Optional;
  * This class is used to handle everything that belongs to the context of the users
  *
  * @author ukgcc and unqkm
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

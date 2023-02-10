@@ -16,7 +16,6 @@ import java.util.List;
  * This class is used to handle everything about tags
  *
  * @author ukgcc
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

@@ -14,7 +14,6 @@ import java.util.Objects;
  * Represents a Tag that can be attached to SavedPapers of a Research to further specify and categorise them
  *
  * @author ukgcc
- * @version 1.0
  */
 @Entity
 @Table(name = "tags")

@@ -23,7 +23,6 @@ import java.util.List;
  * This class is used to manage all Papers and SavedPapers
  *
  * @author ukgcc
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

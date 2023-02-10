@@ -14,7 +14,6 @@ import java.util.Objects;
  * Represents an Author of a Paper
  *
  * @author ukgcc
- * @version 1.0
  */
 @Entity
 @Table(name = "authors")

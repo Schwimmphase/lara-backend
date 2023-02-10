@@ -22,7 +22,7 @@ import java.util.Objects;
  * Represents a Research that a User has started
  *
  * @author ukgcc
- * @version 1.0
+ * 
  */
 @Entity
 @Table(name = "researches")

@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * Represents a Comment that at the moment is only used to make notes about a SavedPaper
  *
  * @author ukgcc
- * @version 1.0
+ * 
  */
 @Entity
 @Table(name = "comments")

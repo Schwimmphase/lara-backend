@@ -12,7 +12,6 @@ import java.util.List;
  * This class is used to handle everything about userCategories
  *
  * @author ukgcc
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

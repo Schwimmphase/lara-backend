@@ -23,7 +23,6 @@ import java.util.Objects;
  * Represents a Paper that Users can save to their Researches
  *
  * @author ukgcc
- * @version 1.0
  */
 @Entity
 @Table(name = "papers")

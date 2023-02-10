@@ -15,7 +15,7 @@ import java.util.Objects;
  * Represents category that is used to further specify and categories a User
  *
  * @author ukgcc
- * @version 1.0
+ * 
  */
 @Entity
 @Table(name = "user-categories")

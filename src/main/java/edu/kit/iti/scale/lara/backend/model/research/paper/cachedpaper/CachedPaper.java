@@ -15,7 +15,6 @@ import java.util.Objects;
  * that has already benn saved to a Research
  *
  * @author ukgcc
- * @version 1.0
  */
 @Entity
 @Table(name = "cached-papers")
@@ -47,7 +46,6 @@ public class CachedPaper {
      * the Research the CachedPaper belongs to and the Paper that has the other Paper as a reference or citation.
      *
      * @author unqkm
-     * @version 1.0
      */
     @NoArgsConstructor
     @AllArgsConstructor

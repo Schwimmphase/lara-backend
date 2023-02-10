@@ -23,7 +23,6 @@ import java.util.List;
  * to make a comparably slow api-call for each paper in the list
  *
  * @author ukgcc
- * @version 1.0
  */
 @Service
 @RequiredArgsConstructor

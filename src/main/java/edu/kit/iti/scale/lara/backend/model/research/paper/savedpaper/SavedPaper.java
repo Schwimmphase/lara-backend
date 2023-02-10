@@ -16,7 +16,6 @@ import java.util.Objects;
  * A SavedPaper acts as a pointer to an actual Paper and also holds additional information about the paper
  *
  * @author ukgcc
- * @version 1.0
  */
 @Entity
 @Table(name = "saved-papers")
@@ -40,7 +39,6 @@ public class SavedPaper {
      * and the Research the SavedPaper is saved to.
      *
      * @author unqkm
-     * @version 1.0
      */
     @NoArgsConstructor
     @AllArgsConstructor

@@ -16,7 +16,7 @@ import java.util.List;
  * Represents a User of the application
  *
  * @author ukgcc
- * @version 1.0
+ * 
  */
 @Entity
 @Table(name = "users")
