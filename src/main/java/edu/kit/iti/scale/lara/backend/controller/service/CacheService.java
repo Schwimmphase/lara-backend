@@ -86,10 +86,14 @@ public class CacheService {
         List<CachedPaper> cachedPapers = cachedPaperRepository.findByCachedPaperIdParentPaper(paper);
         for (CachedPaper cachedPaper : cachedPapers) {
             if (cachedPaper.getCachedPaperId().getResearch().equals(research)) {
-                cachedPaperRepository.delete(cachedPaper);
+                try {
+                    deleteCachedPaper(paper, research);
+                } catch (NotInDataBaseException ignored) {
+                }
             }
         }
     }
+
 
     public List<CachedPaper> getCachedReferences(Research research, List<Paper> papers) {
         List<CachedPaper> references = cachedPaperRepository.findByCachedPaperIdResearch(research);

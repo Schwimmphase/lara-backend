@@ -70,6 +70,7 @@ public class PaperService {
         Paper paper = savedPaper.getSavedPaperId().getPaper();
         research.removeSavedPaper(savedPaper);
         savedPaperRepository.delete(savedPaper);
+        recommendationService.paperRemoved(research, savedPaper.getSavedPaperId().getPaper());
 
         //deletes the paper as well if there is no other Cache- or SavedPaper that points to it
         if (savedPaperRepository.countBySavedPaperIdPaper(paper) == 0 &&
