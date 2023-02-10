@@ -213,11 +213,7 @@ public class PaperServiceTests {
             Assertions.fail(e.getMessage(), e);
         }
 
-        try {
-            paperService.changeSaveState(savedPaper, SaveState.HIDDEN);
-        } catch (IOException e) {
-            Assertions.fail("Something with the SemanticScholarApi is wrong");
-        }
+        paperService.changeSaveState(savedPaper, SaveState.HIDDEN);
         Assertions.assertThat(savedPaper.getSaveState()).isEqualTo(SaveState.HIDDEN);
     }
 
