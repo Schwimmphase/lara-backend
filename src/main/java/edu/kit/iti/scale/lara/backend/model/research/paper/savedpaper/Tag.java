@@ -28,7 +28,7 @@ public class Tag {
     private String id;
     private String color;
     private String name;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore
     private Research research;
 
@@ -49,8 +49,7 @@ public class Tag {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Tag)) return false;
-        Tag tag = (Tag) o;
+        if (!(o instanceof Tag tag)) return false;
         return Objects.equals(getId(), tag.getId());
     }
 
