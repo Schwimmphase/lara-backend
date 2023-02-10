@@ -40,11 +40,9 @@ public class PaperService {
      * @param paper the paper to be saved
      */
     public void savePaperToDataBase(Paper paper) {
-        if (paperRepository.existsById(paper.getPaperId())) {
-            paperRepository.deleteById(paper.getPaperId());
+        if (!paperRepository.existsById(paper.getPaperId())) {
+            paperRepository.save(paper);
         }
-
-        paperRepository.save(paper);
     }
 
     /**
