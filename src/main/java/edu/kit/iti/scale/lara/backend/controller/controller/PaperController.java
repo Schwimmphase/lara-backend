@@ -117,9 +117,9 @@ public class PaperController {
     @PatchMapping("/{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable @NotNull String id,
                                              @RequestParam @NotNull String researchId,
-                                             @RequestBody @NotNull String comment,
+                                             @RequestBody @NotNull Map<String, String> commentRequest,
                                              @RequestAttribute("user") User user) {
-
+        String comment = commentRequest.get("comment");
         try {
             Research research = researchService.getResearch(researchId, user);
             Paper paper = paperService.getPaper(id);
