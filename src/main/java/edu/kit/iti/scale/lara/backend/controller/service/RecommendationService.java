@@ -67,25 +67,32 @@ public class RecommendationService {
      *
      * @param research the research the paper was added to
      * @param paper    the paper that was added
-     * @throws IOException when an error occurs getting the references and citations
      */
-    public void paperAdded(Research research, Paper paper) throws IOException {
-        try {
-            cacheService.deleteCachedPaper(paper, research);
-        } catch (NotInDataBaseException ignored) {
-        }
+    public void paperAdded(Research research, Paper paper) {
+        Thread cacheUpdateThread = new Thread(() -> {
+            try {
+                cacheService.deleteCachedPaper(paper, research);
+            } catch (NotInDataBaseException ignored) {
+            }
 
-        List<Paper> citations = apiActionController.getCitations(paper);
-        List<Paper> references = apiActionController.getReferences(paper);
+            try {
+                List<Paper> citations = apiActionController.getCitations(paper);
+                List<Paper> references = apiActionController.getReferences(paper);
 
-        for (Paper citation : citations) {
-            paperRepository.save(citation);
-            cacheService.createCachedPaper(research, citation, paper, CachedPaperType.CITATION);
-        }
-        for (Paper reference : references) {
-            paperRepository.save(reference);
-            cacheService.createCachedPaper(research, reference, paper, CachedPaperType.REFERENCE);
-        }
+                for (Paper citation : citations) {
+                    paperRepository.save(citation);
+                    cacheService.createCachedPaper(research, citation, paper, CachedPaperType.CITATION);
+                }
+                for (Paper reference : references) {
+                    paperRepository.save(reference);
+                    cacheService.createCachedPaper(research, reference, paper, CachedPaperType.REFERENCE);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        cacheUpdateThread.setName("lara - cache update " + paper.getPaperId());
+        cacheUpdateThread.start();
     }
 
     /**
