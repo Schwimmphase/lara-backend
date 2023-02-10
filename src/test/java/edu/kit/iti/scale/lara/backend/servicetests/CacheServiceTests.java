@@ -65,7 +65,7 @@ public class CacheServiceTests {
         }
 
         Assertions.assertThat(paperRepository.findById("id1").isPresent()).isEqualTo(false);
-        //Assertions.assertThat(paperRepository.findById("id2").isPresent()).isEqualTo(false);
+        Assertions.assertThat(paperRepository.findById("id2").isPresent()).isEqualTo(false);
 
     }
 
