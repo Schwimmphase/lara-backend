@@ -34,9 +34,6 @@ public class SemanticScholarWrapper implements ApiWrapper {
                 paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
                 paper.openAccessPdf() == null ? getArXivPdf(paper) : getPdf(paper));
 
-
-
-        // TODO: skipping papers with Id null
         if (apiPaper.id() == null) {
             return new ArrayList<>();
         } else {
