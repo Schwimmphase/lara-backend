@@ -16,7 +16,7 @@ public class SemanticScholarHandler implements ApiHandler {
 
     private static final String URL = "https://api.semanticscholar.org/graph/v1/paper/";
     private static final String RECOMMENDATION_URL = "https://api.semanticscholar.org/recommendations/v1/papers/?";
-    private static final String SEARCH = "search?query=";
+    private static final String SEARCH = "search?limit=100&query=";
     private static final String CITATIONS = "/citations";
     private static final String REFERENCES = "/references";
     private static final String PAPER_ATTRIBUTES ="fields=title,authors,venue,year,citationCount,referenceCount,abstract,openAccessPdf,externalIds";
