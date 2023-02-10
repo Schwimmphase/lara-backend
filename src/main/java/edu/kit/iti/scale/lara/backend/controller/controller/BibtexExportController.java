@@ -38,7 +38,7 @@ public class BibtexExportController {
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            List<Paper> papers = paperService.getSavedPapers(research, user).stream()
+            List<Paper> papers = paperService.getSavedPapers(research, user).stream() //Todo: getAddedPapers?
                     .map(savedPaper -> savedPaper.getSavedPaperId().getPaper()).toList();
             papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("export", bibtexConverterService.export(papers)));
