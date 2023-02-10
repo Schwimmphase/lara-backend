@@ -223,9 +223,8 @@ public class PaperService {
      *
      * @param savedPaper the SavedPaper whose SaveState is to be changed
      * @param saveState  the new SaveState
-     * @throws IOException
      */
-    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) throws IOException {
+    public void changeSaveState(SavedPaper savedPaper, SaveState saveState) {
         savedPaper.setSaveState(saveState);
         savedPaperRepository.save(savedPaper);
 

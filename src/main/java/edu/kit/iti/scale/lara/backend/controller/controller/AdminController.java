@@ -27,6 +27,11 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class contains all the rest api endpoints for controlling users and their categories.
+ *
+ * @author unqkm
+ */
 @RestController
 @RequestMapping("/usermanagement")
 @RequiredArgsConstructor
@@ -35,6 +40,12 @@ public class AdminController {
     private final UserService userService;
     private final UserCategoryService userCategoryService;
 
+    /**
+     * Get all users.
+     *
+     * @param organizers a list of organizers to organize the users.
+     * @return           a list of users.
+     */
     @GetMapping("")
     public ResponseEntity<Map<String, List<User>>> listUsers(
             @RequestParam(value = "organizer", required = false) List<OrganizerRequest> organizers) {
@@ -54,6 +65,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Create a new user.
+     *
+     * @param request the request body containing the username, password and user category.
+     * @return        the created user and bad request if the user category was not found.
+     */
     @PostMapping("")
     public ResponseEntity<User> createUser(@RequestBody @NotNull UserRequest request) {
         if (request.password() == null || request.password().isEmpty()) {
@@ -73,6 +90,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Delete a user.
+     *
+     * @param userId the id of the user to delete.
+     * @return       a response entity with status code 200 and bad request if the user was not found.
+     */
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable @NotNull String userId) {
         try {
@@ -84,6 +107,13 @@ public class AdminController {
         }
     }
 
+    /**
+     * Update a user.
+     *
+     * @param userId  the id of the user to update.
+     * @param request the request body containing the new username, password and user category.
+     * @return        the updated user and bad request if the user category was not found.
+     */
     @PatchMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable @NotNull String userId,
                                            @RequestBody @NotNull UserRequest request) {
@@ -102,6 +132,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Create a new user category.
+     *
+     * @param request the request body containing the name and color of the user category.
+     * @return        the created user category and bad request if a user category with the same name already exists.
+     */
     @PostMapping("/category")
     public ResponseEntity<UserCategory> createCategory(@RequestBody @NotNull CategoryRequest request) {
         try {
@@ -112,12 +148,25 @@ public class AdminController {
         }
     }
 
+    /**
+     * List all user categories.
+     *
+     * @return a list of user categories.
+     */
     @GetMapping("/category")
     public ResponseEntity<Map<String, List<UserCategory>>> listCategories() {
         List<UserCategory> userCategories = userCategoryService.getUserCategories();
         return ResponseEntity.ok(Map.of("categories", userCategories));
     }
 
+    /**
+     * Update a user category.
+     *
+     * @param id        the id of the user category to update.
+     * @param request   the request body containing the new name and color of the user category.
+     * @return          the updated user category and bad request if the user category was not found, name or color
+     *                  is empty or a user category with the id not found.
+     */
     @PatchMapping("/category/{id}")
     public ResponseEntity<UserCategory> updateCategory(@PathVariable @NotNull String id,
                                                        @RequestBody @NotNull CategoryRequest request) {
@@ -134,10 +183,17 @@ public class AdminController {
             userCategory = userCategoryService.updateCategory(userCategory, request.name(), request.color());
             return ResponseEntity.ok(userCategory);
         } catch (NotInDataBaseException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this name not found");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User category with this id not found");
         }
     }
 
+    /**
+     * Delete a user category.
+     *
+     * @param id the id of the user category to delete.
+     * @return   an empty response with status code 200 and bad request if the user category was not found or a user
+     *           has this category.
+     */
     @DeleteMapping("/category/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable @NotNull String id) {
         try {

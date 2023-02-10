@@ -20,14 +20,28 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * This class contains all the rest api endpoints for papers and saved papers.
+ *
+ * @author unqkm
+ */
 @RestController
 @RequestMapping("/paper")
 @RequiredArgsConstructor
@@ -38,6 +52,17 @@ public class PaperController {
     private final ResearchService researchService;
     private final TagService tagService;
 
+    /**
+     * Get all information about a paper. If the researchId is given, the saved paper is returned and if not a paper
+     * from the api is returned.
+     *
+     * @param id         id of the paper.
+     * @param researchId id of the research.
+     * @param user       user that has send the request.
+     * @return           the response body containing the paper with the status code 200. If the paper is not owned by
+     *                   the user, the status code 403 is returned. If the paper is not found, the status code 400 is
+     *                   returned.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Object> paperDetails(@PathVariable @NotNull String id,
                                                @RequestParam(required = false) @Nullable String researchId,
@@ -62,6 +87,17 @@ public class PaperController {
         }
     }
 
+    /**
+     * Add ad tag to a saved paper.
+     *
+     * @param id         id of the paper.
+     * @param researchId id of the research.
+     * @param tagId      id of the tag.
+     * @param user       user that has send the request.
+     * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
+     *                   status code 403 is returned. If the paper is not found, the status code 400 is returned. If the
+     *                   paper already has this tag, the status code 409 is returned.
+     */
     @PutMapping("/{id}/tag")
     public ResponseEntity<Void> paperAddTag(@PathVariable @NotNull String id,
                                             @RequestParam @NotNull String researchId,
@@ -74,7 +110,7 @@ public class PaperController {
             Tag tag = tagService.getTag(tagId, user);
 
             if (savedPaper.getTags().contains(tag)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper already has this tag");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Paper already has this tag");
             }
 
             paperService.addTagToPaper(savedPaper, tag);
@@ -86,6 +122,17 @@ public class PaperController {
         }
     }
 
+    /**
+     * Remove a tag from a saved paper.
+     *
+     * @param id         id of the paper.
+     * @param researchId id of the research.
+     * @param tagId      id of the tag.
+     * @param user       user that has send the request.
+     * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
+     *                   status code 403 is returned. If the paper is not found, the status code 400 is returned. If the
+     *                   paper does not has this tag, the status code 409 is returned.
+     */
     @DeleteMapping("/{id}/tag")
     public ResponseEntity<Void> paperTagRemove(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
@@ -99,7 +146,7 @@ public class PaperController {
             Tag tag = tagService.getTag(tagId, user);
 
             if (!savedPaper.getTags().contains(tag)) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper does not has this tag");
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Paper does not has this tag");
             }
 
             paperService.removeTagFromPaper(savedPaper, tag);
@@ -111,6 +158,16 @@ public class PaperController {
         }
     }
 
+    /**
+     * Add a comment to a saved paper.
+     *
+     * @param id             id of the paper.
+     * @param researchId     id of the research.
+     * @param commentRequest request body containing the comment.
+     * @param user           user that has send the request.
+     * @return               the empty response body with the status code 200. If the paper is not owned by the user, the
+     *                       status code 403 is returned. If the paper is not found, the status code 400 is returned.
+     */
     @PatchMapping("/{id}/comment")
     public ResponseEntity<Void> paperComment(@PathVariable @NotNull String id,
                                              @RequestParam @NotNull String researchId,
@@ -130,6 +187,16 @@ public class PaperController {
         }
     }
 
+    /**
+     * Change the save state of a paper.
+     *
+     * @param id         id of the paper.
+     * @param researchId id of the research.
+     * @param saveState  new save state.
+     * @param user       user that has send the request.
+     * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
+     *                   status code 403 is returned. If the paper is not found, the status code 400 is returned.
+     */
     @PutMapping("/{id}/save-state")
     public ResponseEntity<Void> paperSaveState(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
@@ -146,11 +213,19 @@ public class PaperController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper with this id not found");
-        } catch (IOException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
+    /**
+     * Change the relevance of a paper.
+     *
+     * @param id         id of the paper.
+     * @param researchId id of the research.
+     * @param relevance  new relevance.
+     * @param user       user that has send the request.
+     * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
+     *                   status code 403 is returned. If the paper is not found, the status code 400 is returned.
+     */
     @PatchMapping("/{id}/relevance")
     public ResponseEntity<Void> paperRelevance(@PathVariable @NotNull String id,
                                                @RequestParam @NotNull String researchId,
@@ -170,6 +245,15 @@ public class PaperController {
         }
     }
 
+    /**
+     * Get recommendations for a paper. This is also used to get the citations and references of a paper.
+     *
+     * @param id      id of the paper.
+     * @param method  method to use for the recommendation. Allowed values are "algorithm", "citations" and
+     *                "references".
+     * @param request request body containing the organizers.
+     * @return        a list of papers. If the paper is not found, the status code 400 is returned.
+     */
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
                                                                          @RequestParam @NotNull RecommendationMethod method,

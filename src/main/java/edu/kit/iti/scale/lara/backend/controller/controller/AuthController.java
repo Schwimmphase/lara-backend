@@ -20,6 +20,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
+/**
+ * This class contains the rest api endpoint for logging in.
+ *
+ * @author unqkm
+ */
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -28,6 +33,13 @@ public class AuthController {
     private final UserService userService;
     private final AuthService authService;
 
+    /**
+     * Login a user.
+     *
+     * @param request the login request containing the username and the password.
+     * @return        the user and a jwt token. The jwt token is valid for 30 days and contains information about
+     *                the username and if the user is an admin.
+     */
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody @NotNull LoginRequest request) {
         if (userService.checkCredentials(request.password(), request.userId())) {

@@ -14,12 +14,23 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class contains all the rest api endpoints for exporting researches and papers to BibTeX.
+ *
+ * @author unqkm
+ */
 @RestController
 @RequestMapping("/export")
 @RequiredArgsConstructor
@@ -29,6 +40,14 @@ public class BibtexExportController {
     private final ResearchService researchService;
     private final PaperService paperService;
 
+    /**
+     * Export a research to BibTeX.
+     *
+     * @param researchId the id of the research.
+     * @param request    the request containing organizers for filtering papers before exporting them.
+     * @param user       the user who send the request.
+     * @return           the body containing the BibTeX string.
+     */
     @PostMapping("/research/{researchId}")
     public ResponseEntity<Map<String, String>> exportResearch(@PathVariable @NotNull String researchId,
                                         @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
@@ -47,6 +66,14 @@ public class BibtexExportController {
         }
     }
 
+
+    /**
+     * Export a paper to BibTeX.
+     *
+     * @param paperId the id of the paper.
+     * @param user    the user who send the request.
+     * @return        the body containing the BibTeX string.
+     */
     @GetMapping("/paper/{paperId}")
     public ResponseEntity<Map<String, String>> exportPaper(@PathVariable String paperId,
                                                            @RequestAttribute("user") User user) {
