@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -48,6 +49,9 @@ public class Research {
     @OneToMany(mappedBy = "cachedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
+    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Tag> tags;
 
     /**
      * Constructs a new Research
@@ -64,6 +68,7 @@ public class Research {
         this.user = user;
         this.savedPapers = new ArrayList<>();
         this.cachedPapers = new ArrayList<>();
+        this.tags = new ArrayList<>();
     }
 
     @Override
