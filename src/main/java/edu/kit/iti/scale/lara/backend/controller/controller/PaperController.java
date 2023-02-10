@@ -181,7 +181,7 @@ public class PaperController {
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
-            Paper paper = paperService.getPaper(id);
+            Paper paper = paperService.getPaper(id, true);
             List<Paper> papers = switch (method) {
                 case ALGORITHM -> apiActionController.getRecommendations(List.of(paper), List.of());
                 case CITATIONS -> apiActionController.getCitations(paper);
