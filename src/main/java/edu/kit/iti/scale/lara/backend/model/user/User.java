@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a User of the application
  *
@@ -34,6 +37,8 @@ public class User {
     private Research activeResearch;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Research> researches;
 
     /**
      * Constructs a new User
@@ -46,6 +51,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.userCategory = userCategory;
+        this.researches = new ArrayList<>();
     }
 
     //Todo: clean up
