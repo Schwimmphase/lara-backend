@@ -214,7 +214,7 @@ public class ResearchController {
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
-            List<Paper> papers = researchService.searchByQuery(query);
+            List<Paper> papers = researchService.searchByKeyword(query);
 
             papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("papers", papers));

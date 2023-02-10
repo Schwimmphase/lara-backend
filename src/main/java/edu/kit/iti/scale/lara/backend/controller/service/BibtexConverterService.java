@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This class converts a list of papers to a String in bibtex-format, so it can be included in a .bib document
+ *
+ * @author ukgcc
+ * @version 1.0
+ */
 @Service
 public class BibtexConverterService {
 
