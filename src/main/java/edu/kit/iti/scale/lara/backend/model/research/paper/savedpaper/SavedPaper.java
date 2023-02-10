@@ -1,6 +1,5 @@
 package edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
@@ -31,7 +30,7 @@ public class SavedPaper {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonUnwrapped
     private Comment comment;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Tag> tags;
     private int relevance;
     private SaveState saveState;
