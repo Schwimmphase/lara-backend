@@ -38,7 +38,7 @@ public class User {
     /**
      * Constructs a new User
      *
-     * @param username     the username
+     * @param username     the username (each user has to have a unique username)
      * @param password     the already encoded password of the User
      * @param userCategory the UserCategory of the User
      */
