@@ -71,7 +71,7 @@ class ApiActionControllerTest {
 
 
     public static void testGetRecommendations() throws IOException {
-        when(apiActionController.getRecommendations(ArgumentMatchers.anyList(), ArgumentMatchers.anyList())).thenReturn(TEST_PAPER_LIST);
+        when(apiActionController.getRecommendations(anyList(), anyList())).thenReturn(TEST_PAPER_LIST);
     }
 
 }
