@@ -7,6 +7,7 @@ import edu.kit.iti.scale.lara.backend.model.organizer.sorting.CitationCountSorte
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class CitationCountSorterTests {
     @Autowired
     AuthorRepository authorRepository;
 
-    private Organizer citationCountSorter = new CitationCountSorter("ascending");
+    private final Organizer<Paper> citationCountSorter = new CitationCountSorter<>("ascending");
 
-//    @Test
+    @Test
     public void testCitationCountSorter() {
         Author author = createAuthor();
 
