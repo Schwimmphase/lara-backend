@@ -89,10 +89,11 @@ public class ResearchService {
      * @param newTitle       the new title
      * @param newDescription the new description
      */
-    public void updateResearch(Research research, String newTitle, String newDescription) {
+    public Research updateResearch(Research research, String newTitle, String newDescription) {
         research.setTitle(newTitle);
         research.setDescription(new Comment(newDescription));
         researchRepository.save(research);
+        return research;
     }
 
     /**

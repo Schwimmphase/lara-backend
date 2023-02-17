@@ -51,6 +51,9 @@ public class ResearchController {
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
                                                    @RequestAttribute("user") User user) {
+        if (request.title().equals("")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Research must have a title");
+        }
         Research research = researchService.createResearch(user, request.title(), request.description());
 
         return ResponseEntity.ok(research);
