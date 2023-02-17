@@ -3,7 +3,10 @@ package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
+import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +16,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ApiActionControllerTest {
+
+    private static ApiActionController testApiActionController = new ApiActionController();
 
     // set paper attributes
     private static final String PAPER_ID = "S2$443ee74236492a8863eacaf9fabbedf30827cc55";
@@ -49,29 +54,112 @@ class ApiActionControllerTest {
 
 
 
-    public static void testGetPaper() throws IOException {
+    public static void getPaper() throws IOException {
         when(apiActionController.getPaper(anyString())).thenReturn(TEST_PAPER);
 
     }
 
 
-    public static void testGetPapersByKeyword() throws IOException {
+    public static void getPapersByKeyword() throws IOException {
         when(apiActionController.getPapersByKeyword(anyString())).thenReturn(TEST_PAPER_LIST);
 
     }
 
-    public static void testGetCitations() throws IOException {
+    public static void getCitations() throws IOException {
         when(apiActionController.getCitations(any(Paper.class))).thenReturn(TEST_PAPER_LIST);
     }
 
 
-    public static void testGetReferences() throws IOException {
+    public static void getReferences() throws IOException {
         when(apiActionController.getReferences(any(Paper.class))).thenReturn(TEST_PAPER_LIST);
     }
 
 
-    public static void testGetRecommendations() throws IOException {
+    public static void getRecommendations() throws IOException {
         when(apiActionController.getRecommendations(ArgumentMatchers.anyList(), ArgumentMatchers.anyList())).thenReturn(TEST_PAPER_LIST);
+    }
+
+    // create Paper to test getCitations, getReferences & getRecommendations
+    Paper paperOne = new Paper("S2$158a78161dbddbf81b1c77701cab9211acab8872", null, 420, null, 69, 123, null, null, null);
+    Paper paperTwo = new Paper("S2$98d4e346a0be0c46b51774b2f0c54e9b529f510b", null, 420, null, 69, 123, null, null, null);
+
+    @Test
+    void testGetPaper() throws IOException {
+
+        // set up
+        String laraId = "S2$443ee74236492a8863eacaf9fabbedf30827cc55";
+
+        // execute
+        Paper paper = testApiActionController.getPaper(laraId);
+
+        // test
+        Assertions.assertNotNull(paper.getPaperId());
+        Assertions.assertNotNull(paper.getTitle());
+        Assertions.assertNotEquals(0, paper.getYearPublished());
+        Assertions.assertNotNull(paper.getAbstractText());
+        Assertions.assertNotEquals(0, paper.getCitationCount());
+        Assertions.assertNotEquals(0, paper.getReferenceCount());
+        Assertions.assertNotNull(paper.getVenue());
+        Assertions.assertNotNull(paper.getPdfUrl());
+        Assertions.assertNotNull(paper.getAuthors());
+
+    }
+
+    @Test
+    void testGetPapersByKeyword() throws IOException {
+
+        // set up
+        String query = "np problems";
+
+        // execute
+        List<Paper> papers = testApiActionController.getPapersByKeyword(query);
+
+        // test
+        for (Paper paper : papers) {
+            Assertions.assertNotNull(paper.getPaperId());
+            Assertions.assertNotNull(paper.getTitle());
+        }
+
+    }
+
+    @Test
+    void testGetCitations() throws IOException {
+
+        // execute
+        List<Paper> papers = testApiActionController.getCitations(paperOne);
+
+        // test
+        for (Paper paper : papers) {
+            Assertions.assertNotNull(paper.getPaperId());
+            Assertions.assertNotNull(paper.getTitle());
+        }
+
+    }
+
+    @Test
+    void testGetReferences() throws IOException {
+
+        // execute
+        List<Paper> papers = testApiActionController.getReferences(paperOne);
+
+        // test
+        for (Paper paper : papers) {
+            Assertions.assertNotNull(paper.getPaperId());
+            Assertions.assertNotNull(paper.getTitle());
+        }
+    }
+
+    @Test
+    void testGetRecommendations() throws IOException {
+
+        // execute
+        List<Paper> papers = testApiActionController.getRecommendations(List.of(paperOne), List.of(paperTwo));
+
+        // test
+        for (Paper paper : papers) {
+            Assertions.assertNotNull(paper.getPaperId());
+            Assertions.assertNotNull(paper.getTitle());
+        }
     }
 
 }
