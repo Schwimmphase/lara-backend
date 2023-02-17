@@ -16,8 +16,6 @@ public class IdParserTest {
     @Test
     void encodedIdTest() {
 
-
-
         // execute
         String encodedId = idParser.encodedId(S2_PREFIX, S2_ID);
 
