@@ -23,8 +23,10 @@ public class VenueFilter<T extends Paper> implements Filter<T> {
         List<T> organizedPapers = new ArrayList<>();
         for (String venue : venues) {
             for (T paper : papers) {
-                if (paper.getVenue().contains(venue)) {
-                    organizedPapers.add(paper);
+                if (paper.getVenue() != null) {
+                    if (paper.getVenue().contains(venue)) {
+                        organizedPapers.add(paper);
+                    }
                 }
             }
         }
