@@ -2,11 +2,9 @@ package edu.kit.iti.scale.lara.backend.controller.apicontroller;
 
 import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.util.List;
