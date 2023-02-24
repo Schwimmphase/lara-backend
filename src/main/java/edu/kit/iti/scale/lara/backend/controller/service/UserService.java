@@ -92,7 +92,7 @@ public class UserService implements UserDetailsService {
      * @param research the research the user opened
      * @throws IOException when an error occurred getting the citations and references.
      */
-    public void UserOpenedResearch(User user, Research research) throws IOException {
+    public void userOpenedResearch(User user, Research research) throws IOException {
         cacheService.initializeCache(research);
         user.setActiveResearch(research);
         userRepository.save(user);

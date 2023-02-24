@@ -151,8 +151,8 @@ public class ResearchControllerTests {
 
         mvc.perform(put("/research/id12345/paper")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(JSONObject.wrap(Map.of("paperId", "12345")).toString())
-                        .requestAttr("state", SaveState.ADDED)
+                        .param("paperId", "12345")
+                        .param("state", SaveState.ADDED.toString())
                         .requestAttr("user", user())
                         .with(jwt()))
                 .andExpect(status().isOk());
@@ -167,9 +167,43 @@ public class ResearchControllerTests {
         mvc.perform(delete("/research/id12345/paper")
                         .contentType(MediaType.APPLICATION_JSON)
                         .requestAttr("user", user())
-                        .requestAttr("paperId", "12345")
+                        .param("paperId", "12345")
                         .with(jwt()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testResearchTags() throws Exception {
+        mockGetResearch();
+        mockGetTags();
+
+        mvc.perform(get("/research/id12345/tags")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.tags[0].id").value("id12345"))
+                .andExpect(jsonPath("$.tags[0].name").value("test-tag"))
+                .andExpect(jsonPath("$.tags[0].color").value("test-color"));
+    }
+
+    @Test
+    public void testResearchPapers() throws Exception {
+        mockGetResearch();
+        mockUserOpenedResearch();
+        mockGetSavedPapers();
+
+        mvc.perform(post("/research/id12345/papers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.papers[0].relevance").value(0))
+                .andExpect(jsonPath("$.papers[0].saveState").value(SaveState.ADDED.toString()))
+                .andExpect(jsonPath("$.papers[0].paper.paperId").value(paper().getPaperId()))
+                .andExpect(jsonPath("$.papers[0].research.id").value(research().getId()));
+
 
     }
 
@@ -210,6 +244,18 @@ public class ResearchControllerTests {
 
     private void mockGetSavedPaper() throws NotInDataBaseException, WrongUserException {
         given(paperService.getSavedPaper(any(User.class), any(Paper.class), any(Research.class))).willAnswer(invocation -> savedPaper());
+    }
+
+    private void mockGetSavedPapers() throws WrongUserException {
+        given(paperService.getSavedPapers(any(Research.class), any(User.class))).will(invocation -> List.of(savedPaper()));
+    }
+
+    private void mockGetTags() {
+        given(tagService.getTags(any(Research.class))).will(invocation -> List.of(tag()));
+    }
+
+    private void mockUserOpenedResearch() throws IOException {
+        doNothing().when(userService).userOpenedResearch(any(User.class), any(Research.class));
     }
 }
 
