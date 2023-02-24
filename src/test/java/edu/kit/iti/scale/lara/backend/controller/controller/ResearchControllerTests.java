@@ -9,7 +9,10 @@ import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.user.User;
+import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +22,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static edu.kit.iti.scale.lara.backend.TestObjects.research;
-import static edu.kit.iti.scale.lara.backend.TestObjects.user;
+import static edu.kit.iti.scale.lara.backend.TestObjects.*;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
@@ -125,6 +131,48 @@ public class ResearchControllerTests {
                 .andExpect(jsonPath("$.comment").value("new-description"));
     }
 
+    @Test
+    public void testDeleteResearch() throws Exception {
+        mockGetResearch();
+        mockDeleteResearch();
+
+        mvc.perform(delete("/research/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect((status().isOk()));
+    }
+
+    @Test
+    public void testSavePaper() throws Exception {
+        mockGetResearch();
+        mockGetPaper();
+        mockCreateSavedPaper();
+
+        mvc.perform(put("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JSONObject.wrap(Map.of("paperId", "12345")).toString())
+                        .requestAttr("state", SaveState.ADDED)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeletePaper() throws Exception {
+        mockGetResearch();
+        mockGetPaper();
+        mockGetSavedPaper();
+
+        mvc.perform(delete("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .requestAttr("paperId", "12345")
+                        .with(jwt()))
+                .andExpect(status().isOk());
+
+    }
+
     private void mockCreateResearch() {
         given(researchService.createResearch(any(User.class), anyString(), anyString())).willAnswer(invocation -> {
             User user = invocation.getArgument(0);
@@ -136,9 +184,7 @@ public class ResearchControllerTests {
     }
 
     private void mockGetResearch() throws NotInDataBaseException, WrongUserException {
-        given(researchService.getResearch(anyString(), any(User.class))).willAnswer(invocation -> {
-            return research();
-        });
+        given(researchService.getResearch(anyString(), any(User.class))).willAnswer(invocation -> research());
     }
 
     private void mockUpdateResearch() {
@@ -148,6 +194,22 @@ public class ResearchControllerTests {
             research.setDescription(new Comment(invocation.getArgument(2)));
             return research;
         });
+    }
+
+    private void mockDeleteResearch() {
+        doNothing().when(researchService).deleteResearch(any(Research.class), any(User.class));
+    }
+
+    private void mockGetPaper() throws NotInDataBaseException {
+        given(paperService.getPaper(anyString())).willAnswer(invocation -> paper());
+    }
+
+    private void mockCreateSavedPaper() throws IOException {
+        given(paperService.createSavedPaper(any(Research.class), any(Paper.class), any(SaveState.class))).willAnswer(invocation -> savedPaper());
+    }
+
+    private void mockGetSavedPaper() throws NotInDataBaseException, WrongUserException {
+        given(paperService.getSavedPaper(any(User.class), any(Paper.class), any(Research.class))).willAnswer(invocation -> savedPaper());
     }
 }
 
