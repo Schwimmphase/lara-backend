@@ -1,6 +1,7 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.config.RsaKeyProperties;
 import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
 import edu.kit.iti.scale.lara.backend.controller.config.WebConfig;
@@ -203,8 +204,23 @@ public class ResearchControllerTests {
                 .andExpect(jsonPath("$.papers[0].saveState").value(SaveState.ADDED.toString()))
                 .andExpect(jsonPath("$.papers[0].paper.paperId").value(paper().getPaperId()))
                 .andExpect(jsonPath("$.papers[0].research.id").value(research().getId()));
+    }
 
+    @Test
+    public void testResearchRecommendations() throws Exception {
+        mockGetResearch();
+        mockGetAddedPapers();
+        mockGetRecommendations();
+        mockGetCitations();
+        mockGetReferences();
 
+        mvc.perform(post("/research/id12345/recommendations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("method", RecommendationMethod.ALGORITHM.toString())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isOk());
     }
 
     private void mockCreateResearch() {
@@ -256,6 +272,22 @@ public class ResearchControllerTests {
 
     private void mockUserOpenedResearch() throws IOException {
         doNothing().when(userService).userOpenedResearch(any(User.class), any(Research.class));
+    }
+
+    private void mockGetAddedPapers() throws WrongUserException {
+        given(paperService.getAddedPapers(any(Research.class), any(User.class))).willAnswer(invocation -> List.of(paper()));
+    }
+
+    private void mockGetRecommendations() throws IOException {
+        given(researchService.getRecommendations(any(Research.class))).willAnswer(invocation -> List.of(paper()));
+    }
+
+    private void mockGetCitations() throws IOException {
+        given(researchService.getCitations(any(Research.class), any())).willAnswer(invocation -> List.of(paper()));
+    }
+
+    private void mockGetReferences() throws IOException {
+        given(researchService.getCitations(any(Research.class), any())).willAnswer(invocation -> List.of(paper()));
     }
 }
 
