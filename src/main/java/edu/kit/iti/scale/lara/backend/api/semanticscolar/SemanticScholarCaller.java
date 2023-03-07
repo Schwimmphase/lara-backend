@@ -2,7 +2,12 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
 import edu.kit.iti.scale.lara.backend.api.ApiCaller;
 import edu.kit.iti.scale.lara.backend.api.HttpMethod;
-import okhttp3.*;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -34,7 +39,7 @@ public class SemanticScholarCaller implements ApiCaller {
 
         // checking if request was valid
         if (response.code() != HTTP_STATE_OK) {
-            throw new IllegalArgumentException();
+            throw new RuntimeException("Request failed with code " + response.code() + " and message " + response.message());
         }
 
         return Objects.requireNonNull(response.body()).string();

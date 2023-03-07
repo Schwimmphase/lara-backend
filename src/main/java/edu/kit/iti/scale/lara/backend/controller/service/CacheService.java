@@ -74,7 +74,10 @@ public class CacheService {
     }
 
     /**
-     * Creates a new CachedPaper and saves it to the CachedPaperRepository
+     * Creates a new CachedPaper and saves it to the CachedPaperRepository. When creating many CachedPapers at once
+     * use @link {@link #createUnsavedCachedPaper(Research, Paper, Paper, CachedPaperType)} to avoid unnecessary
+     * database calls. Use {@link #saveCachedPapers(List)} to save the CachedPapers to the CachedPaperRepository
+     * afterwards.
      *
      * @param research        the research the CachedPaper belongs to
      * @param paper           the paper the CachedPaper points to
@@ -87,6 +90,30 @@ public class CacheService {
         cachedPaperRepository.save(cachedPaper);
         return cachedPaper;
         //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
+    }
+
+    /**
+     * Create a new CachedPaper without saving it to the CachedPaperRepository. This should be used when creating many
+     * CachedPapers at once to avoid unnecessary database calls. Use {@link #saveCachedPapers(List)} to save the
+     * CachedPapers to the CachedPaperRepository afterwards.
+     *
+     * @param research        the research the CachedPaper belongs to
+     * @param paper           the paper the CachedPaper points to
+     * @param parent          the parentPaper of the CachedPaper
+     * @param cachedPaperType the type of the CachedPaper
+     * @return the CachedPaper
+     */
+    public CachedPaper createUnsavedCachedPaper(Research research, Paper paper, Paper parent, CachedPaperType cachedPaperType) {
+        return new CachedPaper(paper, parent, research, cachedPaperType);
+    }
+
+    /**
+     * Saves a list of CachedPapers to the CachedPaperRepository.
+     *
+     * @param cachedPapers the CachedPapers to be saved
+     */
+    public void saveCachedPapers(List<CachedPaper> cachedPapers) {
+        cachedPaperRepository.saveAll(cachedPapers);
     }
 
     /**
