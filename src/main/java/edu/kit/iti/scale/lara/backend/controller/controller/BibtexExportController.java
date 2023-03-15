@@ -46,19 +46,18 @@ public class BibtexExportController {
      * @param researchId the id of the research.
      * @param request    the request containing organizers for filtering papers before exporting them.
      * @param user       the user who send the request.
-     * @return           the body containing the BibTeX string.
+     * @return the body containing the BibTeX string.
      */
     @PostMapping("/research/{researchId}")
     public ResponseEntity<Map<String, String>> exportResearch(@PathVariable @NotNull String researchId,
-                                        @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
-                                    @RequestAttribute("user") User user) {
+                                                              @RequestBody @NotNull Map<String, List<OrganizerRequest>> request,
+                                                              @RequestAttribute("user") User user) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            List<Paper> papers = paperService.getSavedPapers(research, user).stream() //Todo: getAddedPapers?
-                    .map(savedPaper -> savedPaper.getSavedPaperId().getPaper()).toList();
+            List<Paper> papers = paperService.getAddedPapers(research, user);
             papers = organizerList.organize(papers);
             return ResponseEntity.ok(Map.of("export", bibtexConverterService.export(papers)));
         } catch (NotInDataBaseException | WrongUserException e) {
@@ -72,7 +71,7 @@ public class BibtexExportController {
      *
      * @param paperId the id of the paper.
      * @param user    the user who send the request.
-     * @return        the body containing the BibTeX string.
+     * @return the body containing the BibTeX string.
      */
     @GetMapping("/paper/{paperId}")
     public ResponseEntity<Map<String, String>> exportPaper(@PathVariable String paperId,
