@@ -37,6 +37,9 @@ public class TagController {
                                          @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
+            if (request.name().matches("( )*")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
             Tag tag = tagService.createTag(request.color(), request.name(), research);
             return ResponseEntity.ok(tag);
         } catch (NotInDataBaseException | WrongUserException e) {
@@ -50,6 +53,9 @@ public class TagController {
                                          @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
+            if (request.name().matches("( )*")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
             tagService.updateTag(tag, request.name(), request.color());
             return ResponseEntity.ok(tag);
         } catch (NotInDataBaseException | WrongUserException e) {
