@@ -64,10 +64,10 @@ public class AdminControllerTest {
         given(userService.getUsers()).willReturn(users);
 
         mvc.perform(
-                get("/usermanagement")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
-                        .with(jwt()))
+                        get("/usermanagement")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                                .with(jwt()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.users[0].username").value("test-user"))
                 .andExpect(jsonPath("$.users[0].userCategory.name").value("test-category"))
@@ -304,6 +304,39 @@ public class AdminControllerTest {
     }
 
     @Test
+    public void testCreateCategory() throws Exception {
+        mockCreateUserCategory();
+
+        JSONObject userCategoryObject = new JSONObject();
+        userCategoryObject.put("name", "test-category");
+        userCategoryObject.put("color", "0000FF");
+
+        mvc.perform(post("/usermanagement/category")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userCategoryObject.toString())
+                        .with(jwt()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("test-category"))
+                .andExpect(jsonPath("$.color").value("0000FF"));
+    }
+
+    @Test
+    public void testCreateCategoryNameAlreadyExists() throws Exception {
+        mockCreateUserCategoryNameAlreadyExists();
+
+        JSONObject userCategoryObject = new JSONObject();
+        userCategoryObject.put("name", "test-category");
+        userCategoryObject.put("color", "0000FF");
+
+        mvc.perform(post("/usermanagement/category")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(userCategoryObject.toString())
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
     public void testUpdateCategory() throws Exception {
         mockGetCategoryValid();
 
@@ -367,6 +400,19 @@ public class AdminControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void testDeleteCategory() throws Exception {
+        mockGetCategoryValid();
+
+        doNothing().when(userCategoryService).deleteCategory(any(UserCategory.class));
+
+        mvc.perform(delete("/usermanagement/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(jwt()))
+                .andExpect(status().isOk());
+    }
+
+
     private void mockCreateUser() {
         given(userService.createUser(anyString(), anyString(), any(UserCategory.class))).willAnswer(invocation -> {
             String username = invocation.getArgument(0);
@@ -374,6 +420,20 @@ public class AdminControllerTest {
             UserCategory userCategory = invocation.getArgument(2);
             password = encoder.encode(password);
             return new User(username, password, userCategory);
+        });
+    }
+
+    private void mockCreateUserCategory() {
+        given(userCategoryService.createCategory(anyString(), anyString())).willAnswer(invocation -> {
+            String name = invocation.getArgument(0);
+            String color = invocation.getArgument(1);
+            return new UserCategory(color, name);
+        });
+    }
+
+    private void mockCreateUserCategoryNameAlreadyExists() {
+        given(userCategoryService.createCategory(anyString(), anyString())).willAnswer(invocation -> {
+            throw new IllegalArgumentException();
         });
     }
 

@@ -41,6 +41,9 @@ public class ResearchController {
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
                                                    @RequestAttribute("user") User user) {
+        if (request.title().equals("")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Research must have a title");
+        }
         Research research = researchService.createResearch(user, request.title(), request.description());
 
         return ResponseEntity.ok(research);
@@ -143,7 +146,7 @@ public class ResearchController {
         try {
             Research research = researchService.getResearch(researchId, user);
             if (user.getActiveResearch() == null || !user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
-                userService.UserOpenedResearch(user, research);//sets active research for this user and initializes the cache
+                userService.userOpenedResearch(user, research);//sets active research for this user and initializes the cache
             }
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());

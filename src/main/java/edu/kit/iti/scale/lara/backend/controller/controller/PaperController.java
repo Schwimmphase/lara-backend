@@ -58,7 +58,7 @@ public class PaperController {
      *
      * @param id         id of the paper.
      * @param researchId id of the research.
-     * @param user       user that has send the request.
+     * @param user       user that has sent the request.
      * @return           the response body containing the paper with the status code 200. If the paper is not owned by
      *                   the user, the status code 403 is returned. If the paper is not found, the status code 400 is
      *                   returned.
@@ -93,7 +93,7 @@ public class PaperController {
      * @param id         id of the paper.
      * @param researchId id of the research.
      * @param tagId      id of the tag.
-     * @param user       user that has send the request.
+     * @param user       user that has sent the request.
      * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
      *                   status code 403 is returned. If the paper is not found, the status code 400 is returned. If the
      *                   paper already has this tag, the status code 409 is returned.
@@ -128,10 +128,10 @@ public class PaperController {
      * @param id         id of the paper.
      * @param researchId id of the research.
      * @param tagId      id of the tag.
-     * @param user       user that has send the request.
+     * @param user       user that has sent the request.
      * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
      *                   status code 403 is returned. If the paper is not found, the status code 400 is returned. If the
-     *                   paper does not has this tag, the status code 409 is returned.
+     *                   paper does not have this tag, the status code 409 is returned.
      */
     @DeleteMapping("/{id}/tag")
     public ResponseEntity<Void> paperTagRemove(@PathVariable @NotNull String id,
@@ -164,7 +164,7 @@ public class PaperController {
      * @param id             id of the paper.
      * @param researchId     id of the research.
      * @param commentRequest request body containing the comment.
-     * @param user           user that has send the request.
+     * @param user           user that has sent the request.
      * @return               the empty response body with the status code 200. If the paper is not owned by the user, the
      *                       status code 403 is returned. If the paper is not found, the status code 400 is returned.
      */
@@ -193,7 +193,7 @@ public class PaperController {
      * @param id         id of the paper.
      * @param researchId id of the research.
      * @param saveState  new save state.
-     * @param user       user that has send the request.
+     * @param user       user that has sent the request.
      * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
      *                   status code 403 is returned. If the paper is not found, the status code 400 is returned.
      */
@@ -222,7 +222,7 @@ public class PaperController {
      * @param id         id of the paper.
      * @param researchId id of the research.
      * @param relevance  new relevance.
-     * @param user       user that has send the request.
+     * @param user       user that has sent the request.
      * @return           the empty response body with the status code 200. If the paper is not owned by the user, the
      *                   status code 403 is returned. If the paper is not found, the status code 400 is returned.
      */
