@@ -10,6 +10,7 @@ import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class manages everything that falls under the context of a research
@@ -143,7 +145,12 @@ public class ResearchService {
      * @return a list of Cached Papers that hold the referenced papers
      */
     public List<CachedPaper> getReferences(Research research, List<Paper> papers) {
-        return recommendationService.getCachedReferences(research, papers);
+
+        List<Paper> hiddenPapers = getHiddenPapers(research);
+        List<CachedPaper> cachedReferences = recommendationService.getCachedReferences(research, papers);
+
+        cachedReferences.removeIf(cachedPaper -> hiddenPapers.contains(cachedPaper.getCachedPaperId().getPaper()));
+        return cachedReferences;
     }
 
     /**
@@ -155,7 +162,11 @@ public class ResearchService {
      * @return a list of Cached Papers that hold the citing papers
      */
     public List<CachedPaper> getCitations(Research research, List<Paper> papers) {
-        return recommendationService.getCachedCitations(research, papers);
+        List<Paper> hiddenPapers = getHiddenPapers(research);
+        List<CachedPaper> cachedCitations = recommendationService.getCachedCitations(research, papers);
+
+        cachedCitations.removeIf(cachedPaper -> hiddenPapers.contains(cachedPaper.getCachedPaperId().getPaper()));
+        return cachedCitations;
     }
 
     /**
@@ -165,7 +176,25 @@ public class ResearchService {
      * @return a list of papers that are related to the keyword
      * @throws IOException when there was an error getting the list of papers for this keyword
      */
-    public List<Paper> searchByKeyword(String keyword) throws IOException {
-        return apiActionController.getPapersByKeyword(keyword);
+    public List<Paper> searchByKeyword(String keyword, Research research) throws IOException {
+
+        List<Paper> hiddenPapers = getHiddenPapers(research);
+        List<Paper> papers = apiActionController.getPapersByKeyword(keyword);
+        papers.removeIf(hiddenPapers::contains);
+
+        return papers;
+    }
+
+    public List<Paper> getHiddenPapers(Research research) {
+        List<Paper> hiddenPapers = new ArrayList<>();
+        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
+
+        for (SavedPaper savedPaper : savedPapers) {
+            if (Objects.requireNonNull(savedPaper.getSaveState()) == SaveState.HIDDEN) {
+                hiddenPapers.add(savedPaper.getSavedPaperId().getPaper());
+            }
+        }
+        return hiddenPapers;
     }
 }
+

@@ -34,8 +34,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class contains all the rest api endpoints for papers and saved papers.
@@ -257,6 +259,7 @@ public class PaperController {
     @PostMapping("/{id}/recommendations")
     public ResponseEntity<Map<String, List<Paper>>> paperRecommendations(@PathVariable String id,
                                                                          @RequestParam @NotNull RecommendationMethod method,
+                                                                         @RequestAttribute("user") User user,
                                                                          @RequestBody @NotNull Map<String, List<OrganizerRequest>> request) {
         List<OrganizerRequest> organizers = request.getOrDefault("organizers", List.of());
         OrganizerList<Paper> organizerList = OrganizerList.createFromOrganizerRequests(organizers);
@@ -269,7 +272,11 @@ public class PaperController {
                 case REFERENCES -> apiActionController.getReferences(paper);
             };
 
+            List<Paper> hiddenPapers = researchService.getHiddenPapers(user.getActiveResearch());
+            papers.removeIf(hiddenPapers::contains);
             papers = organizerList.organize(papers);
+
+
             return ResponseEntity.ok(Map.of("recommendations", papers));
         } catch (NotInDataBaseException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper with this id not found");
@@ -278,3 +285,4 @@ public class PaperController {
         }
     }
 }
+

@@ -36,7 +36,11 @@ public class RecommendationService {
         if (positives.isEmpty()) {
             return List.of();
         }
-        return apiActionController.getRecommendations(positives, negatives);
+        List<Paper> recommendations = apiActionController.getRecommendations(positives, negatives);
+
+        //Filter out hidden papers
+        recommendations.removeIf(negatives::contains);
+        return recommendations;
     }
 
     /**
