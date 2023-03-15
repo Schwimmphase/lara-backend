@@ -1,6 +1,7 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.apicontroller.ApiActionController;
+import edu.kit.iti.scale.lara.backend.controller.repository.PaperRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
@@ -13,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +22,7 @@ public class RecommendationService {
 
     private final ApiActionController apiActionController;
     private final CacheService cacheService;
-
-    private final ExecutorService executorService = Executors.newFixedThreadPool(1);
+    private final PaperRepository paperRepository;
 
     /**
      * Gets a list of recommended papers based on a selection of positive papers and one of negative papers
@@ -75,7 +73,7 @@ public class RecommendationService {
      */
     public void paperAdded(Research research, Paper paper) {
         log.debug("Queuing cache update for paper " + paper.getPaperId());
-        executorService.submit(() -> {
+        CacheService.cacheThread.submit(() -> {
             log.debug("Updating cache for paper " + paper.getPaperId());
 
             try {
@@ -98,11 +96,13 @@ public class RecommendationService {
 
                 log.debug("Saving " + cachedPapers.size() + " cached papers for paper " + paper.getPaperId());
 
+                paperRepository.saveAll(citations);
+                paperRepository.saveAll(references);
                 cacheService.saveCachedPapers(cachedPapers);
 
                 log.debug("Finished saving " + cachedPapers.size() + " cached papers for paper " + paper.getPaperId());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error while updating cache for paper '" + paper.getPaperId() +  "'", e);
             }
 
             log.debug("Finished updating cache for paper " + paper.getPaperId());

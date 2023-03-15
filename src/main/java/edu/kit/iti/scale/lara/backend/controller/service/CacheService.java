@@ -11,10 +11,13 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPap
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * This class manages the CachedPaperRepository. To ensure convenient response-times the CachedPaperRepository saves
@@ -26,11 +29,13 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CacheService {
     private final CachedPaperRepository cachedPaperRepository;
     private final SavedPaperRepository savedPaperRepository;
     private final ApiActionController apiActionController;
     private final PaperRepository paperRepository;
+    public static final ExecutorService cacheThread = Executors.newFixedThreadPool(1);
 
     /**
      * This method is called everytime the user opens a new research.
@@ -40,27 +45,39 @@ public class CacheService {
      * saves them in the CachedPaperRepository
      *
      * @param research the research whose references and citations are to be cached
-     * @throws IOException if an error occurs getting the references and citations
      */
-    public void initializeCache(Research research) throws IOException {
+    public void initializeCache(Research research) {
+        log.debug("Queue cache initialize");
+        cacheThread.submit(() -> {
+            log.debug("Start cache initialize for research '" + research.getId() + "'");
 
-        //empty the cache for the user
-        List<CachedPaper> userCache = cachedPaperRepository.findByCachedPaperIdResearchUser(research.getUser());
-        cachedPaperRepository.deleteAllInBatch(userCache);
+            //empty the cache for the user
+            List<CachedPaper> userCache = cachedPaperRepository.findByCachedPaperIdResearchUser(research.getUser());
+            cachedPaperRepository.deleteAllInBatch(userCache);
 
-        //load the cache for this research
-        List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);//Todo: only get added papers
-        for (SavedPaper savedPaper : savedPapers) {
-            List<Paper> citations = apiActionController.getCitations(savedPaper.getSavedPaperId().getPaper());
-            List<Paper> references = apiActionController.getReferences(savedPaper.getSavedPaperId().getPaper());
+            //load the cache for this research
+            List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);//Todo: only get added papers
+            for (SavedPaper savedPaper : savedPapers) {
+                try {
+                    List<Paper> citations = apiActionController.getCitations(savedPaper.getSavedPaperId().getPaper());
+                    List<Paper> references = apiActionController.getReferences(savedPaper.getSavedPaperId().getPaper());
 
-            for (Paper paper : citations) {
-                createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.CITATION);
+                    paperRepository.saveAll(citations);
+                    paperRepository.saveAll(references);
+
+                    for (Paper paper : citations) {
+                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.CITATION);
+                    }
+                    for (Paper paper : references) {
+                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.REFERENCE);
+                    }
+                } catch (IOException e) {
+                    log.error("Error while initializing cache for research '" + research.getId() + "'", e);
+                }
             }
-            for (Paper paper : references) {
-                createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.REFERENCE);
-            }
-        }
+
+            log.debug("Finished cache initialize for research '" + research.getId() + "'");
+        });
     }
 
     /**
