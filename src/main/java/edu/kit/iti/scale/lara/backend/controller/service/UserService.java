@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -90,9 +89,8 @@ public class UserService implements UserDetailsService {
      *
      * @param user     the user who opened ze research
      * @param research the research the user opened
-     * @throws IOException when an error occurred getting the citations and references.
      */
-    public void userOpenedResearch(User user, Research research) throws IOException {
+    public void userOpenedResearch(User user, Research research) {
         cacheService.initializeCache(research);
         user.setActiveResearch(research);
         userRepository.save(user);

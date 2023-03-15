@@ -8,18 +8,21 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RecommendationService {
 
     private final ApiActionController apiActionController;
-    private final PaperRepository paperRepository;
     private final CacheService cacheService;
+    private final PaperRepository paperRepository;
 
     /**
      * Gets a list of recommended papers based on a selection of positive papers and one of negative papers
@@ -69,30 +72,41 @@ public class RecommendationService {
      * @param paper    the paper that was added
      */
     public void paperAdded(Research research, Paper paper) {
-        Thread cacheUpdateThread = new Thread(() -> {
-            try {
-                cacheService.deleteCachedPaper(paper, research);
-            } catch (NotInDataBaseException ignored) {
-            }
+        log.debug("Queuing cache update for paper " + paper.getPaperId());
+        CacheService.cacheThread.submit(() -> {
+            log.debug("Updating cache for paper " + paper.getPaperId());
 
             try {
+                cacheService.deleteCachedPaper(paper, research);
+            } catch (NotInDataBaseException ignored) {}
+
+            try {
+                List<CachedPaper> cachedPapers = new ArrayList<>();
                 List<Paper> citations = apiActionController.getCitations(paper);
                 List<Paper> references = apiActionController.getReferences(paper);
 
                 for (Paper citation : citations) {
-                    paperRepository.save(citation);
-                    cacheService.createCachedPaper(research, citation, paper, CachedPaperType.CITATION);
+                    cachedPapers.add(
+                            cacheService.createUnsavedCachedPaper(research, citation, paper, CachedPaperType.CITATION));
                 }
                 for (Paper reference : references) {
-                    paperRepository.save(reference);
-                    cacheService.createCachedPaper(research, reference, paper, CachedPaperType.REFERENCE);
+                    cachedPapers.add(
+                            cacheService.createUnsavedCachedPaper(research, reference, paper, CachedPaperType.REFERENCE));
                 }
+
+                log.debug("Saving " + cachedPapers.size() + " cached papers for paper " + paper.getPaperId());
+
+                paperRepository.saveAll(citations);
+                paperRepository.saveAll(references);
+                cacheService.saveCachedPapers(cachedPapers);
+
+                log.debug("Finished saving " + cachedPapers.size() + " cached papers for paper " + paper.getPaperId());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error while updating cache for paper '" + paper.getPaperId() +  "'", e);
             }
+
+            log.debug("Finished updating cache for paper " + paper.getPaperId());
         });
-        cacheUpdateThread.setName("lara - cache update " + paper.getPaperId());
-        cacheUpdateThread.start();
     }
 
     /**
