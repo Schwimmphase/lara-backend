@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
      * @param user     the user who opened ze research
      * @param research the research the user opened
      */
-    public void UserOpenedResearch(User user, Research research) {
+    public void userOpenedResearch(User user, Research research) {
         cacheService.initializeCache(research);
         user.setActiveResearch(research);
         userRepository.save(user);
