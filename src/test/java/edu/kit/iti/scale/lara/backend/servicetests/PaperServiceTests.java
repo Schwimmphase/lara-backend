@@ -175,6 +175,45 @@ public class PaperServiceTests {
     }
 
     @Test
+    public void testSameTagOnDifferentPapers() {
+        User user = createUser();
+        Research research = createResearch(user);
+        Author author = createAuthor();
+
+        Paper paper1 = new Paper("id1", "paper1", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(paper1);
+
+        Paper paper2 = new Paper("id2", "paper2", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(paper2);
+
+        SavedPaper savedPaper1 = null;
+        SavedPaper savedPaper2 = null;
+        try {
+            savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+            savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ADDED);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
+
+        Tag tag = new Tag("#0000FF", "Test-Tag", research);
+
+
+        paperService.addTagToPaper(savedPaper1, tag);
+        Assertions.assertThat(savedPaper1.getTags()).isEqualTo(List.of(tag));
+
+        paperService.addTagToPaper(savedPaper2, tag);
+        Assertions.assertThat(savedPaper2.getTags()).isEqualTo(List.of(tag));
+
+        paperService.removeTagFromPaper(savedPaper1, tag);
+        Assertions.assertThat(savedPaper1.getTags().isEmpty()).isEqualTo(true);
+
+        paperService.removeTagFromPaper(savedPaper2, tag);
+        Assertions.assertThat(savedPaper2.getTags().isEmpty()).isEqualTo(true);
+    }
+
+    @Test
     public void testCommentPaper() {
         User user = createUser();
         Research research = createResearch(user);
