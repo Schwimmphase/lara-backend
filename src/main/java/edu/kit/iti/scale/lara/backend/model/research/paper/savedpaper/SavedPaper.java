@@ -29,7 +29,7 @@ public class SavedPaper {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonUnwrapped
     private Comment comment;
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Tag> tags;
     private int relevance;
     private SaveState saveState;

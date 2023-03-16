@@ -1,10 +1,12 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
 import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
+import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.TagRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ import java.util.List;
 public class TagService {
 
     private final TagRepository tagRepository;
+
+    private final SavedPaperRepository savedPaperRepository;
 
     /**
      * Creates a new Tag and saves it in the TagRepository
@@ -89,7 +93,13 @@ public class TagService {
      *
      * @param tag the tag to be deleted
      */
-    public void deleteTag(Tag tag) {
+    public void deleteTag(Tag tag, Research research) throws IllegalArgumentException {
+        List<SavedPaper> researchPapers = savedPaperRepository.findBySavedPaperIdResearch(research);
+        for (SavedPaper savedPaper : researchPapers) {
+            if (savedPaper.getTags().contains(tag)) {
+                throw new IllegalArgumentException();
+            }
+        }
         tagRepository.delete(tag);
     }
 }

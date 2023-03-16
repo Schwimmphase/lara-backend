@@ -67,10 +67,12 @@ public class TagController {
     public ResponseEntity<Void> deleteTag(@PathVariable @NotNull String id, @RequestAttribute("user") User user) {
         try {
             Tag tag = tagService.getTag(id, user);
-            tagService.deleteTag(tag);
+            tagService.deleteTag(tag, user.getActiveResearch());
             return ResponseEntity.ok().build();
         } catch (NotInDataBaseException | WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Research not owned by user");
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot delete Tag because it is still attached to a paper");
         }
     }
 }

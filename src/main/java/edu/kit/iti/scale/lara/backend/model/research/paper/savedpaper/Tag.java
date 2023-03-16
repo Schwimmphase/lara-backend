@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,6 +31,9 @@ public class Tag {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore
     private Research research;
+
+    @ManyToMany
+    List<SavedPaper> savedPapers;
 
     /**
      * Constructs a new Tag
