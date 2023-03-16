@@ -299,7 +299,7 @@ class PaperControllerTest {
 
 
     @Test
-    public void testPaperTagRemovePaperdoesntContainTag() throws Exception {
+    public void testPaperTagRemovePaperDoesntContainTag() throws Exception {
         User user = mockUser();
 
         Research research = mockResearch(user);
@@ -520,8 +520,6 @@ class PaperControllerTest {
     public void testPaperRelevanceWrongUser() throws Exception {
         User user = mockUser();
 
-        Research research = mockResearch(user);
-
         given(researchService.getResearch(anyString(), eq(user))).willThrow(WrongUserException.class);
 
         mvc.perform(patch("/paper/test-id/relevance")
@@ -565,16 +563,19 @@ class PaperControllerTest {
         Paper paperOne = mockPaper();
         Paper paperTwo = mockPaper();
 
-        List<Paper> papers = List.of(paperOne, paperTwo);
+        List<Paper> papers = new ArrayList<>();
+
+        papers.add(paperOne);
+        papers.add(paperTwo);
 
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment("test-comment"), 3, SaveState.ADDED);
 
         research.addSavedPaper(savedPaper);
 
-        given(paperService.getPaper("test-id", true)).willReturn(paper);
-        given(apiActionController.getRecommendations(List.of(paper), List.of())).willReturn(papers);
-        given(apiActionController.getCitations(paper)).willReturn(papers);
-        given(apiActionController.getReferences(paper)).willReturn(papers);
+        given(paperService.getPaper(eq("test-id"), eq(true))).willReturn(paper);
+        given(apiActionController.getRecommendations(eq(List.of(paper)), eq(List.of()))).willReturn(papers);
+        given(apiActionController.getCitations(eq(paper))).willReturn(papers);
+        given(apiActionController.getReferences(eq(paper))).willReturn(papers);
 
         List<RecommendationMethod> methods = List.of(RecommendationMethod.ALGORITHM, RecommendationMethod.REFERENCES, RecommendationMethod.CITATIONS);
 
@@ -582,6 +583,7 @@ class PaperControllerTest {
             mvc.perform(post("/paper/test-id/recommendations")
                             .contentType(MediaType.APPLICATION_JSON)
                             .param("method", String.valueOf(methods.get(i)))
+                            .requestAttr("user", user)
                             .content("{\"organizers\":[]}")
                             .with(jwt()))
                     .andExpect(status().isOk());
@@ -590,6 +592,7 @@ class PaperControllerTest {
 
     @Test
     public void testPaperRecommendationsWrongPaper() throws Exception {
+        User user = mockUser();
 
         given(paperService.getPaper("test-id", true)).willThrow(NotInDataBaseException.class);
 
@@ -599,6 +602,7 @@ class PaperControllerTest {
             mvc.perform(post("/paper/test-id/recommendations")
                             .contentType(MediaType.APPLICATION_JSON)
                             .param("method", String.valueOf(methods.get(i)))
+                            .requestAttr("user", user)
                             .content("{\"organizers\":[]}")
                             .with(jwt()))
                     .andExpect(status().isBadRequest());
@@ -628,6 +632,7 @@ class PaperControllerTest {
             mvc.perform(post("/paper/test-id/recommendations")
                             .contentType(MediaType.APPLICATION_JSON)
                             .param("method", String.valueOf(methods.get(i)))
+                            .requestAttr("user", user)
                             .content("{\"organizers\":[]}")
                             .with(jwt()))
                     .andExpect(status().isInternalServerError());
