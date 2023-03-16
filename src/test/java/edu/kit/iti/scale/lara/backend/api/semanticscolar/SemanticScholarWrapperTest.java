@@ -2,7 +2,9 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.kit.iti.scale.lara.backend.api.ApiPaper;
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -88,5 +90,12 @@ class SemanticScholarWrapperTest {
         assertNotNull(paper.get(0).pdfUrl());
         assertNotNull(paper.get(0).venue());
         assertNotNull(paper.get(0).abstractText());
+    }
+
+    @Test
+    void convertToPaperNullId() throws JSONException, JsonProcessingException {
+        String jsonPaper = "{\"paperId\": null, \"title\": \"test-title\", \"abstract\": \"test-abstract\", \"venue\": \"test-venue\", \"year\": 42069, \"referenceCount\": 69, \"citationCount\": 69, \"openAccessPdf\": null, \"authors\": []}";
+        List<ApiPaper> apiPapers = new SemanticScholarWrapper().convertToPaper(jsonPaper);
+        assertEquals(List.of(), apiPapers);
     }
 }
