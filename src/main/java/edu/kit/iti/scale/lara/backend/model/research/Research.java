@@ -43,13 +43,13 @@ public class Research {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore
     private User user;
-    @OneToMany(mappedBy = "savedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "savedPaperId.research")
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @OneToMany(mappedBy = "cachedPaperId.research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cachedPaperId.research")
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
-    @OneToMany(mappedBy = "research", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "research")
     @JsonIgnore
     private List<Tag> tags;
 
