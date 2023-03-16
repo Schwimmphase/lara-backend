@@ -14,10 +14,13 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.Tag;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class is used to manage all Papers and SavedPapers
@@ -26,6 +29,7 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PaperService {
 
     private final PaperRepository paperRepository;
@@ -33,6 +37,7 @@ public class PaperService {
     private final CachedPaperRepository cachedPaperRepository;
     private final RecommendationService recommendationService;
     private final ApiActionController apiActionController;
+    private static final Map<String, Object> keyLocks = new ConcurrentHashMap<>();
 
     /**
      * Saves a paper to the PaperRepository
@@ -40,7 +45,7 @@ public class PaperService {
      * @param paper the paper to be saved
      */
     public void savePaperToDataBase(Paper paper) {
-        if (!paperRepository.existsById(paper.getPaperId())) {
+        synchronized (keyLocks.computeIfAbsent(paper.getPaperId(), k -> new Object())) {
             paperRepository.save(paper);
         }
     }
