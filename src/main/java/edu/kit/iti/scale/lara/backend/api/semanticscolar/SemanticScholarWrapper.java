@@ -29,14 +29,15 @@ public class SemanticScholarWrapper implements ApiWrapper {
 
         SemanticScholarPaper paper = objectMapper.readValue(response, SemanticScholarPaper.class);
 
+        if (paper.id() == null) {
+            return new ArrayList<>();
+        } else {
+
         // changing ID from SemanticScholar id to our lara ID: S2${SemanticScholarID}
         ApiPaper apiPaper = new ApiPaper(getAuthors(paper), idParser.encodedId(API_PREFIX, paper.id()), paper.title(),
                 paper.year(), paper.abstractText(), paper.citationCount(), paper.referenceCount(), paper.venue(),
                 paper.openAccessPdf() == null ? getArXivPdf(paper) : getPdf(paper));
 
-        if (apiPaper.id() == null) {
-            return new ArrayList<>();
-        } else {
             return List.of(apiPaper);
         }
     }
