@@ -41,8 +41,11 @@ public class ResearchController {
     @PostMapping("")
     public ResponseEntity<Research> createResearch(@RequestBody @NotNull ResearchRequest request,
                                                    @RequestAttribute("user") User user) {
-        if (request.title().equals("")) {
+        if (request.title().matches("( )*")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Research must have a title");
+        }
+        if(request.title().length() > 25) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The maximum length for a title is 25");
         }
         Research research = researchService.createResearch(user, request.title(), request.description());
 
@@ -62,6 +65,14 @@ public class ResearchController {
                                                    @RequestAttribute("user") User user) {
         try {
             Research research = researchService.getResearch(researchId, user);
+
+            if (request.title().matches("( )*")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Research must have a title");
+            }
+            if(request.title().length() > 25) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The maximum length for a title is 25");
+            }
+
             researchService.updateResearch(research, request.title(), request.description());
             return ResponseEntity.ok(research);
         } catch (NotInDataBaseException e) {
