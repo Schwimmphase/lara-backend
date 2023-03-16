@@ -20,6 +20,8 @@ public class SemanticScholarCaller implements ApiCaller {
     public SemanticScholarCaller() {
         client = new OkHttpClient().newBuilder()
                 .callTimeout(Duration.of(60, ChronoUnit.SECONDS))
+                .connectTimeout(Duration.of(60, ChronoUnit.SECONDS))
+                .readTimeout(Duration.of(60, ChronoUnit.SECONDS))
                 .build();
     }
 
