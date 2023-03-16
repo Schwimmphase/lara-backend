@@ -4,13 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,13 +39,13 @@ public class Paper {
     private String venue;
     @Column(length = 1000)
     private String pdfUrl;
-    @OneToMany(mappedBy = "cachedPaperId.paper", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cachedPaperId.paper")
     @JsonIgnore
     private List<CachedPaper> cachedPapers;
-    @OneToMany(mappedBy = "savedPaperId.paper", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "savedPaperId.paper")
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Author> authors;
 
     /**
