@@ -88,7 +88,7 @@ public class TagServiceTests {
 
         Tag tag = tagService.createTag("0000FF", "test-tag", research);
 
-        tagService.deleteTag(tag);
+        tagService.deleteTag(tag, research);
 
         boolean exceptionThrown = false;
         try {

@@ -135,7 +135,7 @@ public class TagControllerTests {
     }
 
     private void mockDeleteTag() {
-        doNothing().when(tagService).deleteTag(any(Tag.class));
+        doNothing().when(tagService).deleteTag(any(Tag.class), any(Research.class));
     }
 
 }
