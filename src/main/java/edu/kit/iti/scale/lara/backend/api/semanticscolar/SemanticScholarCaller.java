@@ -2,22 +2,26 @@ package edu.kit.iti.scale.lara.backend.api.semanticscolar;
 
 import edu.kit.iti.scale.lara.backend.api.ApiCaller;
 import edu.kit.iti.scale.lara.backend.api.HttpMethod;
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import okhttp3.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class SemanticScholarCaller implements ApiCaller {
 
     private static final int HTTP_STATE_OK = 200;
 
+    private final OkHttpClient client;
+
+    public SemanticScholarCaller() {
+        client = new OkHttpClient().newBuilder()
+                .callTimeout(Duration.of(60, ChronoUnit.SECONDS))
+                .build();
+    }
 
     @Override
     public String call(String url, HttpMethod method, JSONObject jsonBody) throws IOException {
@@ -33,7 +37,6 @@ public class SemanticScholarCaller implements ApiCaller {
             request = new Request.Builder().url(new URL(url)).build();
         }
 
-        OkHttpClient client = new OkHttpClient();
         Call call = client.newCall(request);
         Response response = call.execute();
 
