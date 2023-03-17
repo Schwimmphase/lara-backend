@@ -2,6 +2,11 @@ package edu.kit.iti.scale.lara.backend.api;
 
 import java.util.regex.Pattern;
 
+/**
+ * Class for parsing the IDs. The IDs are encoded with the API prefix and a separator.
+ *
+ * @author uefjv
+ */
 public class IdParser {
 
     private static final String SEPARATOR = "$";

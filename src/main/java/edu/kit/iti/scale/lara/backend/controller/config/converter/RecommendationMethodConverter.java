@@ -12,7 +12,8 @@ import java.util.Arrays;
 public class RecommendationMethodConverter implements Converter<String, RecommendationMethod> {
     @Override
     public RecommendationMethod convert(@NotNull String source) {
-        if (Arrays.stream(RecommendationMethod.values()).noneMatch(recommendationMethod -> recommendationMethod.name().equals(source.toUpperCase()))) {
+        if (Arrays.stream(RecommendationMethod.values())
+                .noneMatch(recommendationMethod -> recommendationMethod.name().equals(source.toUpperCase()))) {
             throw new IllegalArgumentException("Invalid recommendation method: " + source.toUpperCase());
         }
         return RecommendationMethod.valueOf(source.toUpperCase());

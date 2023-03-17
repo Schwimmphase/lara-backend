@@ -2,6 +2,11 @@ package edu.kit.iti.scale.lara.backend.model.organizer.sorting;
 
 import java.util.Optional;
 
+/**
+ * This enum represents the sorting direction.
+ *
+ * @author ukgcc, unqkm
+ */
 public enum SortingDirection {
     ASCENDING("ascending"),
     DESCENDING("descending");

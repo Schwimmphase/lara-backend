@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * This sorter sorts a list of papers by their reference count.
+ *
+ * @param <T> the type paper
+ * @author unqkm
+ */
 @NamedOrganizer("reference-count-sorter")
 public class ReferenceCountSorter<T extends Paper> extends Sorter<T> {
 

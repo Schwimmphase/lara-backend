@@ -1,6 +1,5 @@
 package edu.kit.iti.scale.lara.backend.controller.service;
 
-import edu.kit.iti.scale.lara.backend.controller.repository.ResearchRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.TagRepository;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
@@ -28,7 +27,7 @@ public class TagService {
     private final SavedPaperRepository savedPaperRepository;
 
     /**
-     * Creates a new Tag and saves it in the TagRepository
+     * Creates a new Tag and saves it in the {@link TagRepository}.
      *
      * @param color    the color of the tag in hex as a String
      * @param name     the name of the tag
@@ -42,7 +41,7 @@ public class TagService {
     }
 
     /**
-     * Returns the tag with the given id if it belongs to the users active research
+     * Returns the tag with the given id if it belongs to the users active research.
      *
      * @param tagId the id of the tag
      * @param user  the user who requested this tag
@@ -64,7 +63,7 @@ public class TagService {
     }
 
     /**
-     * Finds all tags that belong to a certain research
+     * Finds all tags that belong to a certain research.
      *
      * @param research the research whose tags are wanted
      * @return the tags that belong to this research
@@ -74,7 +73,7 @@ public class TagService {
     }
 
     /**
-     * Updates a tag by assigning a new name and a new color
+     * Updates a tag by assigning a new name and a new color.
      *
      * @param tag      the tag to be updated
      * @param newName  the new name
@@ -89,7 +88,7 @@ public class TagService {
     }
 
     /**
-     * Deletes a tag from the TagRepository
+     * Deletes a tag from the {@link TagRepository}.
      *
      * @param tag the tag to be deleted
      */

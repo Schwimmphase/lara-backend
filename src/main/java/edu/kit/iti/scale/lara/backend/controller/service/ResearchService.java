@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This class manages everything that falls under the context of a research
+ * This class manages everything that falls under the context of a research.
  *
  * @author ukgcc
  */
@@ -53,7 +53,7 @@ public class ResearchService {
 
     /**
      * Finds a research with the given in the Research Repository and checks if the user is the one
-     * the research belongs to
+     * the research belongs to.
      *
      * @param researchId the id of the research
      * @param user       the user
@@ -75,7 +75,7 @@ public class ResearchService {
     }
 
     /**
-     * Finds all researches a user created
+     * Finds all researches a user created.
      *
      * @param user the user whose researches are to be found
      * @return the researches of the user
@@ -85,7 +85,7 @@ public class ResearchService {
     }
 
     /**
-     * Updates a research by assigning a new title and a new description
+     * Updates a research by assigning a new title and a new description.
      *
      * @param research       the research to be updated
      * @param newTitle       the new title
@@ -100,7 +100,7 @@ public class ResearchService {
 
     /**
      * Deletes a research from the Research ResearchRepository and sets the active research for the user to null
-     * if it was the deleted research
+     * if it was the deleted research.
      *
      * @param research the research to be deleted
      * @param user     the user the research belongs to
@@ -115,7 +115,7 @@ public class ResearchService {
 
     /**
      * Gets recommendations of potentially interesting papers for the research based on already added and hidden
-     * papers
+     * papers.
      *
      * @param research the research to get recommendations for
      * @return a list of recommended papers
@@ -138,7 +138,7 @@ public class ResearchService {
 
     /**
      * Finds all references from the list of papers. To optimize runtime the papers are already saved as
-     * CachedPapers and only need to be found in the CachedPaperRepository
+     * CachedPapers and only need to be found in the CachedPaperRepository.
      *
      * @param research the research references are to be found for
      * @param papers   the papers whose references are to be found
@@ -155,7 +155,7 @@ public class ResearchService {
 
     /**
      * Finds all citations from the list of papers. To optimize runtime the papers are already saved as
-     * CachedPapers and only need to be found in the CachedPaperRepository
+     * CachedPapers and only need to be found in the CachedPaperRepository.
      *
      * @param research the research citations are to be found for
      * @param papers   the papers whose citations are to be found
@@ -170,7 +170,7 @@ public class ResearchService {
     }
 
     /**
-     * Finds papers based on a keyword
+     * Finds papers based on a keyword.
      *
      * @param keyword the keyword to search for
      * @return a list of papers that are related to the keyword

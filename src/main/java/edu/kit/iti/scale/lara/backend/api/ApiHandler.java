@@ -5,6 +5,11 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Interface for the API handler
+ *
+ * @author uefjv
+ */
 public interface ApiHandler {
 
     List<ApiPaper> getPapersByKeyword(String query) throws IOException, JSONException;

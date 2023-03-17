@@ -8,6 +8,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * This sorter sorts a list of papers by their year.
+ * @param <T> the type paper
+ *
+ * @author ukgcc, unqkm
+ */
 @NamedOrganizer("year-sorter")
 public class YearSorter<T extends Paper> extends Sorter<T> {
 

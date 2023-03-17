@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This class represents a list of organizers.
+ * @param <T> the type of the elements to be organized
+ *
+ * @author unqkm, ukgcc
+ */
 public class OrganizerList<T> {
 
     private List<Organizer<T>> organizers = new ArrayList<>();

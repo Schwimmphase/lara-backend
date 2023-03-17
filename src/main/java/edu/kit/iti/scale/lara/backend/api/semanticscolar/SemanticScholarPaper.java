@@ -6,6 +6,11 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a Paper from Semantic Scholar
+ *
+ * @author unqkm
+ */
 public record SemanticScholarPaper(
         @JsonProperty("authors")
         List<Author> authors,
