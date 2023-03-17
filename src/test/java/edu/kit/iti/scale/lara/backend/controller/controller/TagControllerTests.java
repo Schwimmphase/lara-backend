@@ -244,25 +244,6 @@ public class TagControllerTests {
                 .andExpect(status().isForbidden());
     }
 
-    /*
-    @Test
-    public void testDeleteTagStillUsed() throws Exception {
-        mockGetTag();
-
-        // TODO: doesnt throw Exception
-        doThrow(new IllegalArgumentException()).when(tagService).deleteTag(any(Tag.class), any(Research.class));
-        //willThrow(IllegalArgumentException.class).given(tagService).deleteTag(any(Tag.class), any(Research.class));
-        assertThrows(IllegalArgumentException.class, () -> {
-            tagService.deleteTag(any(Tag.class), any(Research.class));
-        });
-
-        mvc.perform(delete("/tag/id12345")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .requestAttr("user", user())
-                        .with(jwt()))
-                .andExpect(status().isBadRequest());
-    }*/
-
     private void mockGetResearch() throws NotInDataBaseException, WrongUserException {
         given(researchService.getResearch(anyString(), any(User.class))).willAnswer(invocation -> research());
     }
