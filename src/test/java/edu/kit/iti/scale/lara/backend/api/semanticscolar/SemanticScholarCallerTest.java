@@ -62,6 +62,19 @@ class SemanticScholarCallerTest {
     }
 
     @Test
+    public void testInvalidCallRequest() throws IOException {
+        String url = "https://api.semanticscholar.org/graph/v1/paper/search?query=literature+graph&fields=authors,tSOME_INVALID_PARTear,citationCount,referenceCount,abstract,url";
+        HttpMethod method = HttpMethod.GET;
+        try {
+            String response = new SemanticScholarCaller().call(url, method, null);
+            assertEquals("test failed", response);
+        }
+        catch (RuntimeException e) {
+
+        }
+    }
+
+    @Test
     void callGetRequestSearch() throws IOException {
 
         // set up Search request
