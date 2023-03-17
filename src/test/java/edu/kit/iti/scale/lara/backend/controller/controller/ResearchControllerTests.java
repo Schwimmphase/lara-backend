@@ -1,6 +1,5 @@
 package edu.kit.iti.scale.lara.backend.controller.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.config.RsaKeyProperties;
 import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
@@ -13,7 +12,7 @@ import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.user.User;
-import org.checkerframework.common.value.qual.StaticallyExecutable;
+import org.aspectj.weaver.ast.Not;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static edu.kit.iti.scale.lara.backend.TestObjects.*;
@@ -133,6 +131,40 @@ public class ResearchControllerTests {
     }
 
     @Test
+    public void testUpdateResearchInvalidResearchId() throws Exception {
+
+        JSONObject request = new JSONObject();
+        request.put("title", "new-title");
+        request.put("description", "new-description");
+
+        given(researchService.getResearch(eq("invalid-id"), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(patch("/research/invalid-id")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testUpdateResearchWrongUser() throws Exception {
+
+        JSONObject request = new JSONObject();
+        request.put("title", "new-title");
+        request.put("description", "new-description");
+
+        given(researchService.getResearch(eq("id12345"), any())).willThrow(WrongUserException.class);
+
+        mvc.perform(patch("/research/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testDeleteResearch() throws Exception {
         mockGetResearch();
         mockDeleteResearch();
@@ -145,9 +177,33 @@ public class ResearchControllerTests {
     }
 
     @Test
+    public void testDeleteResearchInvalidId() throws Exception {
+
+        given(researchService.getResearch(eq("invalid-id"), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(delete("/research/invalid-id")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect((status().isForbidden()));
+    }
+
+    @Test
+    public void testDeleteResearchWrongUser() throws Exception {
+
+        given(researchService.getResearch(anyString(), any(User.class))).willThrow(WrongUserException.class);
+
+        mvc.perform(delete("/research/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect((status().isForbidden()));
+    }
+
+    @Test
     public void testSavePaper() throws Exception {
         mockGetResearch();
-        mockGetPaper();
+        mockGetPaperById();
         mockCreateSavedPaper();
 
         mvc.perform(put("/research/id12345/paper")
@@ -160,9 +216,68 @@ public class ResearchControllerTests {
     }
 
     @Test
-    public void testDeletePaper() throws Exception {
+    public void testSavePaperInvalidResearchId() throws Exception {
+
+        given(researchService.getResearch(eq("invalid-id"), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(put("/research/invalid-id/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("paperId", "12345")
+                        .param("state", SaveState.ADDED.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testSavePaperInvalidPaperId() throws Exception {
+        mockGetResearch();
+
+        given(paperService.getPaper(eq("invalid-id"), eq(true))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(put("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("paperId", "invalid-id")
+                        .param("state", SaveState.ADDED.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testSavePaperWrongUser() throws Exception {
+
+        given(researchService.getResearch(eq("id12345"), any(User.class))).willThrow(WrongUserException.class);
+
+        mvc.perform(put("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("paperId", "test-id")
+                        .param("state", SaveState.ADDED.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testSavePaperIOError() throws Exception {
         mockGetResearch();
         mockGetPaper();
+
+        given(paperService.createSavedPaper(any(Research.class), any(Paper.class), any(SaveState.class))).willThrow(IOException.class);
+
+        mvc.perform(put("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("paperId", "test-id")
+                        .param("state", SaveState.ADDED.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void testDeletePaper() throws Exception {
+        mockGetResearch();
+        mockGetPaperById();
         mockGetSavedPaper();
 
         mvc.perform(delete("/research/id12345/paper")
@@ -171,6 +286,42 @@ public class ResearchControllerTests {
                         .param("paperId", "12345")
                         .with(jwt()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeletePaperInvalidResearchId() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(delete("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("paperId", "12345")
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testDeletePaperInvalidPaperId() throws Exception {
+        given(paperService.getPaper(any(String.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(delete("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("paperId", "12345")
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testDeletePaperWrongUser() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+        mvc.perform(delete("/research/id12345/paper")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("paperId", "12345")
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -186,6 +337,29 @@ public class ResearchControllerTests {
                 .andExpect(jsonPath("$.tags[0].id").value("id12345"))
                 .andExpect(jsonPath("$.tags[0].name").value("test-tag"))
                 .andExpect(jsonPath("$.tags[0].color").value("test-color"));
+    }
+
+    @Test
+    public void testResearchTagsInvalidResearchId() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(get("/research/id12345/tags")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testResearchTagsWrongUser() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+
+        mvc.perform(get("/research/id12345/tags")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -207,6 +381,31 @@ public class ResearchControllerTests {
     }
 
     @Test
+    public void testResearchPapersInvalidResearchId() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(post("/research/id12345/papers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testResearchPapersWrongUser() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+
+        mvc.perform(post("/research/id12345/papers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testResearchRecommendations() throws Exception {
         mockGetResearch();
         mockGetAddedPapers();
@@ -221,6 +420,76 @@ public class ResearchControllerTests {
                         .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
                         .with(jwt()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testResearchRecommendationsInvalidResearchId() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(post("/research/id12345/recommendations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("method", RecommendationMethod.ALGORITHM.toString())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testResearchRecommendationsWrongUser() throws Exception {
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+        mvc.perform(post("/research/id12345/recommendations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("method", RecommendationMethod.ALGORITHM.toString())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testResearchRecommendationsIOError() throws Exception {
+        mockGetResearch();
+        mockGetAddedPapers();
+        mockGetCitations();
+        mockGetReferences();
+
+        given(researchService.getRecommendations(any(Research.class))).willThrow(IOException.class);
+
+        mvc.perform(post("/research/id12345/recommendations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .param("method", RecommendationMethod.ALGORITHM.toString())
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .with(jwt()))
+                .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void testResearchSearch() throws Exception {
+        mockSearchByKeyword();
+
+        mvc.perform(post("/research/search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("query", "test-query")
+                .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                .requestAttr("user", user())
+                .with(jwt()))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testResearchSearchIOError() throws Exception {
+        given(researchService.searchByKeyword(any(String.class), any())).willThrow(IOException.class);
+
+        mvc.perform(post("/research/search")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("query", "test-query")
+                        .content(JSONObject.wrap(Map.of("organizers", List.of())).toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isInternalServerError());
     }
 
     private void mockCreateResearch() {
@@ -250,8 +519,12 @@ public class ResearchControllerTests {
         doNothing().when(researchService).deleteResearch(any(Research.class), any(User.class));
     }
 
-    private void mockGetPaper() throws NotInDataBaseException {
+    private void mockGetPaperById() throws NotInDataBaseException {
         given(paperService.getPaper(anyString())).willAnswer(invocation -> paper());
+    }
+
+    private void mockGetPaper() throws NotInDataBaseException {
+        given(paperService.getPaper(any(String.class), eq(true))).willAnswer(invocation -> paper());
     }
 
     private void mockCreateSavedPaper() throws IOException {
@@ -288,6 +561,10 @@ public class ResearchControllerTests {
 
     private void mockGetReferences() throws IOException {
         given(researchService.getCitations(any(Research.class), any())).willAnswer(invocation -> List.of(paper()));
+    }
+
+    private void mockSearchByKeyword() throws IOException {
+        given(researchService.searchByKeyword(any(String.class), any(Research.class))).willAnswer(invocation -> List.of(paper()));
     }
 }
 
