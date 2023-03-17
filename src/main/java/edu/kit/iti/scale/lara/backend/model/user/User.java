@@ -38,6 +38,7 @@ public class User {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private UserCategory userCategory;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Research> researches;
 
     /**
