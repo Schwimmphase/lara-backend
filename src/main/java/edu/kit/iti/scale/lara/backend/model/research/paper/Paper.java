@@ -45,7 +45,7 @@ public class Paper {
     @OneToMany(mappedBy = "savedPaperId.paper")
     @JsonIgnore
     private List<SavedPaper> savedPapers;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Author> authors;
 
     /**
