@@ -131,6 +131,40 @@ public class ResearchControllerTests {
     }
 
     @Test
+    public void testUpdateResearchEmptyTitle() throws Exception {
+        mockGetResearch();
+        mockUpdateResearch();
+
+        JSONObject request = new JSONObject();
+        request.put("title", "");
+        request.put("description", "new-description");
+
+        mvc.perform(patch("/research/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testUpdateResearchLongTitle() throws Exception {
+        mockGetResearch();
+        mockUpdateResearch();
+
+        JSONObject request = new JSONObject();
+        request.put("title", "ThisTitleIsLongerThan25Symbols");
+        request.put("description", "new-description");
+
+        mvc.perform(patch("/research/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void testUpdateResearchInvalidResearchId() throws Exception {
 
         JSONObject request = new JSONObject();
@@ -203,7 +237,7 @@ public class ResearchControllerTests {
     @Test
     public void testSavePaper() throws Exception {
         mockGetResearch();
-        mockGetPaperById();
+        mockGetPaper();
         mockCreateSavedPaper();
 
         mvc.perform(put("/research/id12345/paper")
@@ -277,7 +311,7 @@ public class ResearchControllerTests {
     @Test
     public void testDeletePaper() throws Exception {
         mockGetResearch();
-        mockGetPaperById();
+        mockGetPaper();
         mockGetSavedPaper();
 
         mvc.perform(delete("/research/id12345/paper")
@@ -519,12 +553,12 @@ public class ResearchControllerTests {
         doNothing().when(researchService).deleteResearch(any(Research.class), any(User.class));
     }
 
-    private void mockGetPaperById() throws NotInDataBaseException {
+    private void mockGetPaper() throws NotInDataBaseException {
         given(paperService.getPaper(anyString())).willAnswer(invocation -> paper());
     }
 
-    private void mockGetPaper() throws NotInDataBaseException {
-        given(paperService.getPaper(any(String.class), eq(true))).willAnswer(invocation -> paper());
+    private void mockGetPaperLookInApi() throws NotInDataBaseException {
+        given(paperService.getPaper(anyString(), anyBoolean())).willAnswer(invocation -> paper());
     }
 
     private void mockCreateSavedPaper() throws IOException {
@@ -555,11 +589,11 @@ public class ResearchControllerTests {
         given(researchService.getRecommendations(any(Research.class))).willAnswer(invocation -> List.of(paper()));
     }
 
-    private void mockGetCitations() throws IOException {
+    private void mockGetCitations() {
         given(researchService.getCitations(any(Research.class), any())).willAnswer(invocation -> List.of(paper()));
     }
 
-    private void mockGetReferences() throws IOException {
+    private void mockGetReferences() {
         given(researchService.getCitations(any(Research.class), any())).willAnswer(invocation -> List.of(paper()));
     }
 
