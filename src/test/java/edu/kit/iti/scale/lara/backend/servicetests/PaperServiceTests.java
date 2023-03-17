@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @InMemoryTest
 public class PaperServiceTests {
 
@@ -111,6 +113,29 @@ public class PaperServiceTests {
     }
 
     @Test
+    public void testDeleteSavedPaper() {
+        User user = createUser();
+        Research research = createResearch(user);
+        Author author = createAuthor();
+
+        Paper paper = new Paper("id", "paper", 2023, "abstract",
+                0, 0, "venue", "url", List.of(author));
+        paperService.savePaperToDataBase(paper);
+
+        SavedPaper savedPaper = null;
+        try {
+            savedPaper = paperService.createSavedPaper(research, paper, SaveState.ADDED);
+
+            paperService.deleteSavedPaper(research, savedPaper);
+
+            assertThrows(NotInDataBaseException.class, () -> paperService.getSavedPaper(user, paper, research));
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
+
+    }
+
+    @Test
     public void testGetSavedPapers() {
         User user = createUser();
         Research research = createResearch(user);
@@ -146,6 +171,46 @@ public class PaperServiceTests {
         } catch (WrongUserException e) {
             Assertions.fail("User isn´t allowed to access this research");
         }
+    }
+
+    @Test
+    public void testGetAddedPapers() {
+
+        User user = createUser();
+        Research research = createResearch(user);
+        Author author = createAuthor();
+
+        Paper paper1 = new Paper("id1", "paper1", 2023, "abstract1",
+                0, 0, "venue1", "url1", List.of(author));
+        paperService.savePaperToDataBase(paper1);
+
+        Paper paper2 = new Paper("id2", "paper2", 2023, "abstract2",
+                0, 0, "venue2", "url2", List.of(author));
+        paperService.savePaperToDataBase(paper2);
+
+        Paper paper3 = new Paper("id3", "paper3", 2023, "abstract3",
+                0, 0, "venue3", "url3", List.of(author));
+        paperService.savePaperToDataBase(paper3);
+
+        SavedPaper savedPaper1 = null;
+        SavedPaper savedPaper2 = null;
+        SavedPaper savedPaper3 = null;
+
+        try {
+            savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+            savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.ENQUEUED);
+            savedPaper3 = paperService.createSavedPaper(research, paper3, SaveState.HIDDEN);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
+
+        try {
+            List<Paper> addedPapers = paperService.getAddedPapers(research, user);
+            Assertions.assertThat(addedPapers).isEqualTo(List.of(paper1));
+        } catch (WrongUserException e) {
+            Assertions.fail("User isn´t allowed to access this research");
+        }
+
     }
 
     @Test

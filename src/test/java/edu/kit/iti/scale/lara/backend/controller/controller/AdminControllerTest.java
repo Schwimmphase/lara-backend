@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static edu.kit.iti.scale.lara.backend.TestObjects.user;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -406,10 +407,38 @@ public class AdminControllerTest {
 
         doNothing().when(userCategoryService).deleteCategory(any(UserCategory.class));
 
-        mvc.perform(delete("/usermanagement/id12345")
+        mvc.perform(delete("/usermanagement/category/id12345")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(jwt()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteCategoryNotPossible() throws Exception {
+        mockGetCategoryValid();
+
+        given(userService.getUsersByUserCategory(any(UserCategory.class))).willAnswer(invocation -> List.of(user()));
+
+        mvc.perform(delete("/usermanagement/category/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testDeleteCategoryWrongCategory() throws Exception {
+        mockGetCategoryNotValid();
+
+        mvc.perform(delete("/usermanagement/category/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    private void mockGetCategoryNotValid() throws NotInDataBaseException {
+        given(userCategoryService.getUserCategory(anyString())).willAnswer(invocation -> {
+            throw new NotInDataBaseException();
+        });
     }
 
 

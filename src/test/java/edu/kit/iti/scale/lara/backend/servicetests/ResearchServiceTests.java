@@ -1,21 +1,33 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
+import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserCategoryRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
+import edu.kit.iti.scale.lara.backend.controller.service.CacheService;
+import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
 import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
+import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.cachedpaper.CachedPaperType;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
 import java.util.List;
+
+import static edu.kit.iti.scale.lara.backend.TestObjects.*;
 
 @InMemoryTest
 public class ResearchServiceTests {
@@ -27,6 +39,12 @@ public class ResearchServiceTests {
 
     @Autowired
     ResearchService researchService;
+
+    @Autowired
+    private PaperService paperService;
+
+    @Autowired
+    CacheService cacheService;
 
     @Test
     public void testCreateAndGetResearch() {
@@ -90,6 +108,83 @@ public class ResearchServiceTests {
 
         Assertions.assertThat(researchService.getRecommendations(research)).isEqualTo(List.of());
     }
+
+    @Test
+    public void testGetReferences() {
+        User user = createUser();
+        Research research = researchService.createResearch(user, "test-research", "test-description");
+
+        Paper paper1 = new Paper("id1", "paper1", 2023, "abstract1",
+                0, 0, "venue1", "url1", List.of());
+        paperService.savePaperToDataBase(paper1);
+
+        Paper paper2 = new Paper("id2", "paper2", 2023, "abstract2",
+                0, 0, "venue2", "url2", List.of());
+        paperService.savePaperToDataBase(paper2);
+
+        SavedPaper savedPaper1 = null;
+        SavedPaper savedPaper2 = null;
+        CachedPaper cachedPaper1 = null;
+        CachedPaper cachedPaper2 = null;
+        try {
+            savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+            savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.HIDDEN);
+            cachedPaper1 = cacheService.createCachedPaper(research, paper1, paper2, CachedPaperType.REFERENCE);
+            cachedPaper2 = cacheService.createCachedPaper(research, paper2, paper1, CachedPaperType.CITATION);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
+
+        Assertions.assertThat(researchService.getReferences(research, List.of(paper1, paper2))).isEqualTo(List.of(cachedPaper1));
+        Assertions.assertThat(researchService.getReferences(research, List.of(paper1))).isEqualTo(List.of());
+    }
+
+    @Test
+    public void testGetCitations() {
+        User user = createUser();
+        Research research = researchService.createResearch(user, "test-research", "test-description");
+
+        Paper paper1 = new Paper("id1", "paper1", 2023, "abstract1",
+                0, 0, "venue1", "url1", List.of());
+        paperService.savePaperToDataBase(paper1);
+
+        Paper paper2 = new Paper("id2", "paper2", 2023, "abstract2",
+                0, 0, "venue2", "url2", List.of());
+        paperService.savePaperToDataBase(paper2);
+
+        SavedPaper savedPaper1 = null;
+        SavedPaper savedPaper2 = null;
+        CachedPaper cachedPaper1 = null;
+        CachedPaper cachedPaper2 = null;
+        try {
+            savedPaper1 = paperService.createSavedPaper(research, paper1, SaveState.ADDED);
+            savedPaper2 = paperService.createSavedPaper(research, paper2, SaveState.HIDDEN);
+            cachedPaper1 = cacheService.createCachedPaper(research, paper1, paper2, CachedPaperType.REFERENCE);
+            cachedPaper2 = cacheService.createCachedPaper(research, paper2, paper1, CachedPaperType.CITATION);
+        } catch (IOException e) {
+            Assertions.fail(e.getMessage(), e);
+        }
+
+        Assertions.assertThat(researchService.getCitations(research, List.of(paper1, paper2))).isEqualTo(List.of());
+
+        paperService.changeSaveState(savedPaper2, SaveState.ADDED);
+
+        Assertions.assertThat(researchService.getCitations(research, List.of(paper1, paper2))).isEqualTo(List.of(cachedPaper2));
+    }
+
+    @Test
+    public void testSearchByKeyWord() {
+        User user = createUser();
+        Research research = researchService.createResearch(user, "test-research", "test-description");
+
+        try {
+            List<Paper> papers = researchService.searchByKeyword("graph", research);
+
+        } catch (IOException e) {
+            Assertions.fail("");
+        }
+    }
+
 
     @Test
     public void testUpdateResearch() {
