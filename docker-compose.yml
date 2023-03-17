@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  lara:
+    image: lara/backend
+    restart: unless-stopped
+    build:
+        context: ./
+        dockerfile: Dockerfile
+    ports:
+        - "8080:8080"
+    environment:
+      - POSTGRESQL_HOSTNAME=postgres
+      - POSTGRESQL_PORT=5432
+      - POSTGRESQL_DATABASE=lara
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=postgres
+  postgres:
+    image: postgres:15.1
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=lara
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"
+
+volumes:
+  postgres:
