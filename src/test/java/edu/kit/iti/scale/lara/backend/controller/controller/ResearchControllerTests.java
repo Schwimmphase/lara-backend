@@ -4,7 +4,10 @@ import edu.kit.iti.scale.lara.backend.controller.RecommendationMethod;
 import edu.kit.iti.scale.lara.backend.controller.config.RsaKeyProperties;
 import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
 import edu.kit.iti.scale.lara.backend.controller.config.WebConfig;
-import edu.kit.iti.scale.lara.backend.controller.service.*;
+import edu.kit.iti.scale.lara.backend.controller.service.PaperService;
+import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
+import edu.kit.iti.scale.lara.backend.controller.service.TagService;
+import edu.kit.iti.scale.lara.backend.controller.service.UserService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
 import edu.kit.iti.scale.lara.backend.model.research.Comment;
@@ -12,7 +15,6 @@ import edu.kit.iti.scale.lara.backend.model.research.Research;
 import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
 import edu.kit.iti.scale.lara.backend.model.user.User;
-import org.aspectj.weaver.ast.Not;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +26,27 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static edu.kit.iti.scale.lara.backend.TestObjects.*;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.*;
+import static edu.kit.iti.scale.lara.backend.TestObjects.paper;
+import static edu.kit.iti.scale.lara.backend.TestObjects.research;
+import static edu.kit.iti.scale.lara.backend.TestObjects.savedPaper;
+import static edu.kit.iti.scale.lara.backend.TestObjects.tag;
+import static edu.kit.iti.scale.lara.backend.TestObjects.user;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -555,6 +567,7 @@ public class ResearchControllerTests {
 
     private void mockGetPaper() throws NotInDataBaseException {
         given(paperService.getPaper(anyString())).willAnswer(invocation -> paper());
+        given(paperService.getPaper(anyString(), anyBoolean())).willAnswer(invocation -> paper());
     }
 
     private void mockGetPaperLookInApi() throws NotInDataBaseException {
