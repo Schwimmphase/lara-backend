@@ -16,6 +16,7 @@ import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,10 +29,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.ZonedDateTime;
 
 import static edu.kit.iti.scale.lara.backend.TestObjects.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -80,6 +83,60 @@ public class TagControllerTests {
     }
 
     @Test
+    public void testCreateTagEmptyName() throws Exception {
+        mockGetResearch();
+        mockCreateTag();
+
+        JSONObject request = new JSONObject();
+        request.put("name", "    ");
+        request.put("color", "test-color");
+
+
+        mvc.perform(post("/tag?researchId=12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateTagInvalidResearchId() throws Exception {
+
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        JSONObject request = new JSONObject();
+        request.put("name", "test-name");
+        request.put("color", "test-color");
+
+
+        mvc.perform(post("/tag?researchId=12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testCreateTagWrongUser() throws Exception {
+
+        given(researchService.getResearch(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+        JSONObject request = new JSONObject();
+        request.put("name", "test-name");
+        request.put("color", "test-color");
+
+
+        mvc.perform(post("/tag?researchId=12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     public void testUpdateTag() throws Exception {
         mockGetTag();
         mockUpdateTag();
@@ -99,6 +156,58 @@ public class TagControllerTests {
     }
 
     @Test
+    public void testUpdateTagEmptyName() throws Exception {
+        mockGetTag();
+        mockUpdateTag();
+
+        JSONObject request = new JSONObject();
+        request.put("name", "      ");
+        request.put("color", "new-color");
+
+        mvc.perform(patch("/tag/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testUpdateTagInvalidTagId() throws Exception {
+
+        given(tagService.getTag(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        JSONObject request = new JSONObject();
+        request.put("name", "new-name");
+        request.put("color", "new-color");
+
+        mvc.perform(patch("/tag/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testUpdateTagWrongUser() throws Exception {
+
+        given(tagService.getTag(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+        JSONObject request = new JSONObject();
+        request.put("name", "new-name");
+        request.put("color", "new-color");
+
+        mvc.perform(patch("/tag/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(request.toString())
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+
+    @Test
     public void testDeleteTag() throws Exception {
         mockDeleteTag();
         mockGetTag();
@@ -108,6 +217,31 @@ public class TagControllerTests {
                         .requestAttr("user", user())
                         .with(jwt()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteTagInvalidTagId() throws Exception {
+
+        given(tagService.getTag(any(String.class), any(User.class))).willThrow(NotInDataBaseException.class);
+
+        mvc.perform(delete("/tag/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testDeleteTagWrongUser() throws Exception {
+
+        given(tagService.getTag(any(String.class), any(User.class))).willThrow(WrongUserException.class);
+
+
+        mvc.perform(delete("/tag/id12345")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("user", user())
+                        .with(jwt()))
+                .andExpect(status().isForbidden());
     }
 
     private void mockGetResearch() throws NotInDataBaseException, WrongUserException {
