@@ -12,11 +12,11 @@ public class UserCategoryFilter<T extends User> implements Filter<T> {
 
     private final String[] userCategoryNames;
 
-    public UserCategoryFilter(String ids) {
-        if (ids == null || ids.isEmpty()) {
+    public UserCategoryFilter(String categories) {
+        if (categories == null || categories.isEmpty()) {
             throw new IllegalArgumentException("Argument must not be null or empty");
         }
-        userCategoryNames = ids.split(",");
+        userCategoryNames = categories.split(",");
     }
 
     @Override

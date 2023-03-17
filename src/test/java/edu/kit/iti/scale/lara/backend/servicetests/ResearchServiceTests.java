@@ -1,23 +1,46 @@
 package edu.kit.iti.scale.lara.backend.servicetests;
 
 import edu.kit.iti.scale.lara.backend.InMemoryTest;
+import edu.kit.iti.scale.lara.backend.controller.config.RsaKeyProperties;
+import edu.kit.iti.scale.lara.backend.controller.config.SecurityConfig;
+import edu.kit.iti.scale.lara.backend.controller.config.WebConfig;
+import edu.kit.iti.scale.lara.backend.controller.controller.PaperController;
+import edu.kit.iti.scale.lara.backend.controller.repository.SavedPaperRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserCategoryRepository;
 import edu.kit.iti.scale.lara.backend.controller.repository.UserRepository;
+import edu.kit.iti.scale.lara.backend.controller.service.RecommendationService;
 import edu.kit.iti.scale.lara.backend.controller.service.ResearchService;
 import edu.kit.iti.scale.lara.backend.exceptions.NotInDataBaseException;
 import edu.kit.iti.scale.lara.backend.exceptions.WrongUserException;
+import edu.kit.iti.scale.lara.backend.model.research.Comment;
 import edu.kit.iti.scale.lara.backend.model.research.Research;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
+import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SaveState;
+import edu.kit.iti.scale.lara.backend.model.research.paper.savedpaper.SavedPaper;
 import edu.kit.iti.scale.lara.backend.model.user.User;
 import edu.kit.iti.scale.lara.backend.model.user.UserCategory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import static edu.kit.iti.scale.lara.backend.TestObjects.paper;
+import static edu.kit.iti.scale.lara.backend.TestObjects.savedPaper;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.BDDMockito.given;
 
 @InMemoryTest
 public class ResearchServiceTests {
-
     @Autowired
     UserCategoryRepository userCategoryRepository;
 
@@ -50,7 +73,6 @@ public class ResearchServiceTests {
         Research research2 = researchService.createResearch(user, "research2", "2");
 
         Assertions.assertThat(researchService.getResearches(user).stream().toList()).isEqualTo(List.of(research1, research2));
-       // Assertions.assertThat(List.of(research1, research2)).isEqualTo(user.getResearches());
     }
 
     @Test
@@ -58,6 +80,7 @@ public class ResearchServiceTests {
         User user = createUser();
 
         Research research = researchService.createResearch(user, "test-research", "test-description");
+        user.setActiveResearch(research);
 
         try {
             Assertions.assertThat(researchService.getResearch(research.getId(), user)).isEqualTo(research);
@@ -68,6 +91,8 @@ public class ResearchServiceTests {
         }
 
         researchService.deleteResearch(research, user);
+        Assertions.assertThat(user.getActiveResearch() == null);
+
         boolean exceptionThrown = false;
         try {
             researchService.getResearch(research.getId(), user);
@@ -77,6 +102,15 @@ public class ResearchServiceTests {
             exceptionThrown = true;
         }
         Assertions.assertThat(exceptionThrown).isEqualTo(true);
+    }
+
+    @Test
+    public void testGetRecommendations() throws IOException {
+
+        User user = createUser();
+        Research research = researchService.createResearch(user, "test-research", "test-description");
+
+        Assertions.assertThat(researchService.getRecommendations(research)).isEqualTo(List.of());
     }
 
     @Test
