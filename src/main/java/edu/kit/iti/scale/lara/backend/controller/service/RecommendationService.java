@@ -25,7 +25,7 @@ public class RecommendationService {
     private final PaperRepository paperRepository;
 
     /**
-     * Gets a list of recommended papers based on a selection of positive papers and one of negative papers
+     * Gets a list of recommended papers based on a selection of positive papers and one of negative papers.
      *
      * @param positives a list that holds papers where we want to find similar papers
      * @param negatives a list that holds papers where we don't want similar papers
@@ -45,7 +45,7 @@ public class RecommendationService {
 
     /**
      * Finds all references from the list of papers. To optimize runtime the papers are already saved as
-     * CachedPapers and only need to be found in the CachedPaperRepository
+     * CachedPapers and only need to be found in the CachedPaperRepository.
      *
      * @param research the research references are to be found for
      * @param papers   the papers whose references are to be found
@@ -57,7 +57,7 @@ public class RecommendationService {
 
     /**
      * Finds all citations from the list of papers. To optimize runtime the papers are already saved as
-     * CachedPapers and only need to be found in the CachedPaperRepository
+     * CachedPapers and only need to be found in the CachedPaperRepository.
      *
      * @param research the research citations are to be found for
      * @param papers   the papers whose citations are to be found
@@ -70,7 +70,7 @@ public class RecommendationService {
     /**
      * Is called when a new paper is added to a research.
      * If existing it deletes the cachedPaper that belongs to the research and points to the added paper.
-     * It saves all the references and citations for the added paper as CachedPapers into the CachedPaperRepository
+     * It saves all the references and citations for the added paper as CachedPapers into the CachedPaperRepository.
      *
      * @param research the research the paper was added to
      * @param paper    the paper that was added
@@ -115,7 +115,7 @@ public class RecommendationService {
 
     /**
      * Is called when a paper was removed from the added Papers of a research. Tells the CacheService to delete all
-     * to this paper related CachedPapers from the CachedPaperRepository
+     * to this paper related CachedPapers from the CachedPaperRepository.
      *
      * @param research the research the paper was removed from
      * @param paper    the paper that was removed

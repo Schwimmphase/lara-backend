@@ -20,7 +20,17 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -156,8 +166,10 @@ public class ResearchController {
 
         try {
             Research research = researchService.getResearch(researchId, user);
-            if (user.getActiveResearch() == null || !user.getActiveResearch().equals(research)) { //is only true when the user opens a new research, different from the one that was open before
-                userService.userOpenedResearch(user, research);//sets active research for this user and initializes the cache
+            // is only true when the user opens a new research, different from the one that was open before
+            if (user.getActiveResearch() == null || !user.getActiveResearch().equals(research)) {
+                // sets active research for this user and initializes the cache
+                userService.userOpenedResearch(user, research);
             }
             List<SavedPaper> papers = paperService.getSavedPapers(research, user);
             List<Paper> organizedPapers = organizerList.organize(papers.stream().map(SavedPaper::getPaper).toList());

@@ -51,11 +51,11 @@ public class CacheService {
         cacheThread.submit(() -> {
             log.debug("Start cache initialize for research '" + research.getId() + "'");
 
-            //empty the cache for the user
+            // empty the cache for the user
             List<CachedPaper> userCache = cachedPaperRepository.findByCachedPaperIdResearchUser(research.getUser());
             cachedPaperRepository.deleteAllInBatch(userCache);
 
-            //load the cache for this research
+            // load the cache for this research
             List<SavedPaper> savedPapers = savedPaperRepository.findBySavedPaperIdResearch(research);//Todo: only get added papers
             for (SavedPaper savedPaper : savedPapers) {
                 try {
@@ -66,10 +66,12 @@ public class CacheService {
                     paperRepository.saveAll(references);
 
                     for (Paper paper : citations) {
-                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.CITATION);
+                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(),
+                                CachedPaperType.CITATION);
                     }
                     for (Paper paper : references) {
-                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(), CachedPaperType.REFERENCE);
+                        createCachedPaper(research, paper, savedPaper.getSavedPaperId().getPaper(),
+                                CachedPaperType.REFERENCE);
                     }
                 } catch (IOException e) {
                     log.error("Error while initializing cache for research '" + research.getId() + "'", e);
@@ -106,7 +108,7 @@ public class CacheService {
         CachedPaper cachedPaper = new CachedPaper(paper, parent, research, cachedPaperType);
         cachedPaperRepository.save(cachedPaper);
         return cachedPaper;
-        //cachedPaper isn´t save in research.cachedPapers to avoid duplicates
+        // cachedPaper isn´t save in research.cachedPapers to avoid duplicates
     }
 
     /**
@@ -120,7 +122,8 @@ public class CacheService {
      * @param cachedPaperType the type of the CachedPaper
      * @return the CachedPaper
      */
-    public CachedPaper createUnsavedCachedPaper(Research research, Paper paper, Paper parent, CachedPaperType cachedPaperType) {
+    public CachedPaper createUnsavedCachedPaper(Research research, Paper paper, Paper parent,
+                                                CachedPaperType cachedPaperType) {
         return new CachedPaper(paper, parent, research, cachedPaperType);
     }
 
@@ -150,14 +153,14 @@ public class CacheService {
         }
         Paper parentPaper = cachedPaper.get(0).getCachedPaperId().getParentPaper();
 
-        //deletes the parentPaper from the PaperRepository as well if no other Saved- or CachedPaper points to it
+        // deletes the parentPaper from the PaperRepository as well if no other Saved- or CachedPaper points to it
         if (savedPaperRepository.countBySavedPaperIdPaper(parentPaper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdPaper(parentPaper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdParentPaper(parentPaper) == 0) {
             paperRepository.delete(parentPaper);
         }
 
-        //deletes the paper from the PaperRepository as well if no other Saved- or CachedPaper points to it
+        // deletes the paper from the PaperRepository as well if no other Saved- or CachedPaper points to it
         if (savedPaperRepository.countBySavedPaperIdPaper(paper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdPaper(paper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdParentPaper(paper) == 0) {

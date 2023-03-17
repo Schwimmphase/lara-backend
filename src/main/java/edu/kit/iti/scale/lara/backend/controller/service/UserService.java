@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
     private final CacheService cacheService;
 
     /**
-     * Finds the user with given id from the UserRepository
+     * Finds the user with given id from the {@link UserRepository}.
      *
      * @param id the id of the user
      * @return the user with the given id
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Finds the user with given name from the repository
+     * Finds the user with given name from the repository.
      *
      * @param name the name of the user to be found
      * @return the user with given name
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Creates a new user with encoded password and saves him in the UserRepository
+     * Creates a new user with encoded password and saves him in the {@link UserRepository}.
      *
      * @param username     the username of the user
      * @param password     the not decoded password of the user
@@ -85,7 +85,7 @@ public class UserService implements UserDetailsService {
     /**
      * Is called everytime a user opens a new research different to the one he had opened before.
      * It loads all citations and references from SavedPapers that belong to the research into the CacheRepository and
-     * sets the research as the users active research
+     * sets the research as the users active research.
      *
      * @param user     the user who opened ze research
      * @param research the research the user opened
@@ -97,7 +97,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Checks if the given password is the same as the users password
+     * Checks if the given password is the same as the users password.
      *
      * @param password the password
      * @param username the username of the user
@@ -113,9 +113,11 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
+     * This method is used by Spring Security. It loads the user with the given username from the {@link UserRepository}.
+     *
+     * @param username                   the username of the user
+     * @return                           the user with the given username
+     * @throws UsernameNotFoundException when there is no user with the given username
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -134,7 +136,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Finds all users that are saved in the UserRepository
+     * Finds all users that are saved in the {@link UserRepository}.
      *
      * @return all users
      */
@@ -143,7 +145,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Finds all users with a given user-category from the UserRepository
+     * Finds all users with a given user-category from the {@link UserRepository}
      *
      * @param userCategory the user-category to find users by
      * @return the users with the category
@@ -153,7 +155,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Deletes a user from the UserRepository
+     * Deletes a user from the {@link UserRepository}
      *
      * @param user the user to be deleted
      */
@@ -162,7 +164,7 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * Updates a user by assigning a new name, a new password and a new user-category
+     * Updates a user by assigning a new name, a new password and a new user-category.
      *
      * @param user        the user to be updated
      * @param newName     the new name

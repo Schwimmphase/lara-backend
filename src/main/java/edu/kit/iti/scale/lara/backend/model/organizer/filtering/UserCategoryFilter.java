@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This filter filters a list of users by their user category.
+ * @param <T> the type user
+ *
+ * @author ukgcc
+ */
 @NamedOrganizer("category-filter")
 public class UserCategoryFilter<T extends User> implements Filter<T> {
 

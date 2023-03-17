@@ -6,6 +6,12 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This filter filters a list of papers by their year.
+ * @param <T> the type paper
+ *
+ * @author unqkm
+ */
 @NamedOrganizer("year-filter")
 public class YearFilter<T extends Paper> implements Filter<T> {
 

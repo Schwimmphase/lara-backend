@@ -36,10 +36,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors().and()
-                .csrf(AbstractHttpConfigurer::disable)  // maybe change
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        //.requestMatchers("/usermanagement/**").hasAuthority(ADMIN_AUTHORITY) TODO: enable when fixed
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

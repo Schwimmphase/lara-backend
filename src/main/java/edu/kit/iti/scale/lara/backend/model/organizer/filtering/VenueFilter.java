@@ -6,6 +6,10 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Paper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This filter filters a list of papers by their venue.
+ * @param <T> the type paper
+ */
 @NamedOrganizer("venue-filter")
 public class VenueFilter<T extends Paper> implements Filter<T> {
 

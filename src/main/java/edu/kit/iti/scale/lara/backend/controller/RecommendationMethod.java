@@ -6,7 +6,16 @@ package edu.kit.iti.scale.lara.backend.controller;
  * @author uefiv
  */
 public enum RecommendationMethod {
+    /**
+     * Algorithm of the remote API based on added and hidden papers
+     */
     ALGORITHM,
+    /**
+     * Citations of added papers
+     */
     CITATIONS,
+    /**
+     * References of added papers
+     */
     REFERENCES
 }

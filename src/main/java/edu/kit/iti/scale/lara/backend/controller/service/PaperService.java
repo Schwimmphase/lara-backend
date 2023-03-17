@@ -40,7 +40,7 @@ public class PaperService {
     private static final Map<String, Object> keyLocks = new ConcurrentHashMap<>();
 
     /**
-     * Saves a paper to the PaperRepository
+     * Saves a paper to the PaperRepository.
      *
      * @param paper the paper to be saved
      */
@@ -62,7 +62,7 @@ public class PaperService {
     }
 
     /**
-     * Finds the paper with given id in the PaperRepository or gets it from ApiActionController if lookInApi is true
+     * Finds the paper with given id in the PaperRepository or gets it from ApiActionController if lookInApi is true.
      *
      * @param id        the id of the paper
      * @param lookInApi indicates whether we should try to get the paper with this id from the ApiActionController or not
@@ -89,13 +89,13 @@ public class PaperService {
     }
 
     /**
-     * Creates a savedPaper and potentially informs the RecommendationService that a paper was added
+     * Creates a savedPaper and potentially informs the RecommendationService that a paper was added.
      *
      * @param research  the research the SavedPaper belongs to
      * @param paper     the Paper the SavedPaper points to
      * @param saveState the SaveState of the SavedPaper
      * @return the SavedPaper
-     * @throws IOException
+     * @throws IOException when something went wrong while updating the cache using the {@link RecommendationService}
      */
     public SavedPaper createSavedPaper(Research research, Paper paper, SaveState saveState) throws IOException {
         SavedPaper savedPaper = new SavedPaper(paper, research, new Comment(""), 0, saveState);
@@ -104,14 +104,13 @@ public class PaperService {
             recommendationService.paperAdded(research, paper);
         }
         return savedPaper;
-        //savedPaper isn´t saved in research.savedPapers to avoid duplicates
-
+        // savedPaper isn´t saved in research.savedPapers to avoid duplicates
     }
 
     /**
      * Deletes a savedPaper and informs the recommendationService that a paper was removed from the research
      * Also checks if there are Papers in the PaperRepository that have no Saved- or CachedPaper that points to them and
-     * deletes them in this case
+     * deletes them in this case.
      *
      * @param research   the research the SavedPaper was deleted from
      * @param savedPaper the savedPaper that was deleted
@@ -122,7 +121,7 @@ public class PaperService {
         savedPaperRepository.delete(savedPaper);
         recommendationService.paperRemoved(research, savedPaper.getSavedPaperId().getPaper());
 
-        //deletes the paper as well if there is no other Cache- or SavedPaper that points to it
+        // deletes the paper as well if there is no other Cache- or SavedPaper that points to it
         if (savedPaperRepository.countBySavedPaperIdPaper(paper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdPaper(paper) == 0 &&
                 cachedPaperRepository.countByCachedPaperIdParentPaper(paper) == 0) {
@@ -131,7 +130,8 @@ public class PaperService {
     }
 
     /**
-     * Returns the SavedPaper with the id that is made by the paper and the research if the User is the one who created the SavedPaper
+     * Returns the {@link SavedPaper} with the id that is made by the paper and the research if the User is the one who
+     * created he {@link SavedPaper}.
      *
      * @param user     the user who requested the SavedPaper
      * @param paper    the paper the SavedPaper holds
@@ -154,7 +154,7 @@ public class PaperService {
     }
 
     /**
-     * Returns all SavedPapers that belong to the research
+     * Returns all SavedPapers that belong to the research.
      *
      * @param research the research whose SavedPapers are to be found
      * @param user     the user who requested the SavedPapers
@@ -170,7 +170,7 @@ public class PaperService {
     }
 
     /**
-     * Returns all Papers that are added to a research
+     * Returns all Papers that are added to a research.
      *
      * @param research the research whose added papers we want to get
      * @param user     the user who requested the added papers
@@ -188,7 +188,7 @@ public class PaperService {
     }
 
     /**
-     * Adds a tag to a SavedPaper
+     * Adds a tag to a SavedPaper.
      *
      * @param savedPaper the SavedPaper
      * @param tag        the Tag to be added
@@ -199,7 +199,7 @@ public class PaperService {
     }
 
     /**
-     * Removes a Tag from a SavedPaper
+     * Removes a Tag from a SavedPaper.
      *
      * @param savedPaper the SavedPaper
      * @param tag        the Tag to be removed
@@ -210,7 +210,7 @@ public class PaperService {
     }
 
     /**
-     * Set the Content of the Comment of a SavedPaper
+     * Set the Content of the Comment of a SavedPaper.
      *
      * @param savedPaper the SavedPaper
      * @param comment    the content to be saved in the comment
@@ -221,7 +221,7 @@ public class PaperService {
     }
 
     /**
-     * Changes the SaveState of a SavedPaper and informs the RecommendationService about relevant changes
+     * Changes the SaveState of a SavedPaper and informs the RecommendationService about relevant changes.
      *
      * @param savedPaper the SavedPaper whose SaveState is to be changed
      * @param saveState  the new SaveState
@@ -241,7 +241,7 @@ public class PaperService {
     }
 
     /**
-     * Sets the relevance of a SavedPaper
+     * Sets the relevance of a SavedPaper.
      *
      * @param savedPaper the SavedPaper
      * @param relevance  the new relevance

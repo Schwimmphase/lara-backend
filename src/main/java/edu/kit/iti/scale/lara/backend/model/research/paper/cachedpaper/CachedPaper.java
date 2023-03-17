@@ -51,8 +51,8 @@ public class CachedPaper {
     }
 
     /**
-     * The id of a CachedPaper is represented by the CachedPaperId Class. It contains the Paper the CachedPaper points to,
-     * the Research the CachedPaper belongs to and the Paper that has the other Paper as a reference or citation.
+     * The id of a CachedPaper is represented by the CachedPaperId Class. It contains the Paper the CachedPaper points
+     * to, the Research the CachedPaper belongs to and the Paper that has the other Paper as a reference or citation.
      *
      * @author unqkm
      */

@@ -4,6 +4,11 @@ import edu.kit.iti.scale.lara.backend.model.research.paper.Author;
 
 import java.util.List;
 
+/**
+ * Represents a Paper for the API
+ *
+ * @author unqkm
+ */
 public record ApiPaper(List<Author> authors,
                        String id,
                        String title,

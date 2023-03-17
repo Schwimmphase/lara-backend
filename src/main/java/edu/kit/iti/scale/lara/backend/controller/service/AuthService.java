@@ -14,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 @RequiredArgsConstructor
 public class AuthService {
 
+    private static final int VALIDITY_IN_DAYS = 30;
+
     private final JwtEncoder encoder;
 
     public String generateToken(Authentication authentication, boolean isAdmin) {
@@ -21,7 +23,7 @@ public class AuthService {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(30, ChronoUnit.DAYS))
+                .expiresAt(now.plus(VALIDITY_IN_DAYS, ChronoUnit.DAYS))
                 .subject(authentication.getName())
                 .claim("admin", isAdmin)
                 .build();

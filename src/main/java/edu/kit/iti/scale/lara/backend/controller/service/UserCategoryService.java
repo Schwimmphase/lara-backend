@@ -20,7 +20,8 @@ public class UserCategoryService {
     private final UserCategoryRepository userCategoryRepository;
 
     /**
-     * If there isn't already a user-category with this name it creates a new user-category and saves it into the UserCategoryRepository.
+     * If there isn't already a user-category with this name it creates a new user-category and saves it into the
+     * {@link UserCategoryRepository}.
      *
      * @param name  the name of the user-category
      * @param color the color of the user-category in hex as a String
@@ -37,7 +38,7 @@ public class UserCategoryService {
     }
 
     /**
-     * Finds the user-category with the given id from the UserCategoryRepository
+     * Finds the user-category with the given id from the {@link UserCategoryRepository}.
      *
      * @param id the id of the user-category
      * @return the category with this id
@@ -52,7 +53,7 @@ public class UserCategoryService {
     }
 
     /**
-     * Finds the user-category with the given name from the UserCategoryRepository
+     * Finds the user-category with the given name from the {@link UserCategoryRepository}.
      *
      * @param name the name of the user-category
      * @return the user-category with this name
@@ -67,7 +68,7 @@ public class UserCategoryService {
     }
 
     /**
-     * Updates a user-category by assigning a new name and a new color
+     * Updates a user-category by assigning a new name and a new color.
      *
      * @param userCategory the user-category to be updated
      * @param newName      the new name
@@ -82,7 +83,7 @@ public class UserCategoryService {
     }
 
     /**
-     * Deletes a user-category from the USerCategoryRepository
+     * Deletes a user-category from the {@link UserCategoryRepository}.
      *
      * @param userCategory the user-category to be deleted
      */
@@ -91,7 +92,7 @@ public class UserCategoryService {
     }
 
     /**
-     * Finds all user-categories that are saved in the UserCategoryRepository
+     * Finds all user-categories that are saved in the {@link UserCategoryRepository}.
      *
      * @return all user-categories
      */

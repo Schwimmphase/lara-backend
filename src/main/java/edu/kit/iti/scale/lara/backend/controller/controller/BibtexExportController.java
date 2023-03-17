@@ -70,13 +70,10 @@ public class BibtexExportController {
      * Export a paper to BibTeX.
      *
      * @param paperId the id of the paper.
-     * @param user    the user who send the request.
      * @return the body containing the BibTeX string.
      */
     @GetMapping("/paper/{paperId}")
-    public ResponseEntity<Map<String, String>> exportPaper(@PathVariable String paperId,
-                                                           @RequestAttribute("user") User user) {
-
+    public ResponseEntity<Map<String, String>> exportPaper(@PathVariable String paperId) {
         try {
             List<Paper> papers = List.of(paperService.getPaper(paperId));
             return ResponseEntity.ok(Map.of("export", bibtexConverterService.export(papers)));
