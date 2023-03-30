@@ -24,7 +24,7 @@ public class BibtexConverterService {
     }
 
     private String paperToBibTex(Paper paper) {
-        return "@article{" + getIdentifier(paper) + "}, " +
+        return "@article{" + getIdentifier(paper) + ", " +
                 "title={" + paper.getTitle() + "}, " +
                 getAuthorsAsBibTex(paper.getAuthors()) + ", " +
                 "year={" + paper.getYearPublished() + "}, " +
