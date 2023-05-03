@@ -253,4 +253,9 @@ public class PaperService {
         savedPaper.setRelevance(relevance);
         savedPaperRepository.save(savedPaper);
     }
+
+    public void setUserPdfUrl(SavedPaper savedPaper, String url) {
+        savedPaper.setUserPdfUrl(url);
+        savedPaperRepository.save(savedPaper);
+    }
 }

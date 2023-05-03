@@ -34,10 +34,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * This class contains all the rest api endpoints for papers and saved papers.
@@ -239,6 +237,24 @@ public class PaperController {
             Paper paper = paperService.getPaper(id);
             SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
             paperService.setRelevanceOfPaper(savedPaper, relevance);
+            return ResponseEntity.ok().build();
+        } catch (WrongUserException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
+        } catch (NotInDataBaseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Paper with this id not found");
+        }
+    }
+
+    @PutMapping("/{id}/user-pdf")
+    public ResponseEntity<Void> setUserPdf(@PathVariable @NotNull String id,
+                                           @RequestParam @NotNull String researchId,
+                                           @RequestParam @NotNull String url,
+                                           @RequestAttribute("user") User user) {
+        try {
+            Research research = researchService.getResearch(researchId, user);
+            Paper paper = paperService.getPaper(id);
+            SavedPaper savedPaper = paperService.getSavedPaper(user, paper, research);
+            paperService.setUserPdfUrl(savedPaper, url);
             return ResponseEntity.ok().build();
         } catch (WrongUserException e) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Paper not owned by user");
