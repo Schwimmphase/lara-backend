@@ -33,6 +33,8 @@ public class SavedPaper {
     private List<Tag> tags;
     private int relevance;
     private SaveState saveState;
+    @Column(length = 1000)
+    private String userPdfUrl;
 
     /**
      * The id of a SavedPaper is represented by the SavedPaperId Class. It contains the Paper the SavedPaper points to
